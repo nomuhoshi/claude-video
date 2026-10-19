@@ -22,7 +22,7 @@ engine = ''.join(open(HERE + p, encoding='utf-8').read() for p in parts).replace
 base = open(ICE + 'css_base.txt', encoding='utf-8').read().split('\n')
 new_css = open(ICE + 'css_new.txt', encoding='utf-8').read() + '\n' + open(HERE + 'css_nt.txt', encoding='utf-8').read()
 def lines(a, b): return '\n'.join(base[a - 1:b])
-head = f'<title>牛顿：一个苹果，管着整个宇宙</title>\n' + lines(2, 3) + '\n<style>\n'
+head = f'<title>从此，宇宙遵循他的方程运行</title>\n' + lines(2, 3) + '\n<style>\n'
 css = lines(5, 59) + '\n' + lines(60, 77) + '\n' + lines(84, 99) + '\n' + lines(171, 212) + '\n' + new_css + '\n</style>\n'
 css = re.sub(r'\.dlrow[^\n]*\n', '', css)
 
@@ -43,7 +43,7 @@ for i, sc in enumerate(SC):
         S.append(f'''
         <div {st}>
           <canvas class="cv" data-draw="n0"></canvas>
-          <p class="hero-sub" data-a="0.3,0.9">牛顿</p>
+          <p class="hero-sub" data-a="{TL[0]['ls'][4]:.2f},0.9">牛顿</p>
         </div>
 ''')
     elif sc['k'] == 'c':
@@ -63,7 +63,7 @@ for i, sc in enumerate(SC):
             ns += f'          <div class="node{" dn" if n % 2 else ""}" style="left:{xs[n]}%" data-a="{ta:.1f},0.7"><p class="y">{y}</p><p class="h">{h}</p><p class="d">{d}</p></div>\n'
         S.append(f'''
         <div {st}>
-          <h2 class="hd" data-a="0.2,0.7">牛顿：一个<em>苹果</em>，管着整个宇宙</h2>
+          <h2 class="hd" data-a="0.2,0.7">从此，宇宙遵循他的<em>方程</em>运行</h2>
           <div class="tl"><i data-a="0.8,6"></i></div>
 {ns}        </div>
 ''')

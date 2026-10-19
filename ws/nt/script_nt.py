@@ -2,7 +2,7 @@
 # Scene script for the Newton biography (series #3). Timing is computed from the subtitle volume.
 import math
 
-TITLE = '牛顿：一个苹果，管着整个宇宙'
+TITLE = '从此，宇宙遵循他的方程运行'
 SPEED = 6.8
 LEAD = {'hero': 1.0, 'c': 0.8, 'recap': 0.4, 'src': 0.4}
 TAIL = {'hero': 0.4, 'c': 0.55, 'recap': 0.5, 'src': 0.5}
