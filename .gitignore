@@ -11,3 +11,7 @@ ws/render_*/render.html
 ws/render_*/list.txt
 __pycache__/
 *.pyc
+ws/render_edu/shots/
+ws/render_edu/v*.html
+ws/render_edu/*_meta.json
+ws/render_edu/list_*.txt
