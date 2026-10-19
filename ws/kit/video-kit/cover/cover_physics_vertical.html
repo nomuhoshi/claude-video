@@ -1,0 +1,46 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+:root{--fg:#f4f1e8;--gold:#f2c66b;--ice:#8fd0ff}
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;background:#06080d;overflow:hidden}
+.c{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--fg);
+ background:radial-gradient(420px 520px at 27% 55%,rgba(143,208,255,.30),transparent 70%),radial-gradient(420px 520px at 73% 55%,rgba(242,198,107,.20),transparent 70%),#070a11}
+.tag{position:absolute;left:90px;top:190px;padding-left:18px;border-left:6px solid var(--gold);font:900 36px/1.2 "Noto Serif SC","Noto Serif CJK SC",serif}
+.t1{position:absolute;left:0;right:0;top:270px;text-align:center;font:900 112px/1.1 "Noto Serif SC","Noto Serif CJK SC",serif;text-shadow:0 0 30px rgba(143,208,255,.25)}
+.t2{position:absolute;left:0;right:0;top:1200px;text-align:center;font:900 168px/1.12 "Noto Serif SC","Noto Serif CJK SC",serif;color:var(--gold);text-shadow:0 0 44px rgba(242,198,107,.45)}
+.cap{position:absolute;font:900 44px "Noto Sans SC",sans-serif;text-align:center;width:380px;top:1085px}
+svg{position:absolute;left:0;top:0}
+</style></head><body><div class="c">
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" id="sv"></svg>
+<div class="tag">物理 · 固体比热之谜</div>
+<div class="t1">同样只加<span style="color:var(--gold)">一点点</span>热</div>
+<div class="t2">越冷，<br>升温越猛</div>
+<div class="cap" style="left:60px;color:var(--ice)">接近绝对零度</div>
+<div class="cap" style="left:640px;color:var(--gold)">常温</div>
+</div>
+<script>
+const sv=document.getElementById('sv'),NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||sv).appendChild(e);return e}
+el('defs',{}).innerHTML='<filter id="g" x="-50%" y="-20%" width="200%" height="140%"><feGaussianBlur stdDeviation="14"/></filter>';
+function thermo(cx,color,fill){
+  const w=70,top=470,bot=960;
+  el('rect',{x:cx-w/2,y:top,width:w,height:bot-top+20,rx:w/2,fill:'rgba(255,255,255,.06)',stroke:'#c9d6e8','stroke-width':5});
+  el('circle',{cx,cy:1000,r:70,fill:'rgba(255,255,255,.06)',stroke:'#c9d6e8','stroke-width':5});
+  const ytop=bot-fill*(bot-top-40);
+  el('rect',{x:cx-w/2+10,y:ytop,width:w-20,height:bot-ytop+30,fill:color,filter:'url(#g)',opacity:.8});
+  el('rect',{x:cx-w/2+13,y:ytop,width:w-26,height:bot-ytop+30,fill:color,rx:12});
+  el('circle',{cx,cy:1000,r:55,fill:color});
+  for(let i=0;i<9;i++)el('path',{d:`M${cx+w/2+6} ${top+20+i*52}h${i%2?16:28}`,stroke:'#8393aa','stroke-width':4});
+  return ytop;
+}
+const yL=thermo(250,'#8fd0ff',0.92), yR=thermo(830,'#f2c66b',0.2);
+function arrow(x,y1,y2,col){const h=Math.min(36,(y1-y2)*0.5);el('path',{d:`M${x} ${y1}V${y2+h*0.3}`,stroke:col,'stroke-width':12,'stroke-linecap':'round'});el('path',{d:`M${x-h} ${y2+h*1.1}L${x} ${y2}L${x+h} ${y2+h*1.1}`,stroke:col,'stroke-width':12,fill:'none','stroke-linecap':'round','stroke-linejoin':'round'});}
+arrow(380,950,yL+4,'#8fd0ff');
+arrow(960,950,yR+4,'#f2c66b');
+function flame(cx,y,k){
+  el('path',{d:`M${cx} ${y} c${-30*k} ${-40*k} ${-4*k} ${-70*k} ${-8*k} ${-100*k} c${34*k} ${22*k} ${62*k} ${62*k} ${8*k} ${100*k} z`,fill:'#ff8a4c'});
+  el('path',{d:`M${cx} ${y} c${-14*k} ${-20*k} ${-2*k} ${-34*k} ${-3*k} ${-48*k} c${18*k} ${12*k} ${30*k} ${30*k} ${3*k} ${48*k} z`,fill:'#ffd27a'});
+}
+flame(540,800,1.5);
+const t=el('text',{x:540,y:860,'text-anchor':'middle',fill:'#ffb37a','font-size':46,'font-weight':900,'font-family':'Noto Sans SC, sans-serif'});t.textContent='同样的热';
+</script></body></html>

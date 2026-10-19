@@ -1,0 +1,68 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#050505;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.kick{position:absolute;left:330px;top:206px;font-family:"Noto Sans SC",sans-serif;font-size:26px;color:#9a8a6a;letter-spacing:.32em}
+.h{position:absolute;left:318px;top:250px;font-weight:900;font-size:96px;line-height:1.32;color:#f3efe6;letter-spacing:.02em;text-shadow:0 0 30px rgba(255,230,190,.12)}
+.h b{color:#f2c66b;font-weight:900;text-shadow:0 0 28px rgba(242,198,107,.5)}
+.p{position:absolute;left:326px;top:540px;font-size:50px;font-weight:900;color:#e9e3d6;letter-spacing:.03em}
+.p b{color:#ffd98a;text-shadow:0 0 30px rgba(255,210,130,.75)}
+.lab{position:absolute;left:330px;top:770px;font-family:"Noto Sans SC",sans-serif;font-size:24px;color:#9a8a6a;letter-spacing:.2em}
+.val{position:absolute;left:326px;top:802px;font-weight:900;font-size:64px;color:#c9a35a;letter-spacing:.06em;text-shadow:0 0 30px rgba(201,163,90,.35)}
+.rule{position:absolute;left:330px;top:900px;width:420px;height:2px;background:linear-gradient(90deg,rgba(201,163,90,.6),rgba(201,163,90,0))}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="kick">迈克尔 · 法拉第</div>
+<div class="h">铁匠的儿子，<br>书店的<b>学徒</b></div>
+<div class="p">后来，他让全世界<b>亮</b>了起来。</div>
+<div class="lab">学 历</div>
+<div class="val">几年小学</div>
+<div class="rule"></div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+let bg=g.createLinearGradient(0,0,1920,0);bg.addColorStop(0,'#050505');bg.addColorStop(.6,'#0a0807');bg.addColorStop(1,'#110b07');g.fillStyle=bg;g.fillRect(0,0,1920,1080);
+const BX=1430,BY=640;            // the open book, the light source of the whole picture
+g.globalCompositeOperation='lighter';halo(BX,BY-40,560,'rgba(255,160,70,.20)',1);halo(BX,BY-20,240,'rgba(255,200,120,.28)',1);g.globalCompositeOperation='source-over';
+// the apprentice: a dotted figure, lit from the book in his hands
+const m=document.createElement('canvas');m.width=1920;m.height=1080;const k=m.getContext('2d');
+k.fillStyle='#fff';
+k.beginPath();k.ellipse(1430,405,92,112,0,0,7);k.fill();                                  // head, bent a little toward the book
+k.beginPath();k.moveTo(1392,500);k.lineTo(1470,500);k.lineTo(1482,560);k.lineTo(1380,560);k.closePath();k.fill();
+k.beginPath();k.moveTo(1190,980);k.quadraticCurveTo(1196,600,1430,556);k.quadraticCurveTo(1664,600,1670,980);k.closePath();k.fill();
+const md=k.getImageData(0,0,1920,1080).data;
+const r=rng(5),S=9;
+for(let y=290;y<980;y+=S)for(let x=1180;x<1680;x+=S){
+ const xx=x+((y/S)%2?S/2:0);
+ const a=md[(y*1920+Math.round(xx))*4+3];if(a<40)continue;
+ if(Math.abs(xx-BX)<150&&Math.abs(y-BY)<70)continue;                                    // leave room for the book
+ const d=Math.hypot(xx-BX,y-BY), lit=Math.max(0,1-d/470), rad=1.0+2.8*lit*(0.7+0.3*r());
+ const c=`rgba(255,${Math.round(200+45*lit)},${Math.round(140+70*lit)},${(0.28+0.72*lit).toFixed(2)})`;
+ g.fillStyle=c;g.beginPath();g.arc(xx+(r()-0.5)*2*lit,y+(r()-0.5)*2*lit,rad,0,7);g.fill();
+}
+// the open book: two bright pages
+g.save();g.shadowColor='rgba(255,220,150,.9)';g.shadowBlur=40;
+g.fillStyle='#fff3d6';g.beginPath();g.moveTo(BX,BY+18);g.quadraticCurveTo(BX-70,BY-20,BX-150,BY-6);g.lineTo(BX-146,BY+58);g.quadraticCurveTo(BX-70,BY+44,BX,BY+76);g.closePath();g.fill();
+g.fillStyle='#ffe9bd';g.beginPath();g.moveTo(BX,BY+18);g.quadraticCurveTo(BX+70,BY-20,BX+150,BY-6);g.lineTo(BX+146,BY+58);g.quadraticCurveTo(BX+70,BY+44,BX,BY+76);g.closePath();g.fill();g.restore();
+g.strokeStyle='rgba(150,110,60,.45)';g.lineWidth=2;for(let i=0;i<5;i++){g.beginPath();g.moveTo(BX-130,BY+6+i*10);g.quadraticCurveTo(BX-70,BY-4+i*10,BX-14,BY+28+i*10);g.stroke();g.beginPath();g.moveTo(BX+130,BY+6+i*10);g.quadraticCurveTo(BX+70,BY-4+i*10,BX+14,BY+28+i*10);g.stroke();}
+// light leaves the book: golden motes drift up and away, and become the lights of a city
+const r2=rng(11);
+for(let i=0;i<260;i++){
+ const t=r2(), side=r2()<0.5?-1:1, sp=0.6+0.9*r2();
+ const x=BX+side*(60+t*520*sp)*(0.5+0.5*r2()), y=BY-30-Math.sin(t*Math.PI*0.9)*380*(0.6+0.4*r2())+t*t*120;
+ if(x<1120||x>1700)continue;
+ const a=(1-t)*0.85, rad=1+2.6*(1-t)*r2();
+ g.globalCompositeOperation='lighter';g.fillStyle=`rgba(255,${Math.round(190+50*r2())},${Math.round(110+60*r2())},${a.toFixed(2)})`;g.beginPath();g.arc(x,y,rad,0,7);g.fill();g.globalCompositeOperation='source-over';
+}
+// a city skyline at the bottom, every window lit
+const r3=rng(23);let x0=1120;
+while(x0<1700){const w=30+r3()*60,h=40+r3()*110;g.fillStyle='rgba(18,14,12,.96)';g.fillRect(x0,1080-h,w,h);
+ for(let yy=1080-h+10;yy<1075;yy+=14)for(let xx=x0+6;xx<x0+w-6;xx+=12){if(r3()<0.55){g.fillStyle=`rgba(255,${200+Math.round(40*r3())},120,${(0.55+0.45*r3()).toFixed(2)})`;g.fillRect(xx,yy,5,7)}}
+ x0+=w+4;}
+g.globalCompositeOperation='lighter';halo(1410,1080,420,'rgba(255,170,80,.25)',1);g.globalCompositeOperation='source-over';
+const v=g.createRadialGradient(1100,540,420,1000,540,1150);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.55)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

@@ -1,0 +1,26 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+:root{--fg:#f4f1e8;--gold:#f2c66b;--ice:#8fd0ff;--hot:#ff9d6e}
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#06080d;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--fg);
+ background:radial-gradient(620px 420px at 50% 52%,rgba(242,198,107,.16),transparent 70%),radial-gradient(700px 440px at 28% 40%,rgba(143,208,255,.12),transparent 70%),#070a11}
+.badge{position:absolute;left:0;right:0;top:72px;text-align:center}.badge span{display:inline-block;padding:10px 40px;border:4px solid var(--gold);border-radius:99px;background:rgba(242,198,107,.12);font:900 52px/1.2 "Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--gold);letter-spacing:.08em;text-shadow:0 0 24px rgba(242,198,107,.45)}
+.t1{position:absolute;left:0;right:0;top:172px;text-align:center;font:900 116px/1.1 "Noto Serif SC","Noto Serif CJK SC",serif;text-shadow:0 0 30px rgba(143,208,255,.25)}
+.t2{position:absolute;left:0;right:0;top:810px;text-align:center;font:900 112px/1.05 "Noto Serif SC","Noto Serif CJK SC",serif;color:var(--gold);text-shadow:0 0 44px rgba(242,198,107,.45);letter-spacing:.03em}
+.chip{position:absolute;left:770px;top:360px;width:380px;height:380px;border-radius:30px;border:4px solid rgba(143,208,255,.65);background:linear-gradient(#0d1522,#0a0f18);box-shadow:0 0 70px rgba(143,208,255,.25)}
+.chip::before{content:"";position:absolute;inset:60px;border-radius:14px;border:3px solid rgba(242,198,107,.7);background:repeating-linear-gradient(90deg,transparent 0 38px,rgba(143,208,255,.14) 38px 40px),repeating-linear-gradient(0deg,transparent 0 38px,rgba(143,208,255,.14) 38px 40px);box-shadow:0 0 50px rgba(242,198,107,.25) inset}
+.pin{position:absolute;background:#2b4a70;border-radius:3px}
+.arrow{position:absolute;left:0;right:0;top:395px;text-align:center;font:900 240px/1 "Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--hot);text-shadow:0 0 60px rgba(255,157,110,.7)}
+</style></head><body><div class="c">
+<div class="badge"><span>台积电 · 最新财报</span></div>
+<div class="t1">台积电赚翻了</div>
+<div class="chip" id="chip"></div>
+<div class="arrow">↓</div>
+<div class="t2">股价为什么还跌？</div>
+</div>
+<script>
+const c=document.getElementById('chip');
+for(let i=0;i<8;i++){const p=36+i*44;
+ [['left:'+p+'px;top:-30px;width:12px;height:26px'],['left:'+p+'px;bottom:-30px;width:12px;height:26px'],['top:'+p+'px;left:-30px;height:12px;width:26px'],['top:'+p+'px;right:-30px;height:12px;width:26px']].forEach(s=>{const d=document.createElement('div');d.className='pin';d.style.cssText=s[0];c.appendChild(d)})}
+</script></body></html>

@@ -1,0 +1,57 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#06070d;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:#fff}
+canvas{position:absolute;left:0;top:0}
+.t{position:absolute;left:0;right:0;text-align:center;font-family:"Noto Serif SC","Noto Serif CJK SC",serif;font-weight:900;white-space:nowrap}
+.t1{top:86px;font-size:124px;line-height:1.1;color:#f4f7ff;text-shadow:0 6px 0 rgba(0,0,0,.55)}
+.t2{top:236px;font-size:126px;line-height:1.1;color:#f4f7ff;text-shadow:0 6px 0 rgba(0,0,0,.55)}
+.t2 em{font-style:normal;font-size:196px;color:#ff9a5c;text-shadow:0 0 60px rgba(255,130,60,.65),0 0 16px rgba(255,160,90,.6),0 6px 0 rgba(80,30,0,.7)}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="t t1">小球越弹越矮，</div>
+<div class="t t2"><em>能量</em>去哪了？</div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+let sk=g.createLinearGradient(0,0,0,1080);sk.addColorStop(0,'#05060c');sk.addColorStop(.6,'#0b1020');sk.addColorStop(1,'#120a0a');g.fillStyle=sk;g.fillRect(0,0,1920,1080);
+const q=rng(11);for(let i=0;i<90;i++){g.fillStyle='rgba(200,220,255,'+(0.08+q()*0.3)+')';g.beginPath();g.arc(q()*1920,q()*560,0.8+q()*1.5,0,7);g.fill()}
+const FY=790;
+// glow on the floor growing to the right
+g.globalCompositeOperation='lighter';
+halo(1500,FY+80,700,'rgba(255,110,40,.42)',1);halo(1100,FY+60,520,'rgba(255,140,60,.22)',1);halo(500,FY+40,420,'rgba(255,170,100,.1)',1);
+g.globalCompositeOperation='source-over';
+// bounce arcs: heights shrink, ball ghosts along them
+const bx0=290;let x=bx0,H=270,W=400;const hits=[];
+for(let n=0;n<6;n++){
+ const x1=x+W;
+ g.strokeStyle='rgba(255,190,140,'+(0.5-n*0.05)+')';g.lineWidth=4;g.setLineDash([2,16]);g.lineCap='round';
+ g.beginPath();for(let k=0;k<=60;k++){const u=k/60,px=x+(x1-x)*u,py=FY-4*H*u*(1-u);k?g.lineTo(px,py):g.moveTo(px,py)}g.stroke();g.setLineDash([]);
+ hits.push([x1,n]);
+ // ghost ball at apex
+ const ax=(x+x1)/2,ay=FY-H;const r=46-n*5;
+ g.globalCompositeOperation='lighter';halo(ax,ay,r*2.6,'rgba(255,150,90,.55)',0.5-n*0.07);g.globalCompositeOperation='source-over';
+ g.fillStyle='rgba(255,170,110,'+(0.55-n*0.07)+')';g.beginPath();g.arc(ax,ay,r,0,7);g.fill();
+ x=x1;H*=0.5;W*=0.68;
+}
+// final ball resting
+const fx=x+20;
+g.globalCompositeOperation='lighter';halo(fx,FY-20,90,'rgba(255,150,80,.7)',1);g.globalCompositeOperation='source-over';
+const bg=g.createRadialGradient(fx-8,FY-30,2,fx,FY-20,22);bg.addColorStop(0,'#ffe3c8');bg.addColorStop(1,'#ff7a3c');g.fillStyle=bg;g.beginPath();g.arc(fx,FY-20,20,0,7);g.fill();
+// floor line
+g.strokeStyle='rgba(255,210,170,.55)';g.lineWidth=4;g.beginPath();g.moveTo(0,FY);g.lineTo(1920,FY);g.stroke();
+// floor atoms: cool at left, hot at right (jiggle streaks)
+const r2=rng(5);
+for(let row=0;row<3;row++)for(let i=0;i<30;i++){
+ const ax=40+i*63+(row%2?30:0),ay=FY+48+row*52,k=Math.min(1,Math.max(0,(ax-300)/1500));
+ const col=`rgb(${Math.round(150+105*k)},${Math.round(170-50*k)},${Math.round(255-185*k)})`;
+ const jx=(r2()-0.5)*30*k,jy=(r2()-0.5)*30*k;
+ g.strokeStyle=col.replace('rgb','rgba').replace(')',','+(0.5*k)+')');g.lineWidth=6;g.lineCap='round';g.beginPath();g.moveTo(ax,ay);g.lineTo(ax+jx,ay+jy);g.stroke();
+ g.globalCompositeOperation='lighter';halo(ax+jx,ay+jy,26,col.replace('rgb','rgba').replace(')',',.5)'),0.3+0.5*k);g.globalCompositeOperation='source-over';
+ g.fillStyle=col;g.beginPath();g.arc(ax+jx,ay+jy,11,0,7);g.fill();
+}
+const v=g.createRadialGradient(960,560,500,960,560,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.5)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

@@ -1,0 +1,13 @@
+# 生成物不进仓库（restore.sh / 渲染时会重新生成）
+*.wav
+*.mp4
+*_bed.mp3
+node_modules/
+ws/render/
+ws/render_*/ch/
+ws/render_*/s_*.png
+ws/render_*/sheet.png
+ws/render_*/render.html
+ws/render_*/list.txt
+__pycache__/
+*.pyc

@@ -1,0 +1,49 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+:root{--fg:#eef6ff;--ice:#8fd0ff;--red:#ff6b6b}
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#05070b;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--fg);
+ background:radial-gradient(900px 640px at 72%,rgba(110,190,255,.16),transparent 70%),radial-gradient(600px 400px at 88%,rgba(255,90,90,.10),transparent 70%),#05070b}
+canvas{position:absolute;left:0;top:0}
+.h{position:absolute;left:306px;font-family:"Noto Serif SC","Noto Serif CJK SC",serif;font-weight:900;white-space:nowrap}
+.h1{top:204px;font-size:100px;line-height:1.1;color:#eef6ff;text-shadow:0 0 30px rgba(143,208,255,.3),0 4px 0 rgba(0,0,0,.6)}
+.h3{top:344px;font-size:262px;line-height:1.05;color:var(--red);letter-spacing:.02em;text-shadow:0 0 60px rgba(255,90,90,.6),0 0 14px rgba(255,120,120,.5),0 6px 0 rgba(70,0,0,.7)}
+.sub{position:absolute;left:306px;top:730px;font:900 56px/1.25 "Noto Sans SC","Noto Sans CJK SC",sans-serif;color:#eef6ff;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+.sub em{font-style:normal;color:var(--ice)}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="h h1">按经典物理，你早已</div>
+<div class="h h3">不存在</div>
+<div class="sub">原子为什么<em>没有塌</em>？</div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+const CX=1452,CY=470,R=212;
+g.globalCompositeOperation='lighter';halo(CX,CY,430,'rgba(110,190,255,.22)',1);halo(CX,CY,260,'rgba(255,110,60,.28)',1);g.globalCompositeOperation='source-over';
+// the original orbit, faint
+g.strokeStyle='rgba(143,208,255,.30)';g.lineWidth=3;g.setLineDash([10,12]);g.beginPath();g.arc(CX,CY,R,0,7);g.stroke();g.setLineDash([]);
+// the death spiral
+const TH=Math.PI*2*2.7;
+function sp(u){return[R*Math.pow(1-u,0.85),-0.6+TH*Math.pow(u,0.85)]}
+const N=520,UE=0.9;
+for(let i=0;i<N;i++){const u0=UE*i/N,u1=UE*(i+1)/N,a=sp(u0),b=sp(u1);
+ g.strokeStyle='rgba(150,215,255,'+(0.08+0.9*Math.pow(i/N,1.6))+')';g.lineWidth=3+7*(i/N);g.lineCap='round';
+ g.beginPath();g.moveTo(CX+a[0]*Math.cos(a[1]),CY+a[0]*Math.sin(a[1]));g.lineTo(CX+b[0]*Math.cos(b[1]),CY+b[0]*Math.sin(b[1]));g.stroke()}
+// radiated waves
+for(let k=0;k<4;k++){const u=0.25+k*0.2,p=sp(u),x=CX+p[0]*Math.cos(p[1]),y=CY+p[0]*Math.sin(p[1]);
+ g.strokeStyle='rgba(242,198,107,'+(0.55-k*0.06)+')';g.lineWidth=4;g.beginPath();g.arc(x,y,34+k*9,0,7);g.stroke()}
+// nucleus
+g.globalCompositeOperation='lighter';halo(CX,CY,150,'rgba(255,150,90,.9)',1);g.globalCompositeOperation='source-over';
+let gr=g.createRadialGradient(CX-8,CY-9,3,CX,CY,38);gr.addColorStop(0,'#ffe3cf');gr.addColorStop(1,'#ff8a55');g.fillStyle=gr;g.beginPath();g.arc(CX,CY,38,0,7);g.fill();
+// the electron at the tip
+const pe=sp(UE),ex=CX+pe[0]*Math.cos(pe[1]),ey=CY+pe[0]*Math.sin(pe[1]);
+g.globalCompositeOperation='lighter';halo(ex,ey,120,'rgba(190,230,255,.9)',1);g.globalCompositeOperation='source-over';
+g.fillStyle='#fff';g.beginPath();g.arc(ex,ey,17,0,7);g.fill();
+// floor grid, stars, vignette
+g.strokeStyle='rgba(143,208,255,.06)';g.lineWidth=2;for(let i=-10;i<=10;i++){g.beginPath();g.moveTo(960+i*60,860);g.lineTo(960+i*320,1080);g.stroke()}
+const q=rng(11);for(let i=0;i<70;i++){const x=q()*1920,y=q()*1080;g.fillStyle='rgba(190,225,255,'+(0.1+q()*0.35)+')';g.beginPath();g.arc(x,y,1+q()*2.4,0,7);g.fill()}
+const v=g.createRadialGradient(960,540,420,960,540,1150);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.55)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

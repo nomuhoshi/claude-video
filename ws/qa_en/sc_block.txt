@@ -1,0 +1,73 @@
+SC = [
+ dict(key='hero', k='hero', name='Opening', draw='d0', lines=[
+    ('Classical physics once calculated a verdict:', 0), ('every atom should collapse in an instant.', 0),
+    ('Tables, the Earth, you and me: all gone.', 0), ('Yet here you are, still watching this video.', 0),
+    ('That contradiction forced a brand-new physics.', 0)]),
+ dict(key='ch1', k='chap', name='Part 1 · The atom', word='THE ATOM', en='PART 1', sub='Atoms, the classical way',
+      line='First, the atom as classical physics saw it.'),
+ dict(key='s1', k='c', name='Scene 1 · A tiny solar system', draw='d1', lines=[
+    ('All matter is built from atoms.', 0), ('At the center sits a tiny nucleus,', 0), ('and around it circle very light electrons.', 0),
+    ('One is positive, the other negative,', 0), ('pulling on each other like the Sun and Earth.', 0)]),
+ dict(key='s2', k='c', name='Scene 2 · Empty and fast', draw='d2', lines=[
+    ('Atoms are mostly empty space.', 0), ('Blow one up to the size of a stadium,', 0), ('and the nucleus is a grain of rice at the center.', 0),
+    ('The electron circles it 6.6 quadrillion times a second.', 0), ('That is the atom as classical physics drew it.', 0)]),
+ dict(key='ch2', k='chap', name='Part 2 · The trouble', word='THE TROUBLE', en='PART 2', sub='Electrons keep radiating',
+      line='The trouble is all that orbiting.'),
+ dict(key='s3', k='c', name='Scene 3 · Accelerate, radiate', draw='d3', lines=[
+    ('Whenever a charged particle accelerates,', 0), ('it sends out electromagnetic waves.', 0),
+    ('Phones and antennas work on exactly this.', 0), ('An orbiting electron keeps changing direction,', 0), ('and changing direction means accelerating.', 0),
+    ('So the electron keeps radiating energy away.', 0)]),
+ dict(key='s4', k='c', name='Scene 4 · The spiral', draw='d4', lines=[
+    ('Every bit of light it emits costs it energy.', 0), ('Less energy means a smaller orbit.', 0),
+    ('A smaller orbit means it spins faster,', 0), ('radiates even more, and falls even faster.', 0),
+    ('It can only spiral, loop by loop, into the nucleus.', 0)]),
+ dict(key='ch3', k='chap', name='Part 3 · Collapse', word='THE COLLAPSE', en='PART 3', sub='How long would it take?',
+      line='So how long would it take?'),
+ dict(key='s5', k='c', name='Scene 5 · Do the math', draw='d5', lines=[
+    ('Take the simplest atom, hydrogen, and calculate.', 0), ('From orbit down onto the nucleus takes only', 0),
+    ('about a 60-billionth of a second.', 0), ('One blink is long enough for billions of collapses.', 0),
+    ('(A rough estimate, but the order of magnitude is right.)', 0)]),
+ dict(key='s6', k='c', name='Scene 6 · Everything vanishes', draw='d6', lines=[
+    ('One atom collapsing would not be alone.', 0), ('Your body holds about 7 octillion atoms.', 0),
+    ('They would all collapse in the same instant.', 0), ('Tables, the Earth, the Sun too.', 0),
+    ('No chemistry, no life, nothing at all.', 0)]),
+ dict(key='ch4', k='chap', name='Part 4 · But', word='BUT IT STANDS', en='PART 4', sub='Facts versus theory',
+      line='But the atom does not collapse.'),
+ dict(key='s7', k='c', name='Scene 7 · Fact one: stable', draw='d7', lines=[
+    ('The facts say the exact opposite.', 0), ('Hydrogen has existed for over ten billion years.', 0),
+    ('Prediction and reality differ by 28 orders of magnitude.', 0), ('Theory: must collapse. Experiment: perfectly stable.', 0)]),
+ dict(key='s8', k='c', name='Scene 8 · Fact two: sharp lines', draw='d8', lines=[
+    ('Another thing does not add up either.', 0), ('Split hydrogen’s glow apart with a prism,', 0),
+    ('and you do not get a continuous rainbow,', 0), ('but a few sharp, separate lines.', 0),
+    ('A spiraling electron should give smoothly changing light.', 0), ('Sharp lines mean electrons sit only on certain “steps.”', 0)]),
+ dict(key='ch5', k='chap', name='Part 5 · A patch', word='THE PATCH', en='PART 5', sub='A rule first, a reason later',
+      line='First a patch: simply make a rule.'),
+ dict(key='s9', k='c', name='Scene 9 · A bold rule', draw='d9', lines=[
+    ('The first patch came in 1913.', 0), ('A bold rule: electrons stay on a few set orbits.', 0),
+    ('On an orbit there is no radiation, so no falling.', 0), ('Only when jumping from one orbit to another', 0),
+    ('does it give off or absorb one packet of light.', 0), ('That rule reproduces hydrogen’s sharp lines.', 0)]),
+ dict(key='s10', k='c', name='Scene 10 · The problem with the patch', draw='d10', lines=[
+    ('But it is a rule, not an explanation.', 0), ('Why exactly these orbits?', 0),
+    ('Why does staying on an orbit stop the radiation?', 0), ('And with helium, the rule already fails.', 0),
+    ('A deeper, new theory is needed.', 0)]),
+ dict(key='ch6', k='chap', name='Part 6 · The electron is a wave', word='THE WAVE', en='PART 6', sub='Enter quantum theory',
+      line='The new theory: the electron is a wave.'),
+ dict(key='s11', k='c', name='Scene 11 · Standing waves', draw='d11', lines=[
+    ('In 1924 came a new idea:', 0), ('the electron is not only a ball, it is also a wave.', 0),
+    ('A wave circling the nucleus must join end to end,', 0), ('so only whole numbers of wavelengths fit.', 0),
+    ('That leaves only certain orbits, naturally.', 0)]),
+ dict(key='s12', k='c', name='Scene 12 · Why it does not collapse', draw='d12', lines=[
+    ('The wave answers an even bigger question:', 0), ('why does the electron not fall into the nucleus?', 0),
+    ('To pin it onto the nucleus, the wave must be narrow.', 0), ('The narrower it gets, the more restless it becomes,', 0),
+    ('its energy soars, and pushes it back out.', 0), ('Pull and restlessness balance at about 0.05 nanometers.', 0),
+    ('That is exactly the size of a hydrogen atom.', 0)]),
+ dict(key='s13', k='c', name='Scene 13 · The Pauli rule', draw='d13', lines=[
+    ('Electrons obey one more rule:', 0), ('no two electrons can share the same state.', 0),
+    ('So they have to stack outward, layer by layer.', 0), ('That builds the atom’s shells,', 0),
+    ('and the whole periodic table.', 0), ('Matter takes up room, so a chair can hold you.', 0),
+    ('Proving this rigorously took until 1967.', 0)]),
+ dict(key='recap', k='recap', name='Recap', lines=[
+    ('Classical physics says every atom must collapse.', 0), ('Reality refused, and quantum theory was born.', 0),
+    ('The electron is not a ball. It is a wave.', 0)], dur_min=9.5),
+ dict(key='src', k='src', name='Sources', lines=[('Compiled from published physics sources.', 0)], dur_min=8.0),
+]

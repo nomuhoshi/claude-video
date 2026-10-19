@@ -1,0 +1,23 @@
+/* chapter interlude: one quiet word over a thin blue thread (no number, no English, no subtitle) */
+.chap .vline, .chap .flash, .chap .parts, .chap .cno, .chap .crule, .chap .en, .chap .csub { display: none !important; }
+.chap .wordbox { position: absolute; left: 0; right: 0; top: 19.5cqw; text-align: center; }
+.chap .word { display: inline-block; font-family: var(--display); font-weight: 700; font-size: 4.6cqw; line-height: 1.2; letter-spacing: calc(0.5em - var(--p) * 0.3em); text-indent: 0.2em; background-image: none; -webkit-background-clip: border-box; background-clip: border-box; color: #f6e6bd; -webkit-text-fill-color: #f6e6bd; filter: none; opacity: var(--p); transform: none; text-shadow: 0 0 2cqw rgba(242, 198, 107, 0.35); }
+.chap .thread { position: absolute; top: 27.6cqw; height: 0.16cqw; left: calc(50cqw - var(--p) * 17cqw); width: calc(var(--p) * 34cqw); background: linear-gradient(90deg, rgba(120, 170, 255, 0), #8fb6ff 50%, rgba(120, 170, 255, 0)); box-shadow: 0 0 1cqw rgba(143, 182, 255, 0.4); }
+
+/* electric force video */
+.tag, .src, .scene .nt.srcn { display: none !important; }
+.sub { min-height: 4.6cqw; bottom: 3.4cqw; white-space: nowrap; }
+.s0 .hero-sub { top: 5cqw; font-size: 5cqw; font-weight: 900; letter-spacing: 0.12em; color: #f6e6bd; text-shadow: 0 0 2.4cqw rgba(242, 198, 107, 0.45); }
+.s18 .hd { top: 4cqw; }
+.s18 .tl { top: 25cqw; }
+.s18 .dot2 { top: 24.1cqw; }
+.s18 .node { top: 13.6cqw; width: 19cqw; margin-left: -9.5cqw; }
+.s18 .node.dn { top: 28.4cqw; }
+.s18 .node .y { font-size: 3.4cqw; }
+.s18 .node .h { font-size: 1.9cqw; }
+.s18 .node .d { font-family: var(--sans); font-size: 1.45cqw; letter-spacing: 0; color: var(--ice); line-height: 1.5; }
+.s19 .srclist { position: absolute; left: 6cqw; right: 6cqw; top: 7.4cqw; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr; gap: 0.2cqw; }
+.s19 .srclist li { display: flex; align-items: baseline; gap: 2cqw; padding: 0.55cqw 0 0.7cqw; border-bottom: 1px solid var(--line); opacity: var(--p); min-width: 0; }
+.s19 .srclist b { flex: 0 0 33cqw; font-weight: 900; font-size: 2.1cqw; white-space: nowrap; color: var(--fg); }
+.s19 .srclist span { min-width: 0; font-family: var(--mono); font-size: 1.3cqw; color: var(--ice); overflow-wrap: anywhere; line-height: 1.35; }
+.s19 .foot { position: absolute; right: 6cqw; top: 3.2cqw; margin: 0; padding: 0.5cqw 1.2cqw; border: 1px solid var(--line); border-radius: 0.5cqw; font-family: var(--mono); font-size: 1.1cqw; letter-spacing: 0.04em; color: var(--fg); opacity: var(--p); }

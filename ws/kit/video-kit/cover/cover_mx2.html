@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#050505;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.kick{position:absolute;left:330px;top:206px;font-family:"Noto Sans SC",sans-serif;font-size:26px;color:#8f8aa6;letter-spacing:.32em}
+.h{position:absolute;left:318px;top:250px;font-weight:900;font-size:92px;line-height:1.32;color:#f3efe6;letter-spacing:.02em;text-shadow:0 0 30px rgba(255,230,190,.12)}
+.h b{font-weight:900;background:linear-gradient(90deg,#ff6a6a,#ffd36b 50%,#6fb6ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(255,220,160,.35))}
+.p{position:absolute;left:326px;top:540px;font-size:48px;font-weight:900;color:#e9e3d6;letter-spacing:.03em}
+.p b{color:#ffd98a;text-shadow:0 0 30px rgba(255,210,130,.7)}
+.lab{position:absolute;left:330px;top:770px;font-family:"Noto Sans SC",sans-serif;font-size:24px;color:#8f8aa6;letter-spacing:.2em}
+.val{position:absolute;left:326px;top:800px;font-weight:900;font-size:64px;color:#c9b8ff;letter-spacing:.06em;text-shadow:0 0 30px rgba(201,184,255,.35)}
+.rule{position:absolute;left:330px;top:900px;width:420px;height:2px;background:linear-gradient(90deg,rgba(201,184,255,.6),rgba(201,184,255,0))}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="kick">詹姆斯 · 克拉克 · 麦克斯韦</div>
+<div class="h">世界上第一张<b>彩色照片</b>，<br>是他想出来的</div>
+<div class="p">后来，他又算出了<b>光</b>是什么。</div>
+<div class="lab">1861 · 一条格子呢缎带</div>
+<div class="val">红 + 绿 + 蓝</div>
+<div class="rule"></div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+g.fillStyle='#050507';g.fillRect(0,0,1920,1080);
+const CX=1370,CY=560;                         // where the three beams meet: the ribbon
+// three projector beams, red, green, blue, adding up where they overlap
+g.globalCompositeOperation='lighter';
+[[1160,1080,'rgba(255,60,60,'],[1370,1080,'rgba(60,230,110,'],[1580,1080,'rgba(70,120,255,']].forEach(b=>{
+  const gr=g.createLinearGradient(b[0],b[1],CX,CY);gr.addColorStop(0,b[2]+'0.05)');gr.addColorStop(1,b[2]+'0.22)');
+  g.fillStyle=gr;g.beginPath();g.moveTo(b[0]-30,b[1]);g.lineTo(CX-200,CY-120);g.lineTo(CX+200,CY-120);g.lineTo(b[0]+30,b[1]);g.closePath();g.fill();
+});
+halo(CX,CY,420,'rgba(255,240,220,.16)',1);
+g.globalCompositeOperation='source-over';
+// the ribbon bow, drawn as a mask, then filled with a tartan made of red, green and blue dots
+const m=document.createElement('canvas');m.width=1920;m.height=1080;const k=m.getContext('2d');k.fillStyle='#fff';
+k.beginPath();k.ellipse(CX-108,CY-12,112,70,-0.25,0,7);k.fill();k.beginPath();k.ellipse(CX+108,CY-12,112,70,0.25,0,7);k.fill();
+k.beginPath();k.moveTo(CX-30,CY);k.lineTo(CX-100,CY+190);k.lineTo(CX-50,CY+205);k.lineTo(CX,CY+30);k.lineTo(CX+50,CY+205);k.lineTo(CX+100,CY+190);k.lineTo(CX+30,CY);k.closePath();k.fill();
+const md=k.getImageData(0,0,1920,1080).data;
+function tartanAt(x,y){
+  const u=((x-CX)+600)%72, v=((y-CY)+600)%72, base=[30,95,60];
+  let c=base.slice();
+  if(u<10||v<10)c=[200,45,45]; else if(u>34&&u<40||v>34&&v<40)c=[240,200,70]; else if(u>52&&u<60||v>52&&v<60)c=[45,70,180];
+  if((u<10&&v<10))c=[230,90,60];
+  return c;
+}
+const S=8,r=rng(5);
+for(let y=CY-130;y<CY+250;y+=S)for(let x=CX-250;x<CX+250;x+=S){
+  const a=md[(y*1920+x)*4+3];if(a<40)continue;
+  const c=tartanAt(x,y), d=Math.hypot(x-CX,y-CY), lit=Math.max(0.35,1-d/420);
+  // each "pixel" is three sub-dots: red, green, blue, like a screen
+  const s=[[c[0],0,0,-2.4],[0,c[1],0,0],[0,0,c[2],2.4]];
+  s.forEach(q=>{g.fillStyle=`rgba(${Math.round(Math.max(q[0],q[0]?60:0)*lit+ (q[0]?40:0))},${Math.round(Math.max(q[1],q[1]?60:0)*lit+(q[1]?40:0))},${Math.round(Math.max(q[2],q[2]?60:0)*lit+(q[2]?40:0))},0.95)`;g.fillRect(x+q[3]-1,y-3,2,6);});
+}
+k.globalCompositeOperation='source-over';
+// three small filter discs at the bottom of the beams
+[[1160,'#ff4d4d'],[1370,'#45e07a'],[1580,'#4f86ff']].forEach(f=>{g.globalCompositeOperation='lighter';halo(f[0],1010,60,f[1],.5);g.globalCompositeOperation='source-over';g.fillStyle=f[1];g.beginPath();g.arc(f[0],1015,16,0,7);g.fill();});
+const v=g.createRadialGradient(1100,540,420,1000,540,1150);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.5)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

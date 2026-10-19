@@ -1,0 +1,92 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;width:1920px;height:1080px;background:#0b0f18;overflow:hidden;font-family:"Noto Sans SC",sans-serif}canvas{position:absolute;left:0;top:0}</style></head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script>
+const g=document.getElementById('c').getContext('2d');
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+const bg=g.createRadialGradient(960,540,200,960,540,1100);bg.addColorStop(0,'#141b2a');bg.addColorStop(1,'#070a10');g.fillStyle=bg;g.fillRect(0,0,1920,1080);
+// shared body paths (local coords: feet at 0, head top about -300)
+function P(pts){g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)g.lineTo(pts[i][0],pts[i][1]);g.closePath();}
+function coat(){ g.beginPath(); g.moveTo(-58,-178); g.quadraticCurveTo(-78,-170,-80,-120); g.lineTo(-86,-40); g.lineTo(-30,-48); g.lineTo(0,-120); g.lineTo(30,-48); g.lineTo(86,-40); g.lineTo(80,-120); g.quadraticCurveTo(78,-170,58,-178); g.closePath(); }
+function hairPath(){ g.beginPath(); g.moveTo(-66,-262); g.quadraticCurveTo(-70,-318,-10,-326); g.quadraticCurveTo(52,-332,70,-282); g.quadraticCurveTo(74,-262,66,-250); g.quadraticCurveTo(40,-292,-14,-288); g.quadraticCurveTo(-40,-286,-56,-246); g.closePath(); }
+function magnet(x,y,s,lw){ g.save(); g.translate(x,y); g.scale(s,s); g.lineCap='butt'; g.strokeStyle='#d24a50'; g.lineWidth=lw||16; g.beginPath(); g.arc(0,0,26,Math.PI,0,false); g.stroke(); g.fillStyle='#e8eef6'; g.fillRect(-34,-2,16,16); g.fillRect(18,-2,16,16); g.restore(); }
+
+// ---------- A: storybook colour ----------
+function figA(x,y){ g.save(); g.translate(x,y); g.scale(1.38,1.38);
+ halo(0,-150,240,'rgba(255,190,110,.18)',1);
+ g.fillStyle='#2a2f45'; g.fillRect(-36,-52,26,52); g.fillRect(10,-52,26,52); g.fillStyle='#1a1d2b'; g.beginPath(); g.ellipse(-24,0,24,9,0,0,7); g.fill(); g.beginPath(); g.ellipse(24,0,24,9,0,0,7); g.fill();
+ g.fillStyle='#2f3a5c'; coat(); g.fill();
+ g.fillStyle='#f4efe4'; P([[-22,-180],[22,-180],[0,-120]]); g.fill();
+ g.fillStyle='#202433'; P([[-58,-178],[-22,-180],[-6,-130],[-30,-120]]); g.fill(); P([[58,-178],[22,-180],[6,-130],[30,-120]]); g.fill();
+ g.fillStyle='#1b1b22'; P([[-16,-176],[0,-166],[-16,-156]]); g.fill(); P([[16,-176],[0,-166],[16,-156]]); g.fill();
+ g.fillStyle='#d9b26a'; for(let i=0;i<3;i++){g.beginPath();g.arc(0,-140+i*24,3.5,0,7);g.fill();}
+ // arms
+ g.strokeStyle='#2f3a5c'; g.lineWidth=26; g.lineCap='round'; g.beginPath(); g.moveTo(-70,-160); g.lineTo(-92,-96); g.stroke(); g.beginPath(); g.moveTo(70,-160); g.lineTo(104,-118); g.stroke();
+ g.fillStyle='#f2d2b6'; g.beginPath(); g.arc(-94,-90,13,0,7); g.fill(); g.beginPath(); g.arc(108,-114,13,0,7); g.fill();
+ magnet(122,-150,1.1);
+ // head
+ g.fillStyle='#f2d2b6'; g.beginPath(); g.ellipse(0,-246,62,68,0,0,7); g.fill();
+ g.fillStyle='#6b4528'; hairPath(); g.fill();
+ g.beginPath(); g.moveTo(-62,-250); g.quadraticCurveTo(-70,-210,-52,-196); g.lineTo(-46,-222); g.closePath(); g.fill();
+ g.beginPath(); g.moveTo(62,-250); g.quadraticCurveTo(70,-210,52,-196); g.lineTo(46,-222); g.closePath(); g.fill();
+ g.fillStyle='#2a1c14'; g.beginPath(); g.arc(-22,-240,6,0,7); g.fill(); g.beginPath(); g.arc(22,-240,6,0,7); g.fill();
+ g.fillStyle='#fff'; g.beginPath(); g.arc(-20,-242,2,0,7); g.fill(); g.beginPath(); g.arc(24,-242,2,0,7); g.fill();
+ g.strokeStyle='#8a4a3a'; g.lineWidth=3.5; g.beginPath(); g.arc(0,-222,12,0.2,Math.PI-0.2); g.stroke();
+ g.fillStyle='rgba(240,140,130,.45)'; g.beginPath(); g.ellipse(-36,-222,10,6,0,0,7); g.fill(); g.beginPath(); g.ellipse(36,-222,10,6,0,0,7); g.fill();
+ g.restore(); }
+
+// ---------- B: glowing gold line drawing ----------
+function figB(x,y){ g.save(); g.translate(x,y); g.scale(1.38,1.38);
+ halo(0,-150,240,'rgba(242,198,107,.12)',1);
+ g.shadowColor='rgba(242,198,107,.8)'; g.shadowBlur=14; g.strokeStyle='#f2c66b'; g.lineWidth=5; g.lineJoin='round'; g.lineCap='round';
+ coat(); g.stroke(); P([[-22,-180],[22,-180],[0,-120]]); g.stroke();
+ g.beginPath(); g.moveTo(-30,-48); g.lineTo(-30,0); g.moveTo(30,-48); g.lineTo(30,0); g.stroke();
+ g.beginPath(); g.moveTo(-70,-160); g.lineTo(-92,-96); g.moveTo(70,-160); g.lineTo(104,-118); g.stroke();
+ g.beginPath(); g.ellipse(0,-246,62,68,0,0,7); g.stroke(); hairPath(); g.stroke();
+ g.beginPath(); g.moveTo(-16,-176); g.lineTo(0,-166); g.lineTo(-16,-156); g.closePath(); g.moveTo(16,-176); g.lineTo(0,-166); g.lineTo(16,-156); g.closePath(); g.stroke();
+ g.fillStyle='#f2c66b'; g.beginPath(); g.arc(-22,-240,5,0,7); g.fill(); g.beginPath(); g.arc(22,-240,5,0,7); g.fill();
+ g.beginPath(); g.arc(0,-222,11,0.25,Math.PI-0.25); g.stroke();
+ // a coil in hand with a spark
+ g.strokeStyle='#ffb070'; for(let i=0;i<6;i++){g.beginPath(); g.ellipse(112+i*9,-118,5,16,0,0,7); g.stroke();}
+ g.shadowBlur=0; halo(170,-118,40,'rgba(255,230,160,.9)',.5);
+ g.restore(); }
+
+// ---------- C: soft silhouette with a glowing face edge ----------
+function figC(x,y){ g.save(); g.translate(x,y); g.scale(1.38,1.38);
+ halo(0,-170,260,'rgba(143,208,255,.16)',1);
+ g.fillStyle='#d6dfee';
+ g.fillRect(-34,-52,22,52); g.fillRect(12,-52,22,52);
+ coat(); g.fill(); g.beginPath(); g.ellipse(0,-246,62,68,0,0,7); g.fill(); hairPath(); g.fill();
+ g.strokeStyle='#d6dfee'; g.lineWidth=24; g.lineCap='round'; g.beginPath(); g.moveTo(-70,-160); g.lineTo(-92,-96); g.moveTo(70,-160); g.lineTo(98,-150); g.lineTo(112,-196); g.stroke();
+ g.fillStyle='#0b0f18'; P([[-22,-180],[22,-180],[0,-140]]); g.fill();
+ // a candle held up
+ g.fillStyle='#f4ecd8'; g.fillRect(104,-246,16,44);
+ halo(112,-262,70,'rgba(255,190,100,.9)',.6);
+ g.fillStyle='#ffd27a'; g.beginPath(); g.moveTo(112,-286); g.quadraticCurveTo(124,-262,112,-250); g.quadraticCurveTo(100,-262,112,-286); g.fill();
+ g.restore(); }
+
+// ---------- D: flat geometric with a lab apron ----------
+function figD(x,y){ g.save(); g.translate(x,y); g.scale(1.38,1.38);
+ halo(0,-150,240,'rgba(98,214,160,.12)',1);
+ g.fillStyle='#3a3f55'; g.fillRect(-36,-56,28,56); g.fillRect(8,-56,28,56);
+ g.fillStyle='#4a5677'; g.beginPath(); g.roundRect(-72,-190,144,150,26); g.fill();
+ g.fillStyle='#b8865a'; g.beginPath(); g.roundRect(-46,-160,92,128,12); g.fill();
+ g.strokeStyle='#8a5f3a'; g.lineWidth=5; g.beginPath(); g.moveTo(-40,-160); g.lineTo(-22,-190); g.moveTo(40,-160); g.lineTo(22,-190); g.stroke();
+ g.fillStyle='#f4efe4'; g.beginPath(); g.roundRect(-20,-196,40,18,6); g.fill();
+ g.fillStyle='#1b1b22'; g.beginPath(); g.arc(0,-187,7,0,7); g.fill();
+ g.strokeStyle='#4a5677'; g.lineWidth=26; g.lineCap='round'; g.beginPath(); g.moveTo(-70,-170); g.lineTo(-96,-110); g.moveTo(70,-170); g.lineTo(100,-130); g.stroke();
+ g.fillStyle='#f0cfb0'; g.beginPath(); g.arc(-98,-104,13,0,7); g.fill(); g.beginPath(); g.arc(104,-124,13,0,7); g.fill();
+ magnet(120,-160,1.0);
+ g.fillStyle='#f0cfb0'; g.beginPath(); g.roundRect(-56,-318,112,118,40); g.fill();
+ g.fillStyle='#7a4f2c'; g.beginPath(); g.roundRect(-60,-326,120,40,20); g.fill(); g.fillRect(-60,-300,18,66); g.fillRect(42,-300,18,66);
+ g.fillStyle='#22180f'; g.fillRect(-28,-262,12,12); g.fillRect(16,-262,12,12);
+ g.fillStyle='#22180f'; g.fillRect(-12,-230,24,5);
+ g.restore(); }
+
+const XS=[270,760,1190,1640], Y=840;
+figA(XS[0],Y); figB(XS[1],Y); figC(XS[2],Y); figD(XS[3],Y);
+g.fillStyle='#f6e6bd'; g.font='900 64px "Noto Sans SC"'; g.textAlign='center';
+['A','B','C','D'].forEach((t,i)=>g.fillText(t,XS[i],950));
+g.font='600 30px "Noto Sans SC"'; g.fillStyle='#93a1b6';
+['绘本彩色 · 拿马蹄磁铁','金色线描 · 拿线圈','浅色剪影 · 举蜡烛','几何扁平 · 皮围裙'].forEach((t,i)=>g.fillText(t,XS[i],1000));
+g.font='800 40px "Noto Sans SC"'; g.fillStyle='#f6e6bd'; g.fillText('小法拉第 · 四个方案',960,90);
+</script></body></html>

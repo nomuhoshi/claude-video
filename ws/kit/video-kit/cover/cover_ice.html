@@ -1,0 +1,38 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+:root{--fg:#f4f1e8;--dim:#93a1b6;--gold:#f2c66b;--ice:#8fd0ff}
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#06080d;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--fg);
+ background:radial-gradient(640px 420px at 50% 55%,rgba(143,208,255,.22),transparent 70%),#070a11}
+.tag{position:absolute;left:300px;top:70px;padding-left:20px;border-left:6px solid var(--gold);font:900 36px/1.2 "Noto Serif SC","Noto Serif CJK SC",serif}
+.t1{position:absolute;left:0;right:0;top:122px;text-align:center;font:900 124px/1.1 "Noto Serif SC","Noto Serif CJK SC",serif;text-shadow:0 0 30px rgba(143,208,255,.25)}
+.t2{position:absolute;left:0;right:0;top:830px;text-align:center;font:900 190px/1.05 "Noto Serif SC","Noto Serif CJK SC",serif;color:var(--gold);text-shadow:0 0 44px rgba(242,198,107,.45);letter-spacing:.02em}
+.cap{position:absolute;font:900 46px "Noto Sans SC",sans-serif;color:var(--ice)}
+svg{position:absolute;left:0;top:0}
+</style></head><body><div class="c">
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" id="sv"></svg>
+<div class="tag">物理 · 2026 诺贝尔奖</div>
+<div class="t1">一个比<span style="color:var(--ice)">电子</span>还轻的粒子</div>
+<div class="t2">能穿过整个地球</div>
+<div class="cap" style="left:200px;top:262px">中微子</div>
+</div>
+<script>
+const sv=document.getElementById('sv'),NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||sv).appendChild(e);return e}
+el('defs',{}).innerHTML='<filter id="g" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="12"/></filter><radialGradient id="eg" cx="38%" cy="34%" r="75%"><stop offset="0" stop-color="#3b78b4"/><stop offset="1" stop-color="#0c2038"/></radialGradient>';
+const cx=960,cy=545,r=215;
+// faint parallel neutrinos behind
+// earth
+el('circle',{cx,cy,r,fill:'url(#eg)',stroke:'#8fd0ff','stroke-width':4,opacity:.95});
+for(let k=-2;k<=2;k++){ el('ellipse',{cx,cy,rx:r,ry:Math.abs(k)*38+1,fill:'none',stroke:'#8fd0ff','stroke-width':2,opacity:.18}); }
+el('ellipse',{cx,cy,rx:90,ry:r,fill:'none',stroke:'#8fd0ff','stroke-width':2,opacity:.18});
+el('ellipse',{cx,cy,rx:170,ry:r,fill:'none',stroke:'#8fd0ff','stroke-width':2,opacity:.12});
+// the one neutrino passing straight through
+const x1=250,y1=330,x2=1670,y2=760;
+el('line',{x1,y1,x2,y2,stroke:'#8fd0ff','stroke-width':26,filter:'url(#g)',opacity:.9});
+el('line',{x1,y1,x2,y2,stroke:'#ffffff','stroke-width':8,'stroke-linecap':'round'});
+el('circle',{cx:x1,cy:y1,r:15,fill:'#fff'});
+const a=Math.atan2(y2-y1,x2-x1);
+el('path',{d:`M${x2+26} ${y2+0} l${-34} ${-20} l0 40 z`,fill:'#fff',transform:`rotate(${a*180/Math.PI} ${x2} ${y2})`});
+</script></body></html>

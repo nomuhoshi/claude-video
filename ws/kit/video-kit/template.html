@@ -1,0 +1,925 @@
+<title>台积电三季报前瞻</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@500;700;900&family=Noto+Serif+SC:wght@900&display=swap">
+<style>
+/* Layout: a 16:9 video frame sized in container units (cqw), a control bar, then voiceover script, glossary and sources.
+   Single committed look: deep ink background, warm gold for actual figures, ice blue for guidance and expectations.
+   Each key section opens with a full-screen chapter card: a centre line, a gold/ice split title, a boom. */
+:root {
+  --ink: #06080d;
+  --ink-2: #0d121b;
+  --line: rgba(190, 210, 235, 0.16);
+  --fg: #eef2f8;
+  --dim: #93a1b6;
+  --gold: #f2c66b;
+  --ice: #8fd0ff;
+  --ice-fill: rgba(143, 208, 255, 0.22);
+  --display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  background: var(--ink);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+.top { display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { margin: 0; font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; }
+h1 { margin: 0; font-family: var(--display); font-weight: 900; font-size: clamp(26px, 5vw, 40px); line-height: 1.2; text-wrap: balance; }
+.meta { margin: 0; color: var(--dim); font-size: 14px; }
+
+/* ---------- player ---------- */
+.stagewrap { display: flex; flex-direction: column; gap: 10px; background: var(--ink); }
+.stagewrap:fullscreen { justify-content: center; align-items: center; background: #000; padding: 0; }
+.frame {
+  position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%;
+  container-type: inline-size; overflow: hidden; border-radius: 6px;
+  background:
+    radial-gradient(60cqw 40cqw at 8% 105%, rgba(242, 198, 107, 0.12), transparent 70%),
+    radial-gradient(60cqw 40cqw at 95% -10%, rgba(143, 208, 255, 0.11), transparent 70%),
+    var(--ink-2);
+  border: 1px solid var(--line);
+}
+.stagewrap:fullscreen .frame { width: min(100vw, calc(100vh * 16 / 9)); border: 0; border-radius: 0; }
+.stagewrap:fullscreen .ctrl { width: min(100vw, calc(100vh * 16 / 9)); padding: 8px 12px; }
+
+.scene { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+.scene.on { opacity: 1; }
+.scene.chap { transition: opacity 0.1s; }
+.scene [data-a] { --p: 0; }
+
+.tag { position: absolute; left: 6cqw; top: 4cqw; margin: 0; font-family: var(--mono); font-size: 1.45cqw; letter-spacing: 0.16em; color: var(--dim); text-transform: uppercase; }
+.tag b { color: var(--gold); font-weight: 500; }
+.src { position: absolute; left: 6cqw; right: 6cqw; bottom: 1.4cqw; margin: 0; font-family: var(--mono); font-size: 1.05cqw; color: var(--dim); letter-spacing: 0.03em; }
+
+.bignum { position: absolute; left: 6cqw; top: 8cqw; margin: 0; display: flex; align-items: baseline; gap: 1.4cqw; font-family: var(--display); font-weight: 900; line-height: 1.05; color: var(--gold); text-shadow: 0 0 3cqw rgba(242, 198, 107, 0.35); }
+.bignum .n { font-size: 11cqw; font-variant-numeric: tabular-nums; }
+.bignum .u { font-size: 3.6cqw; color: var(--fg); text-shadow: none; }
+.cap { position: absolute; left: 6cqw; top: 21.5cqw; margin: 0; font-size: 2.2cqw; font-weight: 500; color: var(--fg); }
+
+.chips { position: absolute; right: 6cqw; top: 10cqw; display: flex; flex-direction: column; align-items: flex-end; gap: 1.2cqw; }
+.chip { margin: 0; padding: 0.7cqw 1.8cqw; border: 1px solid var(--line); border-radius: 99px; background: rgba(6, 8, 13, 0.55); font-size: 2.3cqw; font-weight: 700; font-variant-numeric: tabular-nums; opacity: var(--p); transform: translateY(calc((1 - var(--p)) * 1.2cqw)); white-space: nowrap; }
+.chip small { font-family: var(--mono); font-size: 1.3cqw; font-weight: 400; color: var(--dim); margin-right: 0.8cqw; letter-spacing: 0.08em; }
+
+.gloss { position: absolute; left: 6cqw; top: 25.4cqw; margin: 0; display: flex; align-items: center; gap: 1.1cqw; font-size: 1.9cqw; font-weight: 500; opacity: var(--p); }
+.gloss b { font-family: var(--mono); font-weight: 500; font-size: 1.4cqw; letter-spacing: 0.1em; color: var(--ice); border: 1px solid var(--ice); border-radius: 0.5cqw; padding: 0.2cqw 0.9cqw; }
+
+.sub { position: absolute; left: 7cqw; right: 7cqw; bottom: 3.6cqw; min-height: 8cqw; display: flex; align-items: flex-end; justify-content: center; text-align: center; font-size: 2.8cqw; font-weight: 900; line-height: 1.35; text-wrap: balance; text-shadow: 0 0 1.2cqw rgba(0, 0, 0, 0.9), 0 0.2cqw 0.8cqw rgba(0, 0, 0, 0.9); }
+
+/* scene 0 */
+.s0 .hero { position: absolute; left: 0; right: 0; top: 11cqw; margin: 0; text-align: center; font-family: var(--display); font-weight: 900; font-size: 15cqw; line-height: 1.1; color: #fff6dc; text-shadow: 0 0 4cqw rgba(242, 198, 107, 0.55), 0 0 1cqw rgba(242, 198, 107, 0.5); }
+.s0 .hero-sub { position: absolute; left: 0; right: 0; top: 30cqw; margin: 0; text-align: center; font-size: 4cqw; font-weight: 900; letter-spacing: 0.3em; text-indent: 0.3em; color: var(--ice); }
+.s0 .date { position: absolute; left: 0; right: 0; top: 38.5cqw; margin: 0; text-align: center; font-family: var(--mono); font-size: 1.6cqw; letter-spacing: 0.18em; color: var(--dim); }
+.s0 .rule { position: absolute; left: 50%; top: 0; width: 1px; height: 10cqw; background: linear-gradient(var(--ice), transparent); }
+
+/* chapter cards */
+.chap .vline { position: absolute; left: 50%; top: 0; width: 1px; height: calc(var(--p) * 56.25cqw); background: linear-gradient(var(--ice), rgba(143, 208, 255, 0.1)); box-shadow: 0 0 1.2cqw rgba(143, 208, 255, 0.6); }
+.chap .wordbox { position: absolute; left: 0; right: 0; top: 9.5cqw; text-align: center; }
+.chap .word {
+  display: inline-block; font-family: var(--display); font-weight: 900; font-size: 17cqw; line-height: 1.15; letter-spacing: 0.05em;
+  background-image: linear-gradient(90deg, #ffe3a0 0 50%, #c7e9ff 50% 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 2.2cqw rgba(242, 198, 107, 0.5));
+  opacity: calc(var(--p) * 6); transform: scale(calc(1 + (1 - var(--p)) * 0.45));
+}
+.chap .flash { position: absolute; inset: 0; background: radial-gradient(60cqw 32cqw at 50% 38%, rgba(255, 236, 190, 0.9), transparent 70%); opacity: calc(var(--p) * (1 - var(--p)) * 3.4); }
+.chap .en { position: absolute; left: 0; right: 0; top: 33cqw; margin: 0; text-align: center; font-family: var(--mono); font-size: 1.8cqw; letter-spacing: 0.5em; text-indent: 0.5em; color: var(--dim); opacity: var(--p); }
+.chap .csub { position: absolute; left: 0; right: 0; top: 37.5cqw; margin: 0; text-align: center; font-size: 2.6cqw; font-weight: 900; color: var(--ice); opacity: var(--p); }
+.parts { position: absolute; left: 50%; top: 22cqw; width: 0; height: 0; }
+.parts i { position: absolute; left: 0; top: 0; width: var(--s); height: var(--s); border-radius: 50%; background: var(--gold); opacity: calc(var(--p) * (1 - var(--p)) * 4 * var(--o)); transform: translate(calc(var(--dx) * var(--p)), calc(var(--dy) * var(--p))); }
+.parts i.b { background: var(--ice); }
+
+/* scene: range chart (US$) */
+.rng { position: absolute; left: 6cqw; width: 88cqw; top: 30.5cqw; height: 15cqw; }
+.rng .band { position: absolute; top: 5.2cqw; height: 3.2cqw; background: var(--ice-fill); border: 1px solid var(--ice); border-radius: 0.5cqw; opacity: var(--p); }
+.rng .bandlab { position: absolute; top: 1.4cqw; margin: 0; text-align: center; font-size: 1.5cqw; color: var(--dim); opacity: var(--p); white-space: nowrap; }
+.rng .bandlab b { color: var(--fg); font-weight: 700; font-variant-numeric: tabular-nums; }
+.rng .gap { position: absolute; top: 6.3cqw; height: 1px; border-top: 1px dashed var(--gold); }
+.rng .act { position: absolute; top: 3.4cqw; width: 2px; height: 7cqw; background: var(--gold); box-shadow: 0 0 1.4cqw rgba(242, 198, 107, 0.8); opacity: var(--p); }
+.rng .actlab { position: absolute; top: -1.4cqw; margin: 0; transform: translateX(-50%); font-size: 1.7cqw; color: var(--fg); opacity: var(--p); white-space: nowrap; }
+.rng .actlab b { font-variant-numeric: tabular-nums; }
+.rng .diff { position: absolute; top: 8.6cqw; margin: 0; text-align: center; font-size: 1.5cqw; color: var(--fg); opacity: var(--p); white-space: nowrap; }
+.axis { position: absolute; left: 0; right: 0; bottom: 0; height: 3cqw; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 1.2cqw; color: var(--dim); }
+.axis span { position: absolute; top: 0.7cqw; transform: translateX(-50%); font-variant-numeric: tabular-nums; }
+.axis span::before { content: ""; position: absolute; left: 50%; top: -0.7cqw; height: 0.7cqw; width: 1px; background: var(--line); }
+.axis .unit { right: 0; left: auto; transform: none; }
+.axis .unit::before { display: none; }
+
+/* scene: monthly bars (US$) */
+.unit-tag { position: absolute; left: 6cqw; top: 15.6cqw; margin: 0; font-family: var(--mono); font-size: 1.15cqw; color: var(--dim); letter-spacing: 0.04em; }
+.bars { position: absolute; left: 6cqw; top: 19cqw; width: 58cqw; height: 24cqw; display: flex; gap: 3cqw; border-bottom: 1px solid var(--line); }
+.bcol { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+.bcol .v { margin: 0 0 0.8cqw; text-align: center; font-size: 2cqw; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; opacity: var(--p); }
+.bcol .v small { display: block; font-family: var(--mono); font-size: 1.05cqw; font-weight: 400; color: var(--dim); }
+.bcol .b { width: 100%; height: calc(var(--p) * var(--h)); background: var(--gold); border-radius: 0.5cqw 0.5cqw 0 0; box-shadow: 0 0 2cqw rgba(242, 198, 107, 0.25); }
+.bcol.ghost .b { background: var(--ice); box-shadow: none; opacity: 0.55; }
+.bcol .m { position: absolute; bottom: -3.4cqw; margin: 0; font-family: var(--mono); font-size: 1.35cqw; color: var(--dim); white-space: nowrap; }
+.bars .ref { position: absolute; left: 0; right: 0; bottom: 15.63cqw; border-top: 1px dashed var(--line); pointer-events: none; }
+.bars .ref span { position: absolute; right: 0; top: -1.8cqw; font-family: var(--mono); font-size: 1.1cqw; color: var(--dim); }
+.s2 .side { position: absolute; left: 70cqw; right: 6cqw; top: 21cqw; display: flex; flex-direction: column; align-items: flex-start; gap: 1.4cqw; }
+.s2 .bignum { top: 6cqw; }
+.s2 .bignum .n { font-size: 7.4cqw; }
+.s2 .bignum .u { font-size: 2.6cqw; }
+
+/* scene: margins */
+.mrow { position: absolute; left: 6cqw; right: 6cqw; height: 15cqw; }
+.mrow h3 { position: absolute; left: 0; top: 2cqw; margin: 0; font-size: 2.6cqw; font-weight: 900; }
+.mrow .desc { position: absolute; left: 0; top: 6.2cqw; width: 23cqw; margin: 0; font-size: 1.4cqw; line-height: 1.5; color: var(--dim); }
+.mtrack { position: absolute; left: 26cqw; right: 0; top: 0; bottom: 0; }
+.mtrack .band { position: absolute; top: 4.4cqw; height: 3.2cqw; background: var(--ice-fill); border: 1px solid var(--ice); border-radius: 0.5cqw; opacity: var(--p); }
+.mtrack .bandlab { position: absolute; top: 8cqw; margin: 0; text-align: center; font-size: 1.45cqw; color: var(--dim); opacity: var(--p); white-space: nowrap; }
+.mtrack .bandlab b { color: var(--fg); font-variant-numeric: tabular-nums; }
+.mtrack .dot { position: absolute; top: 4.5cqw; width: 3cqw; height: 3cqw; margin-left: -1.5cqw; border-radius: 50%; background: var(--gold); box-shadow: 0 0 1.6cqw rgba(242, 198, 107, 0.7); opacity: var(--p); transform: scale(calc(0.4 + var(--p) * 0.6)); }
+.mtrack .dotlab { position: absolute; top: 0.4cqw; margin: 0; transform: translateX(-50%); font-size: 1.6cqw; color: var(--fg); opacity: var(--p); white-space: nowrap; }
+.mtrack .dotlab b { font-variant-numeric: tabular-nums; }
+.mtrack .axis { top: 11.6cqw; bottom: auto; }
+
+/* scene: expectation */
+.s4 .bignum { top: 13cqw; }
+.s4 .cap { top: 26.5cqw; }
+.s4 .chips { top: 14cqw; }
+.s4 .chip { font-size: 3cqw; }
+.s4 .note { position: absolute; left: 6cqw; top: 31cqw; margin: 0; padding: 0.6cqw 1.4cqw; border: 1px solid var(--ice); border-radius: 0.5cqw; font-family: var(--mono); font-size: 1.4cqw; letter-spacing: 0.06em; color: var(--ice); }
+
+/* scene: watch list */
+.s5 h2, .s6 h2 { position: absolute; left: 6cqw; top: 7cqw; margin: 0; font-family: var(--display); font-weight: 900; font-size: 5cqw; line-height: 1.2; }
+.grid4 { position: absolute; left: 6cqw; right: 6cqw; top: 17.5cqw; display: grid; grid-template-columns: 1fr 1fr; gap: 2.2cqw 3cqw; }
+.item { padding: 1.8cqw 2.2cqw; border-top: 1px solid var(--line); opacity: var(--p); transform: translateY(calc((1 - var(--p)) * 1.4cqw)); min-width: 0; }
+.item p { margin: 0; }
+.item .k { font-family: var(--mono); font-size: 1.3cqw; letter-spacing: 0.16em; color: var(--gold); }
+.item .t { margin-top: 0.6cqw; font-size: 2.5cqw; font-weight: 900; line-height: 1.35; text-wrap: balance; }
+
+/* scene: risk */
+.s6 .stmt { position: absolute; left: 6cqw; width: 72cqw; top: 17cqw; margin: 0; font-size: 3.7cqw; font-weight: 900; line-height: 1.45; text-wrap: balance; opacity: var(--p); }
+.s6 .stmt em { font-style: normal; color: var(--gold); }
+.s7 .srclist { position: absolute; left: 6cqw; right: 6cqw; top: 9cqw; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.9cqw; }
+.s7 .srclist li { display: flex; align-items: baseline; gap: 2cqw; padding-bottom: 0.9cqw; border-bottom: 1px solid var(--line); opacity: var(--p); }
+.s7 .srclist b { flex: 0 0 24cqw; font-weight: 900; font-size: 2cqw; color: var(--fg); }
+.s7 .srclist span { min-width: 0; font-family: var(--mono); font-size: 1.7cqw; color: var(--ice); letter-spacing: 0.02em; overflow-wrap: anywhere; }
+.s7 .foot { position: absolute; right: 6cqw; top: 3.3cqw; margin: 0; padding: 0.5cqw 1.2cqw; border: 1px solid var(--line); border-radius: 0.5cqw; font-family: var(--mono); font-size: 1.15cqw; letter-spacing: 0.06em; color: var(--fg); opacity: var(--p); }
+.s6 .foot { position: absolute; left: 6cqw; top: 38cqw; margin: 0; padding: 0.8cqw 1.6cqw; border: 1px solid var(--line); border-radius: 0.5cqw; font-family: var(--mono); font-size: 1.5cqw; letter-spacing: 0.1em; color: var(--fg); opacity: var(--p); }
+
+.bigplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 3; display: flex; align-items: center; gap: 1cqw; padding: 1.2cqw 3cqw; background: rgba(6, 8, 13, 0.78); color: var(--fg); border: 1px solid var(--gold); border-radius: 99px; font: 900 2.4cqw var(--sans); cursor: pointer; box-shadow: 0 0 3cqw rgba(242, 198, 107, 0.3); }
+.bigplay[hidden] { display: none; }
+
+/* controls */
+.ctrl { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.btn { appearance: none; background: var(--ink-2); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 7px 16px; font: 700 14px var(--sans); cursor: pointer; }
+.btn:hover { border-color: var(--gold); }
+.btn[aria-pressed="false"] { color: var(--dim); }
+.btn:focus-visible, .bigplay:focus-visible, .stagewrap:focus-visible, input[type="range"]:focus-visible { outline: 2px solid var(--ice); outline-offset: 2px; }
+.scrub { position: relative; flex: 1 1 220px; min-width: 0; height: 28px; }
+.scrub input { position: absolute; inset: 0; width: 100%; margin: 0; background: transparent; accent-color: var(--gold); cursor: pointer; }
+.ticks i { position: absolute; top: 2px; height: 5px; width: 1px; background: var(--dim); pointer-events: none; }
+.vol { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--dim); }
+.vol input { width: 96px; accent-color: var(--gold); }
+.dlrow { flex-basis: 100%; display: flex; align-items: center; gap: 12px; }
+.dlrow .bar { flex: 0 0 min(320px, 50%); height: 8px; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.dlrow .bar[hidden] { display: none; }
+.dlrow .bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width 0.15s linear; }
+.time { font-family: var(--mono); font-size: 13px; color: var(--dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* script, glossary, sources */
+h2.sec { margin: 0 0 10px; font-family: var(--display); font-weight: 900; font-size: 22px; }
+.hint { margin: 0 0 12px; color: var(--dim); font-size: 14px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 14px; }
+th, td { text-align: left; padding: 8px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-weight: 400; font-size: 12px; letter-spacing: 0.1em; color: var(--dim); }
+td.t { font-family: var(--mono); font-size: 13px; color: var(--dim); white-space: nowrap; font-variant-numeric: tabular-nums; }
+tr.sc td { background: var(--ink-2); color: var(--gold); font-weight: 700; font-size: 13px; }
+tr:last-child td { border-bottom: 0; }
+dl.gl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; font-size: 14px; }
+dl.gl dt { font-weight: 700; color: var(--fg); }
+dl.gl dd { margin: 0; color: var(--dim); min-width: 0; }
+@media (max-width: 520px) { dl.gl { grid-template-columns: 1fr; gap: 2px; } dl.gl dd { margin-bottom: 8px; } }
+ul.srcs { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
+ul.srcs a { color: var(--ice); overflow-wrap: anywhere; }
+ul.srcs span { color: var(--dim); }
+ul.srcs span.nm { color: var(--fg); font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene, .scene.chap { transition: none; }
+}
+</style>
+
+<main class="wrap">
+  <header class="top">
+    <p class="eyebrow">半导体 · 财报前瞻 · 样片</p>
+    <h1>台积电三季报前瞻</h1>
+    <p class="meta">横屏 16:9，约 2 分 36 秒，无配音，含固定背景音乐和合成音效（点播放后出声，点“保存视频”可下载 1080p 的 mp4）。六个专场页的“咚”都落在音乐的小节强拍上。口播稿、卡点表和名词解释在下方。数据截至 2026-10-14，台积电法说会为 10-15 14:00（UTC+8）。</p>
+  </header>
+
+  <section aria-label="视频播放器">
+    <div class="stagewrap" id="stagewrap" tabindex="0">
+      <div class="frame" id="frame">
+
+        <!-- 0 开场 -->
+        <div class="scene s0" data-start="0" data-end="6.663">
+          <i class="rule"></i>
+          <p class="tag"><b>情报简报</b> · 半导体</p>
+          <h2 class="hero">台积电</h2>
+          <p class="hero-sub">三季度财报前瞻</p>
+          <p class="date">TSMC 3Q26 · 2026.10.15 · 14:00 UTC+8</p>
+        </div>
+
+        <!-- 1 章节：营收 -->
+        <div class="scene chap" data-start="6.663" data-end="9.2">
+          <i class="vline" data-a="0,0.5"></i>
+          <div class="flash" data-a="0.35,0.8"></div>
+          <div class="parts" data-a="0.35,2.6"></div>
+          <div class="wordbox"><span class="word" data-a="0.35,0.4">营收</span></div>
+          <p class="en" data-a="0.9,0.6">REVENUE</p>
+          <p class="csub" data-a="1.2,0.6">关键数字 1 / 3</p>
+        </div>
+
+        <!-- 2 三季度营收 -->
+        <div class="scene s1" data-start="9.2" data-end="34.324">
+          <p class="tag"><b>关键数字 1 / 3</b> · 营收</p>
+          <p class="bignum"><span class="u">US$</span><span class="n" data-a="0.3,1.8" data-count="467.1" data-dec="1">0.0</span><span class="u">亿</span></p>
+          <p class="cap">2026 年第三季度营收（折合美元）</p>
+          <div class="chips">
+            <p class="chip" data-a="4.5,0.6"><small>同比</small>+50.9%</p>
+            <p class="chip" data-a="5.4,0.6"><small>环比</small>+17.6%</p>
+          </div>
+          <p class="gloss" data-a="6.3,0.7"><b>指引</b>公司上个季度先给出的预告：这个季度大概能卖多少。</p>
+          <div class="rng">
+            <div class="band" data-a="12.3,1" style="left:17.143%;width:34.286%"></div>
+            <p class="bandlab" data-a="12.3,1" style="left:17.143%;width:34.286%">预告范围（指引） <b>446 – 458</b></p>
+            <div class="gap" data-a="19.5,1.2" style="left:51.429%;width:calc(var(--p) * 26%)"></div>
+            <div class="act" data-a="18.8,0.8" style="left:77.429%"></div>
+            <p class="actlab" data-a="18.8,0.8" style="left:77.429%">实际 <b>467.1</b></p>
+            <p class="diff" data-a="21.5,0.8" style="left:51.429%;width:26%">+9 亿美元，约高 2%</p>
+            <div class="axis">
+              <span style="left:0%">440</span><span style="left:28.571%">450</span><span style="left:57.143%">460</span><span style="left:85.714%">470</span>
+              <span class="unit">亿美元</span>
+            </div>
+          </div>
+          <p class="src">来源：台积电 7/16 法说会指引（US$446–458 亿）；实际为 NT$1.494 万亿，折合约 US$467 亿（TrendForce 引 Reuters）。增速按新台币计算。</p>
+        </div>
+
+        <!-- 3 章节：九月 -->
+        <div class="scene chap" data-start="34.324" data-end="37.2">
+          <i class="vline" data-a="0,0.5"></i>
+          <div class="flash" data-a="0.35,0.8"></div>
+          <div class="parts" data-a="0.35,2.6"></div>
+          <div class="wordbox"><span class="word" data-a="0.35,0.4">九月</span></div>
+          <p class="en" data-a="0.9,0.6">SEPTEMBER</p>
+          <p class="csub" data-a="1.2,0.6">关键数字 2 / 3</p>
+        </div>
+
+        <!-- 4 9月营收 -->
+        <div class="scene s2" data-start="37.2" data-end="59.857">
+          <p class="tag"><b>关键数字 2 / 3</b> · 9 月营收</p>
+          <p class="bignum"><span class="u">约 US$</span><span class="n" data-a="0.4,1.6" data-count="160" data-dec="0">0</span><span class="u">亿</span></p>
+          <p class="unit-tag">单位：亿美元，按 1 美元 ≈ 32 新台币折算，小字为新台币亿元</p>
+          <div class="bars">
+            <div class="ref"><span>≈ 新台币 5,000 亿</span></div>
+            <div class="bcol ghost" data-a="2.5,1" style="--h:10.34cqw"><p class="v">103<small>NT$3,310</small></p><div class="b"></div><p class="m">2025 年 9 月</p></div>
+            <div class="bcol" data-a="4,1" style="--h:14.61cqw"><p class="v">146<small>NT$4,676</small></p><div class="b"></div><p class="m">2026 年 7 月</p></div>
+            <div class="bcol" data-a="5.5,1" style="--h:16.09cqw"><p class="v">161<small>NT$5,148</small></p><div class="b"></div><p class="m">8 月</p></div>
+            <div class="bcol" data-a="7,1" style="--h:16cqw"><p class="v">160<small>NT$5,119</small></p><div class="b"></div><p class="m">9 月</p></div>
+          </div>
+          <div class="side">
+            <p class="chip" data-a="5.8,0.6"><small>同比</small>+54.6%</p>
+            <p class="chip" data-a="16,0.6"><small>环比</small>−0.6%</p>
+            <p class="chip" data-a="19.3,0.6"><small>1–9 月</small>+41.1%</p>
+          </div>
+          <p class="src">来源：台积电 2026 年 9 月营收公告（10/8）。按实际汇率折算，9 月为 US$160.7 亿（Devdiscourse）。增速按新台币计算。</p>
+        </div>
+
+        <!-- 5 章节：利润率 -->
+        <div class="scene chap" data-start="59.857" data-end="63.2">
+          <i class="vline" data-a="0,0.5"></i>
+          <div class="flash" data-a="0.35,0.8"></div>
+          <div class="parts" data-a="0.35,2.6"></div>
+          <div class="wordbox"><span class="word" data-a="0.35,0.4">利润率</span></div>
+          <p class="en" data-a="0.9,0.6">MARGIN</p>
+          <p class="csub" data-a="1.2,0.6">关键数字 3 / 3</p>
+        </div>
+
+        <!-- 6 利润率 -->
+        <div class="scene s3" data-start="63.2" data-end="91.773">
+          <p class="tag"><b>关键数字 3 / 3</b> · 利润率</p>
+          <div class="mrow" style="top:10cqw">
+            <h3>毛利率</h3>
+            <p class="desc">每卖 100 元，扣掉造芯片的成本，还剩多少</p>
+            <div class="mtrack">
+              <p class="dotlab" data-a="7.5,0.8" style="left:71.25%">二季度 <b>67.7%</b></p>
+              <div class="dot" data-a="7.5,0.8" style="left:71.25%"></div>
+              <div class="band" data-a="15,1" style="left:37.5%;width:25%"></div>
+              <p class="bandlab" data-a="15,1" style="left:37.5%;width:25%">三季度预告 <b>65–67%</b></p>
+              <div class="axis"><span style="left:0%">62%</span><span style="left:25%">64%</span><span style="left:50%">66%</span><span style="left:75%">68%</span><span style="left:100%">70%</span></div>
+            </div>
+          </div>
+          <div class="mrow" style="top:28cqw">
+            <h3>营业利润率</h3>
+            <p class="desc">再扣掉研发、管理等费用，还剩多少</p>
+            <div class="mtrack">
+              <p class="dotlab" data-a="22,0.8" style="left:78.75%">二季度 <b>60.3%</b></p>
+              <div class="dot" data-a="22,0.8" style="left:78.75%"></div>
+              <div class="band" data-a="24.5,1" style="left:25%;width:25%"></div>
+              <p class="bandlab" data-a="24.5,1" style="left:25%;width:25%">三季度预告 <b>56–58%</b></p>
+              <div class="axis"><span style="left:0%">54%</span><span style="left:25%">56%</span><span style="left:50%">58%</span><span style="left:75%">60%</span><span style="left:100%">62%</span></div>
+            </div>
+          </div>
+          <p class="src">来源：台积电投资者关系页，二季度实际值与三季度指引。实际三季度利润率将在 10/15 公布。</p>
+        </div>
+
+        <!-- 7 章节：预期 -->
+        <div class="scene chap" data-start="91.773" data-end="95.2">
+          <i class="vline" data-a="0,0.5"></i>
+          <div class="flash" data-a="0.35,0.8"></div>
+          <div class="parts" data-a="0.35,2.6"></div>
+          <div class="wordbox"><span class="word" data-a="0.35,0.4">预期</span></div>
+          <p class="en" data-a="0.9,0.6">EXPECTATION</p>
+          <p class="csub" data-a="1.2,0.6">市场怎么看</p>
+        </div>
+
+        <!-- 8 市场预期 -->
+        <div class="scene s4" data-start="95.2" data-end="111.987">
+          <p class="tag"><b>市场预期</b> · 净利润</p>
+          <p class="bignum"><span class="u">约 US$</span><span class="n" data-a="0.4,1.8" data-count="231" data-dec="0">0</span><span class="u">亿</span></p>
+          <p class="cap">分析师预期：三季度净利润（约 NT$7,408 亿）</p>
+          <div class="chips"><p class="chip" data-a="7.8,0.6"><small>同比</small>+64%</p></div>
+          <p class="note" data-a="8,0.6">预期值，非实际数据 · 按 1 美元 ≈ 32 新台币折算</p>
+          <p class="src">来源：LSEG 分析师预期，经 Reuters、TrendForce News 转引。增速按新台币计算。</p>
+        </div>
+
+        <!-- 9 章节：看点 -->
+        <div class="scene chap" data-start="111.987" data-end="115.2">
+          <i class="vline" data-a="0,0.5"></i>
+          <div class="flash" data-a="0.35,0.8"></div>
+          <div class="parts" data-a="0.35,2.6"></div>
+          <div class="wordbox"><span class="word" data-a="0.35,0.4">看点</span></div>
+          <p class="en" data-a="0.9,0.6">WATCHLIST</p>
+          <p class="csub" data-a="1.2,0.6">明天的法说会</p>
+        </div>
+
+        <!-- 10 明天看什么 -->
+        <div class="scene s5" data-start="115.2" data-end="136.456">
+          <p class="tag"><b>法说会</b> · 10/15 14:00 UTC+8</p>
+          <h2>明天，看四件事</h2>
+          <div class="grid4">
+            <div class="item" data-a="0.4,0.7"><p class="k">指引</p><p class="t">四季度预告：下季度卖多少、赚多少</p></div>
+            <div class="item" data-a="7,0.7"><p class="k">技术</p><p class="t">2 纳米：最新一代工艺的进展</p></div>
+            <div class="item" data-a="13.5,0.7"><p class="k">投入</p><p class="t">明年的资本开支：花多少钱扩产</p></div>
+            <div class="item" data-a="18,0.7"><p class="k">定价与布局</p><p class="t">会不会涨价，要不要去德州建厂</p></div>
+          </div>
+          <p class="src">来源：Taiwan News（10/9）、Barchart（经 Webull 转载）</p>
+        </div>
+
+        <!-- 11 章节：风险 -->
+        <div class="scene chap" data-start="136.456" data-end="140.2">
+          <i class="vline" data-a="0,0.5"></i>
+          <div class="flash" data-a="0.35,0.8"></div>
+          <div class="parts" data-a="0.35,2.6"></div>
+          <div class="wordbox"><span class="word" data-a="0.35,0.4">风险</span></div>
+          <p class="en" data-a="0.9,0.6">RISK</p>
+          <p class="csub" data-a="1.2,0.6">最后要留意的</p>
+        </div>
+
+        <!-- 12 风险与声明 -->
+        <div class="scene s6" data-start="140.2" data-end="149">
+          <p class="tag"><b>风险点</b></p>
+          <h2>营收已经创新高</h2>
+          <p class="stmt" data-a="1,1.2">有分析认为，如果四季度的<em>利润率预告</em>偏弱，股价仍可能承压。</p>
+          <p class="src">观点来源：Barchart（经 Webull 转载）</p>
+        </div>
+
+        <!-- 13 数据来源 -->
+        <div class="scene s7" data-start="149" data-end="156">
+          <p class="tag"><b>数据来源</b> · SOURCES</p>
+          <ul class="srclist">
+            <li data-a="0.30,0.5"><b>台积电 9 月营收公告</b><span>pr.tsmc.com/english/news/3343</span></li>
+            <li data-a="0.48,0.5"><b>台积电投资者关系</b><span>investor.tsmc.com/quarterly-results</span></li>
+            <li data-a="0.66,0.5"><b>TrendForce News</b><span>trendforce.com/news/?p=65041</span></li>
+            <li data-a="0.84,0.5"><b>Devdiscourse</b><span>devdiscourse.com/article/business/3988867-tsmc-…</span></li>
+            <li data-a="1.02,0.5"><b>Xenospectrum</b><span>xenospectrum.com/en/tsmc-q3-2026-revenue-2nm-margin/</span></li>
+            <li data-a="1.20,0.5"><b>Taiwan News</b><span>taiwannews.com.tw/news/6454456</span></li>
+            <li data-a="1.38,0.5"><b>Barchart（Webull 转载）</b><span>webull.com/news/15700818777801728</span></li>
+          </ul>
+          <p class="foot" data-a="1.8,0.6">信息整理，不构成投资建议 · 数据截至 2026-10-14</p>
+        </div>
+
+        <div class="sub" id="sub" aria-live="off"></div>
+        <button class="bigplay" id="bigplay" type="button">▶ 播放</button>
+      </div>
+
+      <div class="ctrl">
+        <button class="btn" id="pp" type="button">播放</button>
+        <div class="scrub">
+          <input id="seek" type="range" min="0" max="156" step="0.1" value="0" aria-label="播放进度">
+          <div class="ticks" id="ticks" aria-hidden="true"></div>
+        </div>
+        <span class="time" id="time">0:00 / 2:36</span>
+        <button class="btn" id="snd" type="button" aria-pressed="true">音效 开</button>
+        <button class="btn" id="mus" type="button" aria-pressed="true">音乐 开</button>
+        <label class="vol"><span>音乐音量</span><input id="mvol" type="range" min="0" max="100" value="60" aria-label="音乐音量"></label>
+        <span class="time" id="mstat" aria-live="polite"></span>
+        <button class="btn" id="dl" type="button">保存视频</button>
+        <button class="btn" id="fs" type="button">全屏</button>
+        <div class="dlrow" id="dlrow" hidden>
+          <span class="bar" id="dlbarbox"><i id="dlbar"></i></span>
+          <span class="time" id="dlstat" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">口播稿</h2>
+    <p class="hint">时间码对应画面字幕，可直接交给配音或 TTS。画面内的来源小字不需要念出。</p>
+    <div class="tablewrap"><table><thead><tr><th>时间</th><th>口播</th></tr></thead><tbody id="scriptbody"></tbody></table></div>
+  </section>
+
+  <section>
+    <h2 class="sec">音乐卡点</h2>
+    <p class="hint">背景音乐是固定的 112.8 拍每分钟，每小节约 2.13 秒，全曲节拍没有漂移。视频从曲子的第 10.4 秒开始放，最后 5 秒淡出。每个专场页的“咚”落在下面这些位置。</p>
+    <div class="tablewrap"><table><thead><tr><th>专场页</th><th>“咚”的时间</th><th>音乐位置</th></tr></thead><tbody>
+      <tr><td>营收</td><td class="t">0:07.0</td><td>第 9 小节第 1 拍，鼓组进入，音乐从铺垫转为正式律动</td></tr>
+      <tr><td>九月</td><td class="t">0:34.7</td><td>第 22 小节第 1 拍</td></tr>
+      <tr><td>利润率</td><td class="t">1:00.2</td><td>第 34 小节第 1 拍</td></tr>
+      <tr><td>预期</td><td class="t">1:32.1</td><td>第 49 小节第 1 拍，音乐的低谷段结束、鼓组重新炸开</td></tr>
+      <tr><td>看点</td><td class="t">1:52.3</td><td>第 58 小节第 3 拍</td></tr>
+      <tr><td>风险</td><td class="t">2:16.8</td><td>第 70 小节第 1 拍</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section>
+    <h2 class="sec">名词解释</h2>
+    <dl class="gl">
+      <dt>指引</dt><dd>公司在上一次财报会上提前给出的预告，说下个季度大概能卖多少、利润率大概多少。像考试前先说“这次大概考 90 到 95 分”。实际结果超过上限，就是比自己的预告还好。</dd>
+      <dt>毛利率</dt><dd>每卖 100 元，扣掉制造成本后还剩多少。67.7% 就是剩 67.7 元。</dd>
+      <dt>营业利润率</dt><dd>在毛利之外，再扣掉研发、管理等日常费用后还剩多少。</dd>
+      <dt>同比 / 环比</dt><dd>同比是和去年同一时期比，环比是和上一个月（或上一个季度）比。</dd>
+      <dt>法说会</dt><dd>公司向投资者说明业绩、回答提问的电话会议。</dd>
+      <dt>资本开支</dt><dd>公司花在建厂、买设备上的钱，通常说明它对未来需求的判断。</dd>
+      <dt>2 纳米</dt><dd>目前最新一代的芯片制造工艺，数字越小，芯片越先进。</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2 class="sec">数据来源</h2>
+    <ul class="srcs">
+      <li><span class="nm">台积电 2026 年 9 月营收公告</span> <span>9 月、1–9 月累计营收</span><br><a href="https://pr.tsmc.com/english/news/3343" target="_blank" rel="noopener">https://pr.tsmc.com/english/news/3343</a></li>
+      <li><span class="nm">台积电投资者关系：季度业绩与指引</span> <span>二季度实际值、三季度指引（美元）、法说会时间</span><br><a href="https://investor.tsmc.com/quarterly-results" target="_blank" rel="noopener">https://investor.tsmc.com/quarterly-results</a></li>
+      <li><span class="nm">TrendForce News</span> <span>三季度营收折合 US$467.1 亿；LSEG 对净利润的预期</span><br><a href="https://www.trendforce.com/news/?p=65041" target="_blank" rel="noopener">https://www.trendforce.com/news/?p=65041</a></li>
+      <li><span class="nm">Devdiscourse</span> <span>9 月营收按实际汇率折合 US$160.7 亿</span><br><a href="https://www.devdiscourse.com/article/business/3988867-tsmc-september-revenue-surges-546-yoy-to-usd-1607-billion-slips-marginally-month-on-month" target="_blank" rel="noopener">https://www.devdiscourse.com/article/business/3988867-tsmc-september-revenue-surges-546-yoy-to-usd-1607-billion-slips-marginally-month-on-month</a></li>
+      <li><span class="nm">Xenospectrum：TSMC Q3 2026 revenue</span> <span>7 月、8 月月度营收，加总与官方数据一致</span><br><a href="https://xenospectrum.com/en/tsmc-q3-2026-revenue-2nm-margin/" target="_blank" rel="noopener">https://xenospectrum.com/en/tsmc-q3-2026-revenue-2nm-margin/</a></li>
+      <li><span class="nm">Taiwan News</span> <span>法说会关注点：资本开支、德州建厂、涨价</span><br><a href="https://www.taiwannews.com.tw/news/6454456" target="_blank" rel="noopener">https://www.taiwannews.com.tw/news/6454456</a></li>
+      <li><span class="nm">Barchart（Webull 转载）</span> <span>毛利率指引与 2 纳米的看点</span><br><a href="https://www.webull.com/news/15700818777801728" target="_blank" rel="noopener">https://www.webull.com/news/15700818777801728</a></li>
+    </ul>
+    <p class="hint" style="margin-top:12px">折算说明：三季度美元数字来自 TrendForce 的折算；9 月柱状图和净利润预期按 1 美元 ≈ 32 新台币估算（台积电做指引时用的汇率），所以带“约”字。同比、环比、累计增速都按新台币计算，与台积电公告一致。同比 +50.9% 由 2025、2026 年 7–9 月的月度营收加总得出。</p>
+  </section>
+</main>
+
+<script id="musicdata" type="application/octet-stream">@@MUSIC@@</script>
+<script>
+(function () {
+  var DUR = 156;
+  var NAMES = ['开场', '章节 · 营收', '关键数字 1 · 三季度营收', '章节 · 九月', '关键数字 2 · 9 月营收', '章节 · 利润率', '关键数字 3 · 利润率', '章节 · 预期', '市场预期', '章节 · 看点', '明天看什么', '章节 · 风险', '风险与声明', '数据来源'];
+  // [scene index, start, end, text]
+  var LINES = [
+    [0, 0, 3, '明天下午两点，台积电公布三季度财报。'],
+    [0, 3, 6.663, '但最关键的数字，其实已经提前公布了。'],
+    [1, 7.06, 9.2, '第一个数字：卖了多少钱。'],
+    [2, 9.4, 15.5, '三季度营收约 467 亿美元，同比增长约 51%。'],
+    [2, 15.5, 21.5, '先解释一个词：指引，就是公司事先给的预告。'],
+    [2, 21.5, 28, '上季度它说，这个季度大概卖 446 到 458 亿美元。'],
+    [2, 28, 34.324, '结果实际卖了 467 亿，比预告上限还高约 2%。'],
+    [3, 34.72, 37.2, '第二个数字：最新一个月。'],
+    [4, 37.4, 45, '9 月营收约 160 亿美元，同比增长 54.6%。'],
+    [4, 45, 53, '连续第二个月，月营收超过 5,000 亿新台币。'],
+    [4, 53, 59.857, '比 8 月的纪录略低 0.6%；前三季度累计，同比增长 41%。'],
+    [5, 60.26, 63.2, '第三个数字：赚钱的效率。'],
+    [6, 63.4, 70, '利润率，就是每赚一块钱，最后能留下多少。'],
+    [6, 70, 78, '毛利率：每卖 100 元，扣掉造芯片的成本，二季度还剩 67.7 元。'],
+    [6, 78, 85, '但三季度的预告是 65 到 67 元，比二季度少。'],
+    [6, 85, 91.773, '营业利润率也一样：从 60.3%，预告降到 56% 到 58%。'],
+    [7, 92.17, 95.2, '市场对利润的预期。'],
+    [8, 95.4, 103, '分析师预期，三季度净利润约 231 亿美元。'],
+    [8, 103, 109, '同比增长 64%。注意，这是预期，不是实际结果。'],
+    [8, 109, 111.987, '实际数字，明天揭晓。'],
+    [9, 112.39, 115.2, '明天，看这四件事。'],
+    [10, 115.4, 122, '第一，四季度预告：下个季度大概卖多少、赚多少。'],
+    [10, 122, 128.5, '第二，2 纳米：最新一代工艺，进展如何。'],
+    [10, 128.5, 133, '第三，明年准备花多少钱扩产。'],
+    [10, 133, 136.456, '第四，会不会涨价，要不要去德州建厂。'],
+    [11, 136.86, 140.2, '最后，一个风险。'],
+    [12, 140.4, 149, '有分析认为，如果四季度的利润率预告偏弱，即使营收创新高，股价也可能承压。'],
+    [13, 149, 156, '以上为公开信息整理，不构成投资建议。数据来源见画面。']
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var sceneEls = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  var scenes = sceneEls.map(function (el) {
+    return {
+      el: el, s: +el.dataset.start, e: +el.dataset.end,
+      anims: Array.prototype.slice.call(el.querySelectorAll('[data-a]'))
+    };
+  });
+  var sub = $('sub'), seek = $('seek'), timeEl = $('time'), pp = $('pp'), bigplay = $('bigplay');
+  var T = 0, playing = false, last = 0, cur = -1, curLine = -2;
+
+  function clamp(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function fmt(t) { t = Math.max(0, Math.floor(t)); return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2); }
+
+  // decorative dust for the chapter cards (seeded, so every card looks the same on every play)
+  function rng(seed) {
+    return function () {
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.parts'), function (box, bi) {
+    var r = rng(bi + 11);
+    for (var k = 0; k < 44; k++) {
+      var a = r() * Math.PI * 2, d = 10 + r() * 38;
+      var i = document.createElement('i');
+      i.style.setProperty('--dx', (Math.cos(a) * d).toFixed(1) + 'cqw');
+      i.style.setProperty('--dy', (Math.sin(a) * d * 0.55).toFixed(1) + 'cqw');
+      i.style.setProperty('--o', (0.35 + r() * 0.65).toFixed(2));
+      i.style.setProperty('--s', (0.3 + r() * 0.5).toFixed(2) + 'cqw');
+      if (k % 2) i.className = 'b';
+      box.appendChild(i);
+    }
+  });
+
+  function render() {
+    var i = 0;
+    for (var k = 0; k < scenes.length; k++) { if (T >= scenes[k].s) i = k; }
+    if (i !== cur) {
+      scenes.forEach(function (s, k) { s.el.classList.toggle('on', k === i); });
+      cur = i;
+    }
+    var sc = scenes[i], lt = T - sc.s;
+    sc.anims.forEach(function (el) {
+      var a = el.dataset.a.split(',');
+      var p = clamp((lt - (+a[0])) / (+a[1]));
+      var e = 1 - Math.pow(1 - p, 3);
+      el.style.setProperty('--p', e.toFixed(4));
+      if (el.dataset.count) {
+        var v = (+el.dataset.count) * e, d = +el.dataset.dec;
+        el.textContent = v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+      }
+    });
+    var li = -1;
+    for (var j = 0; j < LINES.length; j++) { if (T >= LINES[j][1] && T < LINES[j][2]) { li = j; break; } }
+    if (T >= DUR) li = LINES.length - 1;
+    if (li !== curLine) {
+      curLine = li;
+      sub.textContent = li >= 0 ? LINES[li][3] : '';
+    }
+    seek.value = T;
+    timeEl.textContent = fmt(T) + ' / ' + fmt(DUR);
+  }
+
+  // ---- audio: the music track and the synthesized effects share one clock (the Web Audio clock) ----
+  var AC = null, master = null, musicEnv = null, musicVol = null, noiseBuf = null;
+  var musicBytes = null, musicBuf = null, musicSrc = null, musicState = 'idle';
+  var sfxOn = true, musicOn = true, musicLevel = 0.6;
+  var T0 = 0, ctxStart = 0, schedT = 0, countStep = -1, LOOK = 0.2;
+  // The track is a constant 112.79 BPM: first beat at 0.391 s, one beat = 0.53194 s.
+  // Video time 0 sits 10.4 s into the track, so bar 8 (the groove starts) lands at 7.01 s and bar 48 (the drop) at 92.12 s.
+  var S0 = 10.4, BEAT0 = 0.391, BEAT = 0.53194;
+
+  function updMusicUI() {
+    var b = $('mus'), st = $('mstat');
+    b.textContent = musicState === 'failed' ? '音乐 无法加载' : (musicOn ? '音乐 开' : '音乐 关');
+    b.setAttribute('aria-pressed', musicOn ? 'true' : 'false');
+    st.textContent = (musicState === 'ready' || musicState === 'failed') ? '' : '音乐载入中…';
+  }
+  function ensureAudio() {
+    if (AC) return;
+    var C = window.AudioContext || window.webkitAudioContext;
+    if (!C) return;
+    try {
+      AC = new C();
+      master = AC.createGain(); master.gain.value = 0.55;
+      var comp = AC.createDynamicsCompressor();
+      master.connect(comp); comp.connect(AC.destination);
+      musicEnv = AC.createGain();
+      musicVol = AC.createGain(); musicVol.gain.value = musicOn ? musicLevel : 0;
+      musicEnv.connect(musicVol); musicVol.connect(master);
+    } catch (e) { AC = null; return; }
+    decodeMusic();
+  }
+  function resumeAudio() {
+    if (AC && AC.state === 'suspended' && AC.resume) {
+      try { var r = AC.resume(); if (r && r.catch) r.catch(function () {}); } catch (e) {}
+    }
+  }
+  function decodeMusic() {
+    if (!AC || !musicBytes || musicState === 'ready' || musicState === 'decoding') return;
+    musicState = 'decoding'; updMusicUI();
+    var ab = musicBytes.slice(0);
+    new Promise(function (res, rej) {
+      var p = AC.decodeAudioData(ab, res, rej);
+      if (p && p.then) p.then(res, rej);
+    }).then(function (buf) {
+      musicBuf = buf; musicState = 'ready'; updMusicUI();
+      if (playing) resync();
+    }).catch(function () { musicState = 'failed'; updMusicUI(); });
+  }
+  try {
+    var bin = atob($('musicdata').textContent.replace(/\s+/g, ''));
+    var u8 = new Uint8Array(bin.length);
+    for (var mi = 0; mi < bin.length; mi++) u8[mi] = bin.charCodeAt(mi);
+    musicBytes = u8.buffer;
+  } catch (e) { musicState = 'failed'; }
+
+  function stopMusic() {
+    if (musicSrc) {
+      try { musicSrc.stop(); } catch (e) {}
+      try { musicSrc.disconnect(); } catch (e) {}
+      musicSrc = null;
+    }
+  }
+  function startMusic() {
+    stopMusic();
+    if (!AC || !musicBuf) return;
+    var off = T0 + S0;                       // where in the track the video time T0 sits
+    if (off >= musicBuf.duration) return;
+    var s = AC.createBufferSource();
+    s.buffer = musicBuf; s.connect(musicEnv);
+    s.start(ctxStart, Math.max(0, off));
+    s.stop(ctxStart + (DUR - T0) + 0.15);
+    musicSrc = s;
+    // envelope: a short fade in, and a fade out over the last 5 s of the video
+    var g = musicEnv.gain, fadeFrom = DUR - 5, fi = T0 < 0.5 ? 0.4 : 0.06;
+    g.cancelScheduledValues(0);
+    g.setValueAtTime(0.0001, ctxStart);
+    g.linearRampToValueAtTime(T0 >= fadeFrom ? Math.max(0.0001, (DUR - T0) / 5) : 1, ctxStart + fi);
+    if (T0 < fadeFrom) g.setValueAtTime(1, ctxStart + (fadeFrom - T0));
+    g.linearRampToValueAtTime(0.0001, ctxStart + (DUR - T0));
+  }
+  function applyMusicLevel() {
+    if (AC && musicVol) musicVol.gain.setTargetAtTime(musicOn ? musicLevel : 0, AC.currentTime, 0.04);
+  }
+
+  // ---- transport: while playing, the timeline follows the audio clock ----
+  function clock() { return AC ? AC.currentTime : performance.now() / 1000; }
+  function resync() {
+    if (!playing) return;
+    ctxStart = clock() + 0.06; T0 = T; schedT = T; countStep = -1;
+    startMusic();
+  }
+  function setPlaying(on) {
+    playing = on;
+    pp.textContent = on ? '暂停' : (T >= DUR ? '重播' : '播放');
+    bigplay.hidden = on || T > 0.05;
+    if (on) { resync(); requestAnimationFrame(tick); } else { stopMusic(); }
+  }
+  function tick() {
+    if (!playing) return;
+    var prev = T;
+    T = Math.max(T0, T0 + (clock() - ctxStart));
+    scheduleCues(T, T - prev);
+    if (T >= DUR) { T = DUR; render(); setPlaying(false); bigplay.hidden = true; return; }
+    render();
+    requestAnimationFrame(tick);
+  }
+  function toggle() {
+    ensureAudio(); resumeAudio();
+    if (!playing && T >= DUR - 0.05) T = 0;
+    setPlaying(!playing);
+    render();
+  }
+  document.addEventListener('visibilitychange', function () { if (document.hidden && playing) setPlaying(false); });
+
+  // ---- effects ----
+  function tone(type, f0, f1, t, a, d, peak) {
+    var o = AC.createOscillator(), g = AC.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(f0, t);
+    if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t + a + d);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + a);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + a + d);
+    o.connect(g); g.connect(master);
+    o.start(t); o.stop(t + a + d + 0.05);
+  }
+  function noise() {
+    if (!noiseBuf) {
+      noiseBuf = AC.createBuffer(1, AC.sampleRate, AC.sampleRate);
+      var ch = noiseBuf.getChannelData(0);
+      for (var i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
+    }
+    return noiseBuf;
+  }
+  function filtered(kind, f0, f1, t, dur, peak, atk) {
+    var s = AC.createBufferSource(), f = AC.createBiquadFilter(), g = AC.createGain();
+    s.buffer = noise(); s.loop = true;
+    f.type = kind; f.Q.value = 1.1;
+    f.frequency.setValueAtTime(f0, t);
+    f.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(peak, t + atk);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.05);
+    s.connect(f); f.connect(g); g.connect(master);
+    s.start(t); s.stop(t + dur + 0.1);
+  }
+  var SFX = {
+    whoosh: function (t) { filtered('bandpass', 250, 3200, t, 0.55, 0.28, 0.22); },
+    // rising noise just before a chapter card lands
+    riser: function (t) {
+      filtered('highpass', 400, 7000, t, 0.5, 0.32, 0.47);
+      tone('sine', 180, 1100, t, 0.45, 0.04, 0.12);
+    },
+    // chapter card impact: deep drop, body, noise burst, glassy tail
+    boom: function (t) {
+      tone('sine', 130, 34, t, 0.003, 1.1, 0.85);
+      tone('triangle', 240, 70, t, 0.003, 0.35, 0.35);
+      tone('sine', 1760, 1760, t, 0.004, 1.3, 0.05);
+      filtered('lowpass', 1600, 120, t, 0.65, 0.6, 0.01);
+    },
+    // number counting up: short blips that rise in pitch
+    tick: function (t, p) { tone('square', 480 + 1000 * p, 480 + 1000 * p, t, 0.002, 0.035, 0.05); },
+    // a count lands, or a key figure appears: bell plus low thump
+    ding: function (t) {
+      tone('sine', 880, 880, t, 0.005, 0.8, 0.28);
+      tone('sine', 1320, 1320, t, 0.005, 0.55, 0.14);
+      tone('sine', 120, 55, t, 0.003, 0.28, 0.45);
+    },
+    // emphasis: lower, heavier
+    hit: function (t) {
+      tone('sine', 660, 660, t, 0.005, 0.9, 0.26);
+      tone('sine', 990, 990, t, 0.005, 0.6, 0.12);
+      tone('sine', 90, 45, t, 0.003, 0.4, 0.6);
+    },
+    pop: function (t) { tone('sine', 520, 900, t, 0.004, 0.12, 0.22); },
+    soft: function (t) {
+      tone('triangle', 660, 990, t, 0.05, 0.5, 0.1);
+      tone('triangle', 990, 1320, t + 0.06, 0.05, 0.45, 0.07);
+    },
+    grow: function (t) { tone('triangle', 260, 560, t, 0.1, 0.8, 0.13); }
+  };
+  // Chapter card starts. The impact is start + 0.35 s and sits on a bar line of the music.
+  var CHAPS = [6.663, 34.324, 59.857, 91.773, 111.987, 136.456];
+  var CUES = [[0.05, 'whoosh']];
+  CHAPS.forEach(function (c) { CUES.push([c - 0.15, 'riser'], [c + 0.35, 'boom']); });
+  CUES.push(
+    [11.3, 'ding'], [13.7, 'pop'], [14.6, 'pop'], [15.5, 'soft'], [21.5, 'soft'], [28, 'hit'], [30.7, 'pop'],
+    [39.2, 'ding'], [39.7, 'grow'], [41.2, 'grow'], [42.7, 'grow'], [44.2, 'grow'], [43, 'pop'], [53.2, 'pop'], [56.5, 'pop'],
+    [70.7, 'hit'], [78.2, 'soft'], [85.2, 'hit'], [87.7, 'soft'],
+    [97.4, 'ding'], [103, 'hit'],
+    [115.6, 'pop'], [122.2, 'pop'], [128.7, 'pop'], [133.2, 'pop'],
+    [141.2, 'hit'], [149.4, 'soft']
+  );
+  // Small effects snap to the nearest half-beat when that moves them by under 90 ms.
+  var GRID0 = BEAT0 - S0, HALF = BEAT / 2;
+  CUES = CUES.map(function (c) {
+    if (c[1] === 'boom' || c[1] === 'riser' || c[1] === 'whoosh') return c;
+    var g = GRID0 + Math.round((c[0] - GRID0) / HALF) * HALF;
+    return Math.abs(g - c[0]) <= 0.09 ? [g, c[1]] : c;
+  });
+  // [start, duration] of each number count-up
+  var COUNTS = [[9.5, 1.8], [37.6, 1.6], [95.6, 1.8]];
+  // Effects are scheduled slightly ahead, at exact audio-clock times, so they line up with the music.
+  function scheduleCues(tNow, dt) {
+    var hz = tNow + LOOK;
+    if (AC && sfxOn && dt < 0.5) {
+      for (var i = 0; i < CUES.length; i++) {
+        var ct = CUES[i][0];
+        if (ct > schedT && ct <= hz) {
+          var at = ctxStart + (ct - T0);
+          if (at < AC.currentTime) at = AC.currentTime + 0.005;
+          SFX[CUES[i][1]](at);
+        }
+      }
+      var t0 = AC.currentTime + 0.02, inCount = false;
+      for (var j = 0; j < COUNTS.length; j++) {
+        var w = COUNTS[j];
+        if (tNow >= w[0] && tNow < w[0] + w[1]) {
+          var e = 1 - Math.pow(1 - clamp((tNow - w[0]) / w[1]), 3);
+          var st = Math.floor(e * 24);
+          if (st > countStep) { countStep = st; SFX.tick(t0, e); }
+          inCount = true;
+          break;
+        }
+      }
+      if (!inCount) countStep = -1;
+    }
+    schedT = hz;
+  }
+  $('snd').addEventListener('click', function () {
+    sfxOn = !sfxOn;
+    this.textContent = sfxOn ? '音效 开' : '音效 关';
+    this.setAttribute('aria-pressed', sfxOn ? 'true' : 'false');
+  });
+  $('mus').addEventListener('click', function () {
+    if (musicState === 'failed') return;
+    musicOn = !musicOn; applyMusicLevel(); updMusicUI();
+  });
+  $('mvol').addEventListener('input', function () { musicLevel = (+this.value) / 100; applyMusicLevel(); });
+  // ---- save the rendered mp4 (1280x720, with music, effects and subtitles) ----
+  var VIDEO_URL = '@@VIDEO_URL@@', VIDEO_BYTES = 10423424, dlBusy = false;
+  function dlMsg(t) { $('dlrow').hidden = false; $('dlstat').textContent = t; }
+  function mb(n) { return (n / 1048576).toFixed(1); }
+  function dlProgress(got, total) {
+    var f = Math.min(1, got / total);
+    $('dlbarbox').hidden = false;
+    $('dlbar').style.width = (f * 100).toFixed(1) + '%';
+    dlMsg('下载中 ' + Math.round(f * 100) + '%（' + mb(got) + ' / ' + mb(total) + ' MB）');
+  }
+  // download the mp4 and report how much has arrived
+  function fetchVideo(onProgress) {
+    return fetch(VIDEO_URL).then(function (r) {
+      if (!r.ok) throw { code: 'fetch' };
+      var total = +r.headers.get('content-length') || VIDEO_BYTES;
+      if (!r.body || !r.body.getReader) {
+        return r.blob().then(function (b) { onProgress(b.size, b.size); return b; });
+      }
+      var reader = r.body.getReader(), chunks = [], got = 0;
+      function pump() {
+        return reader.read().then(function (x) {
+          if (x.done) return new Blob(chunks, { type: 'video/mp4' });
+          chunks.push(x.value); got += x.value.length; onProgress(got, Math.max(total, got));
+          return pump();
+        });
+      }
+      return pump();
+    });
+  }
+  $('dl').addEventListener('click', function () {
+    if (dlBusy) return;
+    dlBusy = true; $('dl').disabled = true; dlMsg('正在连接…'); $('dlbar').style.width = '0'; $('dlbarbox').hidden = true;
+    var dls = null;
+    (window.claude && window.claude.use ? window.claude.use('downloads') : Promise.resolve(null))
+      .then(function (d) {
+        dls = d;
+        if (!dls) throw { code: 'unavailable' };
+        return fetchVideo(dlProgress);
+      })
+      .then(function (blob) {
+        dlMsg('下载完成，等待你确认保存…');
+        return dls.save({ filename: 'tsmc-q3-preview.mp4', data: blob });
+      })
+      .then(function () { dlMsg('已保存'); })
+      .catch(function (e) {
+        var c = e && e.code;
+        dlMsg(c === 'declined' ? '已取消' : c === 'unavailable' ? '当前打开方式不支持保存，请换用浏览器或 Claude 客户端打开' : '保存失败，请稍后再试');
+      })
+      .then(function () { dlBusy = false; $('dl').disabled = false; setTimeout(function () { $('dlbarbox').hidden = true; }, 1500); });
+  });
+  ensureAudio();   // created suspended so the track can decode early; it starts running on the first click
+  updMusicUI();
+
+  pp.addEventListener('click', toggle);
+  bigplay.addEventListener('click', toggle);
+  seek.addEventListener('input', function () {
+    T = +seek.value; if (!playing) { pp.textContent = T >= DUR ? '重播' : '播放'; bigplay.hidden = T > 0.05; } else { resync(); } render();
+  });
+  var wrap = $('stagewrap');
+  wrap.addEventListener('keydown', function (ev) {
+    if (ev.target.tagName === 'BUTTON' || ev.target.tagName === 'INPUT') return;
+    if (ev.code === 'Space') { ev.preventDefault(); toggle(); }
+    if (ev.code === 'ArrowRight') { T = Math.min(DUR, T + 5); if (playing) resync(); render(); }
+    if (ev.code === 'ArrowLeft') { T = Math.max(0, T - 5); if (playing) resync(); render(); }
+  });
+  $('fs').addEventListener('click', function () {
+    try {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else if (wrap.requestFullscreen) { var r = wrap.requestFullscreen(); if (r && r.catch) r.catch(function () {}); }
+    } catch (e) {}
+  });
+
+  // scene ticks on the scrubber
+  var ticks = $('ticks');
+  scenes.forEach(function (s, k) {
+    if (k === 0) return;
+    var t = document.createElement('i');
+    t.style.left = (s.s / DUR * 100) + '%';
+    ticks.appendChild(t);
+  });
+
+  // voiceover script table
+  var tb = $('scriptbody'), lastScene = -1;
+  LINES.forEach(function (l) {
+    if (l[0] !== lastScene) {
+      lastScene = l[0];
+      var h = document.createElement('tr'); h.className = 'sc';
+      var hc = document.createElement('td'); hc.colSpan = 2; hc.textContent = NAMES[l[0]];
+      h.appendChild(hc); tb.appendChild(h);
+    }
+    var tr = document.createElement('tr');
+    var a = document.createElement('td'); a.className = 't'; a.textContent = fmt(l[1]) + ' – ' + fmt(l[2]);
+    var b = document.createElement('td'); b.textContent = l[3];
+    tr.appendChild(a); tr.appendChild(b); tb.appendChild(tr);
+  });
+
+  render();
+})();
+</script>

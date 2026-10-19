@@ -1,0 +1,34 @@
+
+/* classical atom video */
+.tag, .src, .scene .nt.srcn { display: none !important; }
+.sub { min-height: 4.6cqw; bottom: 3.4cqw; white-space: nowrap; }
+.s0 .hero { top: 5cqw; font-size: 7.2cqw; }
+.s0 .hero-sub { top: 16.6cqw; font-size: 2.9cqw; letter-spacing: 0.1em; }
+.s20 .hd { top: 4cqw; }
+.s20 .tl { top: 25cqw; }
+.s20 .dot2 { top: 24.1cqw; }
+.s20 .node { top: 13.6cqw; width: 19cqw; margin-left: -9.5cqw; }
+.s20 .node.dn { top: 28.4cqw; }
+.s20 .node .y { font-size: 3.4cqw; }
+.s20 .node .h { font-size: 1.9cqw; }
+.s20 .node .d { font-family: var(--sans); font-size: 1.45cqw; letter-spacing: 0; color: var(--ice); line-height: 1.5; }
+.s21 .srclist { position: absolute; left: 6cqw; right: 6cqw; top: 8.5cqw; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr; gap: 0.7cqw; }
+.s21 .srclist li { display: flex; align-items: baseline; gap: 2cqw; padding: 0.9cqw 0 1cqw; border-bottom: 1px solid var(--line); opacity: var(--p); min-width: 0; }
+.s21 .srclist b { flex: 0 0 33cqw; font-weight: 900; font-size: 2.1cqw; white-space: nowrap; color: var(--fg); }
+.s21 .srclist span { min-width: 0; font-family: var(--mono); font-size: 1.3cqw; color: var(--ice); overflow-wrap: anywhere; line-height: 1.35; }
+.s21 .foot { position: absolute; right: 6cqw; top: 3.2cqw; margin: 0; padding: 0.5cqw 1.2cqw; border: 1px solid var(--line); border-radius: 0.5cqw; font-family: var(--mono); font-size: 1.1cqw; letter-spacing: 0.04em; color: var(--fg); opacity: var(--p); }
+/* English version */
+.sub { font-weight: 700; font-size: 2.55cqw; letter-spacing: 0.005em; }
+.s0 .hero { font-size: 8.4cqw; letter-spacing: -0.005em; font-weight: 900; }
+.s0 .hero-sub { font-size: 3cqw; letter-spacing: 0.03em; font-weight: 700; }
+.chap .word { font-size: 10.5cqw; letter-spacing: 0.02em; font-weight: 900; }
+.chap .en { letter-spacing: 0.5em; }
+.chap .csub { font-weight: 700; font-size: 2.7cqw; }
+.s20 .hd { font-size: 3.2cqw; }
+.s20 .node .h { font-size: 1.75cqw; }
+.s20 .node .d { font-size: 1.4cqw; }
+.s21 .srclist b { flex: 0 0 40cqw; font-size: 1.75cqw; font-weight: 800; }
+.s21 .srclist span { font-size: 1.25cqw; }
+.chap .wordbox { top: 14.5cqw; }
+.s0 .hero { top: 3cqw; } .s0 .hero-sub { top: 13.8cqw; }
+.s20 .node { width: 23cqw; margin-left: -11.5cqw; }

@@ -1,0 +1,70 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#06070d;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:#fff}
+canvas{position:absolute;left:0;top:0}
+.t{position:absolute;left:0;right:0;text-align:center;font-family:"Noto Serif SC","Noto Serif CJK SC",serif;font-weight:900;white-space:nowrap}
+.t1{top:70px;font-size:112px;line-height:1.1;color:#f4f7ff;text-shadow:0 6px 0 rgba(0,0,0,.55)}
+.t2{top:200px;font-size:122px;line-height:1.1;color:#f4f7ff;text-shadow:0 6px 0 rgba(0,0,0,.55)}
+.t2 em{font-style:normal;font-size:176px;color:#ffc56a;text-shadow:0 0 60px rgba(255,180,70,.6),0 0 16px rgba(255,200,100,.6),0 6px 0 rgba(80,50,0,.7)}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="t t1">咖啡会凉，小球会停，</div>
+<div class="t t2">竟是<em>同一件事</em></div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+function add(f){g.globalCompositeOperation='lighter';f();g.globalCompositeOperation='source-over'}
+let sk=g.createLinearGradient(0,0,0,1080);sk.addColorStop(0,'#05060c');sk.addColorStop(.55,'#0a1020');sk.addColorStop(1,'#0d0a12');g.fillStyle=sk;g.fillRect(0,0,1920,1080);
+const q=rng(4);for(let i=0;i<80;i++){g.fillStyle='rgba(200,220,255,'+(0.08+q()*0.3)+')';g.beginPath();g.arc(q()*1920,q()*1000,0.8+q()*1.4,0,7);g.fill()}
+// the shared field of jiggling atoms at the bottom
+const AY=900, r=rng(9);
+add(()=>{halo(960,AY,620,'rgba(255,150,80,.18)',1)});
+for(let row=0;row<3;row++)for(let i=0;i<26;i++){
+ const x=330+i*49+(row%2?24:0), y=AY-40+row*44, d=Math.abs(x-960)/640, k=0.25+0.75*r();
+ if(d>1)continue;
+ const col=`rgb(${Math.round(130+125*k)},${Math.round(180-55*k)},${Math.round(255-185*k)})`;
+ const a=1-d*0.75, jx=(r()-0.5)*26, jy=(r()-0.5)*22;
+ g.globalAlpha=a*0.55;g.strokeStyle=col;g.lineWidth=5;g.lineCap='round';g.beginPath();g.moveTo(x,y);g.lineTo(x+jx,y+jy);g.stroke();g.globalAlpha=1;
+ add(()=>halo(x+jx,y+jy,24,col.replace('rgb','rgba').replace(')',',.6)'),a*0.6));
+ g.globalAlpha=a;g.fillStyle=col;g.beginPath();g.arc(x+jx,y+jy,10,0,7);g.fill();g.globalAlpha=1;
+}
+// three objects, each with a stream falling into the field
+const OY=630, XS=[560,960,1360];
+for(let k=0;k<3;k++){
+ const x=XS[k];
+ const gr=g.createLinearGradient(0,OY+90,0,AY-60);gr.addColorStop(0,'rgba(255,200,140,.35)');gr.addColorStop(1,'rgba(255,200,140,0)');
+ g.strokeStyle=gr;g.lineWidth=3;g.setLineDash([3,12]);g.beginPath();g.moveTo(x,OY+95);g.quadraticCurveTo(x,AY-110,(x+960)/2,AY-70);g.stroke();g.setLineDash([]);
+}
+// 1 coffee cup with fading steam
+(function(){const x=XS[0],y=OY;
+ add(()=>halo(x,y+20,170,'rgba(255,140,60,.28)',1));
+ g.strokeStyle='#ead9c4';g.lineWidth=10;g.lineCap='round';
+ g.beginPath();g.arc(x+100,y+5,48,-1.35,1.35);g.stroke();
+ g.fillStyle='rgba(233,217,196,.14)';g.beginPath();g.roundRect(x-95,y-80,190,170,[10,10,60,60]);g.fill();g.stroke();
+ g.fillStyle='#7a4628';g.beginPath();g.ellipse(x,y-62,86,17,0,0,7);g.fill();
+ g.globalAlpha=.55;g.strokeStyle='#eef2f8';g.lineWidth=6;
+ for(let s=0;s<3;s++){g.beginPath();for(let u=0;u<=1;u+=.05){const yy=y-96-u*80,xx=x+(s-1)*44+Math.sin(u*6+s*2)*14*u;u?g.lineTo(xx,yy):g.moveTo(xx,yy)}g.stroke()}
+ g.globalAlpha=1;})();
+// 2 ball with decaying bounce
+(function(){const x=XS[1],fy=OY+90;
+ g.strokeStyle='rgba(238,242,248,.5)';g.lineWidth=4;g.beginPath();g.moveTo(x-170,fy);g.lineTo(x+170,fy);g.stroke();
+ let x0=x-170,H=190,W=150;
+ for(let n=0;n<4;n++){g.strokeStyle='rgba(255,190,140,'+(0.6-n*0.12)+')';g.lineWidth=4;g.setLineDash([2,14]);g.beginPath();for(let u=0;u<=1;u+=.03){const px=x0+W*u,py=fy-4*H*u*(1-u);u?g.lineTo(px,py):g.moveTo(px,py)}g.stroke();g.setLineDash([]);x0+=W;H*=.45;W*=.62}
+ const bx=x0+18,by=fy-34;
+ add(()=>halo(bx,by,110,'rgba(255,150,80,.7)',1));
+ const bg=g.createRadialGradient(bx-10,by-12,3,bx,by,34);bg.addColorStop(0,'#ffe3c8');bg.addColorStop(1,'#ff7a3c');g.fillStyle=bg;g.beginPath();g.arc(bx,by,34,0,7);g.fill();})();
+// 3 water drop with escaping atoms
+(function(){const x=XS[2],fy=OY+90,R=105;
+ g.strokeStyle='rgba(238,242,248,.5)';g.lineWidth=4;g.beginPath();g.moveTo(x-170,fy);g.lineTo(x+170,fy);g.stroke();
+ add(()=>halo(x,fy-40,200,'rgba(110,185,255,.35)',1));
+ g.fillStyle='rgba(110,185,255,.35)';g.strokeStyle='rgba(160,215,255,.9)';g.lineWidth=5;g.beginPath();g.arc(x,fy,R,Math.PI,0);g.closePath();g.fill();g.stroke();
+ g.fillStyle='rgba(255,255,255,.7)';g.beginPath();g.ellipse(x-40,fy-62,16,9,-0.5,0,7);g.fill();
+ const pts=[[-60,-150],[10,-200],[70,-160],[120,-110],[-110,-110],[40,-215]];
+ for(const p of pts){add(()=>halo(x+p[0],fy+p[1],34,'rgba(150,210,255,.7)',1));g.fillStyle='#d8efff';g.beginPath();g.arc(x+p[0],fy+p[1],11,0,7);g.fill();
+  g.strokeStyle='rgba(150,210,255,.45)';g.lineWidth=6;g.beginPath();g.moveTo(x+p[0],fy+p[1]+14);g.lineTo(x+p[0]*0.8,fy+p[1]+50);g.stroke();}})();
+const v=g.createRadialGradient(960,560,500,960,560,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.5)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

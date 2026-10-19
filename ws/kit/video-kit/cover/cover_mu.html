@@ -1,0 +1,61 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#04080a;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:#eafff8;background:#04080a}
+canvas{position:absolute;left:0;top:0}
+.t{position:absolute;left:0;width:1920px;text-align:center;font-family:"Noto Serif SC","Noto Serif CJK SC",serif;font-weight:900;white-space:nowrap}
+.t1{top:70px;font-size:112px;line-height:1.1;color:#f4fffb;text-shadow:0 0 40px rgba(80,230,190,.45),0 4px 0 rgba(0,0,0,.7)}
+.t1 em{font-style:normal;color:#ffb36b;text-shadow:0 0 40px rgba(255,150,70,.6),0 4px 0 rgba(60,20,0,.7)}
+.t2{top:945px;font:900 60px/1.2 "Noto Sans SC","Noto Sans CJK SC",sans-serif;letter-spacing:.12em;color:#d8fff4;text-shadow:0 2px 0 rgba(0,0,0,.8),0 0 24px rgba(0,0,0,.9)}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="t t1">AI 的“记忆”，是<em>谁造的</em>？</div>
+<div class="t t2">美光，是一家什么公司？</div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+function rr(x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
+// background: cool teal from below, warm glow where the processor sits
+g.fillStyle='#04080a';g.fillRect(0,0,1920,1080);
+g.globalCompositeOperation='lighter';
+halo(960,1000,900,'rgba(20,150,130,.30)',1);halo(960,330,520,'rgba(255,140,60,.28)',1);
+g.globalCompositeOperation='source-over';
+// DRAM cell field in the background: faint squares, a few charged
+const q=rng(3);
+for(let j=0;j<24;j++)for(let i=0;i<42;i++){const x=i*48+8,y=j*46+14;const on=q()>0.82;
+ g.strokeStyle='rgba(120,230,200,.07)';g.lineWidth=2;rr(x,y,34,34,6);g.stroke();
+ if(on){g.fillStyle='rgba(255,179,107,.20)';g.beginPath();g.arc(x+17,y+17,7,0,7);g.fill()}}
+// light floor
+g.save();g.strokeStyle='rgba(120,240,210,.12)';g.lineWidth=2;
+for(let i=-14;i<=14;i++){g.beginPath();g.moveTo(960+i*70,980);g.lineTo(960+i*420,1080);g.stroke()}
+g.restore();
+// the tower
+const CX=930,YB=880,W=500,N=13,LH=44,SK=84,TOP=YB-N*LH;
+rr(CX-W/2-70,YB,W+140,40,12);g.fillStyle='#16302f';g.fill();g.strokeStyle='rgba(200,255,240,.8)';g.lineWidth=5;g.stroke();
+for(let i=0;i<N;i++){const y=YB-(i+1)*LH+6;
+ g.beginPath();g.moveTo(CX-W/2,y+30);g.lineTo(CX+W/2,y+30);g.lineTo(CX+W/2+SK,y+4);g.lineTo(CX-W/2+SK,y+4);g.closePath();
+ g.fillStyle=i%2?'rgba(40,150,140,.88)':'rgba(70,190,170,.88)';g.fill();g.strokeStyle='rgba(210,255,245,.95)';g.lineWidth=3.5;g.stroke();
+ g.beginPath();g.moveTo(CX-W/2,y+30);g.lineTo(CX-W/2,y+38);g.lineTo(CX+W/2,y+38);g.lineTo(CX+W/2,y+30);g.fillStyle='rgba(8,40,44,.95)';g.fill();
+ g.beginPath();g.moveTo(CX+W/2,y+30);g.lineTo(CX+W/2+SK,y+4);g.lineTo(CX+W/2+SK,y+12);g.lineTo(CX+W/2,y+38);g.closePath();g.fillStyle='rgba(6,30,34,.9)';g.fill();}
+// through-silicon vias carrying light up
+g.globalCompositeOperation='lighter';
+for(let i=0;i<6;i++){const x=CX-W/2+60+i*(W-90)/5;g.strokeStyle='rgba(255,190,120,.95)';g.lineWidth=8;g.beginPath();g.moveTo(x,YB+4);g.lineTo(x+SK*0.55,TOP+16);g.stroke();
+ for(let k=0;k<5;k++){const t=((k*0.21+i*0.13)%1);halo(x+SK*0.55*t,YB-(YB-TP(t)),30,'rgba(255,225,170,.95)',.8)}}
+function TP(t){return (YB-TOP)*t}
+g.globalCompositeOperation='source-over';
+// processor slab on top
+const PX=CX-W/2-40,PY=TOP-66,PW=W+SK+60;
+g.save();g.shadowColor='rgba(255,150,70,.9)';g.shadowBlur=80;
+rr(PX,PY,PW,58,12);g.fillStyle='#3a1d0c';g.fill();g.restore();
+rr(PX,PY,PW,58,12);g.strokeStyle='rgba(255,200,150,.95)';g.lineWidth=5;g.stroke();
+for(let i=0;i<9;i++){const x=PX+40+i*(PW-80)/8;g.fillStyle='rgba(255,190,120,.9)';g.fillRect(x-4,PY+14,8,30)}
+g.globalCompositeOperation='lighter';halo(CX+SK/2,PY+20,420,'rgba(255,150,70,.45)',1);g.globalCompositeOperation='source-over';
+// side rays + particles
+g.globalCompositeOperation='lighter';
+const p=rng(8);for(let i=0;i<90;i++){const x=p()*1920,y=200+p()*800;g.fillStyle='rgba(190,255,235,'+(0.1+p()*0.4)+')';g.beginPath();g.arc(x,y,1+p()*2.6,0,7);g.fill()}
+g.globalCompositeOperation='source-over';
+const v=g.createRadialGradient(960,540,420,960,540,1150);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.6)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

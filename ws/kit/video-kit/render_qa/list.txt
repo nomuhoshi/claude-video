@@ -1,0 +1,5 @@
+file '/tmp/claude-0/-home-claude/7d578916-a400-5c24-bb34-8996a1a97376/scratchpad/render_qa/ch/c0.mp4'
+file '/tmp/claude-0/-home-claude/7d578916-a400-5c24-bb34-8996a1a97376/scratchpad/render_qa/ch/c1.mp4'
+file '/tmp/claude-0/-home-claude/7d578916-a400-5c24-bb34-8996a1a97376/scratchpad/render_qa/ch/c2.mp4'
+file '/tmp/claude-0/-home-claude/7d578916-a400-5c24-bb34-8996a1a97376/scratchpad/render_qa/ch/c3.mp4'
+file '/tmp/claude-0/-home-claude/7d578916-a400-5c24-bb34-8996a1a97376/scratchpad/render_qa/ch/c4.mp4'

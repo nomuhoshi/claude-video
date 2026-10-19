@@ -1,0 +1,57 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#050505;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.q{position:absolute;left:322px;top:232px;font-weight:900;font-size:76px;line-height:1.42;color:#f3efe6;letter-spacing:.02em;text-shadow:0 0 30px rgba(255,230,190,.12)}
+.q b{color:#f2c66b;font-weight:900;text-shadow:0 0 24px rgba(242,198,107,.45)}
+.q .br{color:#d9d3c6;font-weight:500}
+.by{position:absolute;left:334px;top:470px;font-size:27px;color:#8f8a80;letter-spacing:.04em;font-family:"Noto Serif SC",serif}
+.p{position:absolute;left:326px;top:556px;font-size:52px;font-weight:900;color:#f3efe6;letter-spacing:.03em}
+.p b{color:#f2c66b;text-shadow:0 0 26px rgba(242,198,107,.5)}
+.lab{position:absolute;left:330px;top:770px;font-family:"Noto Sans SC",sans-serif;font-size:24px;color:#9a8a6a;letter-spacing:.2em}
+.val{position:absolute;left:324px;top:800px;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:76px;color:#c9a35a;letter-spacing:.02em;text-shadow:0 0 30px rgba(201,163,90,.35)}
+.rule{position:absolute;left:330px;top:900px;width:420px;height:2px;background:linear-gradient(90deg,rgba(201,163,90,.6),rgba(201,163,90,0))}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="q"><span class="br">「</span>法拉第，是一位<br>非常高明的<b>数学家</b>。<span class="br">」</span></div>
+<div class="by">—— 麦克斯韦</div>
+<div class="p">可他一辈子，几乎没写过<b>方程</b>。</div>
+<div class="lab">书店学徒 · 电磁感应</div>
+<div class="val">1831</div>
+<div class="rule"></div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+let bg=g.createLinearGradient(0,0,1920,0);bg.addColorStop(0,'#050505');bg.addColorStop(.6,'#0a0807');bg.addColorStop(1,'#120c08');g.fillStyle=bg;g.fillRect(0,0,1920,1080);
+g.globalCompositeOperation='lighter';halo(1420,600,600,'rgba(255,150,70,.22)',1);halo(1330,520,280,'rgba(255,170,90,.18)',1);g.globalCompositeOperation='source-over';
+// runner mask on an offscreen canvas
+const m=document.createElement('canvas');m.width=1920;m.height=1080;const k=m.getContext('2d');
+k.strokeStyle='#fff';k.fillStyle='#fff';k.lineCap='round';k.lineJoin='round';
+k.beginPath();k.ellipse(1440,430,96,122,0,0,7);k.fill();
+k.beginPath();k.moveTo(1395,520);k.lineTo(1485,520);k.lineTo(1500,600);k.lineTo(1380,600);k.closePath();k.fill();
+k.beginPath();k.moveTo(1180,960);k.quadraticCurveTo(1190,640,1440,600);k.quadraticCurveTo(1690,640,1700,960);k.closePath();k.fill();
+
+const md=k.getImageData(0,0,1920,1080).data;
+const r=rng(3),S=9;
+for(let y=280;y<960;y+=S)for(let x=1150;x<1680;x+=S){
+ const xx=x+((y/S)%2?S/2:0);
+ const a=md[(y*1920+Math.round(xx))*4+3];if(a<40)continue;
+ const d=Math.hypot(xx-1330,y-520), lit=Math.max(0,1-d/560), rad=1.1+2.6*lit*(0.7+0.3*r());
+ const jx=(r()-0.5)*3*lit, jy=(r()-0.5)*3*lit;
+ const c=`rgba(255,${Math.round(205+40*lit)},${Math.round(150+60*lit)},${(0.35+0.65*lit).toFixed(2)})`;
+ if(lit>0.55&&r()<0.25){g.strokeStyle=c;g.globalAlpha=.35;g.lineWidth=rad*0.9;g.beginPath();g.moveTo(xx+jx,y+jy);g.lineTo(xx+jx-(r()-0.5)*14,y+jy-(r()-0.5)*14);g.stroke();g.globalAlpha=1}
+ g.fillStyle=c;g.beginPath();g.arc(xx+jx,y+jy,rad,0,7);g.fill();
+}
+// golden magnetic field lines: loops around the figure, fading where they pass behind it
+g.lineWidth=2;
+for(let i=0;i<8;i++){const rx=230+i*68, ry=150+i*44, cx=1440, cy=560;
+ for(let k=0;k<180;k++){const a0=k/180*Math.PI*2, a1=(k+1)/180*Math.PI*2;
+  const x0=cx+Math.cos(a0)*rx, y0=cy+Math.sin(a0)*ry, x1=cx+Math.cos(a1)*rx, y1=cy+Math.sin(a1)*ry;
+  const fade=Math.max(0,Math.min(1,(1500-x0)/300))*Math.max(0,Math.min(1,(x0-250)/200));
+  g.strokeStyle=`rgba(242,198,107,${((0.34-i*0.03)*fade).toFixed(3)})`; g.beginPath(); g.moveTo(x0,y0); g.lineTo(x1,y1); g.stroke();}}
+const v=g.createRadialGradient(1100,540,420,1000,540,1150);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.55)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+:root{--fg:#f4f1e8;--dim:#93a1b6;--gold:#f2c66b;--ice:#8fd0ff}
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#06080d;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--fg);
+ background:radial-gradient(700px 420px at 50% 62%,rgba(143,208,255,.22),transparent 70%),#070a11}
+.tag{position:absolute;left:300px;top:70px;padding-left:20px;border-left:6px solid var(--gold);font:900 36px/1.2 "Noto Serif SC","Noto Serif CJK SC",serif}
+.t1{position:absolute;left:0;right:0;top:110px;text-align:center;font:900 200px/1.1 "Noto Serif SC","Noto Serif CJK SC",serif;text-shadow:0 0 40px rgba(143,208,255,.35);letter-spacing:.04em}
+.t2{position:absolute;left:0;right:0;top:850px;text-align:center;font:900 112px/1.1 "Noto Serif SC","Noto Serif CJK SC",serif;color:var(--gold);text-shadow:0 0 40px rgba(242,198,107,.45);letter-spacing:.04em}
+svg{position:absolute;left:0;top:0}
+</style></head><body><div class="c">
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" id="sv"></svg>
+<div class="tag">物理 · 中微子</div>
+<div class="t1">冰下的幽灵</div>
+<div class="t2">2026 诺贝尔物理学奖</div>
+</div>
+<script>
+const sv=document.getElementById('sv'),NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||sv).appendChild(e);return e}
+el('defs',{}).innerHTML='<filter id="g" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="12"/></filter><linearGradient id="ig" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a0d7ff" stop-opacity=".38"/><stop offset="1" stop-color="#a0d7ff" stop-opacity=".08"/></linearGradient>';
+const X0=330,X1=1590,Y0=450,Y1=800;
+el('rect',{x:X0,y:Y0,width:X1-X0,height:Y1-Y0,fill:'url(#ig)',stroke:'#c8e6ff','stroke-width':3,'stroke-opacity':.5});
+el('line',{x1:X0-40,y1:Y0,x2:X1+40,y2:Y0,stroke:'#e6f5ff','stroke-width':5,opacity:.85});
+// strings of sensors
+const xs=[]; for(let i=0;i<9;i++) xs.push(X0+90+i*135);
+// the track
+const x1=420,y1=Y0-22,x2=1500,y2=Y1-30;
+const m=(y2-y1)/(x2-x1);
+xs.forEach(x=>{
+  el('line',{x1:x,y1:Y0+12,x2:x,y2:Y1-12,stroke:'#bed2eb','stroke-width':2,opacity:.3});
+  const ty=y1+m*(x-x1);
+  for(let y=Y0+30;y<Y1-14;y+=26){
+    const d=Math.abs(y-ty), lit=Math.max(0,1-d/95);
+    if(lit>0.05){ el('circle',{cx:x,cy:y,r:7+lit*7,fill:'#dff2ff',opacity:.35*lit,filter:'url(#g)'}); el('circle',{cx:x,cy:y,r:5+lit*3,fill:'#fff',opacity:.5+lit*.5}); }
+    else el('circle',{cx:x,cy:y,r:4,fill:'#bed2eb',opacity:.55});
+  }
+});
+el('line',{x1,y1,x2,y2,stroke:'#8fd0ff','stroke-width':26,filter:'url(#g)',opacity:.9});
+el('line',{x1,y1,x2,y2,stroke:'#fff','stroke-width':8,'stroke-linecap':'round'});
+el('circle',{cx:x1,cy:y1,r:14,fill:'#fff'});
+</script></body></html>

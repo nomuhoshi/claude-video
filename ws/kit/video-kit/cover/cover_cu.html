@@ -1,0 +1,60 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#05070d;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:#fff}
+canvas{position:absolute;left:0;top:0}
+.t{position:absolute;left:0;right:0;text-align:center;font-family:"Noto Serif SC","Noto Serif CJK SC",serif;font-weight:900;white-space:nowrap}
+.t1{top:96px;font-size:158px;line-height:1.1;color:#f4f7ff;text-shadow:0 6px 0 rgba(0,0,0,.55),0 0 50px rgba(120,170,255,.25)}
+.t2{top:262px;font-size:128px;line-height:1.1;color:#f4f7ff;text-shadow:0 6px 0 rgba(0,0,0,.55)}
+.t2 em{font-style:normal;font-size:208px;color:#ffb066;text-shadow:0 0 60px rgba(255,150,70,.65),0 0 16px rgba(255,170,90,.6),0 6px 0 rgba(80,30,0,.7)}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="t t1">牙医的钻头，</div>
+<div class="t t2">跟<em>水坝</em>有什么关系？</div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function halo(x,y,r,col,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,col);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.globalAlpha=1}
+// sky: deep blue to warm horizon
+let sk=g.createLinearGradient(0,0,0,1080);sk.addColorStop(0,'#04060c');sk.addColorStop(.5,'#0a1224');sk.addColorStop(.78,'#2a1a2c');sk.addColorStop(1,'#07080d');g.fillStyle=sk;g.fillRect(0,0,1920,1080);
+g.globalCompositeOperation='lighter';halo(1180,850,700,'rgba(255,130,60,.35)',1);halo(960,880,900,'rgba(255,170,90,.16)',1);g.globalCompositeOperation='source-over';
+const q=rng(21);for(let i=0;i<80;i++){g.fillStyle='rgba(200,220,255,'+(0.1+q()*0.4)+')';g.beginPath();g.arc(q()*1920,q()*520,0.8+q()*1.6,0,7);g.fill()}
+// skyline (the city): lit windows
+const base=945,r=rng(5);
+let x=780;
+while(x<1470){const w=46+r()*60,h=140+r()*300*(1-Math.abs(x-1200)/700*0.5);
+ g.fillStyle='#0b0f1b';g.fillRect(x,base-h,w,h);g.strokeStyle='rgba(255,170,100,.25)';g.lineWidth=2;g.strokeRect(x,base-h,w,h);
+ for(let yy=base-h+14;yy<base-12;yy+=20)for(let xx=x+8;xx<x+w-8;xx+=14){if(r()<0.55){g.fillStyle='rgba(255,'+(190+r()*50|0)+',120,'+(0.5+r()*0.5)+')';g.fillRect(xx,yy,7,10)}}
+ x+=w+6+r()*10}
+// ground
+g.fillStyle='#06070c';g.fillRect(0,base,1920,140);
+g.strokeStyle='rgba(255,150,80,.3)';g.lineWidth=3;g.beginPath();g.moveTo(0,base);g.lineTo(1920,base);g.stroke();
+// the dam wheel far right
+const WX=1560,WY=740,WR=96;
+g.globalCompositeOperation='lighter';halo(WX,WY,260,'rgba(140,200,255,.35)',1);g.globalCompositeOperation='source-over';
+g.strokeStyle='#8fd0ff';g.lineWidth=11;g.beginPath();g.arc(WX,WY,WR,0,7);g.stroke();
+for(let i=0;i<8;i++){const a=i*Math.PI/4+0.3;g.lineWidth=8;g.beginPath();g.moveTo(WX,WY);g.lineTo(WX+WR*Math.cos(a),WY+WR*Math.sin(a));g.stroke()}
+g.fillStyle='#cfeaff';g.beginPath();g.arc(WX,WY,16,0,7);g.fill();
+// the copper wire: drill (left, small) -> across -> city -> dam wheel, glowing
+const W=[[540,840],[660,840],[660,740],[830,740],[830,830],[1000,830],[1000,720],[1180,720],[1180,810],[1330,810],[1330,740],[WX-WR,740]];
+function pathW(){g.beginPath();g.moveTo(W[0][0],W[0][1]);for(let i=1;i<W.length;i++)g.lineTo(W[i][0],W[i][1])}
+g.lineJoin='round';g.lineCap='round';
+g.strokeStyle='rgba(255,140,60,.28)';g.lineWidth=40;pathW();g.stroke();
+g.strokeStyle='rgba(255,160,80,.55)';g.lineWidth=20;pathW();g.stroke();
+g.strokeStyle='#ffb066';g.lineWidth=11;pathW();g.stroke();
+g.strokeStyle='#ffe2b8';g.lineWidth=3.5;pathW();g.stroke();
+// sparks on the wire
+g.globalCompositeOperation='lighter';for(const p of [[660,790],[900,740],[1000,775],[1250,720],[1330,775]]){halo(p[0],p[1],46,'rgba(255,220,160,.9)',1)}g.globalCompositeOperation='source-over';
+// the drill (left)
+function rr(x,y,w,h,r,fill){g.fillStyle=fill;g.beginPath();g.roundRect(x,y,w,h,r);g.fill()}
+g.save();g.translate(400,840);g.rotate(-0.18);
+rr(-170,-26,200,52,22,'#e9eef7');rr(24,-30,70,60,16,'#cfd9ea');rr(78,-92,70,52,16,'#e9eef7');
+g.strokeStyle='#cfd9ea';g.lineWidth=14;g.beginPath();g.moveTo(94,-14);g.lineTo(126,-50);g.stroke();
+g.strokeStyle='#9aa8bf';g.lineWidth=6;g.beginPath();g.moveTo(146,-42);g.lineTo(146,-8);g.stroke();
+g.restore();
+g.globalCompositeOperation='lighter';halo(400,840,160,'rgba(143,208,255,.45)',1);g.globalCompositeOperation='source-over';
+// vignette
+const v=g.createRadialGradient(960,560,500,960,560,1250);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.5)');g.fillStyle=v;g.fillRect(0,0,1920,1080);
+</script></body></html>

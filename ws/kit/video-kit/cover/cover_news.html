@@ -1,0 +1,37 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+:root{--fg:#f4f1e8;--dim:#93a1b6;--gold:#f2c66b;--ice:#8fd0ff}
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#06080d;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;color:var(--fg);
+ background:radial-gradient(620px 400px at 66% 62%,rgba(242,198,107,.16),transparent 70%),radial-gradient(640px 420px at 34% 42%,rgba(143,208,255,.16),transparent 70%),#070a11}
+.tag{position:absolute;left:300px;top:70px;padding-left:20px;border-left:6px solid var(--gold);font:900 36px/1.2 "Noto Serif SC","Noto Serif CJK SC",serif}
+.t1{position:absolute;left:0;right:0;top:122px;text-align:center;font:900 124px/1.1 "Noto Serif SC","Noto Serif CJK SC",serif;text-shadow:0 0 30px rgba(143,208,255,.25)}
+.t2{position:absolute;left:0;right:0;top:830px;text-align:center;font:900 190px/1.05 "Noto Serif SC","Noto Serif CJK SC",serif;color:var(--gold);text-shadow:0 0 44px rgba(242,198,107,.45);letter-spacing:.02em}
+svg{position:absolute;left:0;top:0}
+</style></head><body><div class="c">
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" id="sv"></svg>
+<div class="tag">美股 · 复盘</div>
+<div class="t1">通胀数据一出，<span style="color:var(--ice)">美股</span>大跌</div>
+<div style="position:absolute;left:330px;top:798px;font:500 26px 'Noto Sans SC',sans-serif;color:#93a1b6">走势为示意图 · 10 月 14 日美东收盘</div>
+<div class="t2">纳指 −1.88%</div>
+</div>
+<script>
+const sv=document.getElementById('sv'),NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||sv).appendChild(e);return e}
+el('defs',{}).innerHTML='<filter id="g" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="12"/></filter><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0ff" stop-opacity=".28"/><stop offset="1" stop-color="#8fd0ff" stop-opacity="0"/></linearGradient>';
+// grid
+for(let i=0;i<5;i++) el('line',{x1:330,y1:340+i*105,x2:1590,y2:340+i*105,stroke:'#93a1b6','stroke-width':2,opacity:.14});
+// price path: steady rise then a sharp plunge
+const pts=[[330,470],[430,452],[520,470],[610,440],[700,455],[790,420],[880,432],[970,402],[1060,420],[1150,392],[1240,405],[1300,470],[1360,560],[1420,640],[1480,700],[1560,770]];
+const d='M'+pts.map(p=>p.join(' ')).join(' L');
+el('path',{d:d+' L1560 820 L330 820 Z',fill:'url(#ar)'});
+el('path',{d,fill:'none',stroke:'#8fd0ff','stroke-width':24,filter:'url(#g)',opacity:.7,'stroke-linejoin':'round'});
+const hi=pts.slice(10);
+el('path',{d,fill:'none',stroke:'#fff','stroke-width':8,'stroke-linejoin':'round','stroke-linecap':'round'});
+el('path',{d:'M'+hi.map(p=>p.join(' ')).join(' L'),fill:'none',stroke:'#f2c66b','stroke-width':12,'stroke-linejoin':'round','stroke-linecap':'round'});
+el('circle',{cx:1560,cy:770,r:30,fill:'#f2c66b',filter:'url(#g)',opacity:.9});
+el('circle',{cx:1560,cy:770,r:14,fill:'#fff'});
+// down arrow
+el('path',{d:'M1180 505 L1180 640 M1140 600 L1180 645 L1220 600',stroke:'#f2c66b','stroke-width':14,fill:'none','stroke-linecap':'round','stroke-linejoin':'round',opacity:.0});
+</script></body></html>
