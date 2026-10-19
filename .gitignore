@@ -2,7 +2,7 @@
 *.wav
 *.mp4
 *_bed.mp3
-node_modules/
+node_modules
 ws/render/
 ws/render_*/ch/
 ws/render_*/s_*.png
