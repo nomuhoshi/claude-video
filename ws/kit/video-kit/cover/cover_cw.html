@@ -1,0 +1,87 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- CoreWeave cover: a row of glowing GPU racks bound by a gold chain with a big padlock (borrowed against the chips).  #dy = vertical 1080x1440 -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#05070c;overflow:hidden}
+.c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.kick{position:absolute;font-family:"IBM Plex Mono","Noto Sans SC",monospace;font-size:28px;color:#8fa3c4;letter-spacing:.3em}
+.h{position:absolute;font-weight:900;line-height:1.16;color:#f3efe6;letter-spacing:.02em;text-shadow:0 0 30px rgba(200,220,255,.12)}
+.h i{font-style:normal;color:#ffd27a;text-shadow:0 0 30px rgba(255,200,110,.6)}
+.sub{position:absolute;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;font-size:30px;color:#b9c0cc;letter-spacing:.12em}
+.w .c{width:1920px;height:1080px}
+.w .kick{left:285px;top:250px}
+.w .h{left:276px;top:300px;font-size:112px}
+.w .sub{left:285px;top:600px}
+.v .c{width:1080px;height:1440px}
+.v .kick{left:0;right:0;top:150px;text-align:center}
+.v .h{left:0;right:0;top:210px;text-align:center;font-size:118px}
+.v .sub{left:0;right:0;top:1250px;text-align:center}
+</style></head><body><div class="c">
+<canvas id="cv"></canvas>
+<div class="kick">COREWEAVE</div>
+<div class="h">一千亿的订单<span style="letter-spacing:-.45em">，</span><br><i>却在亏钱？</i></div>
+<div class="sub">这家 AI 算力公司，到底是做什么的</div>
+</div>
+<script>
+var V = location.hash === '#dy'; document.body.className = V ? 'v' : 'w';
+var W = V ? 1080 : 1920, H = V ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+var g = cv.getContext('2d');
+function rnd(s) { var x = Math.sin(s * 91.7 + 17.3) * 43758.5453; return x - Math.floor(x); }
+// layout: centre of the rack row
+var CX = V ? 540 : 1330, CY = V ? 880 : 660, S = V ? 1.0 : 0.8;
+// background
+var bg = g.createRadialGradient(CX, CY, 40, CX, CY, V ? 900 : 1100); bg.addColorStop(0, '#16233c'); bg.addColorStop(0.45, '#0b1222'); bg.addColorStop(1, '#04060b');
+g.fillStyle = bg; g.fillRect(0, 0, W, H);
+for (var y = 10; y < H; y += 16) for (var x = 10; x < W; x += 16) {            // halftone, brighter near the racks
+  var d = Math.hypot(x - CX, (y - CY) * 1.3) / (V ? 700 : 900), r = Math.max(0, 2.6 * (1 - d)); if (r < 0.25) continue;
+  g.fillStyle = 'rgba(120,160,230,' + (0.08 + 0.12 * (1 - d)).toFixed(3) + ')'; g.beginPath(); g.arc(x, y, r, 0, 6.29); g.fill();
+}
+g.save(); g.translate(CX, CY); g.scale(S, S);
+// floor glow
+var fl = g.createRadialGradient(0, 210, 10, 0, 210, 520); fl.addColorStop(0, 'rgba(255,200,110,0.22)'); fl.addColorStop(1, 'rgba(255,200,110,0)'); g.fillStyle = fl; g.beginPath(); g.ellipse(0, 210, 520, 120, 0, 0, 6.29); g.fill();
+// chain ellipse around the racks: back half, racks, front half
+var RX = 400, RY = 120, EY = 60;
+function chain(a0, a1, front) {
+  var n = Math.round(Math.abs(a1 - a0) * RX / 30);
+  for (var i = 0; i <= n; i++) {
+    var an = a0 + (a1 - a0) * i / n, x = RX * Math.cos(an), y = EY + RY * Math.sin(an), tan = Math.atan2(RY * Math.cos(an), -RX * Math.sin(an));
+    g.save(); g.translate(x, y); g.rotate(tan); g.lineWidth = 9; g.strokeStyle = front ? '#f0c96e' : 'rgba(140,110,55,0.85)'; g.shadowColor = '#f0bd5c'; g.shadowBlur = front ? 18 : 0;
+    g.beginPath(); if (i % 2) g.ellipse(0, 0, 19, 10, 0, 0, 6.29); else g.ellipse(0, 0, 19, 3.5, 0, 0, 6.29); g.stroke(); g.restore();
+  }
+}
+chain(Math.PI, 2 * Math.PI, false);
+// racks (oblique boxes): P(X,Y,Z) = [x + X + 0.5Z, y − Y − 0.32Z]
+function rack(x0, y0, w, h, d, seed) {
+  function P(X, Y, Z) { return [x0 + X + 0.5 * Z, y0 - Y - 0.32 * Z]; }
+  function poly(ps, c, st) { g.beginPath(); ps.forEach(function (p, i) { var q = P(p[0], p[1], p[2]); if (i) g.lineTo(q[0], q[1]); else g.moveTo(q[0], q[1]); }); g.closePath(); g.fillStyle = c; g.fill(); g.strokeStyle = st || 'rgba(150,180,235,0.35)'; g.lineWidth = 1.5; g.stroke(); }
+  poly([[w, 0, 0], [w, 0, d], [w, h, d], [w, h, 0]], '#0d1526'); poly([[0, h, 0], [w, h, 0], [w, h, d], [0, h, d]], '#1d2a44'); poly([[0, 0, 0], [w, 0, 0], [w, h, 0], [0, h, 0]], '#121c31', 'rgba(170,200,255,0.5)');
+  var rows = 9;
+  for (var r = 0; r < rows; r++) {
+    var yy = y0 - h + 14 + r * (h - 24) / rows, hh = (h - 24) / rows - 6;
+    var gr = g.createLinearGradient(x0, 0, x0 + w, 0); gr.addColorStop(0, '#1b2740'); gr.addColorStop(1, '#141e33'); g.fillStyle = gr; g.fillRect(x0 + 10, yy, w - 20, hh);
+    for (var k = 0; k < 5; k++) { var on = rnd(seed * 50 + r * 7 + k) > 0.3, col = rnd(seed + r * 3 + k * 11) > 0.75 ? '#ffd27a' : '#7fb4ff';
+      if (!on) continue; g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 12; g.fillRect(x0 + 18 + k * 12, yy + hh / 2 - 2, 6, 4); g.shadowBlur = 0; }
+    g.fillStyle = 'rgba(120,170,255,0.18)'; g.fillRect(x0 + 90, yy + 4, w - 110, hh - 8);
+  }
+}
+var RW = 120, RH = 380, RD = 130;
+for (var i = 0; i < 5; i++) rack(-330 + i * 132 - 60, 170, RW, RH, RD, i + 1);
+// cool light spilling from the racks
+var sp = g.createRadialGradient(0, -20, 10, 0, -20, 420); sp.addColorStop(0, 'rgba(120,170,255,0.18)'); sp.addColorStop(1, 'rgba(120,170,255,0)'); g.fillStyle = sp; g.fillRect(-500, -420, 1000, 800);
+chain(0, Math.PI, true);
+// padlock at the front of the chain
+(function () {
+  g.save(); g.translate(0, EY + RY + 30); g.scale(1.25, 1.25);
+  g.strokeStyle = '#e2b95e'; g.lineWidth = 13; g.shadowColor = '#f0bd5c'; g.shadowBlur = 22; g.beginPath(); g.arc(0, -46, 36, Math.PI, 0); g.lineTo(36, -24); g.moveTo(-36, -46); g.lineTo(-36, -24); g.stroke();
+  g.beginPath(); g.moveTo(-60, -34); g.arcTo(60, -34, 60, 60, 12); g.arcTo(60, 60, -60, 60, 12); g.arcTo(-60, 60, -60, -34, 12); g.arcTo(-60, -34, 60, -34, 12); g.closePath();
+  var lg = g.createLinearGradient(0, -34, 0, 60); lg.addColorStop(0, '#ffe09a'); lg.addColorStop(0.5, '#d7a240'); lg.addColorStop(1, '#8a5f1a'); g.fillStyle = lg; g.fill();
+  g.shadowBlur = 0; g.fillStyle = '#3d2a0c'; g.beginPath(); g.arc(0, 4, 11, 0, 6.29); g.fill(); g.fillRect(-5, 4, 10, 28); g.restore();
+})();
+g.restore();
+// sparks drifting up
+for (var i = 0; i < 90; i++) { var x = CX + (rnd(i) - 0.5) * (V ? 900 : 1000), y = CY + 260 - rnd(i + 7) * (V ? 900 : 700), r = 1 + 2 * rnd(i + 3);
+  g.fillStyle = 'rgba(255,215,140,' + (0.15 + 0.5 * rnd(i + 9)).toFixed(2) + ')'; g.beginPath(); g.arc(x, y, r, 0, 6.29); g.fill(); }
+// vignette
+var vg = g.createRadialGradient(W / 2, H / 2, H * 0.3, W / 2, H / 2, H * 1.0); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.75)'); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+</script></body></html>
