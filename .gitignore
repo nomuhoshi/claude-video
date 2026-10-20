@@ -15,3 +15,7 @@ ws/render_edu/shots/
 ws/render_edu/v*.html
 ws/render_edu/*_meta.json
 ws/render_edu/list_*.txt
+ws/v2/ch/
+ws/v2/shots/
+ws/v2/chk/
+ws/v2/demo.html
