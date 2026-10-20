@@ -166,10 +166,10 @@
       var k = mix(0, 5, eo(pr(lt, L[4] + 0.6, 4.2)));
       nestModel(g, cx, cy, R, ay, 0.42, nest, k, A_(lt, L[5], 0.6), A_(lt, L[7], 0.6));
       var pa = A_(lt, L[6], 0.5);
-      tx(g, '5 个形状', 82, 22, 2.4, GOLD, 'center', 900, SANS, pa); tx(g, '↓', 82, 26.5, 2.0, FG, 'center', 800, SANS, pa);
-      tx(g, '6 个球', 82, 31, 2.4, ICE, 'center', 900, SANS, pa); tx(g, '= 6 颗行星', 82, 35.6, 2.0, FG, 'center', 800, SANS, A_(lt, L[7], 0.5));
-      var bk = A_(lt, L[8], 0.6);
-      if (bk > 0.01) { bookB(g, 82, 41.5, 9, 6, bk, '#5a2e22', ''); tx(g, '1596', 82, 41.5, 1.7, '#f2dfb0', 'center', 900, SANS, bk); tx(g, '《宇宙的奥秘》', 82, 16, 1.8, GOLD, 'center', 800, SANS, bk); }
+      var bk = A_(lt, L[8], 0.7), ko = 1 - bk;
+      tx(g, '5 个形状', 82, 22, 2.4, GOLD, 'center', 900, SANS, pa * ko); tx(g, '↓', 82, 26.5, 2.0, FG, 'center', 800, SANS, pa * ko);
+      tx(g, '6 个球', 82, 31, 2.4, ICE, 'center', 900, SANS, pa * ko); tx(g, '= 6 颗行星', 82, 35.6, 2.0, FG, 'center', 800, SANS, A_(lt, L[7], 0.5) * ko);
+      if (bk > 0.01) tome(g, 82, 27 + 3 * (1 - eo(bk)), 13, 18, bk, '#5a2e22', '宇宙的奥秘', '1596', lt);
     }
   };
 
@@ -259,7 +259,7 @@
       tycho(g, 26, 45, 14, p1, { pose: lt > L[2] ? 'forward' : 'down' }, lt);
       kepler(g, 76, 45, 13, p1, { flip: true }, lt);
       // stacks of ledgers behind Tycho, locked
-      for (i = 0; i < 4; i++) bookB(g, 10 + i * 0.2, 42 - i * 3.1, 9, 3, p1, ['#5a2e22', '#3e4a2a', '#2a3a5a', '#4a2a4a'][i]);
+      for (i = 0; i < 4; i++) spineBook(g, 10 + i * 0.3, 42 - i * 3.1, 10, 2.8, p1, ['#5a2e22', '#3e4a2a', '#2a3a5a', '#4a2a4a'][i]);
       var lk = A_(lt, L[1], 0.5) * p1; rbox(g, 13, 27, 4, 3, 0.4, null, 0, '#c9a43a', lk); arcl(g, 15, 27, 1.4, Math.PI, TAU, '#c9a43a', 0.4, lk);
       tx(g, '？', 50, 24, 3.5, DIM, 'center', 900, SANS, A_(lt, L[0] + 0.3, 0.5) * (1 - A_(lt, L[2], 0.4)) * p1);
       var gv = A_(lt, L[2] + 0.3, 0.5) * p1, gx = mix(36, 64, eio(pr(lt, L[2] + 0.4, 1.4)));
@@ -289,7 +289,7 @@
     if (p3 > 0.01) {
       kepler(g, 30, 45, 13, p3, { pose: 'book' }, lt);
       chip(g, 30, 25, '皇家数学家', GOLD, A_(lt, L[7], 0.5), 'rgba(48,38,12,0.95)');
-      for (i = 0; i < 6; i++) { var y = 42 - i * 3.2; bookB(g, 64 + (i % 2) * 0.6, y, 14, 3, p3 * A_(lt, L[8] + i * 0.15, 0.3), ['#5a2e22', '#3e4a2a', '#2a3a5a', '#4a2a4a', '#5a3a1a', '#2a4a4a'][i]); }
+      for (i = 0; i < 6; i++) { var y = 42 - i * 3.2; spineBook(g, 64 + (i % 2) * 0.6, y, 15, 2.9, p3 * A_(lt, L[8] + i * 0.15, 0.3), ['#5a2e22', '#3e4a2a', '#2a3a5a', '#4a2a4a', '#5a3a1a', '#2a4a4a'][i], ['火星', '', '恒星', '', '木星', ''][i]); }
       glow(g, 64, 34, 14, 'rgba(242,198,107,0.8)', 0.4 * A_(lt, L[8], 0.8));
       tx(g, '20 多年的观测记录', 64, 20, 1.8, GOLD, 'center', 800, SANS, A_(lt, L[8] + 0.6, 0.5));
     }

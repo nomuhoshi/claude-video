@@ -93,7 +93,7 @@ def cues():
     # s13: the accusation
     s0, L = at('s13')
     add(s0 + L[1], 'murmur', 0.35, 0.4, 1.0, 0.5); add(s0 + L[2], 'pour', 0.3, 0, 1.0, 0.3)
-    add(s0 + L[4], 'flame', 0.3, 0.6, 1.0, 0.5); add(s0 + L[5], 'page1', 0.3, -0.5, 1.0, 0.3)
+    add(s0 + L[4] - 0.3, 'fire_roar', 0.32, 0.6, 1.0, 0.5); add(s0 + L[4] + 0.5, 'fire_crackle', 0.2, 0.6, 1.0, 0.4); add(s0 + L[5], 'page1', 0.3, -0.5, 1.0, 0.3)
     # s14: the defense, arrest, chains, the instruments, release
     s0, L = at('s14')
     for k in range(6): add(s0 + L[1] + k * 0.35, 'pen', 0.2, 0.1, 1.0, 0.2)
@@ -110,8 +110,15 @@ def cues():
     add(s0 + L[6], 'glitter', 0.45, 0, 1.0, 0.8); add(s0 + L[7], 'pop', 0.3, 0.5, 1.4, 0.4); add(s0 + L[7] + 0.3, 'pop', 0.3, 0.6, 1.5, 0.4)
     # s16: war, graves, unpaid wages, the tables
     s0, L = at('s16')
-    add(s0 + L[0], 'explosion', 0.25, -0.5, 0.6, 0.7); add(s0 + L[0] + 1.0, 'flame', 0.3, 0.3, 1.0, 0.5)
-    add(s0 + L[1], 'toll', 0.3, 0, 1.0, 0.8); add(s0 + L[2], 'toll', 0.22, 0, 1.15, 0.8)
+    # battlefield: burning fires all across the line, distant cannon, steel, men shouting far away
+    tw = s0 + L[3] - 0.2
+    for k, t in enumerate([s0 - 0.6, s0 + 3.6, s0 + 7.8]):
+        if t < tw: add(t, 'fire_roar', 0.55, [-0.5, 0.4, -0.1][k], [1.0, 0.92, 1.06][k], 0.35)
+    for k in range(9): add(s0 + 0.4 + k * 0.95, 'fire_crackle', 0.35, -0.7 + 0.17 * k, 0.9 + 0.05 * (k % 3), 0.3)
+    add(s0 + 0.2, 'war_crowd', 0.28, 0.3, 1.0, 0.6); add(s0 + 4.6, 'war_crowd', 0.22, -0.4, 0.95, 0.6)
+    for t, pan, g_ in [(0.3, -0.6, 0.55), (2.4, 0.5, 0.45), (L[1] + 0.9, -0.2, 0.5), (L[2] + 0.5, 0.6, 0.42), (L[2] + 2.2, -0.5, 0.38)]: add(s0 + t, 'cannon_far', g_, pan, 1.0, 0.6)
+    for k in range(6): add(s0 + 1.1 + k * 1.3, 'clash', 0.16, (-1) ** k * 0.6, 0.9 + 0.08 * (k % 3), 0.5)
+    add(s0 + L[1], 'toll', 0.24, 0, 1.0, 0.8); add(s0 + L[2], 'toll', 0.18, 0, 1.15, 0.8)
     for k in range(6): add(s0 + L[4] + k * 0.2, 'stamp', 0.25, 0.3, 1.0, 0.3)
     add(s0 + L[5], 'book', 0.4, -0.3, 1.0, 0.3); add(s0 + L[7], 'glitter', 0.35, 0.4, 1.0, 0.7)
     # s17: the ride in the rain, the candle, the lost grave, the epitaph
@@ -119,7 +126,7 @@ def cues():
     add(s0 + L[1], 'wind', 0.3, 0, 0.9, 0.6)
     for k in range(10): add(s0 + L[1] + 0.2 + k * 0.5, 'hooves', 0.16, -0.5 + 0.1 * k, 0.95, 0.4)
     add(s0 + L[4], 'toll', 0.35, 0, 0.8, 0.9); add(s0 + L[4] + 2.0, 'hiss', 0.15, 0, 1.6, 0.7)
-    add(s0 + L[5], 'flame', 0.3, 0, 0.9, 0.6)
+    add(s0 + L[5] - 0.3, 'fire_roar', 0.4, 0, 0.95, 0.5); add(s0 + L[5] + 0.6, 'fire_crackle', 0.25, -0.3, 1.0, 0.4); add(s0 + L[5] + 1.6, 'cannon_far', 0.25, 0.5, 1.0, 0.7)
     add(s0 + L[8], 'glitter', 0.3, 0, 0.7, 0.9); add(s0 + L[9], 'sweep', 0.25, 0, 0.7, 0.8)
     # s18: how/why; the baby; Newton; one force; the design fades; the laws stay
     s0, L = at('s18')

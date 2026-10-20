@@ -127,3 +127,72 @@
     g.lineWidth = 0.5; g.beginPath(); g.moveTo(-4, -5.5); g.quadraticCurveTo(-5.6, -4, -5.2, -2); g.stroke();
     g.restore();
   }
+  // ---- a fine leather-bound volume: gilt frame, corner pieces, spine bands, title plate, ribbon, page block, sheen ----
+  function tome(g, x, y, w, h, a, col, title, sub, lt) {
+    if (a <= 0.003) return;
+    lt = lt || 0;
+    var x0 = x - w / 2, y0 = y - h / 2, GD = '#e9c46a', GDD = 'rgba(233,196,106,0.75)';
+    glow(g, x, y, Math.max(w, h) * 0.95, 'rgba(242,198,107,0.9)', (0.22 + 0.06 * Math.sin(lt * 1.6)) * a);
+    // page block peeking out at the fore-edge and bottom
+    rbox(g, x0 + 0.5, y0 + 0.7, w, h, 0.3, null, 0, '#efe3c4', a);
+    g.save(); g.globalAlpha *= a * 0.45; g.strokeStyle = '#b9a67e'; g.lineWidth = 0.06;
+    for (var i = 1; i < 6; i++) { g.beginPath(); g.moveTo(x0 + w + 0.5 - 0.02, y0 + 0.9 + i * (h - 0.6) / 6); g.lineTo(x0 + w + 0.06, y0 + 0.9 + i * (h - 0.6) / 6); g.stroke(); }
+    g.restore();
+    // the cover: leather gradient
+    g.save(); g.globalAlpha *= a;
+    var lg = g.createLinearGradient(x0, y0, x0 + w, y0 + h); lg.addColorStop(0, shade(col, 1.35)); lg.addColorStop(0.55, col); lg.addColorStop(1, shade(col, 0.6));
+    g.fillStyle = lg; g.beginPath(); if (g.roundRect) g.roundRect(x0, y0, w, h, 0.45); else g.rect(x0, y0, w, h); g.fill();
+    // leather grain
+    var r = rng(title ? title.length * 7 + 3 : 3);
+    for (i = 0; i < 40; i++) { g.fillStyle = 'rgba(0,0,0,' + (0.05 + r() * 0.08).toFixed(3) + ')'; g.fillRect(x0 + r() * w, y0 + r() * h, 0.12, 0.12); }
+    // spine with raised bands
+    var sw = Math.max(0.8, w * 0.1);
+    g.fillStyle = 'rgba(0,0,0,0.28)'; g.fillRect(x0, y0, sw, h);
+    for (i = 1; i <= 4; i++) { var by = y0 + h * i / 5; g.fillStyle = 'rgba(255,255,255,0.10)'; g.fillRect(x0, by - 0.22, sw, 0.18); g.fillStyle = GDD; g.fillRect(x0, by - 0.04, sw, 0.08); }
+    g.restore();
+    // gilt double frame and corner pieces
+    var m1 = sw + w * 0.06, m2 = m1 + Math.min(w, h) * 0.05;
+    rbox(g, x0 + m1, y0 + w * 0.06, w - m1 - w * 0.06, h - w * 0.12, 0.2, GD, 0.14, null, a);
+    rbox(g, x0 + m2, y0 + w * 0.06 + (m2 - m1), w - m2 - w * 0.06 - (m2 - m1), h - w * 0.12 - 2 * (m2 - m1), 0.15, GDD, 0.07, null, a);
+    var cs = Math.min(w, h) * 0.07, cx0 = [x0 + m1, x0 + w - w * 0.06], cy0 = [y0 + w * 0.06, y0 + h - w * 0.06];
+    g.save(); g.globalAlpha *= a; g.fillStyle = GD;
+    for (var ix = 0; ix < 2; ix++) for (var iy = 0; iy < 2; iy++) { var px = cx0[ix], py = cy0[iy], sx = ix ? -1 : 1, sy = iy ? -1 : 1;
+      g.beginPath(); g.moveTo(px, py); g.lineTo(px + sx * cs * 2, py); g.quadraticCurveTo(px + sx * cs * 0.6, py + sy * cs * 0.6, px, py + sy * cs * 2); g.closePath(); g.fill(); }
+    g.restore();
+    // centre ornament: a small gilt star over the title plate
+    var ix0 = x + sw / 2, starY = y - h * 0.24;
+    g.save(); g.globalAlpha *= a; g.fillStyle = GD; g.beginPath();
+    for (i = 0; i < 16; i++) { var t = i / 16 * TAU - Math.PI / 2, rr = (i % 2 ? 0.35 : 1) * Math.min(w, h) * 0.07; if (i === 0) g.moveTo(ix0 + Math.cos(t) * rr, starY + Math.sin(t) * rr); else g.lineTo(ix0 + Math.cos(t) * rr, starY + Math.sin(t) * rr); }
+    g.closePath(); g.fill(); g.restore();
+    // title plate
+    if (title) {
+      var n = title.length, fs = Math.min((w - sw) * 0.66 / n, w * 0.17), pw = Math.min(w - sw - w * 0.2, fs * n + fs * 1.0), ph = fs * 1.7;
+      rbox(g, ix0 - pw / 2, y - ph / 2, pw, ph, 0.25, GD, 0.12, 'rgba(10,8,6,0.55)', a);
+      tx(g, title, ix0, y + fs * 0.05, fs, '#f6dc9a', 'center', 900, SANS, a);
+      if (sub) tx(g, sub, ix0, y + h * 0.26, Math.min(fs * 0.8, w * 0.12), '#e9c46a', 'center', 800, SANS, a);
+    }
+    // ribbon bookmark
+    g.save(); g.globalAlpha *= a; g.fillStyle = '#a3262e'; var rx = x0 + w * 0.7;
+    g.beginPath(); g.moveTo(rx, y0 + h - 0.2); g.lineTo(rx + 0.7, y0 + h - 0.2); g.lineTo(rx + 0.7, y0 + h + h * 0.12); g.lineTo(rx + 0.35, y0 + h + h * 0.09); g.lineTo(rx, y0 + h + h * 0.12); g.closePath(); g.fill(); g.restore();
+    // a slow sheen across the leather
+    var sp = ((lt * 0.18) % 1.6) - 0.3;
+    if (sp > 0 && sp < 1) { g.save(); g.globalAlpha *= a * 0.35 * Math.sin(sp * Math.PI); g.beginPath(); if (g.roundRect) g.roundRect(x0, y0, w, h, 0.45); else g.rect(x0, y0, w, h); g.clip();
+      var sx2 = x0 + sp * (w + h); var sg = g.createLinearGradient(sx2 - 2, y0, sx2 + 2, y0 + 3); sg.addColorStop(0, 'rgba(255,255,255,0)'); sg.addColorStop(0.5, 'rgba(255,240,210,0.9)'); sg.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = sg; g.translate(sx2, y); g.rotate(0.5); g.fillRect(-1.2, -h, 2.4, h * 2); g.restore(); }
+  }
+  // a book lying flat, seen from the spine (for stacks)
+  function spineBook(g, x, y, w, h, a, col, label) {
+    if (a <= 0.003) return;
+    g.save(); g.globalAlpha *= a;
+    var lg = g.createLinearGradient(0, y - h / 2, 0, y + h / 2); lg.addColorStop(0, shade(col, 1.4)); lg.addColorStop(0.5, col); lg.addColorStop(1, shade(col, 0.6));
+    g.fillStyle = lg; g.beginPath(); if (g.roundRect) g.roundRect(x - w / 2, y - h / 2, w, h, h * 0.35); else g.rect(x - w / 2, y - h / 2, w, h); g.fill();
+    g.fillStyle = 'rgba(233,196,106,0.85)';
+    [0.12, 0.2, 0.8, 0.88].forEach(function (f) { g.fillRect(x - w / 2 + w * f, y - h / 2, 0.16, h); });
+    g.restore();
+    if (label) tx(g, label, x, y + 0.05, h * 0.5, '#f6dc9a', 'center', 800, SANS, a);
+  }
+  function shade(hex, k) {
+    var n = parseInt(hex.slice(1), 16), r = n >> 16 & 255, gg = n >> 8 & 255, b = n & 255;
+    function c(v) { return Math.max(0, Math.min(255, Math.round(v * k))); }
+    return 'rgb(' + c(r) + ',' + c(gg) + ',' + c(b) + ')';
+  }

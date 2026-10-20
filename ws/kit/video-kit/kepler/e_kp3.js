@@ -23,7 +23,7 @@
       tx(g, '烧死女巫的年代', 30, 20, 2.2, HOT, 'center', 900, SANS, A_(lt, L[4], 0.5) * p2 * (1 - A_(lt, L[5] - 0.2, 0.4)));
       tx(g, '那几十年，德意志各地处死了数以千计的“女巫”', 30, 25, 1.4, DIM, 'center', 600, SANS, A_(lt, L[4] + 0.6, 0.5) * p2 * (1 - A_(lt, L[5], 0.5)));
       var bk = A_(lt, L[5], 0.6);
-      bookB(g, 24, 32, 10, 13, bk, '#2a2a4a', ''); tx(g, '梦', 24.5, 32, 2.6, '#f2dfb0', 'center', 900, SANS, bk);
+      tome(g, 24, 32, 10, 13, bk, '#2e2a52', '梦', null, lt);
       ln(g, 30, 32, 38, 34, 'rgba(255,107,107,0.6)', 0.25, [0.6, 0.5], bk); katharina(g, 42, 45, 10, bk, { name: '' }, lt);
       tx(g, '有人说写的就是她', 33, 22, 1.7, '#ffb8a8', 'center', 800, SANS, A_(lt, L[6], 0.5));
     }
@@ -121,7 +121,9 @@
     var i, p1 = W_(lt, 0.1, L[3] - 0.2, 0.7, 0.6);
     if (p1 > 0.01) {
       ground(g, 40, p1, '#241c1a', '#0d0a09');
-      for (i = 0; i < 3; i++) flame(g, 20 + i * 30, 40, 7, 9, lt + i, 0.45 * p1, 5 + i);
+      for (i = 0; i < 6; i++) { var fx = 8 + i * 17 + (i % 2) * 4; for (var sm2 = 0; sm2 < 4; sm2++) { var ph = (lt * 0.12 + sm2 * 0.25 + i * 0.13) % 1; halo(g, fx + Math.sin(ph * 6 + i) * 3, 38 - ph * 26, 3 + ph * 7, 'rgba(60,52,50,0.6)', p1 * 0.35 * Math.sin(ph * Math.PI)); } }
+      halo(g, 50, 42, 60, 'rgba(255,110,40,0.5)', 0.22 * p1 * (0.85 + 0.15 * Math.sin(lt * 5)));
+      for (i = 0; i < 6; i++) { var fx2 = 8 + i * 17 + (i % 2) * 4; flame(g, fx2, 40, 8 + (i % 3) * 2, 11 + (i % 2) * 4, lt + i, 0.75 * p1, 5 + i); embers(g, fx2, 38, 10, 24, lt + i, 0.8 * p1, 30 + i, 14); }
       for (i = 0; i < 10; i++) { var px = ((lt * 2 + i * 11) % 110) - 5; extra(g, px, 41, 4.5, p1 * 0.55, { name: '', col: '#3e4252', walk: lt * 6 + i }, lt); }
       tx(g, '三十年战争 · 1618—1648', 50, 15, 2.2, HOT, 'center', 900, SANS, p1);
       var lo = A_(lt, L[1], 0.6) * p1;
@@ -139,8 +141,7 @@
     }
     var p3 = A_(lt, L[5] - 0.1, 0.7);
     if (p3 > 0.01) {
-      bookB(g, 28, 28, 18, 24, p3, '#2a3a5a', '');
-      tx(g, '鲁道夫星表', 28.6, 24, 2.0, '#f2dfb0', 'center', 900, SANS, p3); tx(g, '1627', 28.6, 31, 2.0, '#f2dfb0', 'center', 800, SANS, p3);
+      tome(g, 28, 27, 18, 24, p3, '#24365a', '鲁道夫星表', '1627', lt);
       var pa = A_(lt, L[6], 0.6) * p3, cx = 66, cy = 28;
       sunB(g, cx, cy, 1.5, pa, lt);
       ellipsePath(g, cx, cy, 8, 7, 'rgba(111,182,255,0.5)', 0.15, pa); ellipsePath(g, cx + 1.4, cy, 13, 12, 'rgba(255,122,92,0.5)', 0.15, pa);

@@ -117,8 +117,7 @@
     }
     var p2 = A_(lt, L[6] - 0.1, 0.7);
     if (p2 > 0.01) {
-      bookB(g, 30, 28, 18, 24, p2, '#3e2418', '');
-      tx(g, '新天文学', 30.6, 24, 2.4, '#f2dfb0', 'center', 900, SANS, p2); tx(g, '1609', 30.6, 32, 2.2, '#f2dfb0', 'center', 800, SANS, p2);
+      tome(g, 30, 27, 18, 24, p2, '#4a2a1a', '新天文学', '1609', lt);
       // a perfect golden circle that cracks and falls apart
       var ck = A_(lt, L[8] - 0.2, 0.4), fall = clamp((lt - L[8]) / 2.4);
       if (fall <= 0) ring(g, 70, 28, 10, GOLD, 0.6, p2);
@@ -177,8 +176,7 @@
     stars(g, 0.8 * A, lt, 61, 90);
     var p1 = W_(lt, 0.1, L[3] - 0.2, 0.7, 0.6);
     if (p1 > 0.01) {
-      bookB(g, 18, 22, 12, 16, p1, '#2a2a4a', '');
-      tx(g, '梦', 18.6, 22, 3.2, '#f2dfb0', 'center', 900, SANS, p1);
+      tome(g, 18, 21, 11, 15, p1, '#2e2a52', '梦', null, lt);
       tx(g, '写于 1608 年前后', 18, 33, 1.4, DIM, 'center', 600, SANS, p1);
       hills(g, p1, 40, '#1a2430'); ground(g, 43, p1, '#1a2430', '#0c1018');
       var b1 = A_(lt, L[1], 0.5) * p1;
@@ -205,8 +203,7 @@
     }
     var p3 = A_(lt, L[7] - 0.2, 0.8);
     if (p3 > 0.01) {
-      bookB(g, 34, 28, 12, 16, p3, '#2a2a4a', '');
-      tx(g, '梦', 34.6, 28, 3.2, '#f2dfb0', 'center', 900, SANS, p3);
+      tome(g, 34, 27, 12, 16, p3, '#2e2a52', '梦', null, lt);
       // the herb-woman in the story casts a long shadow that becomes a real old woman
       g.save(); g.globalAlpha *= p3 * 0.5; g.fillStyle = '#000'; g.beginPath(); g.ellipse(62, 44.5, 10 * A_(lt, L[7], 1.2), 1.2, 0, 0, TAU); g.fill(); g.restore();
       katharina(g, 62, 44, 11, A_(lt, L[7] + 0.4, 1.0), { name: '' }, lt);
