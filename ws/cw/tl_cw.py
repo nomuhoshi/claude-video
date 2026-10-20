@@ -24,7 +24,7 @@ for key, kind, draw, anchor, lines, hold in SC:
     else:
         c = s + (BEAT * 2 if kind == 's' and not anchor else (BEAT * 3 if kind == 'hero' else 0))
         for tx in lines:
-            w = wid(tx); assert w <= 21.5 or tx.startswith('!'), (key, tx, w)
+            w = wid(tx); assert w <= 18.5 or tx.startswith('!'), (key, tx, w)
             d = max(2.0, 0.55 + w / 7.0) if not tx.startswith('!') else 2.4
             ls.append(round(c - s, 3)); c = up(c + d, BEAT)
         e = up(c + hold * BEAT, BEAT)
