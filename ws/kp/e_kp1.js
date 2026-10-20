@@ -6,7 +6,7 @@
     var cx = 50, cy = 28, R = 17;
     glow(g, cx, cy, 22, 'rgba(242,198,107,0.8)', 0.18 * A_(lt, L[1], 0.8) * dim);
     nestModel(g, cx, cy, R, lt * 0.35, 0.42, dim, build, 0.6 * A_(lt, L[1], 0.8), 0);
-    var de = A_(lt, L[1] + 0.3, 0.5) * (1 - A_(lt, L[2], 0.4));
+    var de = A_(lt, L[1] + 0.3, 0.5) * (1 - A_(lt, L[3], 0.5));
     chip(g, 80, 16, '上帝的设计图？', GOLD, de, 'rgba(48,38,12,0.95)');
     tx(g, '✕', 80, 16, 3, RED, 'center', 900, SANS, A_(lt, L[2], 0.3) * (1 - A_(lt, L[3], 0.5)));
     // a true orbit draws itself through the old design
