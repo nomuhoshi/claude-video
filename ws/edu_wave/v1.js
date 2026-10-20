@@ -173,33 +173,41 @@ S.push({ lines: ['注意：这条曲线不是弹簧真实的形状。', '纵轴 
       txt(g, '疎', x, YD - 75, { size: 52, jp: true, w: 900, col: C.blue, al: 'center', a: q }); txt(g, '上向きに横切る', x, OY + 110, { size: 32, jp: true, col: C.blue, al: 'center', a: q }); });
   } });
 // 8 图的下半部分：动き
-const OYB = 500, AG = 170, DX = 110, SAMP = [360, 600, 840, 1080];
+const OYB = 500, AG = 170, DX = 110, SAMP = [430, 910, 1390];
 const gy = (x, sh = 0) => OYB - AG * Math.sin(K * (XC - (x - sh)));
 const vy = x => gy(x, DX) - gy(x, 0);
-S.push({ lines: ['最后看图的下半部分：波在前进的时候。', ['实线是现在的波形，虚线是过一小会儿的波形。', .4], '从实线到虚线，有的点往下动，有的点往上动。', '可这里的 y 是“借来”的，要转回去才是真正的运动。', ['顺时针转回 90°：「−y への動き」，実は −x への動き。', .6], ['「+y への動き」，実は +x への動き。', .6]],
-  cues: [[s => s.L[4] + .9, 'whoosh']],
+S.push({ lines: ['最后看图的下半部分：波在前进的时候。', ['实线是现在的波形，虚线是过一小会儿的波形。', .4], '从实线到虚线，有的点往下动，有的点往上动。', ['可 y 是借来的：把两个点都绕脚下顺时针转 90°。', 1.4], 'x 轴上，从“现在”指向“过一会儿”的箭头，才是真正的运动。', ['「−y への動き」，実は −x への動き。', .6], ['「+y への動き」，実は +x への動き。', .6]],
+  cues: [[s => s.L[3] + .6, 'whoosh'], [s => s.L[4] + .2, 'ding']],
   draw(g, lt, s) {
     axes(g, OXA, OYB, 1820, 270, 730, seg(lt, .1, .6));
     curve(g, x => gy(x), OXA + 10, 1790, C.red, 5);
     const sh = DX * seg(lt, s.L[1], 1.2);
     curve(g, x => gy(x, sh), OXA + 10, 1790, C.red, 4, seg(lt, s.L[1], .4), [14, 12]);
     arrow(g, 1560, 250, 1720, 250, C.ink, 4, 18, seg(lt, s.L[1], .5)); txt(g, 'v', 1745, 248, { size: 44, serif: true, a: seg(lt, s.L[1], .5) });
-    const va = seg(lt, s.L[2], .6), drop = seg(lt, s.L[4] + .1, .8), rot = seg(lt, s.L[4] + .9, 1.2);
+    const va = seg(lt, s.L[2], .6), rot = seg(lt, s.L[3] + .6, 1.8), ha = seg(lt, s.L[4], .6), th = rot * Math.PI / 2;
+    const mids = [];
     SAMP.forEach((x, j) => {
-      const y0 = gy(x), dv = vy(x), up = dv < 0, col = up ? C.gold : C.blue;
-      line(g, x, y0, x, OYB, C.mute, 1.6, [6, 7], va * .8);
-      arrow(g, x, y0, x, y0 + dv, col, 5, 16, va);
-      if (drop > 0) { const by = y0, th = rot * Math.PI / 2, m = -dv; // 速度属于曲线上的这个点：原地转，不移到 x 轴；m>0 上
-        if (rot > 0) { g.save(); g.globalAlpha = .8; g.setLineDash([4, 6]); g.strokeStyle = C.mute; g.lineWidth = 2; g.beginPath();
-          m > 0 ? g.arc(x, by, m, -Math.PI / 2, -Math.PI / 2 + th) : g.arc(x, by, -m, Math.PI / 2, Math.PI / 2 + th); g.stroke(); g.restore(); }
-        arrow(g, x, by, x + m * Math.sin(th), by - m * Math.cos(th), col, 5, 16, 1); }
+      const y0 = gy(x), y1 = gy(x, DX), ds = OYB - y0, dd = OYB - y1, col = (y1 < y0) ? C.gold : C.blue;
+      line(g, x, Math.min(y0, y1, OYB), x, Math.max(y0, y1, OYB), C.mute, 1.6, [6, 7], va * .8);
+      arrow(g, x, y0, x, y1, col, 5, 16, va);
+      if (rot > 0) [[ds, C.red], [dd, C.red]].forEach(([d, c], k) => {   // 实线点、虚线点各自绕脚下 (x, 轴) 顺时针转
+        g.save(); g.strokeStyle = C.axis; g.globalAlpha = .75; g.lineWidth = 2; g.beginPath();
+        d > 0 ? g.arc(x, OYB, d, -Math.PI / 2, -Math.PI / 2 + th) : g.arc(x, OYB, -d, Math.PI / 2, Math.PI / 2 + th); g.stroke(); g.restore();
+        dot(g, x + d * Math.sin(th), OYB - d * Math.cos(th), 8, c, 1);
+        if (k === 1 && rot < 1) { g.save(); g.globalAlpha = .9; g.strokeStyle = c; g.lineWidth = 2; g.setLineDash([4, 4]); g.beginPath(); g.arc(x + d * Math.sin(th), OYB - d * Math.cos(th), 11, 0, 7); g.stroke(); g.restore(); }
+      });
+      if (ha > 0) { arrow(g, x + ds, OYB, x + ds + (dd - ds) * ha, OYB, col, 6, 18, 1); }
+      mids[j] = x + (ds + dd) / 2;
     });
-    twoLine(g, '−y への動き', '', 250, 300, C.blue, va);
-    if (va > 0) arrow(g, 360, 330, SAMP[0] - 6, gy(SAMP[0]) - 14, C.blue, 2.5, 12, va * .8);
-    txt(g, '+y への動き', 900, 290, { size: 33, jp: true, w: 700, col: C.gold, al: 'center', a: va });
-    if (va > 0) arrow(g, 880, 315, SAMP[2] + 4, gy(SAMP[2]) - 12, C.gold, 2.5, 12, va * .8);
-    twoLine(g, '実は −x', 'への動き', 230, 730, C.blue, seg(lt, s.L[4] + 1.8, .6));
-    twoLine(g, '実は +x', 'への動き', 1050, 700, C.gold, seg(lt, s.L[5], .6));
+    txt(g, '−y への動き', 330, 300, { size: 33, jp: true, w: 700, col: C.blue, a: va });
+    if (va > 0) arrow(g, 420, 325, SAMP[0] - 6, gy(SAMP[0]) - 14, C.blue, 2.5, 12, va * .8);
+    txt(g, '+y への動き', 1080, 250, { size: 33, jp: true, w: 700, col: C.gold, al: 'center', a: va });
+    if (va > 0) arrow(g, 1060, 275, SAMP[1] + 6, gy(SAMP[1], DX) - 14, C.gold, 2.5, 12, va * .8);
+    const b1 = seg(lt, s.L[5], .6), b2 = seg(lt, s.L[6], .6);
+    twoLine(g, '実は −x', 'への動き', mids[0] - 60, 790, C.blue, b1);
+    if (b1 > 0) arrow(g, mids[0] - 10, 765, mids[0], OYB + 14, C.blue, 2.5, 12, b1 * .8);
+    twoLine(g, '実は +x', 'への動き', mids[1] - 20, 790, C.gold, b2);
+    if (b2 > 0) arrow(g, mids[1] + 10, 765, mids[1], OYB + 14, C.gold, 2.5, 12, b2 * .8);
   } });
 // 9 动起来对照
 const HL = [5, 9];
