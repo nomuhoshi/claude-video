@@ -189,7 +189,7 @@ S.push({ lines: ['最后看图的下半部分：波在前进的时候。', ['实
       const y0 = gy(x), dv = vy(x), up = dv < 0, col = up ? C.gold : C.blue;
       line(g, x, y0, x, OYB, C.mute, 1.6, [6, 7], va * .8);
       arrow(g, x, y0, x, y0 + dv, col, 5, 16, va);
-      if (drop > 0) { const by = y0 + (OYB - y0) * drop, th = rot * Math.PI / 2, m = -dv; // m>0 上
+      if (drop > 0) { const by = y0, th = rot * Math.PI / 2, m = -dv; // 速度属于曲线上的这个点：原地转，不移到 x 轴；m>0 上
         if (rot > 0) { g.save(); g.globalAlpha = .8; g.setLineDash([4, 6]); g.strokeStyle = C.mute; g.lineWidth = 2; g.beginPath();
           m > 0 ? g.arc(x, by, m, -Math.PI / 2, -Math.PI / 2 + th) : g.arc(x, by, -m, Math.PI / 2, Math.PI / 2 + th); g.stroke(); g.restore(); }
         arrow(g, x, by, x + m * Math.sin(th), by - m * Math.cos(th), col, 5, 16, 1); }
@@ -198,8 +198,8 @@ S.push({ lines: ['最后看图的下半部分：波在前进的时候。', ['实
     if (va > 0) arrow(g, 360, 330, SAMP[0] - 6, gy(SAMP[0]) - 14, C.blue, 2.5, 12, va * .8);
     txt(g, '+y への動き', 900, 290, { size: 33, jp: true, w: 700, col: C.gold, al: 'center', a: va });
     if (va > 0) arrow(g, 880, 315, SAMP[2] + 4, gy(SAMP[2]) - 12, C.gold, 2.5, 12, va * .8);
-    twoLine(g, '実は −x', 'への動き', 380, 800, C.blue, seg(lt, s.L[4] + 1.8, .6));
-    twoLine(g, '実は +x', 'への動き', 860, 800, C.gold, seg(lt, s.L[5], .6));
+    twoLine(g, '実は −x', 'への動き', 230, 730, C.blue, seg(lt, s.L[4] + 1.8, .6));
+    twoLine(g, '実は +x', 'への動き', 1050, 700, C.gold, seg(lt, s.L[5], .6));
   } });
 // 9 动起来对照
 const HL = [5, 9];
