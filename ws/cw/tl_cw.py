@@ -87,13 +87,13 @@ def beat_after(t): return round(up(t, BEAT), 3)
 for c in chaps: hit(c['s'], 0.95, 14, True); put('riser', c['s'] - 1.25, 0.35); put('sub_drop', c['s'], 0.55)
 
 # hero
-counter('在手订单', 0, 1040, '亿美元', at('hero', 0, 0.5), at('hero', 0, 2.6), at('hero', 3, -0.2), land='#f0bd5c', pw=2.2)
-hit(at('hero', 0, 2.6), 0.8, 8)
-hit(at('hero', 1, 1.0), 0.7, 6); hit(at('hero', 2, 1.0), 0.85, 10, True)
-slam('利息 > 亏损', at('hero', 2, 1.3), 1380, 860, 84, '#ef5b43', at('hero', 3, -0.2))
-slam('CoreWeave', at('hero', 3, 0.5), 1290, 540, 150, '#f2d39a', at('hero', 4, -0.1), 'NASDAQ · CRWV')
-hit(at('hero', 3, 0.5), 1.0, 16, True); put('sub_drop', at('hero', 3, 0.5), 0.7)
-put('whoosh_swing', at('hero', 4, 0.2), 0.4); hit(at('hero', 4, 1.6), 0.5, 4)
+counter('在手订单', 0, 1040, '亿美元', at('hero', 1, 0.2), at('hero', 1, 2.3), at('hero', 4, -0.2), land='#f0bd5c', pw=2.2)
+hit(at('hero', 1, 2.3), 0.8, 8)
+hit(at('hero', 2, 1.0), 0.7, 6); hit(at('hero', 3, 1.0), 0.85, 10, True)
+slam('利息 > 亏损', at('hero', 3, 1.3), 1345, 960, 80, '#ef5b43', at('hero', 4, -0.2))
+slam('CoreWeave', at('hero', 4, 0.5), 1290, 540, 150, '#f2d39a', at('hero', 5, -0.1), 'NASDAQ · CRWV')
+hit(at('hero', 4, 0.5), 1.0, 16, True); put('sub_drop', at('hero', 4, 0.5), 0.7)
+put('whoosh_swing', at('hero', 5, 0.2), 0.4); hit(at('hero', 6, 0.8), 0.5, 4)
 put('sub_pad', 0, 0.4)
 
 # s1 mining: coins pop
@@ -116,8 +116,8 @@ for k in range(3): put('whoosh_swing', at('s5', 2 + k, 0.3), 0.25)
 put('ui_ping_2', at('s6', 1, 0.6), 0.3); hit(at('s6', 4, 0.4), 0.6, 5)
 # s7 scale
 counter('数据中心', 0, 43, '个', at('s7', 0, 0.3), at('s7', 0, 2.2), at('s7', 1, 0.0), land='#f0bd5c')
-counter('已签电力', 0, 3.7, '吉瓦', at('s7', 2, 0.1), at('s7', 2, 1.6), at('s7', 3, 2.4), land='#f0bd5c', dec=1)
-hit(at('s7', 3, 1.3), 0.7, 6)
+counter('已签电力', 0, 3.7, '吉瓦', at('s7', 3, 0.1), at('s7', 3, 1.6), at('s7', 5, 2.0), land='#f0bd5c', dec=1)
+hit(at('s7', 5, 1.3), 0.7, 6)
 # s8 contract
 hit(at('s8', 1, 0.6), 0.85, 10, True); put('ui_ping_3', at('s8', 3, 0.6), 0.4)
 # s9 msft
@@ -125,43 +125,43 @@ counter('微软占收入', 0, 67, '%', at('s9', 1, 0.3), at('s9', 2, 0.8), at('s
 hit(at('s9', 2, 0.8), 0.9, 12, True)
 # s10 spread
 counter('最大客户占比', 67, 36, '%', at('s10', 1, 0.3), at('s10', 1, 2.2), at('s10', 3, 2.4), land='#f0bd5c', pw=1.4)
-hit(at('s10', 2, 0.6), 0.6, 5); hit(at('s10', 3, 0.6), 0.6, 5)
+hit(at('s10', 2, 0.6), 0.6, 5); hit(at('s10', 4, 0.6), 0.6, 5)
 # s11 nvidia
 put('whoosh_swing', at('s11', 1, 0.3), 0.3); put('whoosh_swing', at('s11', 2, 0.3), 0.3); hit(at('s11', 3, 0.6), 0.6, 5)
 # s12 cost: price tags; the source pause bar sits under “钱从哪来？”
 hit(at('s12', 1, 0.6), 0.5, 4)
 # s13 borrow: the drop
-hit(S('s13'), 1.0, 22, True); put('sub_drop', S('s13'), 0.9); put('data_burst', S('s13') + 0.05, 0.35)
+hit(S('s13'), 1.0, 22, True); slam('借', S('s13'), 1380, 330, 200, '#ef5b43', at('s13', 1, 0.4), 'BORROW'); put('sub_drop', S('s13'), 0.9); put('data_burst', S('s13') + 0.05, 0.35)
 counter('抵押借款', 0, 23, '亿美元', at('s13', 2, 0.2), at('s13', 2, 1.4), at('s13', 4, 2.0), land='#f0bd5c')
 hit(at('s13', 1, 1.2), 0.75, 8)       # the lock snaps shut
 # s14 debt
-counter('债务 + 租约', 0, 520, '亿美元', at('s14', 1, 0.3), at('s14', 1, 2.6), at('s14', 2, 0.0), land='#ef5b43', pw=2.4)
-hit(at('s14', 1, 2.6), 0.95, 14, True)
-hit(at('s14', 2, 0.8), 0.6, 5); hit(at('s14', 4, 0.8), 0.6, 5)
+counter('债务 + 租约', 0, 520, '亿美元', at('s14', 2, 0.2), at('s14', 2, 2.3), at('s14', 3, 0.0), land='#ef5b43', pw=2.4)
+hit(at('s14', 2, 2.3), 0.95, 14, True)
+hit(at('s14', 3, 0.8), 0.6, 5); hit(at('s14', 5, 0.8), 0.6, 5)
 # s15 interest
-counter('季度利息', 2.7, 6.4, '亿美元', at('s15', 1, 0.6), at('s15', 1, 2.3), at('s15', 2, 2.2), land='#ef5b43', dec=1)
-hit(at('s15', 1, 2.3), 0.85, 10, True); hit(at('s15', 3, 1.0), 0.55, 4); hit(at('s15', 4, 0.9), 0.9, 12, True)
+counter('季度利息', 2.7, 6.4, '亿美元', at('s15', 1, 0.3), at('s15', 1, 2.0), at('s15', 3, 2.2), land='#ef5b43', dec=1)
+hit(at('s15', 1, 2.0), 0.85, 10, True); hit(at('s15', 3, 1.0), 0.55, 4); hit(at('s15', 5, 0.9), 0.55, 4); hit(at('s15', 6, 0.9), 0.95, 14, True)
 # s16 aging
 for k in range(6): put('hit_drum2', at('s16', 3, 0.3 + 0.27 * k), 0.35 + 0.05 * k)
 # s17 bond
-counter('债券收益率', 0, 15.0, '%', at('s17', 2, 0.2), at('s17', 2, 2.0), at('s17', 3, 0.0), land='#ef5b43', dec=1, pw=2.0)
-hit(at('s17', 2, 2.0), 0.9, 12, True); put('downer', at('s17', 4, 0.4), 0.45)
+counter('债券收益率', 0, 15.0, '%', at('s17', 2, 0.2), at('s17', 2, 2.0), at('s17', 4, 0.0), land='#ef5b43', dec=1, pw=2.0)
+hit(at('s17', 2, 2.0), 0.9, 12, True); put('downer', at('s17', 6, 0.4), 0.45)
 # s18 post
-put('ui_ping_1', at('s18', 0, 0.3), 0.4); put('ui_ping_2', at('s18', 2, 0.3), 0.4)
-put('riser', at('s18', 3) - 1.1, 0.4)
-slam('Yikes.', at('s18', 3, 0.1), 1380, 820, 150, '#ef5b43', Ee('s18') - 0.1)
-hit(at('s18', 3, 0.1), 1.0, 20, True); put('sub_drop', at('s18', 3, 0.1), 0.8)
+put('ui_ping_1', at('s18', 0, 0.3), 0.4); put('ui_ping_2', at('s18', 3, 0.3), 0.4)
+put('riser', at('s18', 4) - 1.1, 0.4)
+slam('Yikes.', at('s18', 4, 0.1), 1400, 860, 130, '#ef5b43', Ee('s18') - 0.1)
+hit(at('s18', 4, 0.1), 1.0, 20, True); put('sub_drop', at('s18', 4, 0.1), 0.8)
 # s19 wood
 slam('−15%', at('s19', 0, 0.9), 1500, 300, 130, '#ef5b43', at('s19', 1, 0.1)); hit(at('s19', 0, 0.9), 0.95, 16, True)
-counter('ARK 买入', 0, 188665, '股', at('s19', 1, 0.6), at('s19', 1, 2.6), at('s19', 2, 0.0), land='#f0bd5c', pw=1.5, tick_g=0.22)
-counter('ARK 两天合计', 188665, 381231, '股', at('s19', 2, 0.3), at('s19', 2, 1.9), at('s19', 5, 2.2), land='#f0bd5c', pw=1.2, tick_g=0.22)
-hit(at('s19', 2, 1.9), 0.75, 8)
+counter('ARK 10 月 14 日买入', 0, 188665, '股', at('s19', 2, 0.2), at('s19', 2, 2.0), at('s19', 3, 0.0), land='#f0bd5c', pw=1.5, tick_g=0.22)
+counter('ARK 两天合计', 188665, 381231, '股', at('s19', 3, 0.3), at('s19', 3, 1.9), at('s19', 7, 2.4), land='#f0bd5c', pw=1.2, tick_g=0.22)
+hit(at('s19', 3, 1.9), 0.75, 8)
 # s20 two views
 hit(at('s20', 2, 0.6), 0.85, 12, True); hit(at('s20', 3, 0.6), 0.85, 12, True)
 # s21 signals: one card per line
 for k in range(4): hit(at('s21', 1 + k, 0.15), 0.55 + 0.05 * k, 4); put('ui_ping_%d' % (1 + k % 3), at('s21', 1 + k, 0.3), 0.3)
 # s22 if/then
-put('downer', at('s22', 0, 0.6), 0.35); put('sparkle_bed', at('s22', 2), 0.4); hit(at('s22', 2, 0.3), 0.7, 6)
+put('downer', at('s22', 1, 0.3), 0.35); put('sparkle_bed', at('s22', 3), 0.4); hit(at('s22', 3, 0.3), 0.7, 6)
 # recap / sources
 for k in range(4): put('ui_ping_%d' % (1 + k % 3), at('recap', k, 0.2), 0.4)
 hit(at('recap', 3, 2.0), 0.7, 6)
