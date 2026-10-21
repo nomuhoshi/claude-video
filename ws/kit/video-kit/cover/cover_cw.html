@@ -5,23 +5,24 @@
 html,body{margin:0;background:#05070c;overflow:hidden}
 .c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
 canvas{position:absolute;left:0;top:0}
-.kick{position:absolute;font-family:"IBM Plex Mono","Noto Sans SC",monospace;font-size:28px;color:#8fa3c4;letter-spacing:.3em}
+.kick{position:absolute;font-family:"Noto Serif SC","Noto Serif CJK SC",serif;font-weight:900;font-size:64px;color:#a9c8ff;letter-spacing:.02em;text-shadow:0 0 24px rgba(120,170,255,.45)}
 .h{position:absolute;font-weight:900;line-height:1.16;color:#f3efe6;letter-spacing:.02em;text-shadow:0 0 30px rgba(200,220,255,.12)}
 .h i{font-style:normal;color:#ffd27a;text-shadow:0 0 30px rgba(255,200,110,.6)}
-.sub{position:absolute;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;font-size:30px;color:#b9c0cc;letter-spacing:.12em}
+.sub{position:absolute;font-family:"Noto Sans SC","Noto Sans CJK SC",sans-serif;font-weight:700;font-size:46px;color:#e3e8f0;letter-spacing:.06em;text-shadow:0 2px 12px rgba(0,0,0,.9)}
 .w .c{width:1920px;height:1080px}
-.w .kick{left:285px;top:250px}
+.w .kick{left:282px;top:200px}
 .w .h{left:276px;top:300px;font-size:112px}
-.w .sub{left:285px;top:600px}
+.w .sub{left:285px;top:610px;width:700px;line-height:1.35}
 .v .c{width:1080px;height:1440px}
-.v .kick{left:0;right:0;top:150px;text-align:center}
+.v .kick{left:0;right:0;top:110px;text-align:center;font-size:72px}
 .v .h{left:0;right:0;top:210px;text-align:center;font-size:118px}
-.v .sub{left:0;right:0;top:1250px;text-align:center}
+.v .sub{left:0;right:0;top:1270px;text-align:center;font-size:50px}
+.v .br{display:none}
 </style></head><body><div class="c">
 <canvas id="cv"></canvas>
-<div class="kick">COREWEAVE</div>
+<div class="kick">CoreWeave</div>
 <div class="h">一千亿的订单<span style="letter-spacing:-.45em">，</span><br><i>却在亏钱？</i></div>
-<div class="sub">这家 AI 算力公司，到底是做什么的</div>
+<div class="sub">这家 AI 算力公司<br class="br">到底是做什么的？</div>
 </div>
 <script>
 var V = location.hash === '#dy'; document.body.className = V ? 'v' : 'w';
