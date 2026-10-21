@@ -25,11 +25,22 @@ var V = location.hash === '#dy'; document.body.className = V ? 'v' : 'w';
 var W = V ? 1080 : 1920, H = V ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
 var g = cv.getContext('2d'), TAU = Math.PI * 2;
 function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
-var JX = V ? 760 : 1430, JY = V ? 760 : 330, JR = V ? 70 : 74;                 // Jupiter
-var TX0 = V ? 470 : 940, TY0 = V ? 1190 : 900;                                // telescope eyepiece end
+var JX = V ? 300 : 1090, JY = V ? 700 : 690, JR = V ? 56 : 60;                 // Jupiter
+var TX0 = V ? 150 : 640, TY0 = V ? 1330 : 975;                                // telescope eyepiece end
 // background
 var bg = g.createRadialGradient(JX, JY, 30, JX, JY, Math.max(W, H) * 0.85); bg.addColorStop(0, '#171b30'); bg.addColorStop(0.5, '#0a0c16'); bg.addColorStop(1, '#030409'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
 var Rn = rng(7); for (var i = 0; i < 170; i++) { g.fillStyle = 'rgba(225,235,255,' + (0.12 + Rn() * 0.5).toFixed(2) + ')'; g.beginPath(); g.arc(Rn() * W, Rn() * H, 0.5 + Rn() * 1.5, 0, TAU); g.fill(); }
+var PIMG = new Image();
+function drawPortrait() {
+  var pw = V ? 540 : 640, ph = pw * PIMG.height / PIMG.width, px = V ? 650 : 1470, py = V ? 900 : 520, o = document.createElement('canvas'); o.width = Math.round(pw); o.height = Math.round(ph); var q = o.getContext('2d');
+  q.filter = 'brightness(0.92) saturate(0.88) contrast(1.04)'; q.drawImage(PIMG, 0, 0, o.width, o.height); q.filter = 'none'; q.globalCompositeOperation = 'destination-in';
+  q.save(); q.translate(o.width / 2, o.height * 0.47); q.scale(1, ph / pw * 0.95); var fg = q.createRadialGradient(0, 0, pw * 0.18, 0, 0, pw * 0.5); fg.addColorStop(0, 'rgba(0,0,0,1)'); fg.addColorStop(1, 'rgba(0,0,0,0)'); q.fillStyle = fg; q.fillRect(-pw, -pw, pw * 2, pw * 2); q.restore();
+  var wg = g.createRadialGradient(px, py, 40, px, py, pw * 0.9); wg.addColorStop(0, 'rgba(242,198,107,0.20)'); wg.addColorStop(1, 'rgba(242,198,107,0)'); g.fillStyle = wg; g.fillRect(0, 0, W, H);
+  g.save(); g.globalCompositeOperation = 'destination-over'; g.restore();
+  g.globalAlpha = 0.95; g.drawImage(o, px - o.width / 2, py - o.height / 2); g.globalAlpha = 1;
+}
+function MAIN() {
+drawPortrait();
 // the beam of light from Jupiter down the tube
 var ang = Math.atan2(JY - TY0, JX - TX0), LEN = Math.hypot(JX - TX0, JY - TY0) - JR * 2.6;
 g.save(); g.globalCompositeOperation = 'lighter';
@@ -41,7 +52,7 @@ g.save(); g.beginPath(); g.arc(JX, JY, JR, 0, TAU); g.clip();
 var gr = g.createRadialGradient(JX - JR * 0.35, JY - JR * 0.4, JR * 0.1, JX, JY, JR); gr.addColorStop(0, '#fff3dc'); gr.addColorStop(1, '#c4915a'); g.fillStyle = gr; g.fillRect(JX - JR, JY - JR, JR * 2, JR * 2);
 [[-0.62, 0.16, 'rgba(150,96,60,0.55)'], [-0.3, 0.12, 'rgba(240,222,190,0.5)'], [-0.02, 0.2, 'rgba(158,104,66,0.6)'], [0.34, 0.14, 'rgba(236,214,180,0.5)'], [0.62, 0.15, 'rgba(140,90,56,0.5)']].forEach(function (b) { g.fillStyle = b[2]; g.fillRect(JX - JR, JY + b[0] * JR - b[1] * JR / 2, JR * 2, b[1] * JR); });
 var sh = g.createRadialGradient(JX - JR * 0.5, JY - JR * 0.5, JR * 0.4, JX, JY, JR * 1.05); sh.addColorStop(0, 'rgba(0,0,0,0)'); sh.addColorStop(1, 'rgba(0,0,10,0.38)'); g.fillStyle = sh; g.fillRect(JX - JR, JY - JR, JR * 2, JR * 2); g.restore();
-var mc = ['#ffe9b8', '#cfe3ff', '#ffd2a0', '#e8d9ff'], mo = [-2.55, -1.75, 1.65, 2.6];
+var mo0 = 0; var mc = ['#ffe9b8', '#cfe3ff', '#ffd2a0', '#e8d9ff'], mo = [-2.55, -1.75, 1.65, 2.6];
 for (i = 0; i < 4; i++) { var mx = JX + mo[i] * JR, my = JY - 6 + (i - 1.5) * 3; var mg = g.createRadialGradient(mx, my, 0, mx, my, 26); mg.addColorStop(0, mc[i]); mg.addColorStop(0.25, 'rgba(255,240,210,0.55)'); mg.addColorStop(1, 'rgba(255,240,210,0)'); g.fillStyle = mg; g.beginPath(); g.arc(mx, my, 26, 0, TAU); g.fill(); g.fillStyle = '#fff6dc'; g.beginPath(); g.arc(mx, my, 7.5, 0, TAU); g.fill(); }
 // tripod
 var mid = { x: TX0 + Math.cos(ang) * LEN * 0.42, y: TY0 + Math.sin(ang) * LEN * 0.42 };
@@ -49,7 +60,7 @@ g.strokeStyle = '#7a5532'; g.lineCap = 'round'; g.lineWidth = 14;
 g.beginPath(); g.moveTo(mid.x, mid.y + 10); g.lineTo(mid.x - 120, mid.y + 330); g.moveTo(mid.x, mid.y + 10); g.lineTo(mid.x + 120, mid.y + 330); g.moveTo(mid.x, mid.y + 10); g.lineTo(mid.x + 6, mid.y + 300); g.stroke();
 // brass telescope: three telescoping segments with gilt rings
 g.save(); g.translate(TX0, TY0); g.rotate(ang);
-var segs = [[0, 0.36, 1.0], [0.36, 0.7, 0.82], [0.7, 1.0, 0.66]], TH = V ? 78 : 92;
+var segs = [[0, 0.36, 1.0], [0.36, 0.7, 0.82], [0.7, 1.0, 0.66]], TH = V ? 64 : 66;
 segs.forEach(function (s) {
   var x0 = s[0] * LEN, x1 = s[1] * LEN, t = TH * s[2], gg = g.createLinearGradient(0, -t / 2, 0, t / 2);
   gg.addColorStop(0, '#f6d896'); gg.addColorStop(0.35, '#cf9f48'); gg.addColorStop(1, '#6e4c1e'); g.fillStyle = gg; g.fillRect(x0, -t / 2, x1 - x0, t);
@@ -61,7 +72,7 @@ g.restore();
 var lg = g.createRadialGradient(TX0 + Math.cos(ang) * LEN, TY0 + Math.sin(ang) * LEN, 0, TX0 + Math.cos(ang) * LEN, TY0 + Math.sin(ang) * LEN, 120); lg.addColorStop(0, 'rgba(190,220,255,0.75)'); lg.addColorStop(1, 'rgba(190,220,255,0)');
 g.save(); g.globalCompositeOperation = 'lighter'; g.fillStyle = lg; g.beginPath(); g.arc(TX0 + Math.cos(ang) * LEN, TY0 + Math.sin(ang) * LEN, 120, 0, TAU); g.fill(); g.restore();
 // the old picture: Earth in the centre, everything circling it -- struck through
-var DX = V ? 215 : 470, DY = V ? 1275 : 790, DR = V ? 95 : 150;
+var DX = V ? 880 : 450, DY = V ? 1290 : 790, DR = V ? 90 : 120;
 g.save(); g.globalAlpha = 0.9;
 g.strokeStyle = 'rgba(190,210,240,0.5)'; g.lineWidth = 3; [0.42, 0.7, 1.0].forEach(function (k) { g.beginPath(); g.arc(DX, DY, DR * k, 0, TAU); g.stroke(); });
 var eg = g.createRadialGradient(DX - 6, DY - 6, 2, DX, DY, DR * 0.2); eg.addColorStop(0, '#7fc4ff'); eg.addColorStop(1, '#1f5d9c'); g.fillStyle = eg; g.beginPath(); g.arc(DX, DY, DR * 0.2, 0, TAU); g.fill();
@@ -69,4 +80,6 @@ var eg = g.createRadialGradient(DX - 6, DY - 6, 2, DX, DY, DR * 0.2); eg.addColo
 g.restore();
 g.strokeStyle = '#ef4b3a'; g.lineWidth = 22; g.lineCap = 'round'; g.shadowColor = 'rgba(255,70,50,0.7)'; g.shadowBlur = 26;
 g.beginPath(); g.moveTo(DX - DR * 1.02, DY - DR * 1.02); g.lineTo(DX + DR * 1.02, DY + DR * 1.02); g.moveTo(DX + DR * 1.02, DY - DR * 1.02); g.lineTo(DX - DR * 1.02, DY + DR * 1.02); g.stroke(); g.shadowBlur = 0;
+}
+PIMG.onload = MAIN; PIMG.src = 'portrait_gl.jpg';
 </script></body></html>
