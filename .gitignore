@@ -45,3 +45,14 @@ ws/gl/render.log
 ws/gl/tl.json
 ws/gl/cover/prev*.png
 ws/gl/cover/w.png
+ws/sd/ch/
+ws/sd/shots/
+ws/sd/sheet*.jpg
+ws/sd/sd.html
+ws/sd/times.txt
+ws/sd/mix_raw.wav
+ws/sd/sd_page.html
+ws/sd/audio_web.mp3
+ws/sd/out/
+ws/sd/render.log
+ws/sd/chk/

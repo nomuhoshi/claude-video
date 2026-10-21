@@ -76,9 +76,10 @@ def slam(text, t, x, y, size, col='#ef5b43', dur=None, en=None):
     slams.append(dict(tx=text, t=round(t, 3), x=x, y=y, size=size, col=col, e=round(dur, 3) if dur else None, en=en))
 
 # hero: the price climbs 27.89 -> 2354.39
-counter('股价', 27.89, 2354.39, '美元', at('hero', 1, 0.2), at('hero', 2, 2.6), at('hero', 4, -0.2), land='#ef5b43', pw=4.0, dec=2)
+counter('股价 · 最低', 27.89, 27.89, '美元', at('hero', 1, 0.3), at('hero', 1, 0.31), at('hero', 2, 0.2), dec=2, ticks=False)
+counter('股价 · 最高', 27.89, 2354.39, '美元', at('hero', 2, 0.2), at('hero', 2, 2.6), at('hero', 4, -0.2), land='#ef5b43', pw=2.0, dec=2)
 hit(at('hero', 1, 1.0), 0.6, 4); hit(at('hero', 2, 2.6), 0.9, 12, True)
-slam('×84', at('hero', 3, 0.3), 1480, 330, 150, '#f0bd5c', at('hero', 4, -0.2)); hit(at('hero', 3, 0.3), 1.0, 16, True); put('sub_drop', at('hero', 3, 0.3), 0.7)
+slam('×84', at('hero', 3, 0.3), 1300, 620, 150, '#f0bd5c', at('hero', 4, -0.2)); hit(at('hero', 3, 0.3), 1.0, 16, True); put('sub_drop', at('hero', 3, 0.3), 0.7)
 put('whoosh_swing', at('hero', 4, 0.3), 0.4)
 slam('闪迪', at('hero', 5, 0.4), 1340, 560, 170, '#f2d39a', at('hero', 6, -0.1), 'SANDISK · NASDAQ: SNDK')
 hit(at('hero', 5, 0.4), 1.0, 16, True); put('sub_drop', at('hero', 5, 0.4), 0.6)
