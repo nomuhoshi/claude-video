@@ -37,3 +37,9 @@ ws/cw/audio_web.mp3
 ws/cw/out/
 ws/cw/render.log
 ws/cw/chk/
+ws/gl/ch/
+ws/gl/shots/
+ws/gl/chk/
+ws/gl/gl.html
+ws/gl/render.log
+ws/gl/tl.json
