@@ -56,3 +56,15 @@ ws/sd/audio_web.mp3
 ws/sd/out/
 ws/sd/render.log
 ws/sd/chk/
+ws/sx/sx.html
+ws/sx/tl.json
+ws/sx/ch/
+ws/sx/shots/
+ws/sx/sheet*.jpg
+ws/sx/out/*.mp4
+ws/sx/*.wav
+ws/sx/*.mp3
+ws/sx/video.mp4
+ws/sx/render.log
+ws/sx/sx_page.html
+ws/sx/__pycache__/
