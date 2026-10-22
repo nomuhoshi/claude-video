@@ -6,11 +6,11 @@ SRC = [
  ('三季度电话会文字稿（指引、算力目标）', 'benzinga.com', 'https://www.benzinga.com/news/26/10/62484605/spacex-q3-2026-earnings-call-transcript'),
  ('三季度电话会文字稿', 'fool.com', 'https://www.fool.com/earnings/call-transcripts/2026/10/20/spacex-spcx-q3-2026-earnings-call-transcript/'),
  ('市场预期与星链新增用户预期', 'fortune.com', 'https://fortune.com/2026/10/20/spacex-q3-profit-ai-si-elon-musk/'),
- ('10 月 20 日收盘与盘后走势、市场预期', 'tradingkey.com', 'https://www.tradingkey.com/analysis/stocks/us-stocks/262228301-spacex-stock-forecast-q3-revenue-161-percent-200-target-tradingkey'),
+ ('财报前收盘与市场预期', 'tradingkey.com', 'https://www.tradingkey.com/analysis/stocks/us-stocks/262228301-spacex-stock-forecast-q3-revenue-161-percent-200-target-tradingkey'),
  ('上市以来最高与最低价', 'tradingkey.com', 'https://www.tradingkey.com/analysis/stocks/us-stocks/262225198-stock-spacex-spcx-price-preditcion-2027-1000-tradingkey'),
  ('上市发行价、收购 xAI', 'wikipedia.org', 'https://en.wikipedia.org/wiki/Initial_public_offering_of_SpaceX'),
  ('财报前分析师观点（融资隐忧）', 'yahoo.com', 'https://finance.yahoo.com/markets/stocks/live/spacex-earnings-live-updates-133218212.html'),
- ('市值约 2.01 万亿美元', 'gurufocus.com', 'https://www.gurufocus.com/news/9133818/spacex-spcx-shares-rise-on-q3-beat-market-prices-in-high-future-growth-despite-losses'),
+ ('10 月 21 日收盘价与市值', 'fool.com', 'https://www.fool.com/coverage/stock-market-today/2026/10/21/stock-market-today-oct-21-space-exploration-technologies-surges-on-q3-earnings-beat/'),
 ]
 CHECK = [
  ('10 月 20 日盘后发布，上市后第二份季报', '已核实', '财报新闻稿、TeslaNorth'),
@@ -43,10 +43,10 @@ CHECK = [
  ('“再融资，是最大的隐忧”', '转述', '摩根士丹利分析师财报前观点，经雅虎财经'),
  ('明年一季度收入预计 330–370 亿', '转述', '电话会，CFO'),
  ('算力今年底 2.5–3 吉瓦；明年底至少 13 吉瓦', '转述', '电话会，CFO 与马斯克'),
- ('10 月 20 日收盘 147.79 美元', '转述', 'TradingKey'),
- ('市值约 2 万亿美元', '转述', 'GuruFocus 2.01 万亿'),
+ ('10 月 21 日收盘 159.31 美元，涨 7.8%（前一日 147.79）', '转述', 'Motley Fool、TradingKey'),
+ ('市值约 2 万亿美元', '转述', 'Motley Fool 2.01 万亿'),
  ('市销率约 34 倍（2 万亿 ÷ 145.75 亿 × 4）、约 14 倍（2 万亿 ÷ 350 亿 × 4）', '估算', '自算，非官方预测'),
- ('6 月高点 225.64 美元，收盘价低三成多；8 月 3 日最低 104.83（跌过一半）', '转述', 'TradingKey'),
+ ('6 月高点 225.64 美元，10 月 21 日仍低约 29%；8 月 3 日最低 104.83（跌过一半）', '转述', 'TradingKey；比例为计算'),
  ('自测清单', '简化', '思考框架，不构成投资建议'),
  ('股价曲线、机房、火箭等画面', '示意', ''),
 ]
