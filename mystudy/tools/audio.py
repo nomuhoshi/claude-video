@@ -1,4 +1,5 @@
-# 轻音效 + 配乐（不卡点）。用法: python3 tools/audio.py 01_taylor [music.mp3] [音乐增益]
+# 轻音效 + 配乐（不卡点）。用法: python3 tools/audio.py 01_taylor [music.mp3] [音乐增益] [quiet]
+# 音乐增益 0 = 不要配乐；第 4 个参数 quiet = 去掉每句字幕的 bell/tick，只留转场和 ding
 import json, sys, wave, subprocess, numpy as np, pathlib
 d = pathlib.Path(__file__).parent.parent / sys.argv[1] / 'out'; m = json.load(open(d / 'meta.json')); SR = 48000
 mus = sys.argv[2] if len(sys.argv) > 2 else str(pathlib.Path(__file__).parent.parent.parent / 'ws/kit/video-kit/music/vibe.mp3')
@@ -15,12 +16,14 @@ S = {'bell': tone([(1318.5, 1), (2637, .25), (3955, .08)], 1.4, .38, .05),
      'tick': tone([(987.8, 1), (1975.5, .2)], .5, .09, .035),
      'ding': tone([(1760, 1), (2640, .45), (3520, .15)], 2.2, .6, .08),
      'whoosh': whoosh()}
+QUIET = len(sys.argv) > 4 and sys.argv[4] == 'quiet'
 for t, ty in m['cues']:
+    if QUIET and ty in ('bell', 'tick'): continue
     s = S[ty]; i = int(t * SR); j = min(N, i + len(s)); out[i:j] += s[:j - i]
 ir = np.exp(-np.arange(int(1.2 * SR)) / SR / .35) * rng.standard_normal(int(1.2 * SR)) * .012
 wet = np.convolve(out, ir)[:N]; fx = np.stack([out + wet, out + np.roll(wet, 331)], 1)
-raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', mus, '-f', 's16le', '-ac', '2', '-ar', str(SR), '-'], capture_output=True).stdout
-mu = np.frombuffer(raw, '<i2').reshape(-1, 2) / 32768.0
+raw = b'' if MG == 0 else subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', mus, '-f', 's16le', '-ac', '2', '-ar', str(SR), '-'], capture_output=True).stdout
+mu = np.frombuffer(raw, '<i2').reshape(-1, 2) / 32768.0 if raw else np.zeros((int(SR), 2))
 reps = int(np.ceil(N / len(mu))) + 1; X = 0.4 * SR; X = int(X)          # 循环处 0.4 秒交叉淡化
 loop = mu.copy()
 while len(loop) < N:

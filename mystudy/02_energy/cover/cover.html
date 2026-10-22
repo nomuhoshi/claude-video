@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1920px;height:1080px;background:#0A1120;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;color:#fff;font-family:"Noto Serif CJK SC","Noto Serif SC",serif}
+canvas{position:absolute;left:0;top:0}
+.kick{position:absolute;left:290px;top:150px;font-family:"Noto Sans CJK SC",sans-serif;font-weight:700;font-size:48px;color:#FFC857;letter-spacing:.12em}
+.h{position:absolute;left:280px;top:230px;font-weight:900;font-size:124px;line-height:1.22;color:#EEF3FA}
+.h b{color:#FFC857;text-shadow:0 0 36px rgba(255,200,87,.55)}
+.q{position:absolute;left:290px;top:580px;font-size:54px;color:#CFE6FF;font-weight:700}
+.n{position:absolute;left:290px;top:690px;font-family:"Noto Sans CJK SC",sans-serif;font-weight:900;font-size:64px;color:#FFC857}
+.tag{position:absolute;left:290px;top:900px;font-family:"Noto Sans CJK SC",sans-serif;font-weight:700;font-size:48px;color:#8597B0}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="kick">能量守恒 · 费曼的积木比喻</div>
+<div class="h">能量到底<br><b>是什么？</b></div>
+<div class="q">费曼：我们不知道。</div>
+<div class="n">23 + 3 + 2 = 28</div>
+<div class="tag">X物理</div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+g.fillStyle='#0A1120';g.fillRect(0,0,1920,1080);
+let r=g.createRadialGradient(1400,520,60,1400,540,900);r.addColorStop(0,'rgba(40,80,150,.45)');r.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=r;g.fillRect(0,0,1920,1080);
+g.strokeStyle='rgba(120,150,200,.07)';g.lineWidth=1;for(let x=0;x<=1920;x+=60){g.beginPath();g.moveTo(x,0);g.lineTo(x,1080);g.stroke()}for(let y=0;y<=1080;y+=60){g.beginPath();g.moveTo(0,y);g.lineTo(1920,y);g.stroke()}
+function blk(x,y,s,col,a){g.save();g.globalAlpha=a;g.fillStyle=col;g.shadowColor=col;g.shadowBlur=24;g.fillRect(x-s/2,y-s/2,s,s);g.shadowBlur=0;g.fillStyle='rgba(255,255,255,.3)';g.fillRect(x-s/2,y-s/2,s,s*.22);g.restore()}
+// 一堆积木（金字塔）+ 一个发光的问号位置：右侧
+let k=0;for(let row=0;row<6;row++){for(let c=0;c<=row;c++){const x=1380+(c-row/2)*98,y=330+row*96;blk(x,y,82,'#5EC8FF',1);k++}}
+// 一块正在“消失”的积木（虚线）
+g.save();g.setLineDash([10,8]);g.strokeStyle='#FF5577';g.lineWidth=4;g.strokeRect(1720-41,880-41,82,82);g.restore();
+</script></body></html>
