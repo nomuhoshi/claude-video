@@ -16,7 +16,7 @@ S.push({ lead: 1.0,
     if (out > 0) {
       g.save(); g.globalAlpha *= out;
       // 计算器
-      const ca = seg(lt, .2, .7), cx = 170, cy = 170, cw = 430, ch = 690;
+      const ca = seg(lt, .75, .5), cx = 170, cy = 170, cw = 430, ch = 690;
       rrect(g, cx, cy, cw, ch, 36, '#141C2E', 'rgba(169,188,211,.35)', 3, ca);
       rrect(g, cx + 30, cy + 34, cw - 60, 150, 16, '#0B1A14', 'rgba(94,224,168,.45)', 2, ca);
       const shown = lt < L[1] ? '0' : lt < L[3] ? 'e^0.5 = ?' : (lt < L[3] + 2.2 ? partH(.5, Math.min(4, Math.floor((lt - L[3]) / .45))).toFixed(4) : '1.6484');
@@ -51,6 +51,12 @@ S.push({ lead: 1.0,
         tex(g, 'hook_val', 1250, 885, { size: .72, al: 'center', rev: lin(lt, L[3] + .3, 2.0) });
       }
       g.restore();
+    }
+    // 第 0 帧起就显示本期主题（不黑屏），约 0.8 秒后让位给计算器
+    const ia = 1 - seg(lt, .8, .45);
+    if (ia > 0) {
+      txt(g, '泰勒展开', W / 2, 430, { size: 170, w: 900, serif: true, al: 'center', a: ia, glow: 'rgba(255,200,87,.45)' });
+      txt(g, '只会加减乘除，怎么算出 eˣ？', W / 2, 600, { size: 54, w: 700, col: C.gold, al: 'center', a: ia });
     }
     // 标题
     const ta = seg(lt, L[4], .8);
@@ -363,6 +369,7 @@ S.push({ sec: '总结', secEn: 'SUMMARY',
     }
   } });
 
+window.NO_FADE_IN = true;   // 开头不从黑场淡入
 // 上传版叠层：顶部进度条 + 右上角水印
 window.OVERLAY = (g, T, s, lt) => {
   const p = T / TOTAL;

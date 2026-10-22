@@ -170,7 +170,7 @@ function render(T) {
   drawScene(g, s, lt);
   const FADE = 0.6;
   if (i > 0 && lt < FADE) { const p = SCENES[i - 1]; drawScene(og, p, p.dur); g.save(); g.globalAlpha = 1 - ease(lt / FADE); g.drawImage(off, 0, 0); g.restore(); }
-  if (i === 0 && lt < 0.8) { g.save(); g.globalAlpha = 1 - lt / 0.8; g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
+  if (i === 0 && lt < 0.8 && !window.NO_FADE_IN) { g.save(); g.globalAlpha = 1 - lt / 0.8; g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
   if (T > TOTAL - 1.5) { g.save(); g.globalAlpha = clamp((T - (TOTAL - 1.5)) / 1.5); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
   subtitle(s, lt);
   if (typeof window.OVERLAY === 'function') window.OVERLAY(g, T, s, lt);   // 上传版：进度条、水印
