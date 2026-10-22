@@ -4,13 +4,13 @@
 
 B 站标题（≤20 字）：
 - 主标题：SpaceX 第一次赚钱了，它在押什么？（20）
-- 备选 1：一半收入来自 AI，SpaceX 押什么？（19）
-- 备选 2：SpaceX 财报：AI 最能卖，星链最赚钱（20）
+- 备选 1：一半收入来自AI，SpaceX押什么？（19）
+- 备选 2：SpaceX财报：AI最能卖，星链最赚钱（20）
 小红书标签：#SpaceX #星链 #马斯克 #美股 #财报解读 #AI算力 #投资小白 #科技股
 
 收尾步骤：
 1. `python3 tl_sx.py && python3 build.py`
-2. 渲染：`export NODE_PATH=/opt/node-tools/node_modules && bash render.sh > render.log 2>&1`（后台，约 50 分钟）→ video.mp4
+2. 渲染：Opus 已在后台启动 render.sh（10 月 22 日约 11:00）；看 ch/*.done 是否 7 个、video.mp4 是否生成；没跑完就 `bash render.sh` 续跑（可断点续）
 3. 混音：`python3 audio.py`（−15 LUFS，限幅 0.84）
 4. 成片：`ffmpeg -i video.mp4 -i audio.wav -c:v libx264 -preset medium -crf 23 -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart -shortest "out/SpaceX-第一次赚钱了它在押什么-1080p.mp4"`；查响度 ≈ −15 LUFS、真峰值 < −1 dBFS（超了把音频压 0.3 dB 再封装）
 5. 网页：`python3 page.py` → 用 Artifact 发布 sx_page.html（icon: chart）
