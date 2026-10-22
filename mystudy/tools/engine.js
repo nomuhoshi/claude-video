@@ -173,6 +173,7 @@ function render(T) {
   if (i === 0 && lt < 0.8) { g.save(); g.globalAlpha = 1 - lt / 0.8; g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
   if (T > TOTAL - 1.5) { g.save(); g.globalAlpha = clamp((T - (TOTAL - 1.5)) / 1.5); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
   subtitle(s, lt);
+  if (typeof window.OVERLAY === 'function') window.OVERLAY(g, T, s, lt);   // 上传版：进度条、水印
 }
 function subtitle(s, lt) {
   for (let k = 0; k < s.L.length; k++) {

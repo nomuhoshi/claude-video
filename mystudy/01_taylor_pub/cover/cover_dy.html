@@ -1,0 +1,36 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1440px;background:#0A1120;overflow:hidden}
+.c{position:relative;width:1080px;height:1440px;overflow:hidden;color:#fff;font-family:"Noto Serif CJK SC","Noto Serif SC",serif}
+canvas{position:absolute;left:0;top:0}
+.kick{position:absolute;left:0;width:1080px;text-align:center;top:110px;font-family:"Noto Sans CJK SC",sans-serif;font-weight:700;font-size:50px;color:#FFC857;letter-spacing:.12em}
+.h{position:absolute;left:0;width:1080px;text-align:center;top:200px;font-weight:900;font-size:110px;line-height:1.25;color:#EEF3FA}
+.h b{color:#FFC857;text-shadow:0 0 36px rgba(255,200,87,.55)}
+.f{position:absolute;left:0;width:1080px;text-align:center;top:520px;font-size:58px;color:#CFE6FF;font-style:italic}
+.keys{position:absolute;left:0;width:1080px;top:1220px;display:flex;gap:30px;justify-content:center}
+.k{width:130px;height:130px;border-radius:26px;border:4px solid #FFC857;background:rgba(255,200,87,.12);color:#FFC857;font:900 78px "Noto Sans CJK SC",sans-serif;display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(255,200,87,.35)}
+.tag{position:absolute;right:50px;top:40px;font-family:"Noto Sans CJK SC",sans-serif;font-weight:700;font-size:46px;color:#8597B0}
+</style></head><body><div class="c">
+<canvas id="cv" width="1080" height="1440"></canvas>
+<div class="kick">泰勒展开 · 从导数一步步推</div>
+<div class="h">只会加减乘除，<br><b>怎么算出 eˣ？</b></div>
+<div class="f">eˣ ≈ 1 + x + x²/2 + x³/6 + …</div>
+<div class="keys"><div class="k">+</div><div class="k">−</div><div class="k">×</div><div class="k">÷</div></div>
+<div class="tag">X物理</div>
+</div>
+<script>
+const g=document.getElementById('cv').getContext('2d');
+g.fillStyle='#0A1120';g.fillRect(0,0,1080,1440);
+let r=g.createRadialGradient(540,900,60,540,900,800);r.addColorStop(0,'rgba(40,80,150,.45)');r.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=r;g.fillRect(0,0,1080,1440);
+g.strokeStyle='rgba(120,150,200,.07)';g.lineWidth=1;for(let x=0;x<=1080;x+=60){g.beginPath();g.moveTo(x,0);g.lineTo(x,1440);g.stroke()}for(let y=0;y<=1440;y+=60){g.beginPath();g.moveTo(0,y);g.lineTo(1080,y);g.stroke()}
+// e^x 与部分和（右侧）
+const ox=560,oy=1150,sx=150,sy=90;const X=x=>ox+x*sx,Y=y=>oy-y*sy;
+const part=(x,n)=>{let s=0,t=1;for(let k=0;k<=n;k++){s+=t;t*=x/(k+1)}return s};
+function cur(f,col,lw,dash,glow){g.save();g.beginPath();g.rect(60,640,960,560);g.clip();g.strokeStyle=col;g.lineWidth=lw;if(dash)g.setLineDash(dash);if(glow){g.shadowColor=col;g.shadowBlur=glow}g.beginPath();for(let px=60;px<=1020;px+=3){const x=(px-ox)/sx,y=Y(f(x));px===60?g.moveTo(px,y):g.lineTo(px,y)}g.stroke();g.restore()}
+g.strokeStyle='rgba(169,188,211,.5)';g.lineWidth=3;g.beginPath();g.moveTo(60,oy);g.lineTo(1020,oy);g.moveTo(ox,1190);g.lineTo(ox,640);g.stroke();
+['#6E5FA8','#8C74CF','#B48CFF','#D9A6FF'].forEach((c,n)=>cur(x=>part(x,n),c,4,[16,10]));
+cur(Math.exp,'#5EC8FF',9,null,26);
+cur(x=>part(x,4),'#FFC857',5,[16,10],18);
+g.fillStyle='#FFC857';g.shadowColor='#FFC857';g.shadowBlur=30;g.beginPath();g.arc(X(0),Y(1),14,0,7);g.fill();
+</script></body></html>
