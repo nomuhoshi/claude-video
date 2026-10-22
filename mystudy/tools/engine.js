@@ -81,6 +81,49 @@ function brace(g, x1, y1, x2, y2, col, a = 1, depth = 18) {
   g.stroke(); g.restore();
 }
 
+
+// ---------- 人物（原创卡通）与对话气泡 ----------
+function person(g, x, y, sc, P, a = 1, o = {}) {           // (x, y) = 两脚中间的地面点；o.lean 绕脚倾斜（弧度，正 = 向右）
+  if (a <= 0) return; const kid = P.kind === 'kid', H = (kid ? 150 : 230) * sc, hr = 30 * sc;
+  const legH = H * (kid ? .30 : .38), bodyH = H * (kid ? .36 : .34), bw = (kid ? 52 : 62) * sc;
+  const hipY = y - legH, neckY = hipY - bodyH, hy = neckY - hr * .95;
+  g.save(); g.globalAlpha *= a; g.lineCap = 'round'; g.lineJoin = 'round';
+  if (o.lean) { g.translate(x, y); g.rotate(o.lean); g.translate(-x, -y); }
+  g.strokeStyle = P.pants; g.lineWidth = 13 * sc; g.beginPath(); g.moveTo(x - bw * .22, hipY); g.lineTo(x - bw * .24, y - 4 * sc); g.moveTo(x + bw * .22, hipY); g.lineTo(x + bw * .24, y - 4 * sc); g.stroke();
+  g.fillStyle = '#1B1F2A'; [-1, 1].forEach(s => { g.beginPath(); g.ellipse(x + s * bw * .28, y - 3 * sc, 11 * sc, 6 * sc, 0, 0, 7); g.fill(); });
+  const arm = o.arm || 'down'; g.strokeStyle = P.skin; g.lineWidth = 10 * sc; const sy = neckY + 10 * sc;
+  [-1, 1].forEach(s => { g.beginPath(); g.moveTo(x + s * bw * .45, sy);
+    if (arm === 'up' || (arm === 'point' && s === 1)) g.lineTo(x + s * bw * .95, sy - 34 * sc);
+    else if (arm === 'hold' && s === 1) g.lineTo(x + bw * .55, sy - 70 * sc);
+    else if (arm === 'hips') { g.lineTo(x + s * bw * .85, sy + bodyH * .35); g.lineTo(x + s * bw * .5, sy + bodyH * .62); }
+    else g.lineTo(x + s * bw * .62, sy + bodyH * .78);
+    g.stroke(); });
+  g.fillStyle = P.shirt; g.beginPath();
+  if (kid || P.style !== 'long') g.roundRect(x - bw / 2, neckY, bw, bodyH + 6 * sc, 14 * sc);
+  else { g.moveTo(x - bw * .38, neckY); g.lineTo(x + bw * .38, neckY); g.lineTo(x + bw * .62, hipY + 18 * sc); g.lineTo(x - bw * .62, hipY + 18 * sc); g.closePath(); }
+  g.fill();
+  if (P.style === 'long') { g.fillStyle = P.hair; g.beginPath(); g.roundRect(x - hr * 1.12, hy - hr * .9, hr * 2.24, hr * 2.5, hr * .9); g.fill(); }
+  g.fillStyle = P.skin; g.beginPath(); g.arc(x, hy, hr, 0, 7); g.fill();
+  g.fillStyle = P.hair;
+  if (P.style === 'spiky') { g.beginPath(); g.moveTo(x - hr, hy - hr * .15); for (let k = 0; k <= 6; k++) g.lineTo(x - hr + k * hr / 3, hy - hr * (k % 2 ? 1.35 : .85)); g.lineTo(x + hr, hy - hr * .15); g.closePath(); g.fill(); }
+  else if (P.style === 'curly') { for (let k = 0; k < 7; k++) { const an = Math.PI * (1.05 + k * .15); g.beginPath(); g.arc(x + Math.cos(an) * hr * .95, hy + Math.sin(an) * hr * .95, hr * .38, 0, 7); g.fill(); } }
+  else { g.beginPath(); g.arc(x, hy - hr * .15, hr * 1.02, Math.PI * 1.02, Math.PI * 1.98); g.fill(); }
+  g.fillStyle = '#1B1F2A'; [-1, 1].forEach(s => { g.beginPath(); g.arc(x + s * hr * .36, hy + hr * .05, 3.6 * sc, 0, 7); g.fill(); });
+  g.strokeStyle = '#7A3B2E'; g.lineWidth = 3 * sc; const mood = o.mood || 'smile';
+  if (mood === 'shout') { g.fillStyle = '#7A3B2E'; g.beginPath(); g.ellipse(x, hy + hr * .5, hr * .22, hr * .2, 0, 0, 7); g.fill(); }
+  else if (mood === 'wow') { g.beginPath(); g.arc(x, hy + hr * .48, hr * .12, 0, 7); g.stroke(); }
+  else if (mood === 'think') { g.beginPath(); g.moveTo(x - hr * .25, hy + hr * .5); g.lineTo(x + hr * .25, hy + hr * .45); g.stroke(); }
+  else { g.beginPath(); g.arc(x, hy + hr * .28, hr * .3, Math.PI * .15, Math.PI * .85); g.stroke(); }
+  g.restore();
+  if (o.label !== false && P.name) txt(g, P.name, x, y + (kid ? 22 : 26) * sc, { size: 26, w: 700, col: P.shirt, al: 'center', a });
+}
+function bubble(g, s, x, y, tx, ty, a) {
+  if (a <= 0) return; g.save(); g.globalAlpha *= a; g.font = `700 34px ${SC_FONT}`; const w = g.measureText(s).width + 46, h = 66;
+  g.fillStyle = 'rgba(238,243,250,.96)'; g.beginPath(); g.roundRect(x - w / 2, y - h / 2, w, h, 22); g.fill();
+  g.beginPath(); g.moveTo(x - 14, y + h / 2 - 2); g.lineTo(tx, ty); g.lineTo(x + 14, y + h / 2 - 2); g.fill();
+  g.fillStyle = '#0A1120'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(s, x, y + 2); g.restore();
+}
+
 // ---------- 公式 ----------
 const TEXD = @@TEX@@, TEXI = {}, TEXC = {};
 function loadTex() {
@@ -128,13 +171,20 @@ function memo(g, x, y, w, h, a, label = '值得直接记住') {
 
 // ---------- 时间轴 ----------
 const lineDur = s => Math.max(2.4, 0.7 + [...s].length / 6.0);
+// 节拍网格（可选）：window.GRID = {b0: 首拍秒, beat: 一拍秒, bar: 一小节秒}
+// 有网格时：每幕从小节线开始，每句字幕在拍点上出现，幕尾补齐到小节线（卡点）
+const snapUp = (x, b0, p) => x <= b0 + 1e-6 ? b0 : b0 + Math.ceil((x - b0) / p - 1e-6) * p;
 function buildTimeline(SCENES) {
-  let T = 0;
+  let T = 0; const G = window.GRID;
   SCENES.forEach((s, i) => {
-    s.i = i; s.t0 = T; s.L = []; s.LD = []; s.TX = [];
+    const t0 = G && i > 0 ? snapUp(T, G.b0, G.bar) : T;
+    s.i = i; s.t0 = t0; s.L = []; s.LD = []; s.TX = [];
     let t = s.lead ?? (i === 0 ? 1.4 : 0.9);
-    s.lines.forEach(l => { const [tx, ex] = Array.isArray(l) ? l : [l, 0]; s.L.push(t); const d = lineDur(tx) + ex; s.LD.push(d); s.TX.push(tx); t += d + 0.14; });
-    s.dur = t + (s.tail ?? 0.6); T += s.dur;
+    s.lines.forEach(l => { const [tx, ex] = Array.isArray(l) ? l : [l, 0];
+      let ta = t0 + t; if (G) ta = snapUp(ta, G.b0, G.beat);
+      s.L.push(ta - t0); const d = lineDur(tx) + ex; s.LD.push(d); s.TX.push(tx); t = ta - t0 + d + 0.14; });
+    let e = t0 + t + (s.tail ?? 0.6); if (G) e = snapUp(e, G.b0, G.bar);
+    s.dur = e - t0; T = e;
   });
   return T;
 }
