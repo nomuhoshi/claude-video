@@ -1,5 +1,5 @@
 // 能量守恒 · 什么是能量（教学版，无配乐）
-// 依据：费曼《物理学讲义》第一卷 §4-1 的积木比喻（旁白用自己的话复述，只引用一句短引文并注明出处）
+// 积木比喻教学；单位用克、厘米；人物：丹尼斯（孩子）、妈妈、布鲁斯（邻居孩子）
 // 配色：冰蓝 = 积木 / 势能；金 = 关键结果 / 动能；红 = 外来 / 划掉
 const S = [];
 const BL = '#5EC8FF', RED = '#FF5577';
@@ -30,10 +30,58 @@ function room(g, a, o = {}) {
   if (o.box) { const bx = RX + 640, by = RY + 470; rrect(g, bx, by, 220, 150, 10, '#6B4A2A', '#C89A5E', 3, a * o.box);
     rrect(g, bx - 10, by - 18, 240, 26, 6, '#8A6238', '#C89A5E', 2, a * o.box);
     txt(g, '玩具箱', bx + 110, by + 80, { size: 32, w: 700, col: '#F2D7A8', al: 'center', a: a * o.box }); }
-  if (o.tub) { const tx = RX + 600, ty = RY + 470, tw = 260, th = 160; const lv = o.level ?? 6;   // 水深（英寸），满刻度 8 in
+  if (o.tub) { const tx = RX + 600, ty = RY + 470, tw = 260, th = 160; const lv = o.level ?? 15;   // 水深（厘米），满刻度 20 cm
     rrect(g, tx, ty, tw, th, 40, 'rgba(230,240,255,.06)', 'rgba(230,240,255,.7)', 4, a * o.tub);
-    const wh = (th - 20) * lv / 8; rrect(g, tx + 10, ty + th - 10 - wh, tw - 20, wh, 28, 'rgba(110,130,90,.75)', null, 0, a * o.tub);
-    txt(g, `水深 ${lv.toFixed(lv % 1 ? 1 : 0)} in`, tx + tw / 2, ty - 30, { size: 30, w: 700, col: '#CFE6C0', al: 'center', a: a * o.tub }); }
+    const wh = (th - 20) * lv / 20; rrect(g, tx + 10, ty + th - 10 - wh, tw - 20, wh, 28, 'rgba(110,130,90,.75)', null, 0, a * o.tub);
+    txt(g, `水深 ${lv.toFixed(1)} cm`, tx + tw / 2, ty - 30, { size: 30, w: 700, col: '#CFE6C0', al: 'center', a: a * o.tub }); }
+}
+
+// ---------- 人物（原创卡通：丹尼斯、妈妈、布鲁斯）----------
+const KID_D = { kind: 'kid', skin: '#F2C9A0', hair: '#3B2A1E', style: 'spiky', shirt: '#3D8BFF', pants: '#24324D', name: '丹尼斯' };
+const KID_B = { kind: 'kid', skin: '#E8B98E', hair: '#C7772E', style: 'curly', shirt: '#FF5577', pants: '#2E2A40', name: '布鲁斯' };
+const MOM = { kind: 'adult', skin: '#F4D0AE', hair: '#5A3422', style: 'long', shirt: '#B48CFF', pants: '#6E55B0', name: '妈妈' };
+function person(g, x, y, sc, P, a = 1, o = {}) {           // (x, y) = 两脚中间的地面点
+  if (a <= 0) return; const kid = P.kind === 'kid', H = (kid ? 150 : 230) * sc, hr = (kid ? 30 : 30) * sc;
+  const legH = H * (kid ? .30 : .38), bodyH = H * (kid ? .36 : .34), bw = (kid ? 52 : 62) * sc;
+  const hipY = y - legH, neckY = hipY - bodyH, hy = neckY - hr * .95;
+  g.save(); g.globalAlpha *= a; g.lineCap = 'round'; g.lineJoin = 'round';
+  // 腿
+  g.strokeStyle = P.pants; g.lineWidth = 13 * sc; g.beginPath(); g.moveTo(x - bw * .22, hipY); g.lineTo(x - bw * .24, y - 4 * sc); g.moveTo(x + bw * .22, hipY); g.lineTo(x + bw * .24, y - 4 * sc); g.stroke();
+  g.fillStyle = '#1B1F2A'; [-1, 1].forEach(s => { g.beginPath(); g.ellipse(x + s * bw * .28, y - 3 * sc, 11 * sc, 6 * sc, 0, 0, 7); g.fill(); });
+  // 手臂
+  const arm = o.arm || 'down'; g.strokeStyle = P.skin; g.lineWidth = 10 * sc;
+  const sy = neckY + 10 * sc;
+  [-1, 1].forEach(s => { g.beginPath(); g.moveTo(x + s * bw * .45, sy);
+    if (arm === 'up' || (arm === 'point' && s === 1)) g.lineTo(x + s * bw * .95, sy - 34 * sc); else if (arm === 'hips') { g.lineTo(x + s * bw * .85, sy + bodyH * .35); g.lineTo(x + s * bw * .5, sy + bodyH * .62); } else g.lineTo(x + s * bw * .62, sy + bodyH * .78);
+    g.stroke(); });
+  // 身体（妈妈是连衣裙）
+  g.fillStyle = P.shirt; g.beginPath();
+  if (kid) g.roundRect(x - bw / 2, neckY, bw, bodyH + 6 * sc, 14 * sc);
+  else { g.moveTo(x - bw * .38, neckY); g.lineTo(x + bw * .38, neckY); g.lineTo(x + bw * .62, hipY + 18 * sc); g.lineTo(x - bw * .62, hipY + 18 * sc); g.closePath(); }
+  g.fill();
+  // 头
+  if (P.style === 'long') { g.fillStyle = P.hair; g.beginPath(); g.roundRect(x - hr * 1.12, hy - hr * .9, hr * 2.24, hr * 2.5, hr * .9); g.fill(); }
+  g.fillStyle = P.skin; g.beginPath(); g.arc(x, hy, hr, 0, 7); g.fill();
+  g.fillStyle = P.hair;
+  if (P.style === 'spiky') { g.beginPath(); g.moveTo(x - hr, hy - hr * .15); for (let k = 0; k <= 6; k++) g.lineTo(x - hr + k * hr / 3, hy - hr * (k % 2 ? 1.35 : .85)); g.lineTo(x + hr, hy - hr * .15); g.closePath(); g.fill(); }
+  else if (P.style === 'curly') { for (let k = 0; k < 7; k++) { const an = Math.PI * (1.05 + k * .15); g.beginPath(); g.arc(x + Math.cos(an) * hr * .95, hy + Math.sin(an) * hr * .95, hr * .38, 0, 7); g.fill(); } }
+  else { g.beginPath(); g.arc(x, hy - hr * .15, hr * 1.02, Math.PI * 1.02, Math.PI * 1.98); g.fill(); }
+  // 脸
+  g.fillStyle = '#1B1F2A'; [-1, 1].forEach(s => { g.beginPath(); g.arc(x + s * hr * .36, hy + hr * .05, 3.6 * sc, 0, 7); g.fill(); });
+  g.strokeStyle = '#7A3B2E'; g.lineWidth = 3 * sc; const mood = o.mood || 'smile';
+  if (mood === 'shout') { g.fillStyle = '#7A3B2E'; g.beginPath(); g.ellipse(x, hy + hr * .5, hr * .22, hr * .2, 0, 0, 7); g.fill(); }
+  else if (mood === 'wow') { g.beginPath(); g.arc(x, hy + hr * .48, hr * .12, 0, 7); g.stroke(); }
+  else if (mood === 'think') { g.beginPath(); g.moveTo(x - hr * .25, hy + hr * .5); g.lineTo(x + hr * .25, hy + hr * .45); g.stroke(); }
+  else { g.beginPath(); g.arc(x, hy + hr * .28, hr * .3, Math.PI * .15, Math.PI * .85); g.stroke(); }
+  g.restore();
+  if (o.label !== false) txt(g, P.name, x, y + (kid ? 22 : 26) * sc, { size: 26, w: 700, col: P.shirt, al: 'center', a });
+  return { headY: hy - hr };
+}
+function bubble(g, s, x, y, tx, ty, a, col = C.ink) {      // 气泡：中心 (x, y)，尾巴指向 (tx, ty)
+  if (a <= 0) return; g.save(); g.globalAlpha *= a; g.font = `700 34px ${SC_FONT}`; const w = g.measureText(s).width + 46, h = 66;
+  g.fillStyle = 'rgba(238,243,250,.96)'; g.beginPath(); g.roundRect(x - w / 2, y - h / 2, w, h, 22); g.fill();
+  g.beginPath(); g.moveTo(x - 14, y + h / 2 - 2); g.lineTo(tx, ty); g.lineTo(x + 14, y + h / 2 - 2); g.fill();
+  g.fillStyle = '#0A1120'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(s, x, y + 2); g.restore();
 }
 // 右侧计数牌
 function counter(g, label, n, a, col = C.ink, y = 300) {
@@ -45,19 +93,20 @@ function fitTex(g, k, x, y, maxW, o = {}) { const s = Math.min(o.size ?? 1, maxW
 
 // ---------- 0 主题（第 0 帧起显示）+ 引子 ----------
 S.push({ lead: 1.2,
-  lines: ['物理学里有一条定律，至今没有发现过例外：', ['能量守恒。', .4], '可是，能量到底是什么？', ['费曼的回答很直接：我们不知道。', .6],
-    '我们只知道：有一些公式算出来的数，加起来总是不变。', ['为了说明这件事，他讲了一个孩子和积木的故事。', .6]],
+  lines: ['物理学里有一条定律，至今没有发现过例外：', ['能量守恒。', .4], '可是，能量到底是什么？', ['一个很诚实的回答是：我们并不知道。', .6],
+    '我们只知道：有一些公式算出来的数，加起来总是不变。', ['先来看一个孩子和积木的故事。', .6]],
   draw(g, lt, s) {
     const L = s.L, ta = 1 - seg(lt, L[3] - .4, .5);
     txt(g, '能量守恒', W / 2, 360, { size: 160, w: 900, serif: true, al: 'center', a: ta, glow: 'rgba(255,200,87,.4)' });
     txt(g, '什么是能量？', W / 2, 520, { size: 62, w: 700, col: C.gold, al: 'center', a: ta });
     txt(g, '物理学最基本的定律之一', W / 2, 640, { size: 40, col: C.mute, al: 'center', a: ta * seg(lt, L[0], .5) * (1 - seg(lt, L[2], .4)) });
     const qa = seg(lt, L[3], .6);
-    txt(g, '“在今天的物理学中，我们不知道能量是什么。”', W / 2, 330, { size: 58, w: 700, serif: true, al: 'center', a: qa });
-    txt(g, '—— 费曼《物理学讲义》第一卷 §4-1', W / 2, 420, { size: 34, col: C.mute, al: 'center', a: qa });
+    txt(g, '能量到底是什么？', W / 2, 300, { size: 64, w: 900, serif: true, al: 'center', a: qa });
+    txt(g, '—— 我们并不知道。', W / 2, 400, { size: 52, w: 700, col: C.gold, al: 'center', a: qa });
     tex(g, 'sum_const', W / 2, 620, { size: 1.1, al: 'center', rev: lin(lt, L[4] + .3, 1.6) });
     // 一堆积木
-    for (let k = 0; k < 7; k++) block(g, W / 2 - 300 + k * 100, 820 - (k % 2) * 10, BL, seg(lt, L[5] + k * .12, .3));
+    for (let k = 0; k < 7; k++) block(g, W / 2 - 200 + k * 90, 840 - (k % 2) * 10, BL, seg(lt, L[5] + k * .12, .3));
+    person(g, W / 2 - 340, 900, 1.0, KID_D, seg(lt, L[5], .5));
   } });
 
 // ---------- 1 28 块积木 ----------
@@ -72,6 +121,8 @@ S.push({ sec: '积木的故事', secEn: 'DENNIS AND HIS 28 BLOCKS',
       block(g, x + play * 40 * Math.sin(lt * 2.1 + k * 1.7), y + play * 30 * Math.cos(lt * 1.7 + k * 2.3), BL, seg(lt, L[0] + k * .03, .3)); }
     const ca = seg(lt, L[3], .5), n = Math.min(28, Math.floor(28 * lin(lt, L[3] + .3, 1.6)));
     counter(g, '今晚数到', n, ca, n === 28 && lt > L[4] ? C.gold : C.ink);
+    person(g, 180, 785, 1, KID_D, seg(lt, L[0], .5), { arm: play > .3 ? 'up' : 'down' });
+    person(g, 1830, 900, 1, MOM, seg(lt, L[2] - .3, .5), { mood: lt > L[4] ? 'smile' : 'think' });
     pill(g, '积木数 = 28　（守恒）', 1480, 560, C.gold, { al: 'center', a: seg(lt, L[5], .5), size: 38 });
   } });
 
@@ -85,6 +136,8 @@ S.push({ sec: '积木的故事 · 27 块？', secEn: 'UNDER THE CARPET',
     block(g, RX + 730, RY + 550, BL, .5 + .5 * fa, 54, fa < .5);
     if (fa > 0) { g.save(); g.globalAlpha = fa; g.strokeStyle = C.gold; g.lineWidth = 4; g.beginPath(); g.arc(RX + 730, RY + 550, 52, 0, 7); g.stroke(); g.restore(); }
     counter(g, '看得见的', 27, 1);
+    person(g, 180, 785, 1, KID_D, 1);
+    person(g, 1830, 900, 1, MOM, 1, { mood: fa > .5 ? 'smile' : 'think', arm: fa > .5 ? 'point' : 'down' });
     txt(g, '+ 地毯下 1 块 = 28', 1480, 520, { size: 46, w: 700, col: C.gold, al: 'center', a: fa });
     pill(g, '找遍每个角落', 1480, 640, C.blue, { al: 'center', a: seg(lt, L[2], .5), size: 36 });
   } });
@@ -104,6 +157,9 @@ S.push({ sec: '积木的故事 · 26 块？30 块？', secEn: 'THE OPEN WINDOW',
     const ba = seg(lt, L[2], .4) * (1 - seg(lt, L[4], .5));
     block(g, RX + 220, RY + 560, RED, ba); block(g, RX + 320, RY + 560, RED, ba);
     txt(g, '布鲁斯的', RX + 270, RY + 620, { size: 30, w: 700, col: RED, al: 'center', a: seg(lt, L[3], .4) * ba });
+    person(g, 620, 785, 1, KID_D, 1, { mood: ph2 && !ph3 ? 'smile' : 'smile' });
+    person(g, 1105, 785, 1, KID_B, seg(lt, L[3] - .3, .5) * (1 - seg(lt, L[4] + .4, .5)), { arm: 'up' });
+    person(g, 1830, 900, 1, MOM, 1, { mood: ph2 && !ph3 ? 'wow' : 'think', arm: ph3 ? 'hips' : 'down' });
     const cnt = ph3 ? 28 : ph2 ? 30 : 26;
     counter(g, '看得见的', cnt, 1, ph2 && !ph3 ? RED : C.ink, 300);
     txt(g, '+ 窗外 2 块 = 28', 1480, 520, { size: 46, w: 700, col: C.gold, al: 'center', a: oa });
@@ -113,36 +169,41 @@ S.push({ sec: '积木的故事 · 26 块？30 块？', secEn: 'THE OPEN WINDOW',
 
 // ---------- 4 玩具箱：称重 ----------
 S.push({ sec: '积木的故事 · 25 块？', secEn: 'WEIGH THE BOX',
-  lines: ['后来有一天，只数到 25 块。', '房间里有个玩具箱，孩子大喊：别打开我的箱子！', '妈妈想了个办法：她知道一块积木重 3 盎司，', '空箱子重 16 盎司。', '她称了称箱子：25 盎司。', ['多出来 9 盎司，除以 3：箱子里有 3 块。', .4],
-    '于是她写出一条公式：', ['看得见的积木数，加上（箱重 − 16）除以 3，等于常数。', .8]],
+  lines: ['后来有一天，只数到 25 块。', '房间里有个玩具箱，孩子大喊：别打开我的箱子！', '妈妈想了个办法：她知道一块积木重 50 克，', '空箱子重 200 克。', '她称了称箱子：350 克。', ['多出来 150 克，除以 50：箱子里有 3 块。', .4],
+    '于是她写出一条公式：', ['看得见的积木数，加上（箱重 − 200 克）除以 50 克，等于常数。', .8]],
   cues: [[s => s.L[5] + 1.0, 'ding']],
   draw(g, lt, s) {
     const L = s.L; room(g, 1, { box: 1 });
     for (let k = 0; k < 25; k++) { const [x, y] = gridPos(k); block(g, x, y); }
     const ga = seg(lt, L[5], .5); [0, 1, 2].forEach(j => block(g, RX + 680 + j * 70, RY + 540, BL, ga, 46, true));
     counter(g, '看得见的', 25, 1, C.ink, 280);
+    const sh = seg(lt, L[1], .3) * (1 - seg(lt, L[2] + .4, .4));
+    person(g, 680, 785, 1, KID_D, 1, { mood: sh > .2 ? 'shout' : 'smile', arm: sh > .2 ? 'up' : 'down' });
+    bubble(g, '别打开我的箱子！', 560, 520, 665, 585, sh);
+    person(g, 1830, 900, 1, MOM, 1, { mood: 'think' });
     const sa = seg(lt, L[2], .5);
-    txt(g, '1 块积木 = 3 oz', 1480, 470, { size: 38, w: 700, col: C.ink, al: 'center', a: sa });
-    txt(g, '空箱子 = 16 oz', 1480, 525, { size: 38, w: 700, col: C.ink, al: 'center', a: seg(lt, L[3], .5) });
-    txt(g, '这次称得 = 25 oz', 1480, 580, { size: 38, w: 700, col: C.gold, al: 'center', a: seg(lt, L[4], .5) });
-    txt(g, '（oz：盎司）', 1720, 470, { size: 26, col: C.mute, a: sa });
+    txt(g, '1 块积木 = 50 g', 1480, 470, { size: 38, w: 700, col: C.ink, al: 'center', a: sa });
+    txt(g, '空箱子 = 200 g', 1480, 525, { size: 38, w: 700, col: C.ink, al: 'center', a: seg(lt, L[3], .5) });
+    txt(g, '这次称得 = 350 g', 1480, 580, { size: 38, w: 700, col: C.gold, al: 'center', a: seg(lt, L[4], .5) });
     fitTex(g, 'ex41', 1480, 690, 560, { size: .9, al: 'center', rev: lin(lt, L[5], 1.4) });
     fitTex(g, 'eq41', W / 2, 900, 1500, { size: .75, al: 'center', rev: lin(lt, L[6] + .3, 2.0) });
   } });
 
 // ---------- 5 浴缸 ----------
 S.push({ sec: '积木的故事 · 又对不上了', secEn: 'THE DIRTY BATHWATER',
-  lines: ['后来，数字又对不上了。', '原来浴缸里的水很脏，孩子把积木扔进了水里，她看不见。', '水原来深 6 英寸，每扔进一块积木，水面升高 1/4 英寸。', ['于是公式里再加一项。', .4],
-    ['这次：看得见 23 块，箱子算出 3 块，水深 6.5 英寸算出 2 块。', .4], ['23 + 3 + 2 = 28。', .8], ['公式越来越复杂，但算出来的总数，始终是 28。', .8]],
+  lines: ['后来，数字又对不上了。', '原来浴缸里的水很脏，孩子把积木扔进了水里，她看不见。', '水原来深 15 厘米，每扔进一块积木，水面升高 0.5 厘米。', ['于是公式里再加一项。', .4],
+    ['这次：看得见 23 块，箱子算出 3 块，水深 16 厘米算出 2 块。', .4], ['23 + 3 + 2 = 28。', .8], ['公式越来越复杂，但算出来的总数，始终是 28。', .8]],
   cues: [[s => s.L[5] + .4, 'ding']],
   draw(g, lt, s) {
-    const L = s.L, lv = 6 + 0.5 * seg(lt, L[2] + .6, 1.2);
+    const L = s.L, lv = 15 + 1 * seg(lt, L[2] + .6, 1.2);
     room(g, 1, { tub: 1, level: lv });
     // 箱子挪到左下角
     const bx = RX + 360, by = RY + 470; rrect(g, bx, by, 200, 140, 10, '#6B4A2A', '#C89A5E', 3, 1); txt(g, '玩具箱', bx + 100, by + 75, { size: 30, w: 700, col: '#F2D7A8', al: 'center' });
     for (let k = 0; k < 23; k++) { const [x, y] = gridPos(k); if (y < RY + 450) block(g, x, y); else block(g, x - 0, y, BL, 1); }
     const ga = seg(lt, L[4], .5); [0, 1].forEach(j => block(g, RX + 690 + j * 80, RY + 560, BL, ga, 46, true));
     counter(g, '看得见的', 23, 1, C.ink, 280);
+    person(g, 180, 785, 1, KID_D, 1, { arm: lt > L[1] && lt < L[3] ? 'point' : 'down' });
+    person(g, 1830, 900, 1, MOM, 1, { mood: lt > L[5] ? 'smile' : 'think' });
     fitTex(g, 'ex42', 1480, 520, 600, { size: .9, al: 'center', rev: lin(lt, L[4], 2.0) });
     fitTex(g, 'eq42', W / 2, 900, 1700, { size: .72, al: 'center', rev: lin(lt, L[3], 2.4) });
     pill(g, '总数 = 28', 1480, 660, C.gold, { al: 'center', a: seg(lt, L[5], .5), size: 44 });
@@ -229,7 +290,6 @@ S.push({ sec: '总结', secEn: 'SUMMARY',
     tex(g, 'ek', W / 2 - 220, 520, { size: 1.0, al: 'center', a: seg(lt, L[3], .5) });
     tex(g, 'ep', W / 2 + 230, 520, { size: 1.0, al: 'center', a: seg(lt, L[3], .5) });
     txt(g, '“什么不变”  ≠  “为什么不变”', W / 2, 740, { size: 54, w: 900, serif: true, al: 'center', a: seg(lt, L[4], .6) });
-    txt(g, '参考：费曼《物理学讲义》第一卷 第 4 章 §4-1', W / 2, 880, { size: 30, col: C.mute, al: 'center', a: seg(lt, L[0], .5) });
   } });
 
 window.NO_FADE_IN = true;
