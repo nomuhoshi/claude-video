@@ -391,13 +391,14 @@
       var nw = ap(lt, L[7] + 1.2, 0.3); glowDot(g, cx1, cy0 - H * V(159.31), 8, GOLD, nw); txt(g, '159.31 · 约 −29%', cx1, cy0 - H * V(159.31) - 22, 26, GOLD, 'right', nw, 900); note(g, '走势为示意，只标出几个真实价格点', c); }
   };
   D.checklist = function (g, lt, L) {
-    var a = ap(lt, 0.1, 0.5);
-    card(g, 1040, 330, 760, 330, GOLD, a); txt(g, '这三条都符合，才值得研究', 1080, 390, 30, GOLD, 'left', a, 900);
-    ['相信 AI 算力还会缺好几年', '能承受股价跌一半', '愿意每季度盯开支和借钱'].forEach(function (s, i) { var y = 460 + i * 64, on = cl((lt - L[2 + i] - 0.2) / 0.4);
-      check(g, 1100, y - 10, on, GOLD, a); txt(g, s, 1140, y, 28, INK, 'left', a * (0.5 + 0.5 * on)); });
-    mono(g, '上市后，它就从 225.64 跌到过 104.83', 1140, 640, 18, DIM, 'left', a * ap(lt, L[3] + 0.4));
-    var b = ap(lt, L[5] - 0.1, 0.4); card(g, 1040, 700, 760, 250, RED, b); txt(g, '特别小心', 1080, 760, 30, RED, 'left', b, 900);
-    ['这笔钱需要稳定', '只因为“马斯克”想买'].forEach(function (s, i) { var y = 830 + i * 60, on = ap(lt, L[5 + i], 0.3); txt(g, '⚠  ' + s, 1100, y, 28, INK, 'left', b * on); });
+    var a = ap(lt, L[1] - 0.1, 0.5);
+    card(g, 1040, 300, 760, 330, GOLD, a); txt(g, '看多的理由', 1080, 360, 32, GOLD, 'left', a, 900);
+    ['AI 算力还会缺好几年', '新装算力租得出去、回得了本', '星链继续稳定赚钱'].forEach(function (s, i) { var y = 430 + i * 64, on = ap(lt, L[2 + i], 0.4);
+      txt(g, '▲', 1100, y, 26, GOLD, 'center', a * on, 900); txt(g, s, 1140, y, 30, INK, 'left', a * (0.35 + 0.65 * on), 700); });
+    var b = ap(lt, L[5] - 0.1, 0.4); card(g, 1040, 670, 760, 290, RED, b); txt(g, '看空的担忧', 1080, 730, 32, RED, 'left', b, 900);
+    ['开支和借钱越来越多', '股价波动大'].forEach(function (s, i) { var y = 800 + i * 64, on = ap(lt, L[6 + i], 0.4);
+      txt(g, '▼', 1100, y, 26, RED, 'center', b * on, 900); txt(g, s, 1140, y, 30, INK, 'left', b * (0.35 + 0.65 * on), 700); });
+    mono(g, '上市后最高 225.64 → 最低 104.83 美元', 1140, 920, 22, INK, 'left', b * ap(lt, L[8], 0.4));
   };
   D.next = function (g, lt, L) {
     var a = ap(lt, 0.1, 0.5) * (1 - ap(lt, L[4], 0.5) * 0.6);

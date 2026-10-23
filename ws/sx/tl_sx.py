@@ -129,7 +129,7 @@ hit(at('s13', 1, 0.1), 0.95, 14, True); put('sparkle_bed', at('s13', 3, 0.3), 0.
 put('downer', at('s13', 4, 0.4), 0.45); hit(at('s13', 5, 1.0), 0.8, 10); hit(at('s13', 7, 1.0), 0.9, 12, True)
 # s14 checklist
 for k in range(3): put('ui_ping_%d' % (1 + k), at('s14', 2 + k, 0.3), 0.4); hit(at('s14', 2 + k, 0.3), 0.45, 3)
-hit(at('s14', 5, 0.3), 0.6, 5); hit(at('s14', 6, 0.3), 0.6, 5); hit(at('s14', 7, 0.5), 0.9, 12, True)
+hit(at('s14', 5, 0.3), 0.6, 5); hit(at('s14', 6, 0.3), 0.6, 5); hit(at('s14', 8, 0.5), 0.9, 12, True)
 # s15 next
 for k in range(3): put('ui_ping_%d' % (1 + k), at('s15', 1 + k, 0.3), 0.35)
 hit(at('s15', 4, 0.3), 0.6, 5)
