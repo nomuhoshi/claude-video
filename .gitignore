@@ -85,3 +85,4 @@ ws/php/*.mp4
 ws/php/*.jpg
 ws/php/node_modules
 ws/php/php.html
+ws/php/cover/*.png

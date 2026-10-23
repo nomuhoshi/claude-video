@@ -1,0 +1,47 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- PHP outage cover: a sushi plate with a “メンテナンス中” sign in front of a cracked wall of code. -->
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#04060b;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.h{position:absolute;left:0;right:0;text-align:center;font-weight:900;letter-spacing:.03em}
+.tag{position:absolute;left:300px;top:70px;font-size:48px;font-weight:900;color:#ece6da;border-left:8px solid #f0bd5c;padding-left:22px;text-shadow:0 3px 12px rgba(0,0,0,.9)}
+.top{top:160px;font-size:84px;color:#f3efe6;text-shadow:0 0 30px rgba(200,220,255,.2),0 4px 18px rgba(0,0,0,.95)}
+.bot{top:820px;font-size:118px;color:#ffd98a;text-shadow:0 0 40px rgba(255,200,110,.6),0 4px 18px rgba(0,0,0,.9)}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="tag">信息差 · 日本</div>
+<div class="h top">一个漏洞，日本半个互联网关门</div>
+<div class="h bot">这次是 AI 先发现的</div>
+</div>
+<script>
+var cv = document.getElementById('cv'), g = cv.getContext('2d'), W = 1920, H = 1080;
+var bg = g.createRadialGradient(960, 560, 40, 960, 560, 1150); bg.addColorStop(0, '#1a2234'); bg.addColorStop(0.55, '#0a0f19'); bg.addColorStop(1, '#030409'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+var CODE = ['<?php', '$order = $_POST[\'menu\'];', 'session_start();', 'echo render($page);', 'include \'kitchen.php\';', '$db->query($sql);', 'return $html;'];
+g.font = '500 26px "IBM Plex Mono", monospace';
+for (var r = 0; r < 32; r++) { var s = ''; for (var k = 0; k < 6; k++) s += CODE[(r + k * 3) % CODE.length] + '     '; g.fillStyle = 'rgba(134,182,255,' + (0.035 + 0.04 * ((r * 37) % 10) / 10).toFixed(3) + ')'; g.fillText(s, -((r * 151) % 300), 30 + r * 34); }
+// the red crack through the code wall
+g.save(); g.strokeStyle = '#ef5b43'; g.lineWidth = 7; g.shadowColor = '#ef5b43'; g.shadowBlur = 30; g.beginPath(); var px = 1000, py = 250; g.moveTo(px, py);
+var pts = [[960, 330], [1040, 400], [980, 470], [1060, 540], [1010, 600], [1090, 680], [1040, 760]]; pts.forEach(function (p) { g.lineTo(p[0], p[1]); }); g.stroke();
+g.lineWidth = 3; g.beginPath(); g.moveTo(1040, 400); g.lineTo(1130, 430); g.moveTo(980, 470); g.lineTo(900, 500); g.moveTo(1060, 540); g.lineTo(1150, 520); g.stroke(); g.restore();
+// glow pool
+var gp = g.createRadialGradient(960, 690, 20, 960, 690, 520); gp.addColorStop(0, 'rgba(255,190,110,0.22)'); gp.addColorStop(1, 'rgba(255,190,110,0)'); g.fillStyle = gp; g.fillRect(0, 0, W, H);
+// sushi plate
+g.save(); g.translate(960, 700);
+g.fillStyle = 'rgba(0,0,0,0.5)'; g.beginPath(); g.ellipse(0, 40, 400, 80, 0, 0, 6.29); g.fill();
+var pg = g.createLinearGradient(0, -60, 0, 60); pg.addColorStop(0, '#f2efe8'); pg.addColorStop(1, '#bdb6a8'); g.fillStyle = pg; g.beginPath(); g.ellipse(0, 0, 380, 72, 0, 0, 6.29); g.fill();
+g.strokeStyle = '#1d3f7a'; g.lineWidth = 6; g.beginPath(); g.ellipse(0, -4, 340, 58, 0, 0, 6.29); g.stroke();
+function nigiri(x, col) { g.save(); g.translate(x, -20);
+  var rg = g.createLinearGradient(0, -20, 0, 40); rg.addColorStop(0, '#fffdf6'); rg.addColorStop(1, '#d9d3c4'); g.fillStyle = rg; g.beginPath(); g.ellipse(0, 10, 110, 44, 0, 0, 6.29); g.fill();
+  var fg = g.createLinearGradient(-110, -40, 110, 10); fg.addColorStop(0, col[0]); fg.addColorStop(1, col[1]); g.fillStyle = fg; g.beginPath(); g.moveTo(-122, -6); g.quadraticCurveTo(-60, -66, 0, -58); g.quadraticCurveTo(70, -64, 124, -14); g.quadraticCurveTo(80, 18, 0, 14); g.quadraticCurveTo(-80, 20, -122, -6); g.fill();
+  g.strokeStyle = 'rgba(255,255,255,0.55)'; g.lineWidth = 4; for (var i = -2; i <= 2; i++) { g.beginPath(); g.moveTo(-60 + i * 30, -44); g.quadraticCurveTo(-40 + i * 30, -20, -50 + i * 30, 6); g.stroke(); } g.restore(); }
+nigiri(-140, ['#ff9a5c', '#e2583a']); nigiri(140, ['#ffb27a', '#ef6a44']);
+g.restore();
+// the sign on a little stand
+g.save(); g.translate(960, 520); g.rotate(-0.04);
+g.strokeStyle = '#8a6a3c'; g.lineWidth = 8; g.beginPath(); g.moveTo(-150, 70); g.lineTo(-170, 190); g.moveTo(150, 70); g.lineTo(170, 190); g.stroke();
+var sg = g.createLinearGradient(0, -80, 0, 80); sg.addColorStop(0, '#2b1712'); sg.addColorStop(1, '#170b08'); g.fillStyle = sg; g.shadowColor = '#ef5b43'; g.shadowBlur = 40;
+g.beginPath(); g.roundRect(-290, -80, 580, 160, 16); g.fill(); g.shadowBlur = 0; g.strokeStyle = '#ef5b43'; g.lineWidth = 6; g.stroke();
+g.font = '900 64px "Noto Serif CJK SC", serif'; g.textAlign = 'center'; g.fillStyle = '#ff6a4f'; g.shadowColor = '#ff5a3c'; g.shadowBlur = 24; g.fillText('メンテナンス中', 0, 26); g.restore();
+var vg = g.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, H * 1.0); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.65)'); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+</script></body></html>
