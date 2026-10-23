@@ -1,0 +1,40 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- Chaos cover: the bifurcation “tree” — one golden line that keeps splitting and bursts into a glowing mist. Computed live from x → a·x(1−x). -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#04060b;overflow:hidden}
+.c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.h{position:absolute;left:0;right:0;text-align:center;font-weight:900;letter-spacing:.04em}
+.top{top:96px;font-size:108px;color:#f3efe6;text-shadow:0 0 34px rgba(200,220,255,.18),0 4px 18px rgba(0,0,0,.9)}
+.bot{top:808px;font-size:138px;color:#ffd98a;text-shadow:0 0 40px rgba(255,200,110,.6),0 4px 18px rgba(0,0,0,.9)}
+.f{position:absolute;left:0;right:0;top:250px;text-align:center;font-size:48px;font-weight:700;color:#9fc4ff;letter-spacing:.06em;text-shadow:0 0 18px rgba(140,190,255,.45),0 3px 12px rgba(0,0,0,.9)}
+</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas>
+<div class="h top">一个简单的公式，</div>
+<div class="f">明年 = a × x × (1 − x)</div>
+<div class="h bot">却无法预测</div>
+</div>
+<script>
+var cv = document.getElementById('cv'), g = cv.getContext('2d'), W = 1920, H = 1080;
+var bg = g.createRadialGradient(1100, 560, 40, 960, 560, 1200); bg.addColorStop(0, '#16202f'); bg.addColorStop(0.55, '#0a0f19'); bg.addColorStop(1, '#030409'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+for (var i = 0; i < 220; i++) { var x = Math.random() * W, y = Math.random() * H; g.fillStyle = 'rgba(255,240,215,' + (0.1 + Math.random() * 0.35).toFixed(2) + ')'; g.fillRect(x, y, 1.4, 1.4); }
+// the tree: a from 2.7 to 4, drawn from x = 250 to 1670, the value x mapped to y 770 … 340
+var X0 = 290, X1 = 1600, YB = 770, YT = 340, w = X1 - X0, h = YB - YT;
+var t = document.createElement('canvas'); t.width = W; t.height = H; var tg = t.getContext('2d'), im = tg.createImageData(W, H), acc = new Float32Array(W * H);
+for (var i = 0; i < w * 2; i++) {
+  var a = 2.3 + 1.7 * Math.pow(i / (w * 2), 0.8), x = 0.5; for (var k = 0; k < 800; k++) x = a * x * (1 - x);
+  for (var k = 0; k < 700; k++) { x = a * x * (1 - x); var px = Math.round(X0 + i / 2), py = Math.round(YB - x * h); acc[py * W + px] += 1; acc[(py - 1) * W + px] += 0.6; acc[(py + 1) * W + px] += 0.6; }
+}
+for (var p = 0; p < W * H; p++) { if (!acc[p]) continue; var v = Math.min(1, Math.sqrt(acc[p] / 70)); im.data[p * 4] = 255; im.data[p * 4 + 1] = 196 + 30 * v; im.data[p * 4 + 2] = 110 + 70 * v; im.data[p * 4 + 3] = Math.round(255 * v); }
+tg.putImageData(im, 0, 0);
+g.globalCompositeOperation = 'lighter';
+g.filter = 'blur(30px)'; g.globalAlpha = 0.55; g.drawImage(t, 0, 0);
+g.filter = 'blur(6px)'; g.globalAlpha = 0.7; g.drawImage(t, 0, 0);
+g.filter = 'none'; g.globalAlpha = 1; g.drawImage(t, 0, 0);
+// a lit trunk on the left, before the first split
+// sparks drifting off the chaotic edge
+for (var i = 0; i < 70; i++) { var sx = 1450 + Math.random() * 200, sy = 320 + Math.random() * 470, r = 1 + Math.random() * 3; var gr = g.createRadialGradient(sx, sy, 0, sx, sy, r * 4); gr.addColorStop(0, 'rgba(255,225,170,0.9)'); gr.addColorStop(1, 'rgba(255,225,170,0)'); g.fillStyle = gr; g.fillRect(sx - r * 4, sy - r * 4, r * 8, r * 8); }
+g.globalCompositeOperation = 'source-over';
+var vg = g.createRadialGradient(W / 2, H / 2, H * 0.35, W / 2, H / 2, H * 1.0); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.7)'); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+</script></body></html>
