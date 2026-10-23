@@ -71,3 +71,10 @@ ws/sx/__pycache__/
 
 # mystudy 生成物
 mystudy/*/out/
+ws/lg/shots/
+ws/lg/ch/
+ws/lg/*.wav
+ws/lg/*.mp4
+ws/lg/*.jpg
+ws/lg/node_modules
+ws/lg/lg.html
