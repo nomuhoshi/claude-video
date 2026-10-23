@@ -86,3 +86,4 @@ ws/php/*.jpg
 ws/php/node_modules
 ws/php/php.html
 ws/php/cover/*.png
+ws/php/render.log
