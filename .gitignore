@@ -78,3 +78,10 @@ ws/lg/*.mp4
 ws/lg/*.jpg
 ws/lg/node_modules
 ws/lg/lg.html
+ws/php/shots/
+ws/php/ch/
+ws/php/*.wav
+ws/php/*.mp4
+ws/php/*.jpg
+ws/php/node_modules
+ws/php/php.html
