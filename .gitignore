@@ -87,3 +87,13 @@ ws/php/node_modules
 ws/php/php.html
 ws/php/cover/*.png
 ws/php/render.log
+ws/hz/shots/
+ws/hz/ch/
+ws/hz/*.wav
+ws/hz/*.mp4
+ws/hz/*.jpg
+ws/hz/node_modules
+ws/hz/hz.html
+ws/hz/render.log
+ws/hz/cover/*.png
+ws/hz/__pycache__/
