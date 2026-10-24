@@ -1,4 +1,4 @@
-# renders lg.html in 1500-frame chunks with 2 workers (resumable), then joins them
+# renders hz.html in 1500-frame chunks with 2 workers (resumable), then joins them
 cd "$(dirname "$0")"; mkdir -p ch
 N=$(python3 -c "import json,math;print(math.ceil(json.load(open('tl.json'))['end']*30))"); C=1500; K=$(( (N + C - 1) / C ))
 work() { for i in $(seq $1 2 $((K-1))); do [ -f ch/c$i.done ] && continue; a=$((i*C)); b=$((a+C)); [ $b -gt $N ] && b=$N; node frames.js $a $b ch/c$i.mp4 > ch/c$i.log 2>&1 && touch ch/c$i.done; done; }
