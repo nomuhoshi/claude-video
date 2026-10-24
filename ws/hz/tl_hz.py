@@ -69,11 +69,11 @@ chaps, crumbs = [], []
 ci = 0
 for row, T in zip(SC, TLs):
     if row[1] == 'chap':
-        chaps.append(dict(s=T['s'], e=T['e'], word=row[2], en=EN[row[2]], line=row[3], n='第%s章' % NUM[ci]))
-        crumbs.append(dict(t=T['s'], zh='第%s章 · %s' % (NUM[ci], row[2]), en='CH.%d  %s' % (ci + 1, EN[row[2]])))
+        chaps.append(dict(s=T['s'], e=T['e'], word=row[2], en='', line=row[3], n=''))
+        crumbs.append(dict(t=T['s'], zh=row[2], en=''))
         ci += 1
-crumbs.insert(0, dict(t=at('hero', 8, 0.8), zh='人物传记 · 赫兹', en='BIOGRAPHY  HEINRICH HERTZ 1857–1894'))
-crumbs.append(dict(t=S('recap'), zh='回顾', en='RECAP')); crumbs.append(dict(t=S('src'), zh='资料来源', en='SOURCES'))
+crumbs.insert(0, dict(t=at('hero', 8, 0.8), zh='人物传记 · 赫兹', en=''))
+crumbs.append(dict(t=S('recap'), zh='回顾', en='')); crumbs.append(dict(t=S('src'), zh='资料来源', en=''))
 
 # ---------------- effects ----------------
 counters, slams, SHAKE, SFX = [], [], [], []
@@ -135,7 +135,6 @@ hit(at('s12', 6, 1.4), 1.0, 14, True); put('sparkle_bed', at('s12', 6, 1.5), 0.3
 # recap / next
 for k in range(4): put('ui_ping_%d' % (1 + k % 3), at('recap', k, 0.2), 0.4)
 hit(at('recap', 3, 0.3), 0.9, 10, True)
-put('whoosh_swing', at('next', 1, 0.2), 0.3); hit(at('next', 2, 0.5), 0.8, 8)
 
 # ---------------- era timeline ----------------
 YRS = [('s1', 1857, 1878), ('s2', 1879, 1879), ('s4', 1885, 1886), ('s5', 1887, 1887), ('s6', 1888, 1888), ('s7', 1888, 1888),

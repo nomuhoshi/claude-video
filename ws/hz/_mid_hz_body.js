@@ -88,14 +88,14 @@
       txt(g, '几米', 1470, 760, 28, DIM, 'center', b * ap(lt, L[13], 0.4), 900); }
   };
   D.uv = function (g, lt, L) {
-    var fire = wn(lt % 1.0, 0, 0.3, 0.05); rods(g, 1180, 560, 0.55, 1, lt, fire);
-    var box = ap(lt, L[1], 0.5), shr = ap(lt, L[2], 0.6); loop(g, 1640, 600, 70, 1, lt, fire * (1 - 0.6 * shr));
-    if (box > 0) { g.save(); g.globalAlpha *= box * 0.9; g.fillStyle = 'rgba(6,8,12,0.75)'; g.fillRect(1530, 470, 220, 230); g.strokeStyle = 'rgba(200,210,230,0.6)'; g.lineWidth = 3; g.strokeRect(1530, 470, 220, 230); g.restore(); chip(g, 1640, 440, '黑盒子', BLUE, box, 24); }
-    if (shr > 0) txt(g, '火花变短', 1640, 760, 28, RED, 'center', shr * (1 - ap(lt, L[4], 0.4)), 900);
-    var uv = ap(lt, L[4], 0.5); if (uv > 0) { for (var k = 0; k < 5; k++) { var p = ((lt * 0.8) + k / 5) % 1; arrow(g, 1210, 560 - 20 + k * 10, 1210 + 380 * p, 545 + k * 6, VIO, uv * (1 - p), 1, 0); }
-      txt(g, '紫外线', 1400, 500, 30, VIO, 'center', uv, 900); }
-    var p1 = ap(lt, L[7], 0.4); if (p1 > 0) doc(g, 1300, 830, 160, 200, p1, -0.04, '1887', 5);
-    chip(g, 1560, 860, '爱因斯坦 · 1905', GOLD, ap(lt, L[9], 0.4), 28); chip(g, 1560, 940, '光电效应', GOLD, ap(lt, L[10], 0.4), 32);
+    var fire = wn(lt % 1.0, 0, 0.3, 0.05); rods(g, 1160, 560, 0.8, 1, lt, fire);
+    var box = ap(lt, L[1], 0.5), shr = ap(lt, L[2], 0.6); loop(g, 1640, 620, 110, 1, lt, fire * (1 - 0.6 * shr));
+    if (box > 0) { g.save(); g.globalAlpha *= box * 0.9; g.fillStyle = 'rgba(6,8,12,0.75)'; g.fillRect(1470, 450, 340, 340); g.strokeStyle = 'rgba(200,210,230,0.7)'; g.lineWidth = 4; g.strokeRect(1470, 450, 340, 340); g.restore(); chip(g, 1640, 410, '黑盒子', BLUE, box, 32); }
+    if (shr > 0) txt(g, '火花变短', 1640, 860, 40, RED, 'center', shr * (1 - ap(lt, L[4], 0.4)), 900);
+    var uv = ap(lt, L[4], 0.5); if (uv > 0) { for (var k = 0; k < 5; k++) { var p = ((lt * 0.8) + k / 5) % 1; arrow(g, 1200, 540 + k * 10, 1200 + 360 * p, 520 + k * 6, VIO, uv * (1 - p), 1, 0); }
+      txt(g, '紫外线', 1420, 470, 40, VIO, 'center', uv, 900); }
+    var p1 = ap(lt, L[7], 0.4); if (p1 > 0) doc(g, 1230, 860, 180, 220, p1, -0.04, '1887', 5);
+    chip(g, 1560, 880, '爱因斯坦 · 1905', GOLD, ap(lt, L[9], 0.4), 32); chip(g, 1560, 970, '光电效应', GOLD, ap(lt, L[10], 0.4), 36);
   };
   D.stand = function (g, lt, L) {
     var x0 = 1110, x1 = 1780, y = 600, a = ap(lt, L[0], 0.5) * (1 - ap(lt, L[8] - 0.2, 0.5));

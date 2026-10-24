@@ -144,13 +144,13 @@ function shake(t) {
 // ---------- post: bloom, vignette, grain ----------
 function post(t) {
   O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1; O.filter = 'none';
-  O.drawImage(main, 0, 0);
+  O.filter = 'brightness(1.22) saturate(1.06)'; O.drawImage(main, 0, 0); O.filter = 'none';
   SM.globalCompositeOperation = 'copy'; SM.filter = 'blur(5px) brightness(0.95) contrast(2.4)'; SM.drawImage(main, 0, 0, 480, 270); SM.filter = 'none';
   O.globalCompositeOperation = 'lighter'; O.globalAlpha = 0.34; O.imageSmoothingQuality = 'high'; O.drawImage(small, 0, 0, W, H);
   O.globalAlpha = 0.16; O.filter = 'blur(10px)'; O.drawImage(small, -40, -22, W + 80, H + 45); O.filter = 'none';
   O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1;
   var vg = O.createRadialGradient(W / 2, H * 0.48, H * 0.32, W / 2, H / 2, H * 1.02);
-  vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.42)'); O.fillStyle = vg; O.fillRect(0, 0, W, H);
+  vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.3)'); O.fillStyle = vg; O.fillRect(0, 0, W, H);
   O.globalCompositeOperation = 'overlay'; O.globalAlpha = 0.09; O.drawImage(GR[Math.floor(t * 30) % GR.length], 0, 0, W, H);
   O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1;
 }

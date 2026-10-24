@@ -39,7 +39,7 @@ bed = np.zeros((N, 2), np.float32)
 A, C, Dd, E = secs['A'], secs['C'], secs['D'], secs['E']
 place(bed, 0.85 * take(ny, nph, A['e'] - A['s'] + X / 2), 0, 0.3, X)
 nC = int(np.ceil((C['e'] - C['s']) / 1.6))
-section(en, eph, 1.6, fit(list(range(12, 32)) + list(range(34, 50)) + list(range(66, 86)) + list(range(86, 102)), list(range(34, 50)), nC), C['s'], C['e'], 1.05)
+section(en, eph, 1.6, fit(list(range(12, 102)), list(range(34, 50)), nC), C['s'], C['e'], 1.05)   # one continuous run: no seams inside the section
 nD = int(np.ceil((Dd['e'] - Dd['s']) / ABAR))
 section(aw, aph, ABAR, fit(list(range(1, 18)), list(range(6, 18)), nD), Dd['s'], Dd['e'], 1.1)
 nE = int(np.ceil((E['e'] - E['s']) / ABAR))
