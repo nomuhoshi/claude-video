@@ -4,22 +4,23 @@
 .c{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}canvas{position:absolute;left:0;top:0}
 .h{position:absolute;left:0;right:0;text-align:center;font-weight:900;letter-spacing:.03em}
 .tag{position:absolute;left:300px;top:70px;font-size:48px;font-weight:900;color:#ece6da;border-left:8px solid #f0bd5c;padding-left:22px;text-shadow:0 3px 12px rgba(0,0,0,.9)}
-.top{top:160px;font-size:92px;color:#f3efe6;text-shadow:0 0 30px rgba(200,220,255,.2),0 4px 18px rgba(0,0,0,.95)}
-.bot{top:800px;font-size:140px;color:#ffd98a;text-shadow:0 0 40px rgba(255,200,110,.6),0 4px 18px rgba(0,0,0,.9)}</style></head><body><div class="c">
-<canvas id="cv" width="1920" height="1080"></canvas>
-<div class="h top">他抓住了一道看不见的波</div><div class="h bot">赫兹</div></div>
+.top{top:120px;font-size:96px;line-height:1.22;color:#f3efe6;text-shadow:0 0 30px rgba(200,220,255,.2),0 4px 18px rgba(0,0,0,.95)}
+.bot{top:780px;font-size:170px;color:#ffd98a;text-shadow:0 0 40px rgba(255,200,110,.6),0 4px 18px rgba(0,0,0,.9)}.ph{position:absolute;left:250px;top:110px;height:970px;filter:grayscale(1) sepia(.35) contrast(1.12) brightness(1.08);-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 45%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 45%,#000 62%,transparent 100%)}
+.r{left:820px;right:140px}</style></head><body><div class="c">
+<canvas id="cv" width="1920" height="1080"></canvas><img class="ph" src="hertz_photo.jpg">
+<div class="h top r">他抓住了<br>一道看不见的波</div><div class="h bot r">赫兹</div></div>
 <script>
 var g = document.getElementById('cv').getContext('2d'), W = 1920, H = 1080;
-var bg = g.createRadialGradient(960, 560, 40, 960, 560, 1150); bg.addColorStop(0, '#22304a'); bg.addColorStop(0.55, '#101828'); bg.addColorStop(1, '#05070c'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+var bg = g.createRadialGradient(1100, 560, 40, 1000, 560, 1250); bg.addColorStop(0, '#22304a'); bg.addColorStop(0.55, '#101828'); bg.addColorStop(1, '#05070c'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
 for (var i = 0; i < 200; i++) { g.fillStyle = 'rgba(255,240,215,' + (0.1 + Math.random() * 0.3).toFixed(2) + ')'; g.fillRect(Math.random() * W, Math.random() * H, 1.4, 1.4); }
-var cx = 960, cy = 560;
+var cx = 1330, cy = 600;
 // spreading rings
 g.globalCompositeOperation = 'lighter';
-for (var k = 0; k < 7; k++) { var r = 140 + k * 95; g.strokeStyle = 'rgba(134,182,255,' + (0.55 - k * 0.07).toFixed(2) + ')'; g.lineWidth = 6 - k * 0.6; g.shadowColor = '#86b6ff'; g.shadowBlur = 24; g.beginPath(); g.arc(cx, cy, r, -0.9, 0.9); g.stroke(); g.beginPath(); g.arc(cx, cy, r, Math.PI - 0.9, Math.PI + 0.9); g.stroke(); }
+for (var k = 0; k < 7; k++) { var r = 110 + k * 70; g.strokeStyle = 'rgba(134,182,255,' + (0.55 - k * 0.07).toFixed(2) + ')'; g.lineWidth = 6 - k * 0.6; g.shadowColor = '#86b6ff'; g.shadowBlur = 24; g.beginPath(); g.arc(cx, cy, r, -0.9, 0.9); g.stroke(); g.beginPath(); g.arc(cx, cy, r, Math.PI - 0.9, Math.PI + 0.9); g.stroke(); }
 g.globalCompositeOperation = 'source-over'; g.shadowBlur = 0;
 // rods and spheres
-var gr = g.createLinearGradient(0, cy - 12, 0, cy + 12); gr.addColorStop(0, '#f6d89a'); gr.addColorStop(1, '#8a6224'); g.fillStyle = gr; g.fillRect(cx - 420, cy - 10, 380, 20); g.fillRect(cx + 40, cy - 10, 380, 20);
-[[cx - 450, 62], [cx + 450, 62], [cx - 44, 30], [cx + 44, 30]].forEach(function (b) { var rg = g.createRadialGradient(b[0] - b[1] * 0.35, cy - b[1] * 0.35, 3, b[0], cy, b[1]); rg.addColorStop(0, '#fff0c8'); rg.addColorStop(0.6, '#d9a95a'); rg.addColorStop(1, '#5e3f12'); g.fillStyle = rg; g.shadowColor = '#f0bd5c'; g.shadowBlur = 30; g.beginPath(); g.arc(b[0], cy, b[1], 0, 6.29); g.fill(); });
+var gr = g.createLinearGradient(0, cy - 12, 0, cy + 12); gr.addColorStop(0, '#f6d89a'); gr.addColorStop(1, '#8a6224'); g.fillStyle = gr; g.fillRect(cx - 300, cy - 10, 260, 20); g.fillRect(cx + 40, cy - 10, 260, 20);
+[[cx - 330, 52], [cx + 330, 52], [cx - 44, 30], [cx + 44, 30]].forEach(function (b) { var rg = g.createRadialGradient(b[0] - b[1] * 0.35, cy - b[1] * 0.35, 3, b[0], cy, b[1]); rg.addColorStop(0, '#fff0c8'); rg.addColorStop(0.6, '#d9a95a'); rg.addColorStop(1, '#5e3f12'); g.fillStyle = rg; g.shadowColor = '#f0bd5c'; g.shadowBlur = 30; g.beginPath(); g.arc(b[0], cy, b[1], 0, 6.29); g.fill(); });
 // spark
 var hg = g.createRadialGradient(cx, cy, 0, cx, cy, 220); hg.addColorStop(0, 'rgba(220,240,255,0.95)'); hg.addColorStop(0.25, 'rgba(140,190,255,0.45)'); hg.addColorStop(1, 'rgba(140,190,255,0)'); g.fillStyle = hg; g.beginPath(); g.arc(cx, cy, 220, 0, 6.29); g.fill();
 g.strokeStyle = '#ffffff'; g.lineWidth = 8; g.shadowColor = '#9cc8ff'; g.shadowBlur = 50; g.beginPath(); g.moveTo(cx - 16, cy - 4); [[-8, -40], [2, 30], [8, -30], [16, 4]].forEach(function (p) { g.lineTo(cx + p[0], cy + p[1]); }); g.stroke();
