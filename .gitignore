@@ -97,3 +97,13 @@ ws/hz/hz.html
 ws/hz/render.log
 ws/hz/cover/*.png
 ws/hz/__pycache__/
+
+# 学术深度样片
+ws/fy/ch/
+ws/fy/shots/
+ws/fy/fy.html
+ws/fy/scenes_fy.js
+ws/fy/fm/
+ws/fy/*.log
+ws/fy/cover/*.png
+ws/fy/video*.mp4

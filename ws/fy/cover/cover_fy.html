@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<style>*{box-sizing:border-box}html,body{margin:0;background:#000;overflow:hidden}
+#c{position:relative;overflow:hidden;font-family:"Noto Serif SC","Noto Serif CJK SC",serif;background:#010208}canvas{position:absolute;left:0;top:0}
+.h{position:absolute;text-align:center;font-weight:900;letter-spacing:.03em}
+.top{color:#f3efe6;text-shadow:0 0 24px rgba(200,220,255,.2),0 4px 16px rgba(0,0,0,.95);line-height:1.22}
+.bot{color:#ffd98a;text-shadow:0 0 36px rgba(255,200,110,.6),0 4px 16px rgba(0,0,0,.9)}
+.ph{position:absolute;filter:grayscale(1) sepia(.3) contrast(1.12) brightness(1.05);-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 45%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 45%,#000 60%,transparent 100%)}</style></head><body>
+<div id="c"><canvas id="cv"></canvas><img class="ph" id="ph" style="display:none"><div class="h top" id="t1"></div><div class="h bot" id="t2">费曼</div></div>
+<script>
+var q = new URLSearchParams(location.search), W = +q.get('w') || 1920, H = +q.get('h') || 1080, photo = q.get('photo');
+var c = document.getElementById('c'); c.style.width = W + 'px'; c.style.height = H + 'px';
+var cv = document.getElementById('cv'); cv.width = W; cv.height = H; var g = cv.getContext('2d');
+var port = H > W, sq = !port && W / H < 1.5;           // portrait / 4:3 / 16:9
+var t1 = document.getElementById('t1'), t2 = document.getElementById('t2'), ph = document.getElementById('ph');
+t1.innerHTML = '领诺贝尔奖那天，<br>他说自己失败了';
+var u = Math.min(W, H * 16 / 9) / 1920 * (port ? 1.0 : 1);
+function place(el, l, t, w, fs) { el.style.left = l + 'px'; el.style.top = t + 'px'; el.style.width = w + 'px'; el.style.fontSize = fs + 'px'; }
+var dx, dy, ds, tT, tF, nF, nT;
+if (port) { tF = 92; tT = 120; nF = 190; nT = H - 330; }
+else if (sq) { tF = 70; tT = 60; nF = 130; nT = H - 215; }
+else { tF = 62; tT = 34; nF = 112; nT = H - 150; }
+place(t1, W * .14, tT, W * .72, tF); place(t2, W * .14, nT, W * .72, nF);
+var yT = tT + tF * 2.5, yB = nT + nF * .12; ds = Math.min((yB - yT) / 660, W / 900); dx = W / 2 - 40 * ds; dy = (yT + yB) / 2 + 20 * ds;
+if (photo) { ph.src = photo; ph.style.display = 'block';
+  if (port) { ph.style.left = (W * .5 - 330) + 'px'; ph.style.top = '300px'; ph.style.height = '700px'; }
+  else { ph.style.left = (W * .13) + 'px'; ph.style.top = (H * .2) + 'px'; ph.style.height = (H * .8) + 'px'; t1.style.left = (W * .38) + 'px'; t1.style.width = (W * .5) + 'px'; t2.style.left = (W * .38) + 'px'; t2.style.width = (W * .5) + 'px'; dx = W * .66; ds *= .8; } }
+var bg = g.createRadialGradient(dx, dy, 20, dx, dy, Math.max(W, H) * .75); bg.addColorStop(0, '#0d1626'); bg.addColorStop(.5, '#05080f'); bg.addColorStop(1, '#010208'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+for (var i = 0; i < 160; i++) { g.fillStyle = 'rgba(255,240,215,' + (0.08 + Math.random() * 0.25).toFixed(2) + ')'; g.fillRect(Math.random() * W, Math.random() * H, 1.4, 1.4); }
+// Feynman diagram: electron zig-zag with a backwards (red) segment, gold photon wave
+function P(x, y) { return [dx + x * ds, dy + y * ds]; }
+function line(pts, col, w, blur) { g.save(); g.strokeStyle = col; g.lineWidth = w * ds; g.lineCap = 'round'; g.lineJoin = 'round'; g.shadowColor = col; g.shadowBlur = blur * ds; g.beginPath(); pts.forEach(function (p, i) { var s = P(p[0], p[1]); i ? g.lineTo(s[0], s[1]) : g.moveTo(s[0], s[1]); }); g.stroke(); g.restore(); }
+function arrow(x, y, ang, col) { var s = P(x, y); g.save(); g.translate(s[0], s[1]); g.rotate(ang); g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 16; g.beginPath(); g.moveTo(26 * ds, 0); g.lineTo(-18 * ds, -18 * ds); g.lineTo(-18 * ds, 18 * ds); g.closePath(); g.fill(); g.restore(); }
+// path: up (blue) -> turn back (red, going down in time) -> up again (blue)
+line([[-250, 340], [-70, 20], [70, -270]], '#86b6ff', 12, 30);
+line([[70, -270], [190, 20]], '#ef5b43', 12, 30);
+line([[190, 20], [330, -300]], '#86b6ff', 12, 30);
+arrow(-150, 170, -1.06, '#86b6ff'); arrow(135, -125, 1.28, '#ef5b43'); arrow(262, -130, -1.18, '#86b6ff');
+// gold photon
+g.save(); g.strokeStyle = '#ffd98a'; g.lineWidth = 8 * ds; g.shadowColor = '#f0bd5c'; g.shadowBlur = 30 * ds; g.lineCap = 'round'; g.beginPath(); for (var x = 0; x <= 1; x += 0.01) { var a = P(-70 + x * 260, 20 + 14 * Math.sin(x * 40)); g.lineTo(a[0], a[1]); } g.stroke(); g.restore();
+[[-70, 20], [190, 20], [70, -270]].forEach(function (p) { var s = P(p[0], p[1]); var rg = g.createRadialGradient(s[0], s[1], 0, s[0], s[1], 60 * ds); rg.addColorStop(0, 'rgba(255,255,255,.95)'); rg.addColorStop(.25, 'rgba(255,225,150,.55)'); rg.addColorStop(1, 'rgba(255,200,100,0)'); g.fillStyle = rg; g.beginPath(); g.arc(s[0], s[1], 60 * ds, 0, 6.29); g.fill(); });
+var vg = g.createRadialGradient(W / 2, H / 2, H * .35, W / 2, H / 2, Math.max(W, H) * .8); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.55)'); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+</script></body></html>
