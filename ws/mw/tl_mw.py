@@ -61,7 +61,7 @@ for row, T in zip(SC, TLs):
 
 # ---------------- crumbs ----------------
 chaps = []
-crumbs = [dict(t=S('recap'), zh='回顾', en=''), dict(t=S('src'), zh='资料来源', en='')]
+crumbs = [dict(t=S('src'), zh='资料来源', en='')]
 
 # ---------------- effects ----------------
 counters, slams, SHAKE, SFX = [], [], [], []
@@ -114,10 +114,6 @@ zap(at('s4', 4, 0.2), at('s4', 5, -0.1), 0.38); hit(at('s4', 4, 0.2), 0.95, 12, 
 put('ui_ping_3', at('s4', 5, 0.4), 0.3); put('ui_ping_1', at('s4', 6, 0.4), 0.3); put('whoosh_swing', at('s4', 7, 0.3), 0.3); hit(at('s4', 7, 0.6), 0.7, 6)
 hit(at('s4', 8, 0.4), 0.8, 8); put('ui_ping_2', at('s4', 9, 0.4), 0.3); hit(at('s4', 10, 0.4), 1.0, 14, True); put('sparkle_bed', at('s4', 10, 0.5), 0.35)
 zap(at('s4', 10, 0.6), at('s4', 11, 0.1), 0.3); put('ui_ping_1', at('s4', 11, 0.4), 0.3); put('ui_ping_2', at('s4', 12, 0.4), 0.3); hit(at('s4', 13, 0.4), 0.6, 4); put('sub_pad', at('s4', 14, 0.0), 0.3); put('downer', at('s4', 15, 0.4), 0.25)
-# recap
-for k in range(3): put('ui_ping_%d' % (1 + k % 3), at('recap', k, 0.2), 0.4)
-hit(at('recap', 2, 0.3), 0.9, 10, True)
-
 scenes = [dict(key=T['key'], k=T['k'], draw=T['draw'], s=T['s'], e=T['e'], ls=T['ls']) for T in TLs]
 data = dict(end=END, groups=groups, chaps=chaps, crumbs=crumbs, counters=counters, slams=slams, shake=sorted(SHAKE),
             sfx=sorted(SFX, key=lambda x: x[1]), years=[], yvis=[], ticks=[], yr0=0, yr1=1,
