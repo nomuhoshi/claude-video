@@ -133,3 +133,6 @@ ws/mw/cover/3d/scene_*.png
 ws/mw/cover/3d/pts_*.js
 ws/mw/cover/w.png
 ws/mw/cover/v.png
+ws/daily/**/fr/
+ws/daily/**/out/*.mp4
+ws/daily/**/__pycache__/
