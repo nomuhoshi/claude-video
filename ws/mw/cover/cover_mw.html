@@ -1,0 +1,56 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- 日常物理 #1 cover: a big oven window, a fork sparking; hook on the right (vertical: oven on top, hook below). #dy = vertical 1080x1440 -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#05060a;overflow:hidden}
+.c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.h{position:absolute;font-weight:900;line-height:1.2;color:#f6f2ea;letter-spacing:.02em;text-shadow:0 3px 18px rgba(0,0,0,.8),0 0 30px rgba(200,220,255,.14)}
+.h i{font-style:normal;color:#ff7a68;text-shadow:0 3px 18px rgba(0,0,0,.8),0 0 26px rgba(255,100,80,.5)}
+.h b{font-weight:900;color:#ffd98a;text-shadow:0 3px 18px rgba(0,0,0,.8),0 0 28px rgba(255,210,130,.55)}
+.w .c{width:1920px;height:1080px}
+.w .h{left:985px;top:350px;font-size:84px}
+.w .h i{font-size:124px;display:inline-block;margin-top:10px}
+.v .c{width:1080px;height:1440px}
+.v .h{left:0;right:0;top:880px;text-align:center;font-size:92px}
+.v .h i{font-size:140px;display:inline-block;margin-top:6px}
+</style></head><body><div class="c">
+<canvas id="cv"></canvas>
+<div class="h">叉子进微波炉，<br>为什么<i>打火？</i></div>
+</div>
+<script>
+var V = location.hash === '#dy'; document.body.className = V ? 'v' : 'w';
+var W = V ? 1080 : 1920, H = V ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+var g = cv.getContext('2d'), TAU = Math.PI * 2;
+function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function rr(x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+var bg = g.createRadialGradient(W * 0.4, H * 0.45, 40, W * 0.5, H * 0.5, Math.max(W, H) * 0.85); bg.addColorStop(0, '#22304a'); bg.addColorStop(0.55, '#101828'); bg.addColorStop(1, '#05070c'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+var Rn = rng(11); for (var i = 0; i < 150; i++) { g.fillStyle = 'rgba(225,235,255,' + (0.1 + Rn() * 0.45).toFixed(2) + ')'; g.beginPath(); g.arc(Rn() * W, Rn() * H, 0.5 + Rn() * 1.4, 0, TAU); g.fill(); }
+// oven
+var ow = V ? 940 : 660, oh = V ? 760 : 620, cx = V ? 540 : 625, cy = V ? 470 : 540, x0 = cx - ow / 2, y0 = cy - oh / 2;
+g.save(); rr(x0, y0, ow, oh, 28); var gr = g.createLinearGradient(0, y0, 0, y0 + oh); gr.addColorStop(0, '#68758f'); gr.addColorStop(1, '#2f3649'); g.fillStyle = gr; g.shadowColor = 'rgba(0,0,0,0.7)'; g.shadowBlur = 50; g.shadowOffsetY = 14; g.fill(); g.shadowBlur = 0; g.strokeStyle = 'rgba(205,220,245,0.7)'; g.lineWidth = 5; g.stroke(); g.restore();
+var pw2 = ow * 0.2, wx = x0 + 34, wy = y0 + 34, ww = ow - pw2 - 34 * 2 - 10, wh = oh - 68;
+g.save(); rr(wx, wy, ww, wh, 14); g.clip(); var wg = g.createLinearGradient(0, wy, 0, wy + wh); wg.addColorStop(0, '#1b2438'); wg.addColorStop(1, '#0c1322'); g.fillStyle = wg; g.fillRect(wx, wy, ww, wh);
+g.fillStyle = 'rgba(130,160,200,0.3)'; g.beginPath(); g.ellipse(wx + ww / 2, wy + wh - 36, ww * 0.42, 22, 0, 0, TAU); g.fill();
+// fork
+var fx = wx + ww / 2, fy = wy + wh - 44, s = (V ? 2.55 : 1.95);
+g.save(); g.translate(fx, fy); g.scale(s, s);
+var fg = g.createLinearGradient(-24, 0, 24, 0); fg.addColorStop(0, '#7b88a2'); fg.addColorStop(0.45, '#dbe3f0'); fg.addColorStop(1, '#6d7a94'); g.fillStyle = fg; g.shadowColor = 'rgba(255,190,110,0.6)'; g.shadowBlur = 14;
+g.beginPath(); g.moveTo(-6, 0); g.lineTo(-7, -105); g.lineTo(-27, -128); g.lineTo(-27, -142); g.lineTo(27, -142); g.lineTo(27, -128); g.lineTo(7, -105); g.lineTo(6, 0); g.closePath(); g.fill();
+for (var i = 0; i < 4; i++) { var tx = -27 + i * 18; g.fillRect(tx, -196, 9, 58); g.beginPath(); g.moveTo(tx, -196); g.lineTo(tx + 4.5, -204); g.lineTo(tx + 9, -196); g.closePath(); g.fill(); }
+g.restore();
+// sparks: jagged bolts between tine tips and to the walls, plus a hot flare
+var R = rng(5);
+function bolt(x1, y1, x2, y2, w) { g.save(); g.strokeStyle = '#ffe9c0'; g.lineWidth = w; g.shadowColor = '#ffb060'; g.shadowBlur = 30; g.beginPath(); g.moveTo(x1, y1); var n = 8; for (var i = 1; i < n; i++) { var u = i / n; g.lineTo(x1 + (x2 - x1) * u + (R() - 0.5) * 26, y1 + (y2 - y1) * u + (R() - 0.5) * 30); } g.lineTo(x2, y2); g.stroke(); g.strokeStyle = '#fff'; g.lineWidth = w * 0.4; g.stroke(); g.restore(); }
+var tip = function (i) { return [fx + (-22.5 + i * 18) * s, fy - 204 * s]; };
+for (var i = 0; i < 3; i++) { var a = tip(i), b = tip(i + 1); bolt(a[0], a[1], b[0], b[1], 7); }
+var t0 = tip(0), t3 = tip(3); bolt(t0[0], t0[1], wx + 10, t0[1] - 130, 6); bolt(t3[0], t3[1], wx + ww - 10, t3[1] - 90, 6); bolt(t0[0] + 20, t0[1], t0[0] - 80, t0[1] - 150, 5); bolt(t3[0] - 20, t3[1], t3[0] + 70, t3[1] - 120, 5);
+var fl = g.createRadialGradient(fx, t0[1] + 10, 0, fx, t0[1] + 10, 190); fl.addColorStop(0, 'rgba(255,255,240,0.95)'); fl.addColorStop(0.25, 'rgba(255,205,120,0.75)'); fl.addColorStop(0.6, 'rgba(255,120,60,0.3)'); fl.addColorStop(1, 'rgba(255,90,40,0)'); g.fillStyle = fl; g.fillRect(wx, wy, ww, wh);
+g.restore();
+rr(wx, wy, ww, wh, 14); g.strokeStyle = 'rgba(195,212,240,0.7)'; g.lineWidth = 5; g.stroke();
+// control panel
+var px = wx + ww + 22, pwid = pw2 - 12; g.fillStyle = 'rgba(18,24,38,0.9)'; rr(px, wy, pwid, wh, 12); g.fill();
+g.fillStyle = 'rgba(120,140,175,0.75)'; for (var i = 0; i < 5; i++) g.fillRect(px + 16, wy + 28 + i * 40, pwid - 32, 20);
+g.strokeStyle = '#c9d4e6'; g.lineWidth = 5; g.beginPath(); g.arc(px + pwid / 2, wy + wh - 90, 40, 0, TAU); g.stroke(); g.beginPath(); g.moveTo(px + pwid / 2, wy + wh - 90); g.lineTo(px + pwid / 2, wy + wh - 126); g.stroke();
+var vg = g.createRadialGradient(W / 2, H / 2, H * 0.4, W / 2, H / 2, H * 1.0); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.45)'); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+</script></body></html>

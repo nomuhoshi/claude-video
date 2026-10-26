@@ -115,3 +115,15 @@ ws/mi/mi.html
 ws/mi/render.log
 ws/mi/cover/*.png
 ws/mi/__pycache__/
+ws/mw/shots/
+ws/mw/ch/
+ws/mw/*.wav
+ws/mw/*.mp4
+ws/mw/mw.html
+ws/mw/render.log
+ws/mw/cover/*.png
+ws/mw/__pycache__/
+ws/mw/sheet*.png
+ws/mw/ts.txt
+ws/mw/scenes_mw.js
+ws/mw/tl.json
