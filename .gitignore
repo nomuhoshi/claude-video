@@ -107,3 +107,11 @@ ws/fy/fm/
 ws/fy/*.log
 ws/fy/cover/*.png
 ws/fy/video*.mp4
+ws/mi/shots/
+ws/mi/ch/
+ws/mi/*.wav
+ws/mi/*.mp4
+ws/mi/mi.html
+ws/mi/render.log
+ws/mi/cover/*.png
+ws/mi/__pycache__/

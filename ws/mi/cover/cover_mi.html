@@ -1,0 +1,51 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- Michelson cover: photo (grey + warm brown, gold frame) left/top, hook right/bottom, a slab on mercury with two crossing beams. #dy = vertical 1080x1440 -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#05060a;overflow:hidden}
+.c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.h{position:absolute;font-weight:900;line-height:1.2;color:#f6f2ea;letter-spacing:.02em;text-shadow:0 3px 18px rgba(0,0,0,.8),0 0 30px rgba(200,220,255,.14)}
+.h i{font-style:normal;color:#ff7a68;text-shadow:0 3px 18px rgba(0,0,0,.8),0 0 26px rgba(255,100,80,.5)}
+.h b{font-weight:900;color:#ffd98a;text-shadow:0 3px 18px rgba(0,0,0,.8),0 0 28px rgba(255,210,130,.55)}
+.w .c{width:1920px;height:1080px}
+.w .h{left:985px;top:180px;font-size:80px}
+.w .h i{font-size:108px;display:inline-block;margin-top:8px}
+.v .c{width:1080px;height:1440px}
+.v .h{left:0;right:0;top:770px;text-align:center;font-size:84px}
+.v .h i{font-size:130px;display:inline-block;margin-top:6px}
+</style></head><body><div class="c">
+<canvas id="cv"></canvas>
+<div class="h">他最有名的实验，<br><i>什么也没找到</i></div>
+</div>
+<script>
+var V = location.hash === '#dy'; document.body.className = V ? 'v' : 'w';
+var W = V ? 1080 : 1920, H = V ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+var g = cv.getContext('2d'), TAU = Math.PI * 2;
+function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+var PIMG = new Image();
+PIMG.onload = function () {
+  var bg = g.createRadialGradient(W * 0.62, H * 0.5, 40, W * 0.6, H * 0.5, Math.max(W, H) * 0.85); bg.addColorStop(0, '#22304a'); bg.addColorStop(0.55, '#101828'); bg.addColorStop(1, '#05070c'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+  var Rn = rng(11); for (var i = 0; i < 150; i++) { g.fillStyle = 'rgba(225,235,255,' + (0.1 + Rn() * 0.45).toFixed(2) + ')'; g.beginPath(); g.arc(Rn() * W, Rn() * H, 0.5 + Rn() * 1.4, 0, TAU); g.fill(); }
+  // portrait
+  var pw = V ? 900 : 680, ph = pw * PIMG.height / PIMG.width, px = V ? 540 : 625, py = V ? 60 + ph / 2 : 520, x0 = px - pw / 2, y0 = py - ph / 2;
+  var wg = g.createRadialGradient(px, py, 40, px, py, pw * 0.9); wg.addColorStop(0, 'rgba(242,198,107,0.2)'); wg.addColorStop(1, 'rgba(242,198,107,0)'); g.fillStyle = wg; g.fillRect(0, 0, W, H);
+  g.save(); g.shadowColor = 'rgba(0,0,0,0.75)'; g.shadowBlur = 40; g.shadowOffsetY = 12; g.fillStyle = '#000'; g.fillRect(x0, y0, pw, ph); g.restore();
+  g.save(); g.filter = 'grayscale(1) sepia(0.5) brightness(1.08) contrast(1.05)'; g.drawImage(PIMG, x0, y0, pw, ph); g.restore();
+  g.strokeStyle = '#d3a94f'; g.lineWidth = 7; g.strokeRect(x0 - 3.5, y0 - 3.5, pw + 7, ph + 7);
+  g.strokeStyle = 'rgba(255,230,160,0.35)'; g.lineWidth = 2; g.strokeRect(x0 + 8, y0 + 8, pw - 16, ph - 16);
+  // slab on mercury with two crossing beams
+  var cx = V ? 540 : 1400, cy = V ? 1230 : 770, S = V ? 190 : 205, rx = S * 1.45, ry = S * 0.62, ang = 0.5;
+  g.save();
+  var beam = function (x1, y1, x2, y2, col) { var lg = g.createLinearGradient(x1, y1, x2, y2); lg.addColorStop(0, 'rgba(255,217,138,0)'); lg.addColorStop(0.5, col); lg.addColorStop(1, 'rgba(255,217,138,0)'); g.strokeStyle = lg; g.lineWidth = 7; g.shadowColor = '#ffcf70'; g.shadowBlur = 22; g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke(); g.shadowBlur = 0; };
+  beam(cx - rx * 1.5, cy - 8, cx + rx * 1.5, cy - 8, 'rgba(255,230,170,0.95)'); beam(cx, cy - ry * 3.1, cx, cy + ry * 1.2, 'rgba(255,230,170,0.7)');
+  var gr = g.createRadialGradient(cx - rx * 0.2, cy - ry * 0.3, 10, cx, cy, rx); gr.addColorStop(0, '#9aa6bd'); gr.addColorStop(0.55, '#65718a'); gr.addColorStop(1, '#363e52');
+  g.fillStyle = gr; g.shadowColor = 'rgba(160,190,240,0.4)'; g.shadowBlur = 20; g.beginPath(); g.ellipse(cx, cy + 22, rx, ry, 0, 0, TAU); g.fill(); g.shadowBlur = 0; g.strokeStyle = 'rgba(190,205,230,0.7)'; g.lineWidth = 3; g.stroke();
+  for (var k = 26; k >= 0; k -= 2) { g.save(); g.translate(cx, cy + k * 0.8); g.scale(1, 0.42); g.rotate(ang); g.fillStyle = k ? 'rgb(' + (46 + k) + ',' + (40 + k) + ',' + (32 + k) + ')' : '#7a6c55'; g.fillRect(-S / 2, -S / 2, S, S);
+    if (!k) { g.strokeStyle = 'rgba(40,30,20,0.5)'; g.lineWidth = 3; g.strokeRect(-S / 2, -S / 2, S, S); g.strokeStyle = 'rgba(240,189,92,0.85)'; g.lineWidth = 4; g.beginPath(); g.moveTo(-S * 0.36, 0); g.lineTo(S * 0.36, 0); g.moveTo(0, -S * 0.36); g.lineTo(0, S * 0.36); g.stroke(); g.fillStyle = '#e8f0ff'; [[-0.38, 0], [0.38, 0], [0, -0.38], [0, 0.38]].forEach(function (p) { g.fillRect(p[0] * S - 8, p[1] * S - 8, 16, 16); }); }
+    g.restore(); }
+  g.restore();
+  var vg = g.createRadialGradient(W / 2, H / 2, H * 0.4, W / 2, H / 2, H * 1.0); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.45)'); g.fillStyle = vg; g.fillRect(0, 0, W, H);
+};
+PIMG.src = 'michelson_photo.jpg';
+</script></body></html>
