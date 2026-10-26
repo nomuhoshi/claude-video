@@ -154,6 +154,39 @@ def frame(si, k):
     for j, ln in enumerate(ls): ctext(d, (W // 2, H - 40 - bh + 55 + 70 * j), ln, fs, '#FFFFFF')
     return im
 
+def align(vo, lst):
+    """Each slide = one sentence. Find the pauses in the voice track and snap every sentence boundary to the pause
+    nearest to where it should fall (by character count), so slides change exactly when the voice moves on."""
+    import re
+    r = subprocess.run(['ffmpeg', '-i', vo, '-af', 'silencedetect=noise=-35dB:d=0.18', '-f', 'null', '-'], capture_output=True, text=True).stderr
+    vd = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', vo], capture_output=True, text=True).stdout)
+    st = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', r)]; en = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', r)]
+    sil = list(zip(st, en + [vd] * (len(st) - len(en))))
+    t0 = sil[0][1] if sil and sil[0][0] < 0.05 else 0.0                       # leading silence
+    t1 = sil[-1][0] if sil and sil[-1][1] >= vd - 0.05 else vd                 # trailing silence
+    mids = [(a + b) / 2 for a, b in sil if a > t0 + 0.3 and b < t1 - 0.3]
+    L = [s for h, v, ls in SEG for s in ls]; w = [max(2, len(re.sub(r'[\s，。、：；？！“”]', '', s))) for s in L]; tot = sum(w)
+    # dynamic programming: pick N-1 of the pauses, in order, so each sentence's length best matches its character count
+    N, M = len(L), len(mids); rate = (t1 - t0) / tot
+    if M >= N - 1:
+        P = [t0] + mids + [t1]; INF = float('inf')
+        cost = [[INF] * (M + 2) for _ in range(N + 1)]; back = [[0] * (M + 2) for _ in range(N + 1)]; cost[0][0] = 0
+        for i in range(1, N + 1):
+            jr = [M + 1] if i == N else range(i, M + 1)
+            for j in jr:
+                for k in range(i - 1, j):
+                    if cost[i - 1][k] == INF: continue
+                    c = cost[i - 1][k] + ((P[j] - P[k]) - w[i - 1] * rate) ** 2
+                    if c < cost[i][j]: cost[i][j], back[i][j] = c, k
+        idx, j = [], M + 1
+        for i in range(N, 0, -1): idx.append(j); j = back[i][j]
+        idx = idx[::-1]; cuts = [0.0] + [P[j] for j in idx[:-1]]
+    else:                                                                       # too few pauses: fall back to character share
+        acc, cuts = 0, [0.0]
+        for i in range(N - 1): acc += w[i]; cuts.append(t0 + (t1 - t0) * acc / tot)
+    cuts.append(vd)
+    return [(p, round(cuts[i + 1] - cuts[i], 3)) for i, (p, _) in enumerate(lst)], vd
+
 if __name__ == '__main__':
     os.makedirs('fr', exist_ok=True); os.makedirs('out', exist_ok=True); lst = []; t = 0
     for si, (h, v, lines) in enumerate(SEG):
@@ -162,9 +195,7 @@ if __name__ == '__main__':
             dur = round(max(2.4, 0.6 + len(s) / 6.0), 2); lst.append((p, dur)); t += dur
     # with a recorded voiceover (voice.* in this folder), stretch the slides to its length; music sits far under the voice
     vo = next((f for f in os.listdir('.') if f.startswith('voice.')), None)
-    if vo:
-        vd = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', vo], capture_output=True, text=True).stdout)
-        k = vd / t; lst = [(p, round(dur * k, 2)) for p, dur in lst]; t = vd; print('voice %.1f s, stretch %.2f' % (vd, k))
+    if vo: lst, t = align(vo, lst); print('aligned to voice: %.1f s' % t)
     with open('fr/list.txt', 'w') as fo:
         for p, dur in lst: fo.write("file '%s'\nduration %.2f\n" % (os.path.basename(p), dur))
         fo.write("file '%s'\n" % os.path.basename(lst[-1][0]))
