@@ -27,10 +27,12 @@ def bars(src, ph, bar, seq):
         if r + 1 < len(runs): seg[-k:] *= np.cos(np.linspace(0, np.pi / 2, k))[:, None]
         s = int(round(j0 * bar * SR)); out[s:s + len(seg)] += seg
     return out
-def section(src, ph, bar, seq, t0, t1, gain):
-    seg = bars(src, ph, bar, seq); pre = take(src, ph + seq[0] * bar - X / 2, X / 2)
-    seg = np.vstack([pre, seg[int(XF * SR):int(XF * SR) + int(round((t1 - t0) * SR))], take(src, ph + (seq[-1] + 1) * bar, X / 2)])
-    place(bed, gain * seg, t0 - X / 2, X, X)
+def section(src, ph, bar, seq, t0, t1, gain, fin=None, fout=None, pre=None, post=None):
+    # fin/fout: fade lengths; pre/post: audio kept before t0 / after t1. Defaults = the short 2.4 s crossfade used between same-track sections.
+    fin = X if fin is None else fin; fout = X if fout is None else fout; pre = X / 2 if pre is None else pre; post = X / 2 if post is None else post
+    seg = bars(src, ph, bar, seq); a = take(src, ph + seq[0] * bar - pre, pre) if pre > 0 else np.zeros((0, 2), np.float32)
+    seg = np.vstack([a, seg[int(XF * SR):int(XF * SR) + int(round((t1 - t0) * SR))], take(src, ph + (seq[-1] + 1) * bar, post)])
+    place(bed, gain * seg, t0 - pre, fin, fout)
 def fit(seq, loop, n):
     out = list(seq)[:n]; i = 0
     while len(out) < n: out.append(loop[i % len(loop)]); i += 1
@@ -39,9 +41,9 @@ bed = np.zeros((N, 2), np.float32)
 A, C, Dd, E = secs['A'], secs['C'], secs['D'], secs['E']
 place(bed, 0.85 * take(ny, nph, A['e'] - A['s'] + X / 2), 0, 0.3, X)
 nC = int(np.ceil((C['e'] - C['s']) / 1.6))
-section(en, eph, 1.6, fit(list(range(12, 102)), list(range(34, 50)), nC), C['s'], C['e'], 1.05)   # one continuous run: no seams inside the section
+section(en, eph, 1.6, fit(list(range(12, 102)), list(range(34, 50)), nC), C['s'], C['e'], 1.05, fout=9.5, post=2.0)   # one continuous run: no seams inside the section
 nD = int(np.ceil((Dd['e'] - Dd['s']) / ABAR))
-section(aw, aph, ABAR, fit(list(range(1, 18)), list(range(6, 18)), nD), Dd['s'], Dd['e'], 1.1)
+section(aw, aph, ABAR, fit(list(range(2, 18)), list(range(6, 18)), nD), Dd['s'], Dd['e'], 1.1, fin=6.5, pre=0.8)   # enter on bar 2: bar 1 of the source is a near-silent intro (-49 dB) that made the old seam a hole then a jump
 nE = int(np.ceil((E['e'] - E['s']) / ABAR))
 section(aw, aph, ABAR, fit(list(range(56, 99)), list(range(70, 78)), nE), E['s'], E['e'], 1.0)
 t = np.arange(N) / SR; bed *= np.clip((D - t) / 5.0, 0, 1)[:, None] ** 1.5
