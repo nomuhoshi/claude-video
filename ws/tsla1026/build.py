@@ -160,13 +160,19 @@ if __name__ == '__main__':
         for k, s in enumerate(lines):
             p = 'fr/%02d_%02d.png' % (si, k); frame(si, k).save(p)
             dur = round(max(2.4, 0.6 + len(s) / 6.0), 2); lst.append((p, dur)); t += dur
+    # with a recorded voiceover (voice.* in this folder), stretch the slides to its length; music sits far under the voice
+    vo = next((f for f in os.listdir('.') if f.startswith('voice.')), None)
+    if vo:
+        vd = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', vo], capture_output=True, text=True).stdout)
+        k = vd / t; lst = [(p, round(dur * k, 2)) for p, dur in lst]; t = vd; print('voice %.1f s, stretch %.2f' % (vd, k))
     with open('fr/list.txt', 'w') as fo:
         for p, dur in lst: fo.write("file '%s'\nduration %.2f\n" % (os.path.basename(p), dur))
         fo.write("file '%s'\n" % os.path.basename(lst[-1][0]))
     print('frames', len(lst), 'duration %.1f s' % t)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', 'fr/list.txt', '-vf', 'fps=30,format=yuv420p', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '22', 'fr/video.mp4'], check=True)
     music = '/home/claude/claude-video/ws/kit/video-kit/music/vibe.mp3'
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', 'fr/video.mp4', '-stream_loop', '-1', '-i', music, '-filter_complex',
-                    '[1:a]volume=0.35,afade=t=in:d=1.5,afade=t=out:st=%.2f:d=3,loudnorm=I=-20:TP=-2[a]' % (t - 3), '-map', '0:v', '-map', '[a]',
+    if vo: fc, ins = '[2:a]loudnorm=I=-16:TP=-2[v];[1:a]volume=0.12,afade=t=in:d=1.5,afade=t=out:st=%.2f:d=3[m];[v][m]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.85[a]' % (t - 3), ['-i', vo]
+    else: fc, ins = '[1:a]volume=0.2,afade=t=in:d=1.5,afade=t=out:st=%.2f:d=3,loudnorm=I=-24:TP=-2[a]' % (t - 3), []
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', 'fr/video.mp4', '-stream_loop', '-1', '-i', music] + ins + ['-filter_complex', fc, '-map', '0:v', '-map', '[a]',
                     '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', 'out/特斯拉为什么涨-1026.mp4'], check=True)
     print('ok')
