@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# 日常物理 · 微波炉 · v2 时间表（无章节卡）。两段配乐：C Entropy（hero–s3，1.6 s 一小节）、E Awakening 高潮到尾（s4–end，葡萄一幕起）。
+# 日常物理 · 微波炉 · v2 时间表（无章节卡）。配乐：全片同一首 C Entropy（1.6 s 一小节）。
 # 输出 tl.json（画面、字幕、音效）和 secs（给 make_bed_mw.py）。
 import json, math, re
 from script_mw import SC, TITLE
 exec(open('sources_mw.py', encoding='utf-8').read())   # SRC
 
 BA, BC = 0.6666718, 0.4
-SECT = [('C', 'hero', BC), ('E', 's4', BA)]
+SECT = [('C', 'hero', BC)]
 START = {k: n for n, k, b in SECT}
 def vis(tx): return re.sub(r'\{[brg]:([^}]*)\}', r'\1', tx).lstrip('!')
 def wid(tx): return sum(0.55 if ord(c) < 128 else 1.0 for c in vis(tx))
@@ -61,7 +61,7 @@ for row, T in zip(SC, TLs):
 
 # ---------------- crumbs ----------------
 chaps = []
-crumbs = [dict(t=at('hero', 6, 0.8), zh='日常物理 · 微波炉', en=''), dict(t=S('recap'), zh='回顾', en=''), dict(t=S('src'), zh='资料来源', en='')]
+crumbs = [dict(t=S('recap'), zh='回顾', en=''), dict(t=S('src'), zh='资料来源', en='')]
 
 # ---------------- effects ----------------
 counters, slams, SHAKE, SFX = [], [], [], []

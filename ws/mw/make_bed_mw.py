@@ -36,10 +36,8 @@ def fit(seq, loop, n):
     while len(out) < n: out.append(loop[i % len(loop)]); i += 1
     return out
 bed = np.zeros((N, 2), np.float32)
-C, E = secs['C'], secs['E']
+C = secs['C']
 nC = int(np.ceil((C['e'] - C['s']) / 1.6))
 section(en, eph, 1.6, fit(list(range(12, 102)), list(range(34, 50)), nC), C['s'], C['e'], 1.05)   # one continuous run: no seams inside the section
-nE = int(np.ceil((E['e'] - E['s']) / ABAR))
-section(aw, aph, ABAR, fit(list(range(56, 99)), list(range(70, 78)), nE), E['s'], E['e'], 1.0)
 t = np.arange(N) / SR; bed *= np.clip((D - t) / 5.0, 0, 1)[:, None] ** 1.5
-sf.write('mw_bed.wav', bed, SR, subtype='FLOAT'); print('bed', round(N / SR, 1), 's  nC', nC, 'nE', nE, 'peak', round(float(np.abs(bed).max()), 3))
+sf.write('mw_bed.wav', bed, SR, subtype='FLOAT'); print('bed', round(N / SR, 1), 's  nC', nC, 'peak', round(float(np.abs(bed).max()), 3))

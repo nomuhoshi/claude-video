@@ -155,12 +155,11 @@ function post(t) {
   O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1;
 }
 
-function background(g, t) {
-  var bg = g.createRadialGradient(1180, 600, 50, 1000, 540, 1300);
-  bg.addColorStop(0, '#22304a'); bg.addColorStop(0.5, '#152034'); bg.addColorStop(1, '#0b1020'); g.fillStyle = bg; g.fillRect(-60, -60, W + 120, H + 120);
-  STARS.forEach(function (s) { var a = s[4] * (0.6 + 0.4 * Math.sin(t * 1.3 + s[3])); g.fillStyle = 'rgba(255,240,215,' + a.toFixed(3) + ')'; g.fillRect(s[0], s[1], s[2], s[2]); });
+function background(g, t) {          // 日常物理: plain black
+  g.fillStyle = '#000'; g.fillRect(-60, -60, W + 120, H + 120);
 }
-function dust(g, t) {          // big soft out-of-focus motes in front: depth of field
+function dust(g, t) {          // off for the plain-black look
+  return;
   DUST.forEach(function (d) {
     var x = (d[0] + t * 9 * (0.5 + d[4] * 10)) % (W + 200) - 100, y = d[1] + Math.sin(t * 0.3 + d[3]) * 30;
     var gr = g.createRadialGradient(x, y, 0, x, y, d[2]); gr.addColorStop(0, 'rgba(255,200,130,' + d[4] + ')'); gr.addColorStop(1, 'rgba(255,200,130,0)');
