@@ -127,3 +127,9 @@ ws/mw/sheet*.png
 ws/mw/ts.txt
 ws/mw/scenes_mw.js
 ws/mw/tl.json
+
+ws/mw/cover/3d/lib/
+ws/mw/cover/3d/scene_*.png
+ws/mw/cover/3d/pts_*.js
+ws/mw/cover/w.png
+ws/mw/cover/v.png

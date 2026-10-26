@@ -1,0 +1,178 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./lib/three.module.js","three/addons/":"./lib/"}}</script></head><body>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import * as BGU from 'three/addons/utils/BufferGeometryUtils.js';
+
+const V = location.hash === '#dy';
+const W = V ? 1080 : 1920, H = V ? 1440 : 1080, PR = 2;
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(PR); renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+
+// ---------- environment (studio reflections: cool key, warm spark bounce) ----------
+function makeEnv() {
+  const s = new THREE.Scene();
+  s.add(new THREE.Mesh(new THREE.SphereGeometry(140, 32, 16), new THREE.MeshBasicMaterial({ color: 0x1a2030, side: THREE.BackSide })));
+  function panel(w, h, pos, rgb) { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(rgb[0], rgb[1], rgb[2]), side: THREE.DoubleSide })); m.position.set(pos[0], pos[1], pos[2]); m.lookAt(0, 0, 0); s.add(m); }
+  panel(34, 14, [-30, 22, 26], [8, 9, 11]); panel(80, 26, [6, 20, 50], [2.1, 2.25, 2.7]); panel(80, 14, [6, -14, 50], [0.7, 0.62, 0.55]); panel(36, 40, [48, 10, 34], [1.6, 1.75, 2.3]);     // cool softbox top-left front
+  panel(60, 10, [0, -22, 30], [5.5, 2.4, 0.8]);    // warm bounce from below front
+  panel(10, 44, [36, 4, 14], [1.4, 2.3, 5]);       // cool strip right
+  panel(70, 8, [0, 40, -5], [2.5, 2.5, 3]);        // top
+  panel(8, 40, [-40, 0, 5], [3.2, 1.6, 0.7]);      // warm strip left
+  const pm = new THREE.PMREMGenerator(renderer); const t = pm.fromScene(s, 0.015, 0.1, 400).texture; pm.dispose(); return t;
+}
+scene.environment = makeEnv();
+
+// ---------- dimensions (cm) ----------
+const OW = 44, OH = 29, OD = 30;
+const WIN = { x0: -20.0, x1: 8.0, y0: -11.0, y1: 11.0 };
+function rrShape(x0, y0, x1, y1, r) { const s = new THREE.Shape(); s.moveTo(x0 + r, y0); s.lineTo(x1 - r, y0); s.quadraticCurveTo(x1, y0, x1, y0 + r); s.lineTo(x1, y1 - r); s.quadraticCurveTo(x1, y1, x1 - r, y1); s.lineTo(x0 + r, y1); s.quadraticCurveTo(x0, y1, x0, y1 - r); s.lineTo(x0, y0 + r); s.quadraticCurveTo(x0, y0, x0 + r, y0); return s; }
+
+// ---------- procedural textures ----------
+function brushed() {
+  const c = document.createElement('canvas'); c.width = 2048; c.height = 512; const g = c.getContext('2d'); g.fillStyle = '#808080'; g.fillRect(0, 0, 2048, 512);
+  let seed = 5; const R = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  for (let i = 0; i < 5200; i++) { const y = R() * 512, x = R() * 2048, l = 80 + R() * 900; g.fillStyle = R() > 0.5 ? 'rgba(255,255,255,' + (0.03 + R() * 0.08) + ')' : 'rgba(0,0,0,' + (0.03 + R() * 0.09) + ')'; g.fillRect(x, y, l, 1 + (R() > 0.85 ? 1 : 0)); g.fillRect(x - 2048, y, l, 1); }
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8; return t;
+}
+const brush = brushed(); brush.repeat.set(1 / 36, 1 / 14);
+function dotsTex() { const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d'); g.clearRect(0, 0, 512, 512); g.fillStyle = 'rgba(0,0,0,0.5)'; for (let y = 4; y < 512; y += 8) for (let x = (y / 8 % 2) ? 8 : 4; x < 512; x += 8) { g.beginPath(); g.arc(x, y, 1.5, 0, 6.3); g.fill(); } const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(7, 6); t.anisotropy = 8; return t; }
+function streakTex() { const c = document.createElement('canvas'); c.width = 512; c.height = 512; const g = c.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, 512, 512);
+  const gr = g.createLinearGradient(0, 0, 512, 512); gr.addColorStop(0.0, 'rgba(255,255,255,0.9)'); gr.addColorStop(0.16, 'rgba(255,255,255,0.35)'); gr.addColorStop(0.3, 'rgba(255,255,255,0)'); gr.addColorStop(0.62, 'rgba(255,255,255,0)'); gr.addColorStop(0.7, 'rgba(255,255,255,0.22)'); gr.addColorStop(0.76, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 512, 512); return new THREE.CanvasTexture(c); }
+
+// ---------- oven ----------
+const oven = new THREE.Group(); scene.add(oven);
+const steel = new THREE.MeshStandardMaterial({ color: 0xaab3c4, metalness: 1, roughness: 0.34, bumpMap: brush, bumpScale: 0.35, roughnessMap: brush, envMapIntensity: 1.25 });
+const steelDark = new THREE.MeshStandardMaterial({ color: 0x6c768a, metalness: 1, roughness: 0.4, bumpMap: brush, bumpScale: 0.9, envMapIntensity: 1.1 });
+// front plate with window hole
+const fs = rrShape(-OW / 2, -OH / 2, OW / 2, OH / 2, 2.6); const hole = rrShape(WIN.x0, WIN.y0, WIN.x1, WIN.y1, 1.6); fs.holes.push(hole);
+const plate = new THREE.Mesh(new THREE.ExtrudeGeometry(fs, { depth: 1.2, bevelEnabled: true, bevelThickness: 0.55, bevelSize: 0.55, bevelSegments: 5, curveSegments: 18 }), steel); plate.castShadow = true; oven.add(plate);
+// shell (caps hidden so the cavity shows through the window)
+const hidden = new THREE.MeshBasicMaterial({ visible: false });
+const shellGeo = new THREE.ExtrudeGeometry(rrShape(-OW / 2, -OH / 2, OW / 2, OH / 2, 2.6), { depth: OD, bevelEnabled: true, bevelThickness: 0.8, bevelSize: 0.6, bevelSegments: 4, curveSegments: 18 });
+const shell = new THREE.Mesh(shellGeo, [hidden, steelDark]); shell.position.z = -OD - 0.6; shell.castShadow = true; oven.add(shell);
+// cavity
+const CX0 = WIN.x0 - 1.4, CX1 = WIN.x1 + 1.4, CY0 = WIN.y0 - 1.2, CY1 = WIN.y1 + 1.2, CD = 24;
+const cavMat = new THREE.MeshStandardMaterial({ color: 0x434b60, metalness: 0.1, roughness: 0.55, side: THREE.BackSide, envMapIntensity: 0.15 });
+const cav = new THREE.Mesh(new THREE.BoxGeometry(CX1 - CX0, CY1 - CY0, CD), cavMat); cav.position.set((CX0 + CX1) / 2, (CY0 + CY1) / 2, -CD / 2 + 0.2); oven.add(cav);
+// rail + back wall lamp glow plate
+const lamp = new THREE.Mesh(new THREE.PlaneGeometry(6, 2), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 1.9, 1.5) })); lamp.rotation.x = Math.PI / 2; lamp.position.set((CX0 + CX1) / 2, CY1 - 0.05, -6); oven.add(lamp);
+// turntable
+const plateY = CY0 + 1.1, TCX = (WIN.x0 + WIN.x1) / 2, TCZ = -12;
+const glass = new THREE.Mesh(new THREE.CylinderGeometry(9.6, 9.6, 0.45, 96), new THREE.MeshPhysicalMaterial({ color: 0xcfe3ff, metalness: 0, roughness: 0.06, transparent: true, opacity: 0.36, envMapIntensity: 2.4, clearcoat: 1 }));
+glass.position.set(TCX, plateY, TCZ); oven.add(glass);
+const rim = new THREE.Mesh(new THREE.TorusGeometry(9.6, 0.22, 12, 96), new THREE.MeshStandardMaterial({ color: 0xe6f0ff, metalness: 0.2, roughness: 0.1, envMapIntensity: 2.5 })); rim.rotation.x = Math.PI / 2; rim.position.set(TCX, plateY + 0.1, TCZ); oven.add(rim);
+const hub = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.8, 0.7, 48), new THREE.MeshStandardMaterial({ color: 0x4a5266, metalness: 0.8, roughness: 0.35 })); hub.position.set(TCX, plateY - 0.55, TCZ); oven.add(hub);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(6.2, 0.3, 12, 64), new THREE.MeshStandardMaterial({ color: 0x59627a, metalness: 0.9, roughness: 0.35 })); ring.rotation.x = Math.PI / 2; ring.position.set(TCX, plateY - 0.7, TCZ); oven.add(ring);
+// glass door: perforated screen + reflections
+const gw = WIN.x1 - WIN.x0 + 0.6, gh = WIN.y1 - WIN.y0 + 0.6, gx = (WIN.x0 + WIN.x1) / 2, gy = 0;
+const dots = new THREE.Mesh(new THREE.PlaneGeometry(gw, gh), new THREE.MeshBasicMaterial({ map: dotsTex(), transparent: true, opacity: 0.42, depthWrite: false })); dots.position.set(gx, gy, 0.3); oven.add(dots);
+const streak = new THREE.Mesh(new THREE.PlaneGeometry(gw, gh), new THREE.MeshBasicMaterial({ map: streakTex(), blending: THREE.AdditiveBlending, transparent: true, opacity: 0.2, depthWrite: false })); streak.position.set(gx, gy, 0.45); oven.add(streak);
+// handle
+const hx = WIN.x1 + 1.9;
+const bar = new THREE.Mesh(new THREE.CapsuleGeometry(0.55, 15, 8, 20), steel); bar.position.set(hx, 0, 3.6); oven.add(bar); bar.castShadow = true;
+[-6.6, 6.6].forEach(y => { const p = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.5, 2.0, 16), steel); p.rotation.x = Math.PI / 2; p.position.set(hx, y, 2.7); oven.add(p); });
+// control panel
+const px = (WIN.x1 + 3.6 + OW / 2 - 1.0) / 2 + 0.2, pw = OW / 2 - 1.0 - (WIN.x1 + 3.6);
+const panel = new THREE.Mesh(new RoundedBoxGeometry(pw, OH - 4.4, 0.7, 4, 0.35), new THREE.MeshPhysicalMaterial({ color: 0x0d1119, metalness: 0.65, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 1.1 })); panel.position.set(px, 0, 1.95); oven.add(panel);
+function dispTex() { const c = document.createElement('canvas'); c.width = 512; c.height = 200; const g = c.getContext('2d'); g.fillStyle = '#080a08'; g.fillRect(0, 0, 512, 200); g.font = '700 150px "IBM Plex Mono", "DejaVu Sans Mono", monospace'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.shadowColor = '#ff9a20'; g.shadowBlur = 26; g.fillStyle = '#ffb347'; g.fillText('0:30', 256, 108); return new THREE.CanvasTexture(c); }
+const dsp = new THREE.Mesh(new THREE.PlaneGeometry(pw - 1.6, (pw - 1.6) * 200 / 512), new THREE.MeshBasicMaterial({ map: dispTex(), toneMapped: false })); dsp.position.set(px, OH / 2 - 5.2, 2.5); oven.add(dsp);
+const bez = new THREE.Mesh(new RoundedBoxGeometry(pw - 1.0, (pw - 1.6) * 200 / 512 + 0.7, 0.3, 3, 0.15), new THREE.MeshStandardMaterial({ color: 0x050607, metalness: 0.4, roughness: 0.3 })); bez.position.set(px, OH / 2 - 5.2, 2.22); oven.add(bez);
+const btnMat = new THREE.MeshStandardMaterial({ color: 0xc2cadb, metalness: 1, roughness: 0.28, envMapIntensity: 1.3 });
+for (let i = 0; i < 4; i++) { const b = new THREE.Mesh(new RoundedBoxGeometry(pw - 2.2, 1.35, 0.55, 4, 0.25), btnMat); b.position.set(px, OH / 2 - 9.4 - i * 2.35, 2.5); oven.add(b); const l = new THREE.Mesh(new THREE.BoxGeometry(pw - 5.2, 0.12, 0.05), new THREE.MeshBasicMaterial({ color: 0x1a1f2b })); l.position.set(px, OH / 2 - 9.4 - i * 2.35, 2.79); oven.add(l); }
+const kz = 2.3, ky = -OH / 2 + 5.4; const kr = Math.min(2.6, pw * 0.3);
+const knob = new THREE.Mesh(new THREE.CylinderGeometry(kr, kr * 1.1, 1.5, 64), new THREE.MeshStandardMaterial({ color: 0xb9c2d4, metalness: 1, roughness: 0.25, envMapIntensity: 1.4 })); knob.rotation.x = Math.PI / 2; knob.position.set(px, ky, kz + 0.5); oven.add(knob);
+const kcap = new THREE.Mesh(new THREE.CylinderGeometry(kr * 0.78, kr * 0.84, 0.3, 64), new THREE.MeshStandardMaterial({ color: 0x7a859b, metalness: 1, roughness: 0.4, bumpMap: brush })); kcap.rotation.x = Math.PI / 2; kcap.position.set(px, ky, kz + 1.35); oven.add(kcap);
+const ind = new THREE.Mesh(new THREE.BoxGeometry(0.22, kr * 0.95, 0.1), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 1.2, 0.3) })); ind.position.set(px + 0.55, ky + 0.7, kz + 1.55); ind.rotation.z = -0.55; oven.add(ind);
+for (let i = 0; i < 25; i++) { const an = (i / 24 - 0.5) * 4.9; const t = new THREE.Mesh(new THREE.BoxGeometry(0.1, i % 6 === 0 ? 0.55 : 0.32, 0.05), new THREE.MeshBasicMaterial({ color: 0x9aa4ba })); t.position.set(px + Math.sin(an) * (kr + 0.95), ky + Math.cos(an) * (kr + 0.95), 2.35); t.rotation.z = -an; oven.add(t); }
+// feet
+[-OW / 2 + 5, OW / 2 - 5].forEach(x => { const f = new THREE.Mesh(new RoundedBoxGeometry(3.4, 1.3, 3.4, 3, 0.3), new THREE.MeshStandardMaterial({ color: 0x111319, roughness: 0.6, metalness: 0.2 })); f.position.set(x, -OH / 2 - 0.55, -OD + 4.5); oven.add(f); const f2 = f.clone(); f2.position.z = -3.5; oven.add(f2); });
+
+// ---------- fork (tilted, leaning) ----------
+function forkGeo() {
+  const tw = 0.8, gp = 0.3, hw = 2.05, yb = 12.8, yt = 19.3;
+  const Lp = [[-0.9, 1.3], [-0.62, 3], [-0.5, 6], [-0.55, 9], [-0.85, 10.9], [-1.55, 12.0], [-hw, yb]].map(p => new THREE.Vector2(p[0], p[1]));
+  const left = new THREE.SplineCurve(Lp).getPoints(60); const right = left.map(p => new THREE.Vector2(-p.x, p.y));
+  const s = new THREE.Shape(); s.moveTo(left[0].x, left[0].y); s.bezierCurveTo(-0.9, -0.5, 0.9, -0.5, right[0].x, right[0].y);
+  right.forEach(p => s.lineTo(p.x, p.y));
+  const r = tw / 2, ytc = yt - r;
+  for (let k = 3; k >= 0; k--) { const xl = -hw + k * (tw + gp), xr = xl + tw;
+    s.lineTo(xr, ytc); s.bezierCurveTo(xr, ytc + r * 1.33, xl, ytc + r * 1.33, xl, ytc);
+    s.lineTo(xl, yb + 0.6);
+    if (k > 0) { const xn = xl - gp; s.bezierCurveTo(xl, yb - 0.1, xn, yb - 0.1, xn, yb + 0.6); } }
+  left.slice().reverse().forEach(p => s.lineTo(p.x, p.y));
+  let g = new THREE.ExtrudeGeometry(s, { depth: 0.16, bevelEnabled: true, bevelThickness: 0.1, bevelSize: 0.1, bevelSegments: 4, curveSegments: 16 });
+  g.deleteAttribute('normal'); g.deleteAttribute('uv'); g = BGU.mergeVertices(g, 1e-4);
+  const p = g.attributes.position; for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i); let z = p.getZ(i);
+    z += 0.16 * x * x * THREE.MathUtils.smoothstep(y, 10, 13) + 0.05 * Math.pow(Math.max(0, y - 9.5), 1.7) * 0.14 + 0.012 * y * y * 0.02; p.setZ(i, z); }
+  g.computeVertexNormals(); return g;
+}
+const forkMat = new THREE.MeshStandardMaterial({ color: 0xdfe5f0, metalness: 1, roughness: 0.16, envMapIntensity: 1.5 });
+const fork = new THREE.Mesh(forkGeo(), forkMat); fork.castShadow = true; scene.add(fork);
+fork.rotation.order = 'YXZ'; fork.position.set(-3.2, plateY + 0.5, -8.5); fork.rotation.set(-0.3, 0.3, 0.36);
+fork.scale.setScalar(1.12);
+
+// ---------- crumpled foil ----------
+function hash3(x, y, z) { const n = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return n - Math.floor(n); }
+function vnoise(x, y, z) { const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = x - xi, yf = y - yi, zf = z - zi; const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf), w = zf * zf * (3 - 2 * zf); const L = (a, b, t) => a + (b - a) * t;
+  return L(L(L(hash3(xi, yi, zi), hash3(xi + 1, yi, zi), u), L(hash3(xi, yi + 1, zi), hash3(xi + 1, yi + 1, zi), u), v), L(L(hash3(xi, yi, zi + 1), hash3(xi + 1, yi, zi + 1), u), L(hash3(xi, yi + 1, zi + 1), hash3(xi + 1, yi + 1, zi + 1), u), v), w); }
+const ridge = (x, y, z) => 1 - Math.abs(2 * vnoise(x, y, z) - 1);
+function foilGeo() {
+  let seed = 11; const R = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  function layer(n, tilt) { const pts = []; for (let i = 0; i < n; i++) { const u = R() * 2 - 1, a = R() * 6.2832, q = Math.sqrt(1 - u * u); const p = new THREE.Vector3(q * Math.cos(a), u, q * Math.sin(a)); const t = new THREE.Vector3(R() - 0.5, R() - 0.5, R() - 0.5).sub(p.clone().multiplyScalar(0)).normalize().multiplyScalar(tilt * (0.4 + R())); pts.push({ p, t, h: (R() - 0.5) * tilt * 0.8 }); } return pts; }
+  const A = layer(14, 0.6), B = layer(40, 0.2);
+  function sample(L, v, beta) { let sw = 0, sr = 0; for (const c of L) { const dp = v.dot(c.p); const w = Math.exp(beta * (dp - 1)); const dv = v.clone().sub(c.p); sr += w * (c.h + c.t.dot(dv)); sw += w; } return sr / sw; }
+  const g = new THREE.IcosahedronGeometry(1, 44); const p = g.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i).normalize();
+    const d = 0.2 * sample(A, v, 20) + 0.2 * ridge(v.x * 1.7 + 3, v.y * 1.7, v.z * 1.7) + 0.13 * ridge(v.x * 3.5 + 9, v.y * 3.5 + 2, v.z * 3.5) + 0.07 * ridge(v.x * 7.1, v.y * 7.1 + 5, v.z * 7.1 + 1) + 0.03 * ridge(v.x * 13.7 + 4, v.y * 13.7, v.z * 13.7 + 8);
+    const r = 0.8 + d; v.multiplyScalar(r); p.setXYZ(i, v.x * 1.15, v.y * 0.86, v.z * 1.02); }
+  g.computeVertexNormals(); return g;
+}
+const foilMat = new THREE.MeshStandardMaterial({ color: 0xd9dfeb, metalness: 1, roughness: 0.2, envMapIntensity: 1.4, flatShading: false });
+const foil = new THREE.Mesh(foilGeo(), foilMat); foil.castShadow = true; scene.add(foil);
+const FR = 4.5; foil.scale.setScalar(FR); foil.rotation.set(0.4, 0.7, 0.1);
+foil.position.set(TCX + 4.6, plateY + 0.2 + FR * 0.6, TCZ + 3.4);
+
+// ---------- ground + lights ----------
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.ShadowMaterial({ opacity: 0.42 })); ground.rotation.x = -Math.PI / 2; ground.position.y = -OH / 2 - 1.2; ground.receiveShadow = true; scene.add(ground);
+const key = new THREE.DirectionalLight(0xdfe8ff, 1.6); key.position.set(-18, 80, 50); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.camera.left = -50; key.shadow.camera.right = 50; key.shadow.camera.top = 50; key.shadow.camera.bottom = -50; key.shadow.radius = 6; key.shadow.bias = -0.0004; scene.add(key);
+const rim2 = new THREE.DirectionalLight(0xffa060, 1.2); rim2.position.set(40, 10, -30); scene.add(rim2);
+const fill = new THREE.PointLight(0xffe9c8, 380, 60, 2); fill.position.set(TCX, CY1 - 1.5, -4); oven.add(fill);
+
+// ---------- camera ----------
+const camera = new THREE.PerspectiveCamera(V ? 22 : 20, W / H, 5, 600);
+const target = new THREE.Vector3(0, 0, -6);
+const CAMD = V ? 190 : 204;
+camera.position.set(Math.sin(0.0) * CAMD, 14, CAMD); camera.lookAt(target);
+const SC = V ? { cx: 540, cy: 470 } : { cx: 672, cy: 548 };
+camera.setViewOffset(W, H, W / 2 - SC.cx, H / 2 - SC.cy, W, H);
+oven.rotation.y = 0.2; oven.updateMatrixWorld(true);
+// the cavity items live in world space; rotate them with the oven
+[fork, foil].forEach(o => { oven.add(o); });
+// spark lights placed at tine tips and foil spikes (after attach)
+oven.updateMatrixWorld(true);
+function scr(v3) { const v = v3.clone().project(camera); return [(v.x * 0.5 + 0.5) * W, (-v.y * 0.5 + 0.5) * H]; }
+fork.updateMatrixWorld(true);
+const tips = []; for (let k = 0; k < 4; k++) { const xl = -2.05 + k * 1.1 + 0.4; const lp = new THREE.Vector3(xl, 19.15, 0.35); fork.localToWorld(lp); tips.push(lp); }
+const sparkLights = tips.map(t => { const l = new THREE.PointLight(0xff9a48, 70, 22, 2); const lp = t.clone(); oven.worldToLocal(lp); l.position.copy(lp); oven.add(l); return l; });
+// foil spike points: pick vertices with the greatest radius in spread-out directions
+const fp = foil.geometry.attributes.position; const cand = []; const vv = new THREE.Vector3();
+for (let i = 0; i < fp.count; i += 3) { vv.fromBufferAttribute(fp, i); cand.push([vv.length(), vv.clone()]); }
+cand.sort((a, b) => b[0] - a[0]); const sp = [];
+for (const c of cand) { const d = c[1].clone().normalize(); if (d.y < -0.35) continue; if (sp.every(s => s.dot(d) < 0.45)) sp.push(d); if (sp.length >= 6) break; }
+const spikeWorld = sp.map(d => { const best = cand.find(c => c[1].clone().normalize().dot(d) > 0.999)[1].clone(); foil.localToWorld(best); return best; });
+spikeWorld.slice(0, 3).forEach(p => { const l = new THREE.PointLight(0xff9a48, 30, 18, 2); const lp = p.clone(); oven.worldToLocal(lp); l.position.copy(lp); oven.add(l); });
+
+renderer.render(scene, camera);
+// window quad in screen space (glass plane)
+const wq = [[WIN.x0, WIN.y1], [WIN.x1, WIN.y1], [WIN.x1, WIN.y0], [WIN.x0, WIN.y0]].map(c => { const v = new THREE.Vector3(c[0], c[1], 0.3); oven.localToWorld(v); return scr(v); });
+// back-wall corners of the cavity (for arc targets)
+const walls = [[CX0, CY1, -CD + 0.2], [CX1, CY1, -CD + 0.2], [CX1, CY0, -CD + 0.2], [CX0, CY0, -CD + 0.2], [CX0, CY1, 0], [CX1, CY1, 0]].map(c => { const v = new THREE.Vector3(c[0], c[1], c[2]); oven.localToWorld(v); return scr(v); });
+window.__out = { W, H, tips: tips.map(scr), spikes: spikeWorld.map(scr), win: wq, walls, foilC: scr(foil.getWorldPosition(new THREE.Vector3())), forkTop: scr(tips[1]) };
+window.__done = true;
+</script></body></html>
