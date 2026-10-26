@@ -80,12 +80,12 @@ chaps, crumbs = [], []
 ci = 0
 for i, sc in enumerate(SC):
     if sc['k'] == 'chap':
-        chaps.append(dict(s=TLs[i]['s'], e=TLs[i]['e'], word=sc['word'], en=EN[sc['word']], line=sc['line'], n='第%s章' % NUM[ci]))
-        crumbs.append(dict(t=TLs[i]['s'], zh='第%s章 · %s' % (NUM[ci], sc['word']), en='CH.%d  %s' % (ci + 1, EN[sc['word']])))
+        chaps.append(dict(s=TLs[i]['s'], e=TLs[i]['e'], word=sc['word'], en='', line=sc['line'], n=''))
+        crumbs.append(dict(t=TLs[i]['s'], zh=sc['word'], en=''))
         ci += 1
 # the name must not show before the narration says it (hero line 5)
-crumbs.insert(0, dict(t=at('hero', 5, 0.8), zh='人物传记 · 伽利略', en='BIOGRAPHY  GALILEO GALILEI 1564–1642'))
-crumbs.append(dict(t=S('recap'), zh='回顾', en='RECAP'))
+crumbs.insert(0, dict(t=at('hero', 5, 0.8), zh='人物传记 · 伽利略', en=''))
+crumbs.append(dict(t=S('recap'), zh='回顾', en=''))
 
 # ---------------- counters / slams / shakes / sounds ----------------
 counters, slams, SHAKE, SFX = [], [], [], []

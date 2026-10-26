@@ -143,20 +143,20 @@ function shake(t) {
 // ---------- post: bloom, vignette, grain ----------
 function post(t) {
   O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1; O.filter = 'none';
-  O.drawImage(main, 0, 0);
+  O.filter = 'brightness(1.22) saturate(1.06)'; O.drawImage(main, 0, 0); O.filter = 'none';
   SM.globalCompositeOperation = 'copy'; SM.filter = 'blur(5px) brightness(0.95) contrast(2.4)'; SM.drawImage(main, 0, 0, 480, 270); SM.filter = 'none';
   O.globalCompositeOperation = 'lighter'; O.globalAlpha = 0.34; O.imageSmoothingQuality = 'high'; O.drawImage(small, 0, 0, W, H);
   O.globalAlpha = 0.16; O.filter = 'blur(10px)'; O.drawImage(small, -40, -22, W + 80, H + 45); O.filter = 'none';
   O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1;
   var vg = O.createRadialGradient(W / 2, H * 0.48, H * 0.32, W / 2, H / 2, H * 1.02);
-  vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.72)'); O.fillStyle = vg; O.fillRect(0, 0, W, H);
+  vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.3)'); O.fillStyle = vg; O.fillRect(0, 0, W, H);
   O.globalCompositeOperation = 'overlay'; O.globalAlpha = 0.09; O.drawImage(GR[Math.floor(t * 30) % GR.length], 0, 0, W, H);
   O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1;
 }
 
 function background(g, t) {
   var bg = g.createRadialGradient(1180, 600, 50, 1000, 540, 1300);
-  bg.addColorStop(0, '#151d2c'); bg.addColorStop(0.5, '#0c121d'); bg.addColorStop(1, '#05070c'); g.fillStyle = bg; g.fillRect(-60, -60, W + 120, H + 120);
+  bg.addColorStop(0, '#22304a'); bg.addColorStop(0.5, '#152034'); bg.addColorStop(1, '#0b1020'); g.fillStyle = bg; g.fillRect(-60, -60, W + 120, H + 120);
   STARS.forEach(function (s) { var a = s[4] * (0.6 + 0.4 * Math.sin(t * 1.3 + s[3])); g.fillStyle = 'rgba(255,240,215,' + a.toFixed(3) + ')'; g.fillRect(s[0], s[1], s[2], s[2]); });
 }
 function dust(g, t) {          // big soft out-of-focus motes in front: depth of field

@@ -11,31 +11,31 @@ canvas{position:absolute;left:0;top:0}
 .h i{font-style:normal;color:#ff7a68;text-shadow:0 3px 18px rgba(0,0,0,.8),0 0 26px rgba(255,100,80,.5)}
 .w .c{width:1920px;height:1080px}
 .w .kick{left:262px;top:236px}
-.w .h{left:262px;top:322px;font-size:82px}
+.w .h{left:985px;top:190px;font-size:92px}
+.v .br{display:none}
 .v .c{width:1080px;height:1440px}
 .v .kick{left:50%;transform:translateX(-50%);top:150px;white-space:nowrap}
-.v .h{left:0;right:0;top:250px;text-align:center;font-size:92px}
+.v .h{left:0;right:0;top:905px;text-align:center;font-size:92px}
 </style></head><body><div class="c">
 <canvas id="cv"></canvas>
-<div class="kick">伽利略 · 科学家传记</div>
-<div class="h">他看见了<b>真相</b>，<br>却被逼着说它是<i>假</i>的</div>
+<div class="h">他看见了<b>真相</b>，<span class="br"><br></span>却被逼着说<span class="br"><br></span>它是<i>假</i>的</div>
 </div>
 <script>
 var V = location.hash === '#dy'; document.body.className = V ? 'v' : 'w';
 var W = V ? 1080 : 1920, H = V ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
 var g = cv.getContext('2d'), TAU = Math.PI * 2;
 function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
-var JX = V ? 190 : 835, JY = V ? 700 : 740, JR = V ? 54 : 58;                 // Jupiter
-var TX0 = V ? 120 : 540, TY0 = V ? 1330 : 990;                                // telescope eyepiece end
+var JX = V ? 880 : 1500, JY = V ? 1230 : 770, JR = V ? 54 : 58;                 // Jupiter
+var TX0 = V ? 360 : 1060, TY0 = V ? 1420 : 1040;                                // telescope eyepiece end
 // background
 var bg = g.createRadialGradient(JX, JY, 30, JX, JY, Math.max(W, H) * 0.85); bg.addColorStop(0, '#171b30'); bg.addColorStop(0.5, '#0a0c16'); bg.addColorStop(1, '#030409'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
 var Rn = rng(7); for (var i = 0; i < 170; i++) { g.fillStyle = 'rgba(225,235,255,' + (0.12 + Rn() * 0.5).toFixed(2) + ')'; g.beginPath(); g.arc(Rn() * W, Rn() * H, 0.5 + Rn() * 1.5, 0, TAU); g.fill(); }
 var PIMG = new Image();
 function drawPortrait() {
-  var pw = V ? 640 : 630, ph = pw * PIMG.height / PIMG.width, px = V ? 680 : 1352, py = V ? 900 : 545, x0 = px - pw / 2, y0 = py - ph / 2;
+  var pw = V ? 640 : 630, ph = pw * PIMG.height / PIMG.width, px = V ? 540 : 625, py = V ? 457 : 545, x0 = px - pw / 2, y0 = py - ph / 2;
   var wg = g.createRadialGradient(px, py, 40, px, py, pw * 0.95); wg.addColorStop(0, 'rgba(242,198,107,0.22)'); wg.addColorStop(1, 'rgba(242,198,107,0)'); g.fillStyle = wg; g.fillRect(0, 0, W, H);
   g.save(); g.shadowColor = 'rgba(0,0,0,0.75)'; g.shadowBlur = 40; g.shadowOffsetY = 12; g.fillStyle = '#000'; g.fillRect(x0, y0, pw, ph); g.restore();
-  g.save(); g.filter = 'brightness(0.95) saturate(0.92) contrast(1.03)'; g.drawImage(PIMG, x0, y0, pw, ph); g.restore();
+  g.save(); g.filter = 'grayscale(1) sepia(0.55) brightness(1.3) contrast(1.05)'; g.drawImage(PIMG, x0, y0, pw, ph); g.restore();
   g.strokeStyle = '#d3a94f'; g.lineWidth = 7; g.strokeRect(x0 - 3.5, y0 - 3.5, pw + 7, ph + 7);
   g.strokeStyle = 'rgba(255,230,160,0.35)'; g.lineWidth = 2; g.strokeRect(x0 + 8, y0 + 8, pw - 16, ph - 16);
 }
@@ -72,7 +72,7 @@ g.restore();
 var lg = g.createRadialGradient(TX0 + Math.cos(ang) * LEN, TY0 + Math.sin(ang) * LEN, 0, TX0 + Math.cos(ang) * LEN, TY0 + Math.sin(ang) * LEN, 120); lg.addColorStop(0, 'rgba(190,220,255,0.75)'); lg.addColorStop(1, 'rgba(190,220,255,0)');
 g.save(); g.globalCompositeOperation = 'lighter'; g.fillStyle = lg; g.beginPath(); g.arc(TX0 + Math.cos(ang) * LEN, TY0 + Math.sin(ang) * LEN, 120, 0, TAU); g.fill(); g.restore();
 // the old picture: Earth in the centre, everything circling it -- struck through
-var DX = V ? 890 : 450, DY = V ? 1385 : 800, DR = V ? 48 : 115;
+var DX = V ? 170 : 1580, DY = V ? 1230 : 1000, DR = V ? 70 : 85;
 g.save(); g.globalAlpha = 0.9;
 g.strokeStyle = 'rgba(190,210,240,0.5)'; g.lineWidth = 3; [0.42, 0.7, 1.0].forEach(function (k) { g.beginPath(); g.arc(DX, DY, DR * k, 0, TAU); g.stroke(); });
 var eg = g.createRadialGradient(DX - 6, DY - 6, 2, DX, DY, DR * 0.2); eg.addColorStop(0, '#7fc4ff'); eg.addColorStop(1, '#1f5d9c'); g.fillStyle = eg; g.beginPath(); g.arc(DX, DY, DR * 0.2, 0, TAU); g.fill();
