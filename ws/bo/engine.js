@@ -157,7 +157,7 @@ function post(t) {
 
 function background(g, t) {
   var bg = g.createRadialGradient(1180, 600, 50, 1000, 540, 1300);
-  bg.addColorStop(0, '#22304a'); bg.addColorStop(0.5, '#152034'); bg.addColorStop(1, '#0b1020'); g.fillStyle = bg; g.fillRect(-60, -60, W + 120, H + 120);
+  bg.addColorStop(0, '#161c2a'); bg.addColorStop(0.5, '#0d121d'); bg.addColorStop(1, '#06080e'); g.fillStyle = bg; g.fillRect(-60, -60, W + 120, H + 120);
   STARS.forEach(function (s) { var a = s[4] * (0.6 + 0.4 * Math.sin(t * 1.3 + s[3])); g.fillStyle = 'rgba(255,240,215,' + a.toFixed(3) + ')'; g.fillRect(s[0], s[1], s[2], s[2]); });
 }
 function dust(g, t) {          // big soft out-of-focus motes in front: depth of field
