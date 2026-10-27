@@ -64,9 +64,7 @@ SEG = [
    '接下来可以盯三件事：',
    '特斯拉和 SpaceX 的委员会，能不能谈出合并条件；',
    'Robotaxi 无人出租车，能不能继续扩张；',
-   '四季度的交付量，能不能证明汽车生意真的回暖。',
-   '以上是盘中数据，收盘价可能不同。',
-   '信息整理，不构成投资建议。我们下期见。']),
+   '四季度的交付量，能不能证明汽车生意真的回暖。']),
 ]
 
 def rr(d, box, r, fill, outline=None, w=0): d.rounded_rectangle(box, r, fill=fill, outline=outline, width=w)
@@ -131,7 +129,6 @@ def vis_next(im, d, k):
         d.rounded_rectangle((150, y - 30, 210, y + 30), 10, outline=c, width=5)
         if on: d.line((162, y, 178, y + 16, 200, y - 18), fill=c, width=7)
         d.text((240, y), s, font=font('b', 38), fill=INK if on else '#D1D5DB', anchor='lm')
-    if k >= 4: rr(d, (150, 740, 830, 830), 20, '#F3F4F6'); ctext(d, (490, 785), '信息整理，不构成投资建议', font('b', 34), INK)
 VIS = dict(shot=vis_shot, barclays=vis_barclays, auto=vis_auto, spacex=vis_spacex, week=vis_week, note=vis_note, next=vis_next)
 
 def frame(si, k):
