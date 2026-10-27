@@ -136,8 +136,19 @@ hit(at('recap', 3, 0.3), 0.9, 10, True)
 # ---------------- era timeline ----------------
 YRS = [('s1', 1853, 1875), ('s2', 1878, 1912), ('s3', 1892, 1895), ('s4', 1896, 1902), ('s5', 1892, 1892), ('s6', 1895, 1904), ('s7', 1904, 1910),
        ('s8', 1905, 1905), ('s9', 1911, 1927), ('s10', 1918, 1932), ('s11', 1928, 1928)]
-years = [[round(S('s1') + 0.6, 3), 1853]]
-for key, y0, y1 in YRS: years.append([round(S(key) + 0.6, 3), y0]); years.append([round(Ee(key) - 0.6, 3), y1])
+# The marker eases to the next keyframe within <=1.2 s, so a long range needs a keyframe every ~1.2 s or it jumps to the end year at once (the 1853 scene showed 1875).
+ANCH = {'s1': [(0, 1853), (2, 1857), (6, 1870), (9, 1875)]}      # (line index, year): the birth year, age four, Leiden at 17, the thesis
+years = []
+def ykey(t, y):
+    if not years or t > years[-1][0] + 0.01: years.append([round(t, 3), round(y, 1)])
+for key, y0, y1 in YRS:
+    t0, t1 = S(key) + 0.6, Ee(key) - 0.6
+    pts = [(t0, y0)] + [(at(key, li, 0.0), yy) for li, yy in ANCH.get(key, [])[1:-1]] + [(t1, y1)]
+    if key in ANCH: pts = [(at(key, li, 0.0) if li else t0, yy) for li, yy in ANCH[key]]; pts[-1] = (max(pts[-1][0], pts[-2][0] + 0.5), pts[-1][1])
+    for (ta, ya), (tb, yb) in zip(pts, pts[1:]):
+        n = max(1, int(round((tb - ta) / 1.2)))
+        for k in range(n): ykey(ta + (tb - ta) * k / n, ya + (yb - ya) * k / n)
+    ykey(pts[-1][0], pts[-1][1])
 yvis = [[S('s1') - 0.3, Ee('s11') - 0.3]]
 
 scenes = [dict(key=T['key'], k=T['k'], draw=T['draw'], s=T['s'], e=T['e'], ls=T['ls']) for T in TLs]
