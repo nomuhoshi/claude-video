@@ -145,3 +145,13 @@ ws/lo/tl.json
 ws/lo/render.log
 ws/lo/cover/*.png
 ws/lo/sheet*.png
+ws/bo/shots/
+ws/bo/ch/
+ws/bo/bo.html
+ws/bo/scenes_bo.js
+ws/bo/tl.json
+ws/bo/render.log
+ws/bo/cover/*.png
+ws/bo/cover/!(boltzmann_photo).png
+ws/bo/sheet*.png
+ws/bo/s[A-G].png
