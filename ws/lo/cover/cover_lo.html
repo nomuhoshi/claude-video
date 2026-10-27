@@ -1,0 +1,76 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- 洛伦兹 cover: a glowing staircase of four lit steps and one missing (dashed) step, the gamma formula on the plaque, a long sea dyke at the horizon.
+     #w = 1920x1080 (16:9), #f = 1440x1080 (4:3), #v = 1080x1440 (vertical). Big hook text. -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#05070d;overflow:hidden}
+.c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.h{position:absolute;font-weight:900;line-height:1.16;color:#f6f2ea;letter-spacing:.02em;text-shadow:0 3px 18px rgba(0,0,0,.85),0 0 30px rgba(200,220,255,.14)}
+.h i{font-style:normal;color:#ff6a52;text-shadow:0 3px 18px rgba(0,0,0,.85),0 0 28px rgba(255,90,70,.55)}
+.h b{font-weight:900;color:#ffd98a;text-shadow:0 3px 18px rgba(0,0,0,.85),0 0 28px rgba(255,210,130,.55)}
+.n{position:absolute;font-weight:900;color:#ffd98a;letter-spacing:.12em;text-shadow:0 3px 14px rgba(0,0,0,.9),0 0 26px rgba(255,200,110,.5)}
+.w .c{width:1920px;height:1080px}
+.w .h{left:1010px;top:300px;font-size:108px}
+.w .h i{font-size:132px;display:inline-block;margin-top:10px}
+.w .n{left:1012px;top:178px;font-size:64px}
+.f .c{width:1440px;height:1080px}
+.f .h{left:690px;top:300px;font-size:96px}
+.f .h i{font-size:118px;display:inline-block;margin-top:10px}
+.f .n{left:692px;top:182px;font-size:60px}
+.v .c{width:1080px;height:1440px}
+.v .h{left:0;right:0;top:930px;text-align:center;font-size:112px}
+.v .h i{font-size:150px;display:inline-block;margin-top:6px}
+.v .n{left:0;right:0;top:820px;text-align:center;font-size:66px}
+</style></head><body><div class="c">
+<canvas id="cv"></canvas>
+<div class="n">洛伦兹</div>
+<div class="h">他写出了<b>公式</b>，<br>却差<i>最后一步</i></div>
+</div>
+<script>
+var M = location.hash.replace('#', '') || 'w'; document.body.className = M;
+var W = M === 'v' ? 1080 : M === 'f' ? 1440 : 1920, H = M === 'v' ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+var g = cv.getContext('2d'), TAU = Math.PI * 2;
+function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+var R = rng(7);
+// ---------- background: dusk sky, stars, sea horizon ----------
+var HZ = M === 'v' ? 680 : 800;                       // horizon y
+var sky = g.createLinearGradient(0, 0, 0, HZ); sky.addColorStop(0, '#070a14'); sky.addColorStop(0.55, '#10203e'); sky.addColorStop(1, '#2d4a74'); g.fillStyle = sky; g.fillRect(0, 0, W, H);
+for (var i = 0; i < 160; i++) { var sx = R() * W, sy = R() * HZ * 0.85, a = 0.15 + R() * 0.6; g.fillStyle = 'rgba(220,230,255,' + a + ')'; g.fillRect(sx, sy, 1.6, 1.6); }
+var CX = M === 'v' ? 540 : M === 'f' ? 340 : 440, CY = HZ - 40;
+var glow = g.createRadialGradient(CX, CY - 160, 20, CX, CY - 160, 700); glow.addColorStop(0, 'rgba(255,190,90,0.30)'); glow.addColorStop(0.5, 'rgba(200,120,60,0.10)'); glow.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = glow; g.fillRect(0, 0, W, H);
+var sea = g.createLinearGradient(0, HZ, 0, H); sea.addColorStop(0, '#16345c'); sea.addColorStop(1, '#050a16'); g.fillStyle = sea; g.fillRect(0, HZ, W, H - HZ);
+for (var k = 0; k < 40; k++) { var yy = HZ + 6 + k * (H - HZ) / 40, al = 0.18 * (1 - k / 40); g.strokeStyle = 'rgba(170,205,255,' + al + ')'; g.lineWidth = 1.5; g.beginPath(); for (var x = 0; x <= W; x += 8) { var y2 = yy + Math.sin(x * 0.02 + k * 1.7) * (1.5 + k * 0.12); if (x) g.lineTo(x, y2); else g.moveTo(x, y2); } g.stroke(); }
+// the dyke: long, thin, flat, at the horizon
+var dg = g.createLinearGradient(0, HZ - 14, 0, HZ + 10); dg.addColorStop(0, '#e9d6a6'); dg.addColorStop(1, '#8a7348'); g.fillStyle = dg; g.shadowColor = 'rgba(255,200,110,0.6)'; g.shadowBlur = 16; g.fillRect(0, HZ - 12, W, 12); g.shadowBlur = 0;
+g.fillStyle = 'rgba(255,214,150,0.18)'; g.fillRect(0, HZ + 1, W, 34);                    // its reflection
+// ---------- the staircase ----------
+var SW = M === 'v' ? 150 : M === 'f' ? 112 : 160, SH = M === 'v' ? 84 : M === 'f' ? 84 : 102, DX = 34, DY = 26, N = 5;
+var X0 = M === 'v' ? 540 - SW * 2.5 : M === 'f' ? 60 : 56, Y0 = HZ - 12 + (M === 'v' ? 0 : 0);
+function face(pts, fill, stroke, glowCol, blur) { g.beginPath(); pts.forEach(function (p, i) { i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }); g.closePath(); if (fill) { g.fillStyle = fill; g.shadowColor = glowCol || 'transparent'; g.shadowBlur = blur || 0; g.fill(); g.shadowBlur = 0; } if (stroke) { g.strokeStyle = stroke; g.lineWidth = 2.5; g.stroke(); } }
+for (var i = 0; i < N; i++) {
+  var x = X0 + i * SW, tY = Y0 - (i + 1) * SH, miss = i === N - 1;
+  if (!miss) {
+    var fr = g.createLinearGradient(0, tY, 0, Y0); fr.addColorStop(0, '#f2c25e'); fr.addColorStop(0.5, '#b98a30'); fr.addColorStop(1, '#5a4116');
+    face([[x, tY], [x + SW, tY], [x + SW, Y0], [x, Y0]], fr, 'rgba(255,230,160,0.6)', 'rgba(255,190,90,0.55)', 26);
+    var tp = g.createLinearGradient(x, tY, x + SW, tY - DY); tp.addColorStop(0, '#ffe9a8'); tp.addColorStop(1, '#f0bd5c');
+    face([[x, tY], [x + SW, tY], [x + SW + DX, tY - DY], [x + DX, tY - DY]], tp, 'rgba(255,240,200,0.7)');
+    var sd = g.createLinearGradient(x + SW, 0, x + SW + DX, 0); sd.addColorStop(0, '#7a5a1e'); sd.addColorStop(1, '#3a2a0c');
+    face([[x + SW, tY], [x + SW + DX, tY - DY], [x + SW + DX, Y0 - DY], [x + SW, Y0]], sd, 'rgba(255,230,160,0.25)');
+    g.font = '900 ' + Math.round(SH * 0.5) + 'px "Noto Serif SC","Noto Serif CJK SC",serif'; g.textAlign = 'center'; g.fillStyle = 'rgba(70,45,10,0.55)';
+  } else {
+    // the missing step: a dashed, red-glowing ghost
+    g.save(); g.setLineDash([16, 12]); g.lineWidth = 4; g.strokeStyle = '#ff6a52'; g.shadowColor = 'rgba(255,90,70,0.9)'; g.shadowBlur = 22;
+    g.beginPath(); g.moveTo(x, tY); g.lineTo(x + SW, tY); g.lineTo(x + SW, Y0); g.lineTo(x, Y0); g.stroke();
+    g.beginPath(); g.moveTo(x, tY); g.lineTo(x + DX, tY - DY); g.lineTo(x + SW + DX, tY - DY); g.lineTo(x + SW, tY); g.stroke(); g.restore();
+    var gh = g.createLinearGradient(0, tY, 0, Y0); gh.addColorStop(0, 'rgba(255,106,82,0.20)'); gh.addColorStop(1, 'rgba(255,106,82,0.02)'); g.fillStyle = gh; g.fillRect(x, tY, SW, Y0 - tY);
+  }
+}
+// gamma plaque floating above the last lit step
+var px = X0, py = Y0 - 5 * SH - DY - (M === 'v' ? 110 : 130), pw = M === 'v' ? 560 : 620, ph = M === 'v' ? 110 : 120;
+g.save(); g.fillStyle = 'rgba(8,12,24,0.82)'; g.strokeStyle = 'rgba(240,189,92,0.9)'; g.lineWidth = 3; g.shadowColor = 'rgba(240,189,92,0.55)'; g.shadowBlur = 26;
+g.beginPath(); var rr = 18; g.moveTo(px + rr, py); g.arcTo(px + pw, py, px + pw, py + ph, rr); g.arcTo(px + pw, py + ph, px, py + ph, rr); g.arcTo(px, py + ph, px, py, rr); g.arcTo(px, py, px + pw, py, rr); g.closePath(); g.fill(); g.stroke(); g.restore();
+g.font = '700 ' + (M === 'v' ? 54 : 58) + 'px "DejaVu Sans Mono","Noto Sans Mono",monospace'; g.textAlign = 'center'; g.fillStyle = '#ffd98a'; g.shadowColor = 'rgba(255,200,110,0.7)'; g.shadowBlur = 16;
+g.fillText('γ = 1/√(1−v²/c²)', px + pw / 2, py + ph / 2 + 20); g.shadowBlur = 0;
+window.__done = true;
+</script></body></html>

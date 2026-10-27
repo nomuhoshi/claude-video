@@ -137,3 +137,11 @@ ws/tsla1026/fr/
 ws/tsla1026/out/*.mp4
 ws/tsla1026/__pycache__/
 ws/tsla1026/*.wav
+ws/lo/shots/
+ws/lo/ch/
+ws/lo/lo.html
+ws/lo/scenes_lo.js
+ws/lo/tl.json
+ws/lo/render.log
+ws/lo/cover/*.png
+ws/lo/sheet*.png
