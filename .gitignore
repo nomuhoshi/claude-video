@@ -152,6 +152,5 @@ ws/bo/scenes_bo.js
 ws/bo/tl.json
 ws/bo/render.log
 ws/bo/cover/*.png
-ws/bo/cover/!(boltzmann_photo).png
 ws/bo/sheet*.png
 ws/bo/s[A-G].png
