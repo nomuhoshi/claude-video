@@ -1,0 +1,78 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- 洛伦兹 cover v2: his photo (grey + warm brown, gold frame) left/top, hook right/bottom, a small staircase with the last step missing.
+     #w = 1920x1080, #f = 1440x1080, #v = 1080x1440. -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#05070d;overflow:hidden}
+.c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.t{position:absolute;font-weight:900;line-height:1.1;letter-spacing:.02em;white-space:nowrap;text-shadow:0 3px 18px rgba(0,0,0,.85)}
+.nm{color:#ffd98a;letter-spacing:.14em;text-shadow:0 3px 14px rgba(0,0,0,.9),0 0 28px rgba(255,200,110,.5)}
+.a{color:#f6f2ea}
+.a b{font-weight:900;color:#ffd98a;text-shadow:0 3px 18px rgba(0,0,0,.85),0 0 30px rgba(255,210,130,.6)}
+.r{color:#ff6a52;text-shadow:0 3px 18px rgba(0,0,0,.85),0 0 28px rgba(255,90,70,.55)}
+.w .c{width:1920px;height:1080px}
+.w .nm{left:812px;top:104px;font-size:84px}
+.w .a{left:806px;font-size:152px}
+.w .a1{top:226px}.w .a2{top:392px}
+.w .r{left:812px;top:600px;font-size:78px}
+.f .c{width:1440px;height:1080px}
+.f .nm{left:656px;top:96px;font-size:74px}
+.f .a{left:650px;font-size:102px}
+.f .a1{top:210px}.f .a2{top:330px}
+.f .r{left:656px;top:490px;font-size:60px}
+.v .c{width:1080px;height:1440px}
+.v .nm{left:0;right:0;text-align:center;top:905px;font-size:76px}
+.v .a{left:0;right:0;text-align:center;font-size:128px}
+.v .a1{top:1000px}.v .a2{top:1135px}
+.v .r{left:0;right:0;text-align:center;top:1295px;font-size:68px}
+</style></head><body><div class="c">
+<canvas id="cv"></canvas>
+<div class="t nm">洛伦兹</div>
+<div class="t a a1">相对论的公式</div>
+<div class="t a a2">其实是<b>他先写的</b></div>
+<div class="t r">可惜，差了最后一步</div>
+</div>
+<script>
+var M = location.hash.replace('#', '') || 'w'; document.body.className = M;
+var W = M === 'v' ? 1080 : M === 'f' ? 1440 : 1920, H = M === 'v' ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+var g = cv.getContext('2d'), SF = '"Noto Serif SC","Noto Serif CJK SC",serif';
+function rng(s) { return function () { s |= 0; s = s + 0x6D2B79F5 | 0; var t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+var R = rng(11);
+// ---- background: deep blue dusk, warm glow behind the photo, faint formulas like a blackboard ----
+var bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#0a1020'); bg.addColorStop(1, '#050810'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+var PX = M === 'v' ? 250 : M === 'f' ? 60 : 90, PY = M === 'v' ? 50 : M === 'f' ? 90 : 90, PH = M === 'v' ? 800 : M === 'f' ? 800 : 900, PW = Math.round(PH * 0.7);
+var gl = g.createRadialGradient(PX + PW / 2, PY + PH / 2, 60, PX + PW / 2, PY + PH / 2, Math.max(PW, PH) * 1.25); gl.addColorStop(0, 'rgba(255,170,80,0.30)'); gl.addColorStop(0.55, 'rgba(120,80,60,0.10)'); gl.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gl; g.fillRect(0, 0, W, H);
+g.fillStyle = 'rgba(240,189,92,0.075)'; g.font = '500 54px "DejaVu Sans Mono",monospace';
+['x′ = γ(x − vt)', 't′ = γ(t − vx/c²)', 'γ = 1/√(1−v²/c²)', 'F = q v × B', '∇×E = −∂B/∂t'].forEach(function (s, i) { g.save(); g.translate(W * (M === 'v' ? 0.06 : 0.46) + (i % 2) * 120, H * (0.15 + i * 0.17)); g.rotate(-0.04); g.fillText(s, 0, 0); g.restore(); });
+for (var i = 0; i < 120; i++) { g.fillStyle = 'rgba(220,230,255,' + (0.1 + R() * 0.4) + ')'; g.fillRect(R() * W, R() * H, 1.5, 1.5); }
+// ---- mini staircase with the missing last step ----
+function stairs(x0, y0, sw, sh) {
+  for (var i = 0; i < 5; i++) {
+    var x = x0 + i * sw, tY = y0 - (i + 1) * sh, dx = sw * 0.2, dy = sh * 0.22;
+    if (i < 4) {
+      var fr = g.createLinearGradient(0, tY, 0, y0); fr.addColorStop(0, '#f2c25e'); fr.addColorStop(1, '#5a4116');
+      g.fillStyle = fr; g.shadowColor = 'rgba(255,190,90,0.5)'; g.shadowBlur = 18; g.fillRect(x, tY, sw, y0 - tY); g.shadowBlur = 0;
+      g.fillStyle = '#ffe3a0'; g.beginPath(); g.moveTo(x, tY); g.lineTo(x + sw, tY); g.lineTo(x + sw + dx, tY - dy); g.lineTo(x + dx, tY - dy); g.closePath(); g.fill();
+      g.fillStyle = '#6a4d18'; g.beginPath(); g.moveTo(x + sw, tY); g.lineTo(x + sw + dx, tY - dy); g.lineTo(x + sw + dx, y0 - dy); g.lineTo(x + sw, y0); g.closePath(); g.fill();
+    } else {
+      g.save(); g.setLineDash([12, 9]); g.lineWidth = 4; g.strokeStyle = '#ff6a52'; g.shadowColor = 'rgba(255,90,70,0.9)'; g.shadowBlur = 18;
+      g.strokeRect(x, tY, sw, y0 - tY); g.beginPath(); g.moveTo(x, tY); g.lineTo(x + dx, tY - dy); g.lineTo(x + sw + dx, tY - dy); g.lineTo(x + sw, tY); g.stroke(); g.restore();
+      g.fillStyle = 'rgba(255,106,82,0.14)'; g.fillRect(x, tY, sw, y0 - tY);
+    }
+  }
+  g.fillStyle = 'rgba(240,200,130,0.8)'; g.fillRect(x0 - 20, y0, 5 * sw + 60, 5);
+}
+if (M === 'w') stairs(830, 1010, 118, 50); else if (M === 'f') stairs(640, 1010, 96, 44);
+// ---- photo with gold frame ----
+var img = new Image();
+img.onload = function () {
+  g.save(); g.shadowColor = 'rgba(0,0,0,0.8)'; g.shadowBlur = 50; g.shadowOffsetY = 14; g.fillStyle = '#000'; g.fillRect(PX - 14, PY - 14, PW + 28, PH + 28); g.restore();
+  g.save(); g.filter = 'sepia(0.55) contrast(1.08) brightness(1.1)'; g.drawImage(img, PX, PY, PW, PH); g.restore();
+  var vg = g.createLinearGradient(0, PY + PH * 0.6, 0, PY + PH); vg.addColorStop(0, 'rgba(10,8,6,0)'); vg.addColorStop(1, 'rgba(10,8,6,0.55)'); g.fillStyle = vg; g.fillRect(PX, PY, PW, PH);
+  g.strokeStyle = '#f0bd5c'; g.lineWidth = 6; g.shadowColor = 'rgba(240,189,92,0.6)'; g.shadowBlur = 20; g.strokeRect(PX - 14, PY - 14, PW + 28, PH + 28); g.shadowBlur = 0;
+  g.fillStyle = '#f0bd5c'; g.font = '700 26px "DejaVu Sans Mono",monospace'; g.textAlign = 'left'; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 8; g.fillText('1853 – 1928', PX + 16, PY + PH - 20); g.shadowBlur = 0;
+  window.__done = true;
+};
+img.src = 'lorentz_photo.png';
+</script></body></html>
