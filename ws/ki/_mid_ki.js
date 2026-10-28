@@ -233,7 +233,7 @@
       chip(g, 1450, 680, '大学理论物理教授', GOLD, ap(lt, L[3], 0.5) * bl, 26);
       var pk = ap(lt, L[4], 0.5); if (pk > 0) { arrow(g, 1450, 960, 1450, 810, GOLD, pk * bl, 1, lt * 30); chip(g, 1450, 1000, '普朗克', GOLD, pk * bl, 30); }
       chip(g, 1180, 680, '后来回忆 · 字斟句酌，有点干巴', DIM, ap(lt, L[5], 0.5) * bl * (1 - ap(lt, L[7], 0.4)), 22, 'left'); }
-    var dt = ap(lt, L[7], 0.8); if (dt > 0) { var ok = photoCard(g, PH, 1290, 360, 320, 400, dt, 'sepia(0.4) contrast(1.05) grayscale(0.2)', GOLD); if (!ok) { g.save(); g.globalAlpha *= dt * 0.8; g.fillStyle = '#10151f'; g.fillRect(1290, 360, 320, 400); g.restore(); avatar(g, 1450, 600, 100, '#8aa0c8', dt); }
+    var dt = ap(lt, L[7], 0.8); if (dt > 0) { var ok = photoCard(g, PH, 1308, 360, 284, 400, dt, 'sepia(0.4) contrast(1.05) grayscale(0.2)', GOLD); if (!ok) { g.save(); g.globalAlpha *= dt * 0.8; g.fillStyle = '#10151f'; g.fillRect(1308, 360, 284, 400); g.restore(); avatar(g, 1450, 600, 100, '#8aa0c8', dt); }
       mono(g, '1824 – 1887', 1450, 850, 40, GOLD, 'center', dt); chip(g, 1450, 940, '1887 · 10 · 17 · 柏林', INK, dt, 26); chip(g, 1450, 1000, '终年 63 岁', DIM, ap(lt, L[8], 0.5), 24); }
   };
   // the open problem: measurements vs theory; the student takes the chair; 1900: energy in packets
