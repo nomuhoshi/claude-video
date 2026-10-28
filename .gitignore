@@ -155,3 +155,14 @@ ws/bo/cover/*.png
 ws/bo/sheet*.png
 ws/bo/s[A-G].png
 mux.log
+ws/ki/shots/
+ws/ki/ch/
+ws/ki/ki.html
+ws/ki/scenes_ki.js
+ws/ki/tl.json
+ws/ki/render.log
+ws/ki/cover/*.png
+ws/ki/sheet*.png
+ws/ki/[st][A-G].png
+ws/ki/*.wav
+ws/ki/video.mp4

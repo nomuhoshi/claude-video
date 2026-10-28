@@ -1,4 +1,4 @@
-# Lorentz soundtrack: the music bed (ki_bed.wav, built by make_bed_ki.py) + the effects layer from tl.json (sfx).
+# Kirchhoff soundtrack: the music bed (ki_bed.wav, built by make_bed_ki.py) + the effects layer from tl.json (sfx).
 # Music steps back under the effects (side-chain) and harder under every big hit; mastered to about -15 LUFS, true peak limited.
 import json, base64, subprocess, numpy as np, soundfile as sf
 from scipy.signal import butter, sosfilt

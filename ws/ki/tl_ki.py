@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 玻尔兹曼 · v2 时间表。四段配乐：A Nightfall（hero–s2，一拍 0.6667 s）、C Entropy（ch2–s6，一拍 0.4 s）、
+# 基尔霍夫 · v2 时间表。四段配乐：A Nightfall（hero–s2，一拍 0.6667 s）、C Entropy（ch2–s7，一拍 0.4 s）、
 # D Awakening 安静段（ch4–s8）、E Awakening 高潮到尾（ch5–end）。每段的起点就是音乐那一段的第一拍，
 # 段内旁白落在该段的拍上。输出 tl.json（画面、字幕、音效）和 sections（给 make_bed_hz.py）。
 import json, math, re
@@ -68,7 +68,7 @@ for row, T in zip(SC, TLs):
     if row[1] == 'chap':
         chaps.append(dict(s=T['s'], e=T['e'], word=row[2], en='', line=row[3], n=''))
         crumbs.append(dict(t=T['s'], zh=row[2], en=''))
-crumbs.insert(0, dict(t=at('hero', 9, 0.8), zh='人物传记 · 玻尔兹曼', en=''))
+crumbs.insert(0, dict(t=at('hero', 9, 0.8), zh='人物传记 · 基尔霍夫', en=''))
 crumbs.append(dict(t=S('recap'), zh='回顾', en='')); crumbs.append(dict(t=S('src'), zh='资料来源', en=''))
 
 # ---------------- effects ----------------
@@ -89,48 +89,48 @@ def counter(label, a, b, unit, t0, t1, hide, col=None, land=None, pw=1.8, dec=0,
         put('count_roll', t1 - 0.6, 0.24, 0.2)
 
 for c in chaps: put('riser', c['s'] - 1.0, 0.3); hit(c['s'] + 0.35, 0.9, 12, True); put('sub_drop', c['s'] + 0.35, 0.5)
-# hero: the white tombstone, the formula, the name
+# hero: circuit node, the flame, the sun question, the name
 put('sub_pad', 0, 0.35)
-put('ui_ping_1', at('hero', 0, 0.4), 0.35); put('whoosh_swing', at('hero', 1, 0.3), 0.25); put('ui_ping_2', at('hero', 2, 0.4), 0.3)
-hit(at('hero', 3, 0.5), 1.0, 12, True); put('sparkle_bed', at('hero', 3, 0.6), 0.3)
-put('ui_ping_3', at('hero', 4, 0.4), 0.3); put('ui_ping_1', at('hero', 5, 0.4), 0.3); put('whoosh_swing', at('hero', 6, 0.3), 0.25); hit(at('hero', 8, 0.5), 0.7, 6)
-hit(at('hero', 9, 0.4), 1.0, 14, True)
-# s1 born in carnival
-put('ui_ping_1', at('s1', 0, 0.4), 0.35); put('ui_ping_2', at('s1', 1, 0.4), 0.3); put('downer', at('s1', 4, 0.5), 0.3); put('whoosh_swing', at('s1', 8, 0.3), 0.25)
-put('ui_ping_3', at('s1', 9, 0.4), 0.35); hit(at('s1', 10, 0.5), 0.6, 4)
-# s2 Henrietta
-put('ui_ping_1', at('s2', 0, 0.4), 0.35); put('downer', at('s2', 3, 0.6), 0.3); put('whoosh_swing', at('s2', 4, 0.3), 0.25); hit(at('s2', 5, 0.5), 0.8, 8, True); put('ui_ping_2', at('s2', 6, 0.4), 0.3)
-# s3 gas
-put('ui_ping_1', at('s3', 3, 0.4), 0.3); put('whoosh_swing', at('s3', 4, 0.3), 0.3); put('ui_ping_2', at('s3', 5, 0.4), 0.35); put('ui_ping_3', at('s3', 7, 0.4), 0.35)
-put('whoosh_swing', at('s3', 9, 0.3), 0.3); put('sparkle_bed', at('s3', 11, 0.2), 0.25); hit(at('s3', 12, 0.5), 0.9, 10, True)
-# s4 entropy: coins, the 29 zeros, the formula
-put('ui_ping_1', at('s4', 0, 0.4), 0.3); put('ui_ping_2', at('s4', 3, 0.4), 0.35); put('whoosh_swing', at('s4', 7, 0.3), 0.3); hit(at('s4', 8, 0.5), 0.7, 6)
-counter('排法的个数（后面跟着的零）', 0, 29, '个零', at('s4', 10, 0.2), at('s4', 10, 1.8), at('s4', 12, 0.0), land='#f0bd5c')
-hit(at('s4', 10, 1.8), 0.8, 8, True); put('ui_ping_3', at('s4', 11, 0.4), 0.3); hit(at('s4', 15, 0.5), 0.8, 8); put('whoosh_swing', at('s4', 17, 0.3), 0.3); hit(at('s4', 18, 0.6), 1.0, 14, True)
-# s5 reversibility
-put('ui_ping_1', at('s5', 0, 0.4), 0.3); put('whoosh_swing', at('s5', 3, 0.3), 0.25); put('ui_ping_2', at('s5', 4, 0.4), 0.3); hit(at('s5', 5, 0.5), 0.7, 6)
-# s6 do you see the atom
-put('ui_ping_1', at('s6', 1, 0.4), 0.3); put('ui_ping_2', at('s6', 3, 0.4), 0.3); hit(at('s6', 4, 0.5), 0.8, 8, True); put('ui_ping_3', at('s6', 5, 0.4), 0.3)
-put('whoosh_swing', at('s6', 7, 0.3), 0.3); hit(at('s6', 9, 0.5), 0.7, 6); put('downer', at('s6', 11, 0.5), 0.3)
-# s7 against the stream (restraint)
-put('sub_pad', at('s7', 0, 0.0), 0.3); put('ui_ping_1', at('s7', 2, 0.4), 0.3); put('ui_ping_2', at('s7', 5, 0.5), 0.3); put('downer', at('s7', 8, 0.5), 0.25)
-# s8 Duino: quiet, no hit
-put('sub_pad', at('s8', 0, 0.0), 0.3); put('ui_ping_1', at('s8', 3, 0.5), 0.25); put('downer', at('s8', 4, 0.5), 0.3)
-# s9 proof
-put('ui_ping_1', at('s9', 0, 0.4), 0.35); put('ui_ping_2', at('s9', 1, 0.4), 0.35); put('whoosh_swing', at('s9', 4, 0.3), 0.3); put('ui_ping_3', at('s9', 5, 0.4), 0.35)
-put('sparkle_bed', at('s9', 6, 0.3), 0.3); hit(at('s9', 7, 0.5), 1.0, 12, True); put('whoosh_swing', at('s9', 8, 0.3), 0.25); put('downer', at('s9', 11, 0.5), 0.3)
-# s10 the constant and the tomb
-put('ui_ping_1', at('s10', 0, 0.4), 0.35); put('whoosh_swing', at('s10', 2, 0.3), 0.3); put('ui_ping_2', at('s10', 3, 0.4), 0.3); put('ui_ping_3', at('s10', 5, 0.4), 0.3)
-put('sub_pad', at('s10', 8, 0.0), 0.3); hit(at('s10', 11, 0.5), 1.0, 14, True); put('sparkle_bed', at('s10', 11, 0.6), 0.35)
+put('ui_ping_1', at('hero', 0, 0.4), 0.35); put('whoosh_swing', at('hero', 1, 0.3), 0.25); put('ui_ping_2', at('hero', 2, 0.4), 0.3); put('ui_ping_3', at('hero', 3, 0.4), 0.3)
+hit(at('hero', 4, 0.5), 0.7, 6); put('whoosh_swing', at('hero', 5, 0.3), 0.25); hit(at('hero', 6, 0.5), 1.0, 12, True); put('sparkle_bed', at('hero', 6, 0.6), 0.3)
+put('ui_ping_2', at('hero', 7, 0.4), 0.3); put('downer', at('hero', 8, 0.5), 0.25); hit(at('hero', 9, 0.4), 1.0, 14, True)
+# s1 Koenigsberg: the circuit laws
+put('ui_ping_1', at('s1', 0, 0.4), 0.35); put('ui_ping_2', at('s1', 1, 0.4), 0.3); put('whoosh_swing', at('s1', 3, 0.3), 0.25); put('ui_ping_3', at('s1', 5, 0.4), 0.3)
+put('ui_ping_1', at('s1', 7, 0.4), 0.3); hit(at('s1', 8, 0.5), 0.8, 8, True); put('sparkle_bed', at('s1', 8, 0.6), 0.25)
+# s2 Heidelberg and Bunsen
+put('ui_ping_1', at('s2', 0, 0.4), 0.35); put('ui_ping_2', at('s2', 1, 0.4), 0.3); put('whoosh_swing', at('s2', 2, 0.3), 0.25); put('sparkle_bed', at('s2', 3, 0.3), 0.25); hit(at('s2', 5, 0.5), 0.6, 4)
+# s3 flame colours -> the prism -> bright lines
+put('ui_ping_1', at('s3', 0, 0.4), 0.3); put('ui_ping_2', at('s3', 1, 0.4), 0.3); put('downer', at('s3', 3, 0.5), 0.25); put('whoosh_swing', at('s3', 4, 0.3), 0.35)
+put('sparkle_bed', at('s3', 6, 0.3), 0.3); put('ui_ping_3', at('s3', 8, 0.4), 0.35); hit(at('s3', 9, 0.5), 1.0, 12, True); put('sparkle_bed', at('s3', 9, 0.6), 0.35)
+# s4 the dark lines of the sun and the sodium experiment
+put('ui_ping_1', at('s4', 1, 0.4), 0.3); put('ui_ping_2', at('s4', 2, 0.4), 0.3); put('downer', at('s4', 3, 0.5), 0.25); put('whoosh_swing', at('s4', 4, 0.3), 0.3)
+put('ui_ping_3', at('s4', 5, 0.4), 0.3); put('ui_ping_1', at('s4', 7, 0.4), 0.3); hit(at('s4', 8, 0.5), 0.9, 10, True); put('whoosh_swing', at('s4', 9, 0.3), 0.3)
+put('ui_ping_2', at('s4', 11, 0.4), 0.35); put('ui_ping_3', at('s4', 13, 0.4), 0.3); hit(at('s4', 14, 0.5), 1.0, 12, True); put('sparkle_bed', at('s4', 14, 0.6), 0.35)
+counter('太阳到地球的距离', 0, 15000, '万公里', at('s4', 15, 0.2), at('s4', 15, 1.8), at('s4', 16, 1.6), land='#f0bd5c', pw=1.6)
+hit(at('s4', 15, 1.8), 0.7, 6); hit(at('s4', 16, 1.2), 0.9, 10, True)
+# s5 the banker (a story: light touch)
+put('ui_ping_1', at('s5', 0, 0.4), 0.3); put('ui_ping_2', at('s5', 1, 0.4), 0.3); put('downer', at('s5', 3, 0.5), 0.25); put('whoosh_swing', at('s5', 4, 0.3), 0.25); put('sparkle_bed', at('s5', 7, 0.3), 0.3); hit(at('s5', 7, 0.5), 0.6, 4)
+# s6 new elements: blue and red lines, the clock
+put('ui_ping_1', at('s6', 0, 0.4), 0.3); put('ui_ping_2', at('s6', 2, 0.4), 0.35); put('ui_ping_3', at('s6', 3, 0.4), 0.35); put('whoosh_swing', at('s6', 5, 0.3), 0.25)
+put('ui_ping_1', at('s6', 8, 0.4), 0.3); put('ui_ping_2', at('s6', 9, 0.4), 0.35); put('whoosh_swing', at('s6', 10, 0.3), 0.3); hit(at('s6', 11, 0.5), 0.8, 8, True)
+# s7 black body
+put('ui_ping_1', at('s7', 0, 0.4), 0.3); put('ui_ping_2', at('s7', 2, 0.4), 0.3); put('whoosh_swing', at('s7', 3, 0.3), 0.3); put('ui_ping_3', at('s7', 5, 0.4), 0.3)
+hit(at('s7', 6, 0.5), 0.9, 10, True); put('ui_ping_1', at('s7', 8, 0.4), 0.35); put('whoosh_swing', at('s7', 10, 0.3), 0.25)
+put('whoosh_swing', at('s7', 12, 0.3), 0.3); put('downer', at('s7', 13, 0.5), 0.3); hit(at('s7', 14, 0.5), 0.8, 8, True)
+# s8 Berlin: restrained
+put('sub_pad', at('s8', 0, 0.0), 0.3); put('ui_ping_1', at('s8', 2, 0.4), 0.3); put('ui_ping_2', at('s8', 4, 0.4), 0.3); put('downer', at('s8', 6, 0.5), 0.25); put('sub_pad', at('s8', 7, 0.0), 0.3); put('downer', at('s8', 8, 0.5), 0.25)
+# s9 the question that became the quantum
+put('ui_ping_1', at('s9', 0, 0.4), 0.3); put('ui_ping_2', at('s9', 1, 0.4), 0.3); put('whoosh_swing', at('s9', 2, 0.3), 0.3); hit(at('s9', 4, 0.5), 0.9, 10, True)
+put('ui_ping_3', at('s9', 5, 0.4), 0.3); put('ui_ping_1', at('s9', 7, 0.4), 0.35); put('whoosh_swing', at('s9', 8, 0.3), 0.3); put('sparkle_bed', at('s9', 9, 0.3), 0.35); hit(at('s9', 9, 0.5), 1.0, 12, True); hit(at('s9', 10, 0.6), 1.0, 14, True)
 # recap
 for k in range(4): put('ui_ping_%d' % (1 + k % 3), at('recap', k, 0.2), 0.4)
 hit(at('recap', 3, 0.3), 0.9, 10, True)
 
 # ---------------- era timeline ----------------
 # The marker eases to the next keyframe within <=1.2 s, so a long range needs a keyframe every ~1.2 s or it jumps to the end year at once.
-YRS = [('s1', 1844, 1869), ('s2', 1872, 1876), ('s3', 1868, 1872), ('s4', 1877, 1900), ('s5', 1876, 1876), ('s6', 1895, 1895),
-       ('s7', 1895, 1902), ('s8', 1906, 1906), ('s9', 1905, 1909), ('s10', 1909, 1909)]
-ANCH = {'s1': [(0, 1844), (4, 1859), (9, 1869)], 's7': [(0, 1895), (5, 1898), (11, 1902)]}      # (line index, year)
+YRS = [('s1', 1824, 1845), ('s2', 1854, 1854), ('s3', 1854, 1859), ('s4', 1859, 1859), ('s5', 1859, 1860), ('s6', 1860, 1861),
+       ('s7', 1861, 1862), ('s8', 1875, 1887), ('s9', 1887, 1900)]
+ANCH = {'s1': [(0, 1824), (1, 1845), (9, 1845)], 's8': [(0, 1862), (2, 1875), (7, 1887)], 's9': [(0, 1887), (5, 1887), (7, 1900)]}      # (line index, year)
 years = []
 def ykey(t, y):
     if not years or t > years[-1][0] + 0.01: years.append([round(t, 3), round(y, 1)])
@@ -142,11 +142,11 @@ for key, y0, y1 in YRS:
         n = max(1, int(round((tb - ta) / 1.2)))
         for k in range(n): ykey(ta + (tb - ta) * k / n, ya + (yb - ya) * k / n)
     ykey(pts[-1][0], pts[-1][1])
-yvis = [[S('s1') - 0.3, Ee('s10') - 0.3]]
+yvis = [[S('s1') - 0.3, Ee('s9') - 0.3]]
 
 scenes = [dict(key=T['key'], k=T['k'], draw=T['draw'], s=T['s'], e=T['e'], ls=T['ls']) for T in TLs]
 data = dict(end=END, groups=groups, chaps=chaps, crumbs=crumbs, counters=counters, slams=slams, shake=sorted(SHAKE),
-            sfx=sorted(SFX, key=lambda x: x[1]), years=years, yvis=yvis, ticks=[1844, 1869, 1895, 1906], yr0=1840, yr1=1912,
+            sfx=sorted(SFX, key=lambda x: x[1]), years=years, yvis=yvis, ticks=[1824, 1845, 1859, 1875, 1887], yr0=1820, yr1=1905,
             scenes=scenes, idx=IDX, src=[[a, b] for a, b, *_ in SRC], title=TITLE, secs=secs)
 json.dump(data, open('tl.json', 'w'), ensure_ascii=False)
 if __name__ == '__main__':

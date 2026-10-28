@@ -21,7 +21,7 @@
     g.filter = p < 1 ? 'blur(' + ((1 - p) * 8).toFixed(1) + 'px)' : 'none'; g.fillText(c.line, cx, cy + 236); g.filter = 'none';
     g.restore();
   }
-  var NODES = [['节', '一个狂欢节的孩子', '1844 · 维也纳'], ['球', '一群乱撞的小球', '1872–1877 · 格拉茨'], ['流', '一个逆流的人', '1895–1906'], ['石', '一行刻在石头上的公式', '维也纳中央公墓']];
+  var NODES = [['路', '一个学生写下的定律', '1845 · 柯尼斯堡'], ['谱', '一道火焰里的指纹', '1859 · 海德堡'], ['日', '一片太阳里的钠', '1859'], ['黑', '一个留给后人的黑体', '1859–1900']];
   function recap(g, sc, lt) {
     var xs = [420, 790, 1160, 1530], y = 600;
     g.save(); var w = 1240 * eo((lt - 0.2) / (sc.ls[3] + 0.6));
@@ -35,7 +35,7 @@
     });
     var tp = E((lt - sc.ls[3] - 1.6) / 0.8);
     if (tp > 0) { g.globalAlpha = tp; g.font = '900 56px ' + SERIF; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 14;
-      var s1 = '他没等到胜利，', s2 = '公式却留了下来', s3 = '', w1 = g.measureText(s1).width, w2 = g.measureText(s2).width, w3 = g.measureText(s3).width, x0 = 960 - (w1 + w2 + w3) / 2;
+      var s1 = '他没去过太阳，', s2 = '却知道太阳里有什么', s3 = '', w1 = g.measureText(s1).width, w2 = g.measureText(s2).width, w3 = g.measureText(s3).width, x0 = 960 - (w1 + w2 + w3) / 2;
       g.textAlign = 'left'; g.fillStyle = '#ece6da'; g.fillText(s1, x0, 860); g.fillStyle = GOLD; g.fillText(s2, x0 + w1, 860); g.fillStyle = '#ece6da'; g.fillText(s3, x0 + w1 + w2, 860); }
     g.restore();
   }
@@ -47,7 +47,7 @@
       g.font = '500 19px ' + MONO; g.fillStyle = 'rgba(190,195,205,0.75)'; g.fillText(s[1], x, y + 36);
       g.fillStyle = 'rgba(240,189,92,0.6)'; g.fillRect(x - 22, y - 22, 3, 60);
     });
-    g.globalAlpha = E((lt - 1.2) / 0.5); g.textAlign = 'center'; g.font = '700 26px ' + SERIF; g.fillStyle = '#ece6da'; g.fillText('1898 年序言据英文通行译文意译；“你见过原子吗”据说出自马赫', 960, 930);
+    g.globalAlpha = E((lt - 1.2) / 0.5); g.textAlign = 'center'; g.font = '700 26px ' + SERIF; g.fillStyle = '#ece6da'; g.fillText('“太阳里的金子”的故事流传很广，原始出处不明；普朗克对讲课的评价据其自传', 960, 930);
     g.restore();
   }
   function drawScene(g, i, lt, alpha) {
