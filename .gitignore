@@ -166,3 +166,7 @@ ws/ki/sheet*.png
 ws/ki/[st][A-G].png
 ws/ki/*.wav
 ws/ki/video.mp4
+ws/goog1028/fr/
+ws/goog1028/out/*.mp4
+ws/goog1028/__pycache__/
+ws/goog1028/*.wav
