@@ -15,19 +15,25 @@ def panel(im, x0, y0, w):
     d.line((x0 + 50, y0 + 230, x0 + w - 50, y0 + 230), fill='#E5E7EB', width=3)
     d.text((cx, y0 + 290), '每股收益', font=font('b', 36), fill=DIM, anchor='mm')
     d.text((cx, y0 + 380), '2.12 vs 预期 3.02', font=font('k', 52), fill=RED, anchor='mm')
+LOGO = Image.open('g_logo.png')
+def logo(im, x, y, h):
+    l = LOGO.resize((int(LOGO.width * h / LOGO.height), h), Image.LANCZOS); im.paste(l, (x, y), l); return l.width
 def wide():
     W, H = 1920, 1080; im = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(im); d.rectangle((0, 0, W, 14), fill=RED)
-    d.text((280, 200), '谷歌 GOOGL', font=font('b', 64), fill=DIM)
-    d.text((272, 290), '财报出炉', font=font('k', 150), fill=INK)
-    d.text((272, 470), '盘后跌 9%', font=font('k', 150), fill=RED)
-    d.rounded_rectangle((280, 790, 1000, 870), 40, fill=INK); d.text((640, 830), '好在哪？坏在哪？', font=font('b', 46), fill='#FFFFFF', anchor='mm')
-    panel(im, 1110, 300, 540); return im
+    lw = logo(im, 270, 190, 230)
+    d.text((270 + lw + 40, 200), '谷歌', font=font('k', 170), fill=INK)
+    d.text((280 + lw + 46, 440), 'Google · GOOGL', font=font('b', 40), fill=DIM)
+    d.text((272, 510), '财报出炉', font=font('k', 130), fill=INK)
+    d.text((272, 670), '盘后跌 9%', font=font('k', 130), fill=RED)
+    d.rounded_rectangle((280, 880, 1000, 960), 40, fill=INK); d.text((640, 920), '好在哪？坏在哪？', font=font('b', 46), fill='#FFFFFF', anchor='mm')
+    panel(im, 1110, 330, 540); return im
 def tall():
     W, H = 1080, 1440; im = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(im); d.rectangle((0, 0, W, 12), fill=RED)
-    d.text((W // 2, 140), '谷歌 GOOGL', font=font('b', 56), fill=DIM, anchor='mm')
-    d.text((W // 2, 290), '财报出炉', font=font('k', 150), fill=INK, anchor='mm')
-    d.text((W // 2, 470), '盘后跌 9%', font=font('k', 140), fill=RED, anchor='mm')
-    panel(im, 140, 640, 800)
+    lh = 200; lw = int(LOGO.width * lh / LOGO.height); tw = d.textlength('谷歌', font=font('k', 170)); x0 = int((W - lw - 40 - tw) / 2)
+    logo(im, x0, 70, lh); d.text((x0 + lw + 40, 60), '谷歌', font=font('k', 170), fill=INK)
+    d.text((W // 2, 370), '财报出炉', font=font('k', 130), fill=INK, anchor='mm')
+    d.text((W // 2, 525), '盘后跌 9%', font=font('k', 130), fill=RED, anchor='mm')
+    panel(im, 140, 660, 800)
     d = ImageDraw.Draw(im); d.rounded_rectangle((W // 2 - 300, 1250, W // 2 + 300, 1340), 45, fill=INK); d.text((W // 2, 1295), '好在哪？坏在哪？', font=font('b', 48), fill='#FFFFFF', anchor='mm')
     return im
 if __name__ == '__main__':
