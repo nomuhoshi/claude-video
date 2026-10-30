@@ -170,3 +170,14 @@ ws/goog1028/fr/
 ws/goog1028/out/*.mp4
 ws/goog1028/__pycache__/
 ws/goog1028/*.wav
+ws/pl/shots/
+ws/pl/ch/
+ws/pl/pl.html
+ws/pl/scenes_pl.js
+ws/pl/tl.json
+ws/pl/render.log
+ws/pl/cover/*.png
+ws/pl/sheet*.png
+ws/pl/*.wav
+ws/pl/video.mp4
+ws/pl/mux.log
