@@ -1,0 +1,60 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- 普朗克 cover: flat #1b1b1b, gold name, two hook lines, a blackbody curve cut into steps (gold staircase) + optional portrait (planck_photo.png). #w 1920x1080, #f 1440x1080, #v 1080x1440 -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#1b1b1b;overflow:hidden}
+.c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.t{position:absolute;font-weight:900;line-height:1.1;letter-spacing:.02em;white-space:nowrap;color:#f6f2ea;text-shadow:0 3px 18px rgba(0,0,0,.85)}
+.nm{color:#ffd98a;letter-spacing:.14em;text-shadow:0 3px 14px rgba(0,0,0,.9),0 0 28px rgba(255,200,110,.5)}
+.t b{font-weight:900;color:#ffd98a;text-shadow:0 3px 18px rgba(0,0,0,.85),0 0 30px rgba(255,210,130,.6)}
+.w .c{width:1920px;height:1080px}
+.w .t{left:90px;font-size:156px}.w .nm{top:64px;font-size:96px}.w .a1{top:196px}.w .a2{top:372px}
+.f .c{width:1440px;height:1080px}
+.f .t{left:60px;font-size:104px}.f .nm{top:60px;font-size:72px}.f .a1{top:160px}.f .a2{top:282px}
+.v .c{width:1080px;height:1440px}
+.v .t{left:0;right:0;text-align:center;font-size:112px}.v .nm{font-size:84px;top:700px}.v .a1{top:806px}.v .a2{top:940px}
+.v.np .nm{top:110px}.v.np .a1{top:220px}.v.np .a2{top:356px}
+</style></head><body><div class="c">
+<canvas id="cv"></canvas>
+<div class="t nm">普朗克</div>
+<div class="t a1">最保守的人</div>
+<div class="t a2">打开了<b>量子</b>的门</div>
+</div>
+<script>
+var M = location.hash.replace('#', '') || 'w'; document.body.className = M;
+var W = M === 'v' ? 1080 : M === 'f' ? 1440 : 1920, H = M === 'v' ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+var g = cv.getContext('2d'); g.fillStyle = '#1b1b1b'; g.fillRect(0, 0, W, H);
+var im = new Image(), hasPh = false;
+function planckN(x) { return Math.pow(x, -5) / (Math.exp(0.9 / x) - 1); }   // x in 0.1..1, schematic
+function curve(x0, x1, yB, h) {
+  var N = 16, xs = [], PK = 0; for (var i = 0; i <= 400; i++) { var x = 0.12 + 0.88 * i / 400; PK = Math.max(PK, planckN(x)); }
+  var X = function (u) { return x0 + (x1 - x0) * u; }, Y = function (x) { return yB - planckN(x) / PK * h; };
+  // axes
+  g.strokeStyle = 'rgba(200,210,230,0.6)'; g.lineWidth = 4; g.beginPath(); g.moveTo(x0, yB - h - 30); g.lineTo(x0, yB); g.lineTo(x1 + 20, yB); g.stroke();
+  // smooth classical curve (dashed blue)
+  g.save(); g.strokeStyle = '#86b6ff'; g.lineWidth = 5; g.setLineDash([14, 10]); g.shadowColor = '#86b6ff'; g.shadowBlur = 10; g.beginPath();
+  for (var i = 0; i <= 240; i++) { var u = i / 240, x = 0.12 + 0.88 * u; if (i) g.lineTo(X(u), Y(x)); else g.moveTo(X(u), Y(x)); } g.stroke(); g.restore();
+  // gold staircase cut from it
+  g.save(); g.strokeStyle = '#f0bd5c'; g.lineWidth = 8; g.lineJoin = 'round'; g.shadowColor = 'rgba(240,189,92,0.9)'; g.shadowBlur = 18; g.beginPath(); var prevY = yB;
+  g.moveTo(X(0), yB);
+  for (var k = 0; k < N; k++) { var u0 = k / N, u1 = (k + 1) / N, xm = 0.12 + 0.88 * (u0 + u1) / 2, y = Y(xm); g.lineTo(X(u0), y); g.lineTo(X(u1), y); }
+  g.lineTo(X(1), yB); g.stroke(); g.shadowBlur = 0; g.globalAlpha = 0.18; g.fillStyle = '#f0bd5c'; g.fill(); g.restore();
+}
+function drawAll() {
+  if (hasPh) {
+    var PH = M === 'v' ? 560 : M === 'f' ? 600 : 900, PW = Math.round(PH * 474 / 669), PX = M === 'v' ? Math.round((W - PW) / 2) : W - PW - 90, PY = M === 'v' ? 56 : M === 'f' ? 84 : 90;
+    g.save(); g.shadowColor = 'rgba(0,0,0,0.8)'; g.shadowBlur = 44; g.shadowOffsetY = 12; g.fillStyle = '#000'; g.fillRect(PX - 12, PY - 12, PW + 24, PH + 24); g.restore();
+    g.save(); g.filter = 'contrast(1.06) brightness(0.96)'; g.drawImage(im, PX, PY, PW, PH); g.restore();
+    var vg = g.createLinearGradient(0, PY + PH * 0.72, 0, PY + PH); vg.addColorStop(0, 'rgba(10,8,6,0)'); vg.addColorStop(1, 'rgba(10,8,6,0.55)'); g.fillStyle = vg; g.fillRect(PX, PY, PW, PH);
+    g.strokeStyle = '#f0bd5c'; g.lineWidth = 6; g.shadowColor = 'rgba(240,189,92,0.6)'; g.shadowBlur = 20; g.strokeRect(PX - 12, PY - 12, PW + 24, PH + 24); g.shadowBlur = 0;
+    g.fillStyle = '#f0bd5c'; g.textAlign = 'left'; g.font = '700 ' + (M === 'w' ? 28 : 24) + 'px "DejaVu Sans Mono",monospace'; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 8; g.fillText('1858 – 1947', PX + 16, PY + PH - 18); g.shadowBlur = 0;
+    if (M === 'w') curve(120, 1150, 1000, 400); else if (M === 'f') curve(70, 1370, 1020, 280); else curve(80, 1000, 1360, 240);
+  } else {
+    document.body.className = M + ' np';
+    if (M === 'w') curve(120, 1780, 1000, 400); else if (M === 'f') curve(70, 1370, 1020, 380); else curve(80, 1000, 1370, 700);
+  }
+  window.__done = true;
+}
+im.onload = function () { hasPh = true; drawAll(); }; im.onerror = function () { drawAll(); }; im.src = 'planck_photo.png';
+</script></body></html>
