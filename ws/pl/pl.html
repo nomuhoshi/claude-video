@@ -1,0 +1,707 @@
+<!doctype html><html><head><meta charset="utf-8"><title>基尔霍夫 · v2</title><style>
+@font-face{font-family:"IBM Plex Mono";font-weight:400;src:url("file:///home/claude/claude-video/ws/render_kp/node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;src:url("file:///home/claude/claude-video/ws/render_kp/node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2")}
+html,body{margin:0;background:#000;overflow:hidden} canvas{display:block;width:1920px;height:1080px}
+.pre{position:absolute;left:-999px;font-family:"Noto Serif CJK SC";font-weight:900}</style></head><body>
+<canvas id="cv" width="1920" height="1080"></canvas><span class="pre">预载 8′</span><span class="pre" style="font-weight:700">预载</span><span class="pre" style="font-family:IBM Plex Mono;font-weight:500">MONO</span><span class="pre" style="font-family:IBM Plex Mono;font-weight:400">MONO</span>
+<script>window.TL={"end": 365.003, "groups": [{"s": 2.617, "e": 15.313, "lines": [{"t": 2.667, "st": "n", "tx": "1900 年 10 月 7 日，星期天，柏林。"}, {"t": 6.0, "st": "n", "tx": "实验家鲁本斯夫妇，到他家做客。"}, {"t": 9.333, "st": "n", "tx": "鲁本斯说起刚量到的数据："}, {"t": 12.0, "st": "n", "tx": "一个发热的物体，在长波那一头，"}]}, {"s": 15.283, "e": 23.98, "lines": [{"t": 15.333, "st": "n", "tx": "发出的光，和已有的公式对不上。"}, {"t": 18.667, "st": "n", "tx": "客人走后，主人坐下来算。"}, {"t": 21.333, "st": "n", "tx": "当晚，他写出了一个新公式，"}]}, {"s": 23.95, "e": 33.334, "lines": [{"t": 24.0, "st": "n", "tx": "寄了一张明信片给鲁本斯。"}, {"t": 26.667, "st": "n", "tx": "这张明信片，是量子时代的第一页。"}, {"t": 30.0, "st": "n", "tx": "他叫{g:普朗克}。"}]}, {"s": 37.283, "e": 46.647, "lines": [{"t": 37.333, "st": "n", "tx": "1858 年，他生在德国北部的{b:基尔}。"}, {"t": 40.667, "st": "n", "tx": "祖辈是神学教授，父亲是法学教授。"}, {"t": 44.0, "st": "n", "tx": "他钢琴和管风琴，都弹得极好。"}]}, {"s": 46.617, "e": 52.0, "lines": [{"t": 46.667, "st": "n", "tx": "在音乐和物理之间，他犹豫过。"}, {"t": 49.333, "st": "n", "tx": "最后，他选了{g:物理}。"}]}, {"s": 53.283, "e": 61.313, "lines": [{"t": 53.333, "st": "n", "tx": "在慕尼黑，物理教授约利劝他："}, {"t": 56.0, "st": "n", "tx": "这门学问，已经差不多做完了，"}, {"t": 58.667, "st": "n", "tx": "剩下的，不过是补补漏洞。"}]}, {"s": 61.283, "e": 70.647, "lines": [{"t": 61.333, "st": "n", "tx": "普朗克说，他不想发现新东西，"}, {"t": 64.0, "st": "n", "tx": "只想把已有的基础，弄得更清楚。"}, {"t": 67.333, "st": "n", "tx": "他去{b:柏林}，听亥姆霍兹和基尔霍夫讲课，"}]}, {"s": 70.617, "e": 78.001, "lines": [{"t": 70.667, "st": "n", "tx": "选了{g:热力学}。"}, {"t": 72.667, "st": "n", "tx": "基尔霍夫去世后，"}, {"t": 74.667, "st": "n", "tx": "接他位置的，就是这个学生。"}]}, {"s": 82.75, "e": 93.98, "lines": [{"t": 82.8, "st": "n", "tx": "基尔霍夫留下的问题，还在："}, {"t": 85.6, "st": "n", "tx": "一个黑体，每种颜色的光，发出多少？"}, {"t": 88.8, "st": "n", "tx": "柏林的实验家们，把它量得越来越准。"}, {"t": 92.0, "st": "n", "tx": "这条曲线，像一座山："}]}, {"s": 93.95, "e": 101.18, "lines": [{"t": 94.0, "st": "n", "tx": "短波一头低，中间有个峰，"}, {"t": 96.4, "st": "n", "tx": "长波一头，又落下去。"}, {"t": 98.4, "st": "n", "tx": "温度越高，峰越往蓝色那边移。"}]}, {"s": 101.15, "e": 108.4, "lines": [{"t": 101.2, "st": "n", "tx": "维恩写出了一个公式，"}, {"t": 103.2, "st": "n", "tx": "短波一侧，对得很好；"}, {"t": 105.2, "st": "n", "tx": "可到了长波，越来越偏。"}]}, {"s": 109.95, "e": 121.58, "lines": [{"t": 110.0, "st": "n", "tx": "长波那一头，正是{b:鲁本斯}量的。"}, {"t": 112.8, "st": "n", "tx": "他和库尔鲍姆，测的是远红外的光。"}, {"t": 116.0, "st": "n", "tx": "结果，和维恩的公式，对不上。"}, {"t": 118.8, "st": "n", "tx": "10 月 7 日那晚，普朗克坐下来，"}]}, {"s": 121.55, "e": 130.78, "lines": [{"t": 121.6, "st": "n", "tx": "凑出了一个新公式："}, {"t": 123.6, "st": "n", "tx": "短波、长波，两头都对上了。"}, {"t": 126.4, "st": "n", "tx": "几天后，鲁本斯回话："}, {"t": 128.4, "st": "n", "tx": "和他所有的测量，都吻合。"}]}, {"s": 130.75, "e": 140.0, "lines": [{"t": 130.8, "st": "n", "tx": "10 月，他在德国物理学会报告了它。"}, {"t": 134.0, "st": "n", "tx": "可这只是“凑”出来的。"}, {"t": 136.4, "st": "n", "tx": "他必须弄明白：它为什么是对的。"}]}, {"s": 141.55, "e": 151.98, "lines": [{"t": 141.6, "st": "n", "tx": "接下来的几个星期，"}, {"t": 143.6, "st": "n", "tx": "是他一生里最紧张的日子。"}, {"t": 146.0, "st": "n", "tx": "他试了所有熟悉的办法，都不行。"}, {"t": 148.8, "st": "n", "tx": "最后，他用了玻尔兹曼的统计方法。"}]}, {"s": 151.95, "e": 159.18, "lines": [{"t": 152.0, "st": "n", "tx": "要让它成立，只能加一个奇怪的假设："}, {"t": 155.2, "st": "n", "tx": "能量，不能随便取值，"}, {"t": 157.2, "st": "n", "tx": "只能{g:一份一份}地交换。"}]}, {"s": 159.15, "e": 165.98, "lines": [{"t": 159.2, "st": "n", "tx": "每一份的大小，等于一个常数，"}, {"t": 162.0, "st": "n", "tx": "乘以光的频率："}, {"t": 164.0, "st": "big", "tx": "E = hν"}]}, {"s": 165.95, "e": 176.0, "lines": [{"t": 166.0, "st": "n", "tx": "这个常数 h，小得惊人。"}, {"t": 168.4, "st": "n", "tx": "1900 年 12 月 14 日，他报告了推导。"}, {"t": 171.6, "st": "n", "tx": "很多年后，他把它叫作“{r:绝望之举}”。"}]}, {"s": 180.35, "e": 189.58, "lines": [{"t": 180.4, "st": "n", "tx": "普朗克以为，“一份一份”，"}, {"t": 183.2, "st": "n", "tx": "只是数学上的一个技巧，"}, {"t": 185.6, "st": "n", "tx": "以后会有人把它去掉。"}, {"t": 187.6, "st": "n", "tx": "他自己，花了十几年，"}]}, {"s": 189.55, "e": 199.58, "lines": [{"t": 189.6, "st": "n", "tx": "想把它改得不那么激进。"}, {"t": 192.0, "st": "n", "tx": "1905 年，一个年轻的专利员说："}, {"t": 194.8, "st": "n", "tx": "不，光本身，就是一份一份的。"}, {"t": 197.6, "st": "n", "tx": "普朗克不同意。"}]}, {"s": 199.55, "e": 210.38, "lines": [{"t": 199.6, "st": "n", "tx": "可同一年，这个年轻人写了相对论，"}, {"t": 202.8, "st": "n", "tx": "普朗克立刻看出了分量，"}, {"t": 205.2, "st": "n", "tx": "成了它最早的支持者。"}, {"t": 207.2, "st": "n", "tx": "后来，他把这个年轻人，请到了柏林。"}]}, {"s": 210.35, "e": 219.2, "lines": [{"t": 210.4, "st": "n", "tx": "他叫{g:爱因斯坦}。"}, {"t": 212.4, "st": "n", "tx": "1918 年，诺贝尔物理学奖颁给了普朗克，"}, {"t": 216.0, "st": "n", "tx": "理由是：发现了能量量子。"}]}, {"s": 225.285, "e": 237.315, "lines": [{"t": 225.335, "st": "n", "tx": "他在柏林郊外的家，是个音乐沙龙。"}, {"t": 228.669, "st": "n", "tx": "普朗克弹钢琴，爱因斯坦也是常客。"}, {"t": 232.002, "st": "n", "tx": "1909 年，妻子去世。"}, {"t": 234.002, "st": "n", "tx": "1916 年，长子卡尔，在一战中阵亡。"}]}, {"s": 237.285, "e": 247.335, "lines": [{"t": 237.335, "st": "n", "tx": "1917 年，女儿格蕾特，死于难产。"}, {"t": 240.669, "st": "n", "tx": "1919 年，她的孪生姐妹艾玛，"}, {"t": 243.335, "st": "n", "tx": "也死于难产。"}]}, {"s": 248.618, "e": 257.315, "lines": [{"t": 248.668, "st": "n", "tx": "1933 年，纳粹上台。"}, {"t": 250.668, "st": "n", "tx": "犹太科学家，一个个被赶出大学。"}, {"t": 254.002, "st": "n", "tx": "普朗克，是当时德国科学界的领袖。"}]}, {"s": 257.285, "e": 264.648, "lines": [{"t": 257.335, "st": "n", "tx": "他去见了希特勒，"}, {"t": 259.335, "st": "n", "tx": "想替犹太化学家{g:哈伯}求情。"}, {"t": 262.002, "st": "n", "tx": "希特勒大发雷霆，毫无结果。"}]}, {"s": 264.618, "e": 272.669, "lines": [{"t": 264.668, "st": "n", "tx": "他没有离开德国，"}, {"t": 266.668, "st": "n", "tx": "也没有公开反抗。"}, {"t": 268.668, "st": "n", "tx": "后人对这个选择，评价两极。"}]}, {"s": 273.952, "e": 285.316, "lines": [{"t": 274.002, "st": "n", "tx": "1944 年 2 月，他在柏林的家被炸毁，"}, {"t": 277.336, "st": "n", "tx": "许多书信和手稿，毁于大火。"}, {"t": 280.002, "st": "n", "tx": "同年 7 月，儿子{g:埃尔温}被捕，"}, {"t": 282.669, "st": "n", "tx": "他卷入了刺杀希特勒的密谋。"}]}, {"s": 285.286, "e": 297.336, "lines": [{"t": 285.336, "st": "n", "tx": "普朗克亲笔写信，求希特勒饶他一命。"}, {"t": 288.669, "st": "n", "tx": "没有回音。"}, {"t": 290.669, "st": "n", "tx": "1945 年 1 月，埃尔温被处死。"}, {"t": 293.336, "st": "n", "tx": "普朗克，八十六岁。"}]}, {"s": 298.619, "e": 307.316, "lines": [{"t": 298.669, "st": "n", "tx": "战争结束后，他住在哥廷根。"}, {"t": 301.336, "st": "n", "tx": "1947 年 10 月，他在那里去世。"}, {"t": 304.669, "st": "n", "tx": "第二年，德国最大的科研机构，"}]}, {"s": 307.286, "e": 312.669, "lines": [{"t": 307.336, "st": "n", "tx": "改以他的名字命名："}, {"t": 309.336, "st": "n", "tx": "{g:马克斯·普朗克学会}。"}]}, {"s": 318.619, "e": 329.316, "lines": [{"t": 318.669, "st": "n", "tx": "一百多年里，“一千克”到底多重，"}, {"t": 322.003, "st": "n", "tx": "由法国的一块铂铱合金圆柱说了算。"}, {"t": 325.336, "st": "n", "tx": "可它和各国的复制品，"}, {"t": 327.336, "st": "n", "tx": "质量慢慢对不上了。"}]}, {"s": 329.286, "e": 337.316, "lines": [{"t": 329.336, "st": "n", "tx": "2019 年 5 月 20 日起，"}, {"t": 332.003, "st": "n", "tx": "千克改由{b:普朗克常数}来定义："}, {"t": 334.669, "st": "n", "tx": "h 被固定为 6.62607015"}]}, {"s": 337.286, "e": 346.669, "lines": [{"t": 337.336, "st": "n", "tx": "乘以 10 的负 34 次方。"}, {"t": 340.003, "st": "n", "tx": "他当年不愿相信的那个小数，"}, {"t": 342.67, "st": "n", "tx": "成了称量世界的{g:砝码}。"}]}], "chaps": [{"s": 33.334, "e": 36.0, "word": "世家", "en": "", "line": "一个最守规矩的人。", "n": ""}, {"s": 78.4, "e": 81.2, "word": "曲线", "en": "", "line": "基尔霍夫留下的那条曲线。", "n": ""}, {"s": 176.0, "e": 178.8, "word": "不信", "en": "", "line": "一个不愿相信的人。", "n": ""}, {"s": 221.335, "e": 224.002, "word": "失去", "en": "", "line": "一个接一个，失去。", "n": ""}, {"s": 314.669, "e": 317.336, "word": "砝码", "en": "", "line": "那个他不信的小数。", "n": ""}], "crumbs": [{"t": 30.8, "zh": "人物传记 · 普朗克", "en": ""}, {"t": 33.334, "zh": "世家", "en": ""}, {"t": 78.4, "zh": "曲线", "en": ""}, {"t": 176.0, "zh": "不信", "en": ""}, {"t": 221.335, "zh": "失去", "en": ""}, {"t": 314.669, "zh": "砝码", "en": ""}, {"t": 346.669, "zh": "回顾", "en": ""}, {"t": 358.003, "zh": "资料来源", "en": ""}], "counters": [], "slams": [], "shake": [[21.833, 8], [27.167, 12], [30.4, 14], [33.684, 12], [49.833, 8], [75.167, 6], [78.75, 12], [105.7, 4], [122.1, 10], [136.9, 10], [164.5, 12], [172.1, 14], [176.35, 12], [198.1, 6], [210.9, 8], [212.9, 12], [221.685, 12], [262.602, 4], [309.836, 8], [315.019, 12], [332.503, 12], [343.17, 14], [354.302, 10]], "sfx": [["sub_pad", 0, 0.35, 0.0], ["ui_ping_1", 3.067, 0.35, 0.0], ["ui_ping_2", 6.4, 0.3, 0.0], ["ui_ping_3", 9.733, 0.3, 0.0], ["whoosh_swing", 12.3, 0.3, 0.0], ["downer", 15.833, 0.25, 0.0], ["ui_ping_1", 19.067, 0.3, 0.0], ["hit_drum", 21.833, 0.8, 0.0], ["slam", 21.833, 0.6400000000000001, 0.0], ["sparkle_bed", 21.933, 0.3, 0.0], ["whoosh_swing", 24.3, 0.3, 0.0], ["hit_drum", 27.167, 1.0, 0.0], ["slam", 27.167, 0.8, 0.0], ["sparkle_bed", 27.267, 0.35, 0.0], ["hit_drum", 30.4, 1.0, 0.0], ["slam", 30.4, 0.8, 0.0], ["riser", 32.334, 0.3, 0.0], ["hit_drum", 33.684, 0.9, 0.0], ["slam", 33.684, 0.7200000000000001, 0.0], ["sub_drop", 33.684, 0.5, 0.0], ["ui_ping_1", 37.733, 0.35, 0.0], ["ui_ping_2", 41.067, 0.3, 0.0], ["sparkle_bed", 44.3, 0.25, 0.0], ["whoosh_swing", 46.967, 0.25, 0.0], ["hit_drum", 49.833, 0.8, 0.0], ["slam", 49.833, 0.6400000000000001, 0.0], ["ui_ping_1", 53.733, 0.3, 0.0], ["ui_ping_2", 56.4, 0.3, 0.0], ["downer", 59.167, 0.25, 0.0], ["ui_ping_3", 61.733, 0.3, 0.0], ["whoosh_swing", 67.633, 0.3, 0.0], ["ui_ping_1", 71.067, 0.3, 0.0], ["ui_ping_2", 73.067, 0.3, 0.0], ["hit_drum2", 75.167, 0.7, 0.0], ["slam", 75.167, 0.315, 0.0], ["riser", 77.4, 0.3, 0.0], ["hit_drum", 78.75, 0.9, 0.0], ["slam", 78.75, 0.7200000000000001, 0.0], ["sub_drop", 78.75, 0.5, 0.0], ["ui_ping_1", 83.2, 0.3, 0.0], ["ui_ping_2", 86.0, 0.3, 0.0], ["ui_ping_3", 89.2, 0.3, 0.0], ["whoosh_swing", 92.3, 0.3, 0.0], ["ui_ping_1", 94.4, 0.3, 0.0], ["ui_ping_2", 96.8, 0.3, 0.0], ["whoosh_swing", 98.7, 0.3, 0.0], ["ui_ping_3", 101.6, 0.3, 0.0], ["ui_ping_1", 103.6, 0.3, 0.0], ["downer", 105.7, 0.3, 0.0], ["hit_drum2", 105.7, 0.6, 0.0], ["slam", 105.7, 0.27, 0.0], ["ui_ping_1", 110.4, 0.3, 0.0], ["ui_ping_2", 113.2, 0.3, 0.0], ["downer", 116.5, 0.25, 0.0], ["ui_ping_3", 119.2, 0.3, 0.0], ["hit_drum", 122.1, 0.9, 0.0], ["slam", 122.1, 0.7200000000000001, 0.0], ["sparkle_bed", 122.2, 0.35, 0.0], ["whoosh_swing", 123.9, 0.25, 0.0], ["ui_ping_1", 126.8, 0.3, 0.0], ["ui_ping_2", 128.8, 0.35, 0.0], ["ui_ping_3", 131.2, 0.3, 0.0], ["downer", 134.5, 0.3, 0.0], ["hit_drum", 136.9, 0.9, 0.0], ["slam", 136.9, 0.7200000000000001, 0.0], ["ui_ping_1", 144.0, 0.3, 0.0], ["downer", 146.5, 0.25, 0.0], ["ui_ping_2", 149.2, 0.3, 0.0], ["whoosh_swing", 155.5, 0.3, 0.0], ["ui_ping_3", 157.6, 0.35, 0.0], ["sparkle_bed", 157.7, 0.3, 0.0], ["ui_ping_1", 159.6, 0.3, 0.0], ["ui_ping_2", 162.4, 0.3, 0.0], ["hit_drum", 164.5, 1.0, 0.0], ["slam", 164.5, 0.8, 0.0], ["sparkle_bed", 164.6, 0.4, 0.0], ["ui_ping_3", 166.4, 0.3, 0.0], ["ui_ping_1", 168.8, 0.3, 0.0], ["hit_drum", 172.1, 1.0, 0.0], ["slam", 172.1, 0.8, 0.0], ["sub_drop", 172.1, 0.45, 0.0], ["riser", 175.0, 0.3, 0.0], ["hit_drum", 176.35, 0.9, 0.0], ["slam", 176.35, 0.7200000000000001, 0.0], ["sub_drop", 176.35, 0.5, 0.0], ["ui_ping_1", 180.8, 0.3, 0.0], ["downer", 186.1, 0.25, 0.0], ["ui_ping_2", 188.0, 0.3, 0.0], ["ui_ping_3", 192.4, 0.3, 0.0], ["sparkle_bed", 195.1, 0.3, 0.0], ["hit_drum2", 198.1, 0.7, 0.0], ["slam", 198.1, 0.315, 0.0], ["ui_ping_1", 200.0, 0.3, 0.0], ["ui_ping_2", 203.2, 0.3, 0.0], ["whoosh_swing", 207.5, 0.3, 0.0], ["hit_drum", 210.9, 0.8, 0.0], ["slam", 210.9, 0.6400000000000001, 0.0], ["hit_drum", 212.9, 1.0, 0.0], ["slam", 212.9, 0.8, 0.0], ["sparkle_bed", 213.0, 0.4, 0.0], ["riser", 220.335, 0.3, 0.0], ["hit_drum", 221.685, 0.9, 0.0], ["slam", 221.685, 0.7200000000000001, 0.0], ["sub_drop", 221.685, 0.5, 0.0], ["sub_pad", 225.335, 0.3, 0.0], ["ui_ping_1", 229.069, 0.25, 0.0], ["downer", 232.502, 0.28, 0.0], ["downer", 234.502, 0.28, 0.0], ["downer", 237.835, 0.28, 0.0], ["downer", 241.169, 0.28, 0.0], ["sub_pad", 248.668, 0.3, 0.0], ["ui_ping_1", 251.068, 0.25, 0.0], ["ui_ping_2", 257.735, 0.3, 0.0], ["ui_ping_3", 259.735, 0.3, 0.0], ["downer", 262.502, 0.3, 0.0], ["hit_drum2", 262.602, 0.5, 0.0], ["slam", 262.602, 0.225, 0.0], ["ui_ping_1", 265.068, 0.25, 0.0], ["ui_ping_2", 269.068, 0.25, 0.0], ["downer", 274.502, 0.28, 0.0], ["ui_ping_1", 280.402, 0.25, 0.0], ["ui_ping_2", 283.069, 0.25, 0.0], ["ui_ping_3", 285.736, 0.25, 0.0], ["downer", 289.169, 0.25, 0.0], ["sub_drop", 291.169, 0.4, 0.0], ["downer", 293.836, 0.28, 0.0], ["sub_pad", 298.669, 0.3, 0.0], ["ui_ping_1", 301.736, 0.25, 0.0], ["ui_ping_2", 305.069, 0.3, 0.0], ["whoosh_swing", 307.636, 0.25, 0.0], ["hit_drum", 309.836, 0.9, 0.0], ["slam", 309.836, 0.7200000000000001, 0.0], ["sparkle_bed", 309.936, 0.3, 0.0], ["riser", 313.669, 0.3, 0.0], ["hit_drum", 315.019, 0.9, 0.0], ["slam", 315.019, 0.7200000000000001, 0.0], ["sub_drop", 315.019, 0.5, 0.0], ["ui_ping_1", 319.069, 0.3, 0.0], ["ui_ping_2", 322.403, 0.3, 0.0], ["ui_ping_3", 325.736, 0.3, 0.0], ["downer", 327.836, 0.3, 0.0], ["whoosh_swing", 329.636, 0.3, 0.0], ["hit_drum", 332.503, 1.0, 0.0], ["slam", 332.503, 0.8, 0.0], ["sparkle_bed", 332.603, 0.4, 0.0], ["ui_ping_2", 335.069, 0.3, 0.0], ["ui_ping_3", 337.736, 0.3, 0.0], ["whoosh_swing", 340.303, 0.3, 0.0], ["hit_drum", 343.17, 1.0, 0.0], ["slam", 343.17, 0.8, 0.0], ["sparkle_bed", 343.27, 0.4, 0.0], ["ui_ping_1", 348.202, 0.4, 0.0], ["ui_ping_2", 350.202, 0.4, 0.0], ["ui_ping_3", 352.202, 0.4, 0.0], ["ui_ping_1", 354.202, 0.4, 0.0], ["hit_drum", 354.302, 0.9, 0.0], ["slam", 354.302, 0.7200000000000001, 0.0]], "years": [[36.6, 1858.0], [37.833, 1858.0], [39.067, 1858.0], [40.3, 1858.0], [41.533, 1858.0], [42.767, 1858.0], [44.0, 1858.0], [45.233, 1858.0], [46.467, 1858.0], [47.7, 1858.0], [48.933, 1858.0], [50.167, 1858.0], [51.4, 1858], [52.6, 1874.0], [53.781, 1874.6], [54.962, 1875.2], [56.143, 1875.9], [57.324, 1876.5], [58.505, 1877.1], [59.686, 1877.7], [60.867, 1878.3], [62.048, 1879.0], [63.229, 1879.6], [64.41, 1880.2], [65.591, 1880.8], [66.772, 1881.4], [67.953, 1882.0], [69.134, 1882.7], [70.315, 1883.3], [71.496, 1883.9], [72.677, 1884.5], [73.858, 1885.1], [75.039, 1885.8], [76.22, 1886.4], [77.401, 1887], [81.8, 1887.0], [82.982, 1887.6], [84.164, 1888.2], [85.345, 1888.8], [86.527, 1889.4], [87.709, 1890.0], [88.891, 1890.5], [90.073, 1891.1], [91.255, 1891.7], [92.436, 1892.3], [93.618, 1892.9], [94.8, 1893.5], [95.982, 1894.1], [97.164, 1894.7], [98.345, 1895.3], [99.527, 1895.9], [100.709, 1896.5], [101.891, 1897.0], [103.073, 1897.6], [104.255, 1898.2], [105.436, 1898.8], [106.618, 1899.4], [107.8, 1900], [109.0, 1900.0], [110.216, 1900.0], [111.432, 1900.0], [112.648, 1900.0], [113.864, 1900.0], [115.08, 1900.0], [116.296, 1900.0], [117.512, 1900.0], [118.728, 1900.0], [119.944, 1900.0], [121.16, 1900.0], [122.376, 1900.0], [123.592, 1900.0], [124.808, 1900.0], [126.024, 1900.0], [127.24, 1900.0], [128.456, 1900.0], [129.672, 1900.0], [130.888, 1900.0], [132.104, 1900.0], [133.32, 1900.0], [134.536, 1900.0], [135.752, 1900.0], [136.968, 1900.0], [138.184, 1900.0], [139.4, 1900], [140.6, 1900.0], [141.8, 1900.0], [143.0, 1900.0], [144.2, 1900.0], [145.4, 1900.0], [146.6, 1900.0], [147.8, 1900.0], [149.0, 1900.0], [150.2, 1900.0], [151.4, 1900.0], [152.6, 1900.0], [153.8, 1900.0], [155.0, 1900.0], [156.2, 1900.0], [157.4, 1900.0], [158.6, 1900.0], [159.8, 1900.0], [161.0, 1900.0], [162.2, 1900.0], [163.4, 1900.0], [164.6, 1900.0], [165.8, 1900.0], [167.0, 1900.0], [168.2, 1900.0], [169.4, 1900.0], [170.6, 1900.0], [171.8, 1900.0], [173.0, 1900.0], [174.2, 1900.0], [175.4, 1900], [179.4, 1900.0], [180.66, 1900.5], [181.92, 1901.0], [183.18, 1901.5], [184.44, 1902.0], [185.7, 1902.5], [186.96, 1903.0], [188.22, 1903.5], [189.48, 1904.0], [190.74, 1904.5], [192.0, 1905.0], [193.2, 1905.8], [194.4, 1906.5], [195.6, 1907.3], [196.8, 1908.1], [198.0, 1908.8], [199.2, 1909.6], [200.4, 1910.4], [201.6, 1911.1], [202.8, 1911.9], [204.0, 1912.6], [205.2, 1913.4], [206.4, 1914.2], [207.6, 1914.9], [208.8, 1915.7], [210.0, 1916.5], [211.2, 1917.2], [212.4, 1918], [213.6, 1918], [214.8, 1918], [216.0, 1918], [217.2, 1918], [218.4, 1918], [224.602, 1905.0], [225.835, 1905.7], [227.069, 1906.3], [228.302, 1907.0], [229.535, 1907.7], [230.769, 1908.3], [232.002, 1909.0], [233.002, 1912.5], [234.002, 1916.0], [235.113, 1916.3], [236.224, 1916.7], [237.335, 1917.0], [238.446, 1917.7], [239.558, 1918.3], [240.669, 1919], [241.869, 1919], [243.069, 1919], [244.269, 1919], [245.469, 1919], [246.669, 1919], [247.935, 1933.0], [249.142, 1933.0], [250.348, 1933.0], [251.555, 1933.0], [252.762, 1933.0], [253.969, 1933.0], [255.175, 1933.0], [256.382, 1933.0], [257.589, 1933.0], [258.795, 1933.0], [260.002, 1933.0], [261.209, 1933.0], [262.415, 1933.0], [263.622, 1933.0], [264.829, 1933.0], [266.035, 1933.0], [267.242, 1933.0], [268.449, 1933.0], [269.656, 1933.0], [270.862, 1933.0], [272.069, 1933], [273.269, 1944.0], [274.391, 1944.0], [275.513, 1944.0], [276.635, 1944.0], [277.758, 1944.0], [278.88, 1944.0], [280.002, 1944.0], [281.187, 1944.1], [282.372, 1944.2], [283.558, 1944.3], [284.743, 1944.4], [285.928, 1944.6], [287.113, 1944.7], [288.299, 1944.8], [289.484, 1944.9], [290.669, 1945], [291.869, 1945], [293.069, 1945], [294.269, 1945], [295.469, 1945], [296.669, 1945], [297.936, 1945.0], [299.069, 1945.7], [300.203, 1946.3], [301.336, 1947], [302.536, 1947], [303.736, 1947], [304.936, 1947], [306.136, 1947], [307.336, 1947], [308.536, 1947], [309.736, 1947], [310.936, 1947], [312.136, 1947]], "yvis": [[35.7, 312.36899999999997]], "ticks": [1858, 1900, 1918, 1933, 1947], "yr0": 1850, "yr1": 1955, "scenes": [{"key": "hero", "k": "hero", "draw": "h0", "s": 0.0, "e": 33.334, "ls": [2.667, 6.0, 9.333, 12.0, 15.333, 18.667, 21.333, 24.0, 26.667, 30.0]}, {"key": "ch1", "k": "chap", "draw": null, "s": 33.334, "e": 36.0, "ls": [0.45]}, {"key": "s1", "k": "s", "draw": "kiel", "s": 36.0, "e": 52.0, "ls": [1.333, 4.667, 8.0, 10.667, 13.333]}, {"key": "s2", "k": "s", "draw": "jolly", "s": 52.0, "e": 78.001, "ls": [1.333, 4.0, 6.667, 9.333, 12.0, 15.333, 18.667, 20.667, 22.667]}, {"key": "ch2", "k": "chap", "draw": null, "s": 78.4, "e": 81.2, "ls": [0.45]}, {"key": "s3", "k": "s", "draw": "curve", "s": 81.2, "e": 108.4, "ls": [1.6, 4.4, 7.6, 10.8, 12.8, 15.2, 17.2, 20.0, 22.0, 24.0]}, {"key": "s4", "k": "s", "draw": "postcard", "s": 108.4, "e": 140.0, "ls": [1.6, 4.4, 7.6, 10.4, 13.2, 15.2, 18.0, 20.0, 22.4, 25.6, 28.0]}, {"key": "s5", "k": "s", "draw": "quantum", "s": 140.0, "e": 176.0, "ls": [1.6, 3.6, 6.0, 8.8, 12.0, 15.2, 17.2, 19.2, 22.0, 24.0, 26.0, 28.4, 31.6]}, {"key": "ch3", "k": "chap", "draw": null, "s": 176.0, "e": 178.8, "ls": [0.45]}, {"key": "s6", "k": "s", "draw": "doubt", "s": 178.8, "e": 219.2, "ls": [1.6, 4.4, 6.8, 8.8, 10.8, 13.2, 16.0, 18.8, 20.8, 24.0, 26.4, 28.4, 31.6, 33.6, 37.2]}, {"key": "ch4", "k": "chap", "draw": null, "s": 221.335, "e": 224.002, "ls": [0.45]}, {"key": "s7", "k": "s", "draw": "home", "s": 224.002, "e": 247.335, "ls": [1.333, 4.667, 8.0, 10.0, 13.333, 16.667, 19.333]}, {"key": "s8", "k": "s", "draw": "hitler", "s": 247.335, "e": 272.669, "ls": [1.333, 3.333, 6.667, 10.0, 12.0, 14.667, 17.333, 19.333, 21.333]}, {"key": "s9", "k": "s", "draw": "erwin", "s": 272.669, "e": 297.336, "ls": [1.333, 4.667, 7.333, 10.0, 12.667, 16.0, 18.0, 20.667]}, {"key": "s10", "k": "s", "draw": "gott", "s": 297.336, "e": 312.669, "ls": [1.333, 4.0, 7.333, 10.0, 12.0]}, {"key": "ch5", "k": "chap", "draw": null, "s": 314.669, "e": 317.336, "ls": [0.45]}, {"key": "s11", "k": "s", "draw": "kilo", "s": 317.336, "e": 346.669, "ls": [1.333, 4.667, 8.0, 10.0, 12.0, 14.667, 17.333, 20.0, 22.667, 25.334]}, {"key": "recap", "k": "recap", "draw": null, "s": 346.669, "e": 358.003, "ls": [1.333, 3.333, 5.333, 7.333]}, {"key": "src", "k": "src", "draw": null, "s": 358.003, "e": 365.003, "ls": []}], "idx": {"hero": 0, "ch1": 1, "s1": 2, "s2": 3, "ch2": 4, "s3": 5, "s4": 6, "s5": 7, "ch3": 8, "s6": 9, "ch4": 10, "s7": 11, "s8": 12, "s9": 13, "s10": 14, "ch5": 15, "s11": 16, "recap": 17, "src": 18}, "src": [["生平、音乐、基尔与柏林、约利、家人、1944 年家被炸", "MacTutor · max-planck.mpg.de"], ["1900 年 10 月 7 日、鲁本斯、明信片", "Wikipedia: Heinrich Rubens · JQI"], ["12 月 14 日报告、玻尔兹曼统计、E = hν", "lernhelfer.de · 1900 年两次报告"], ["1933 年见希特勒、留在德国", "NYRB · Max Planck: Tragic Choices"], ["埃尔温被捕、处决与求情信", "Wikipedia: Erwin Planck"], ["2019 年千克改由普朗克常数定义", "ScienceAlert · 2019 千克新定义"]], "title": "最保守的人，打开了量子的门", "secs": [{"n": "A", "s": 0.0, "e": 78.4}, {"n": "C", "s": 78.4, "e": 221.335}, {"n": "D", "s": 221.335, "e": 314.669}, {"n": "E", "s": 314.669, "e": 365.003}]};window.PHOTO_URI="";</script><script>// Style-v2 engine: one 1920x1080 canvas, everything (text included) drawn in canvas so it can blur, glow and shake.
+// Learned from the three reference films (see kit/video-kit/sfx_ref/NOTES.md):
+//   bloom + vignette + film grain, top-left stacked serif narration with per-character blur-in and underlined keywords,
+//   top-right counters, tick bars, screen shake on impacts, a thin era timeline at the bottom.
+var W = 1920, H = 1080, TL = window.TL;
+var out = document.getElementById('cv'), O = out.getContext('2d');
+var main = document.createElement('canvas'); main.width = W; main.height = H; var M = main.getContext('2d');
+var small = document.createElement('canvas'); small.width = 480; small.height = 270; var SM = small.getContext('2d');
+var COL = { n: '#ece6da', b: '#86b6ff', r: '#ef5b43', g: '#f0bd5c', dim: '#9aa3b2', bg: '#080b12' };
+var SERIF = '"Noto Serif CJK SC"', MONO = '"IBM Plex Mono", "DejaVu Sans Mono", monospace';
+function cl(x, a, b) { return x < a ? a : x > b ? b : x; }
+function E(x) { x = cl(x, 0, 1); return x * x * (3 - 2 * x); }
+function eo(x) { x = cl(x, 0, 1); return 1 - Math.pow(1 - x, 3); }
+function back(x) { x = cl(x, 0, 1); var c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }
+function win(t, a, b, fi, fo) { return E((t - a) / fi) * (1 - E((t - b + fo) / fo)); }
+function rnd(s) { var x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+// ---------- grain: a few pre-made noise tiles ----------
+var GR = [];
+for (var gi = 0; gi < 6; gi++) {
+  var c = document.createElement('canvas'); c.width = 640; c.height = 360; var g = c.getContext('2d'), im = g.createImageData(640, 360);
+  for (var i = 0; i < im.data.length; i += 4) { var v = 128 + (Math.random() - 0.5) * 255; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
+  g.putImageData(im, 0, 0); GR.push(c);
+}
+// ---------- stars and out-of-focus dust ----------
+var STARS = [], DUST = [];
+for (var i = 0; i < 260; i++) STARS.push([rnd(i) * W, rnd(i + 99) * H, 0.4 + rnd(i + 7) * 1.4, rnd(i + 3) * 6.28, 0.15 + rnd(i + 5) * 0.5]);
+for (var i = 0; i < 22; i++) DUST.push([rnd(i + 500) * W, rnd(i + 600) * H, 14 + rnd(i + 700) * 46, rnd(i + 800) * 6.28, 0.03 + rnd(i + 900) * 0.06]);
+
+// ---------- narration text: top-left stack ----------
+var SIZE = { n: 50, q: 64, big: 104 }, X0 = 112, Y0 = 150;
+function parse(tx) {           // -> [{ch, c}] with c in n/b/r/g, words for underline
+  var out = [], re = /\{([brg]):([^}]*)\}/g, last = 0, m, w = 0;
+  while ((m = re.exec(tx))) {
+    for (var k = last; k < m.index; k++) out.push({ ch: tx[k], c: 'n', w: -1 });
+    for (var k = 0; k < m[2].length; k++) out.push({ ch: m[2][k], c: m[1], w: w });
+    w++; last = re.lastIndex;
+  }
+  for (var k = last; k < tx.length; k++) out.push({ ch: tx[k], c: 'n', w: -1 });
+  return out;
+}
+TL.groups.forEach(function (gr) { gr.lines.forEach(function (L) { L.ch = parse(L.tx); }); });
+var RATE = 0.045, FADE = 0.3;
+function drawText(g, t) {
+  TL.groups.forEach(function (gr) {
+    if (t < gr.s - 0.01 || t > gr.e + 0.01) return;
+    var go = 1 - E((t - (gr.e - 0.35)) / 0.35);           // whole group blurs out at its end
+    if (go <= 0) return;
+    var y = Y0;
+    gr.lines.forEach(function (L) {
+      var sz = SIZE[L.st]; y += (L.st === 'q' ? sz * 1.15 : L.st === 'big' ? sz * 1.05 : sz * 1.25);
+      if (t < L.t) return;
+      g.font = '900 ' + sz + 'px ' + SERIF; g.textBaseline = 'alphabetic';
+      var x = X0, under = {};
+      L.ch.forEach(function (o, k) {
+        var w = g.measureText(o.ch).width, p = cl((t - L.t - k * RATE) / FADE, 0, 1);
+        if (p > 0) {
+          var a = E(p) * go, bl = (1 - eo(p)) * 12 + (1 - go) * 10;
+          g.save(); g.globalAlpha = a; if (bl > 0.3) g.filter = 'blur(' + bl.toFixed(1) + 'px)';
+          g.shadowColor = 'rgba(0,0,0,0.85)'; g.shadowBlur = 18; g.shadowOffsetY = 3;
+          g.fillStyle = o.c === 'n' ? (L.st === 'q' ? '#f4ead2' : COL.n) : COL[o.c];
+          g.fillText(o.ch, x, y + (1 - eo(p)) * 10); g.restore();
+        }
+        if (o.w >= 0) { var u = under[o.w] || (under[o.w] = { x0: x, x1: x, c: o.c, k1: k }); u.x1 = x + w; u.k1 = k; }
+        x += w;
+      });
+      for (var key in under) {          // underline grows once the word is in
+        var u = under[key], p = cl((t - L.t - u.k1 * RATE - FADE * 0.6) / 0.35, 0, 1); if (p <= 0) continue;
+        g.save(); g.globalAlpha = 0.9 * go; g.strokeStyle = COL[u.c]; g.lineWidth = sz > 80 ? 5 : 3;
+        g.shadowColor = COL[u.c]; g.shadowBlur = 10; g.beginPath(); g.moveTo(u.x0, y + sz * 0.16); g.lineTo(u.x0 + (u.x1 - u.x0) * eo(p), y + sz * 0.16); g.stroke(); g.restore();
+      }
+    });
+  });
+}
+// a small breadcrumb above the narration (chapter + a mono English caption)
+function crumb(g, t) {
+  var c = null, nx = TL.end; TL.crumbs.forEach(function (k, i) { if (t >= k.t) { c = k; nx = i + 1 < TL.crumbs.length ? TL.crumbs[i + 1].t : TL.end; } });
+  if (!c) return; var chapOn = TL.chaps.some(function (k) { return t >= k.s && t < k.e; });
+  var a = 0.75 * win(t, c.t + (chapOn ? 99 : 0), nx, 0.6, 0.4); if (chapOn) { var k0 = TL.chaps.filter(function (k) { return t >= k.s && t < k.e; })[0]; a = 0.75 * E((t - k0.e + 0.3) / 0.6); }
+  if (a <= 0) return;
+  g.save(); g.globalAlpha = a; g.fillStyle = COL.g; g.fillRect(X0, 66, 3, 34);
+  g.font = '900 26px ' + SERIF; g.fillStyle = '#e8dcc0'; g.fillText(c.zh, X0 + 18, 92); var w = g.measureText(c.zh).width;
+  g.font = '500 17px ' + MONO; g.fillStyle = COL.dim; g.fillText(c.en, X0 + 40 + w, 91); g.restore();
+}
+function fmtN(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function counters(g, t) {
+  TL.counters.forEach(function (c) {
+    if (t < c.t0 - 0.3 || t > c.hide + 0.01) return;
+    var u = cl((t - c.t0) / (c.t1 - c.t0), 0, 1), v = c.a + (c.b - c.a) * Math.pow(u, c.pw), landed = t >= c.t1; v = c.dec ? v.toFixed(c.dec) : Math.round(v);
+    var pop = landed ? Math.max(0, 1 - (t - c.t1) / 0.18) * 1.6 : 0;
+    var a = E((t - c.t0 + 0.3) / 0.3) * (1 - E((t - c.hide + 0.35) / 0.35));
+    counter(g, c.label, (c.endtxt && landed) ? c.endtxt : (+v >= 10000 ? fmtN(v) : String(v)), c.unit, a, landed && c.land ? c.land : c.col, pop);
+  });
+}
+function slams(g, t) {
+  TL.slams.forEach(function (s) {
+    var d = t - s.t, e = s.e || (s.t + 2.5); if (d < 0 || t > e) return;
+    var a = Math.min(1, d / 0.05) * (1 - E((t - e + 0.4) / 0.4)), k = d < 0.16 ? 2.2 - 1.2 * eo(d / 0.16) : 1 + 0.015 * (d - 0.16);
+    g.save(); g.globalAlpha = a; g.translate(s.x, s.y); g.scale(k, k); g.textAlign = 'center';
+    g.font = '900 ' + s.size + 'px ' + SERIF; g.fillStyle = s.col; g.shadowColor = s.col; g.shadowBlur = 40; g.fillText(s.tx, 0, s.size * 0.35);
+    if (s.en) { g.shadowBlur = 0; g.globalAlpha = a * E((d - 0.4) / 0.5) * 0.8; g.font = '500 22px ' + MONO; g.fillStyle = 'rgba(230,215,190,0.9)'; if (g.letterSpacing !== undefined) g.letterSpacing = '6px'; g.fillText(s.en, 0, s.size * 0.35 + 54); if (g.letterSpacing !== undefined) g.letterSpacing = '0px'; }
+    g.restore();
+    var dd = d; if (dd < 0.5) { g.save(); g.strokeStyle = s.col; g.globalAlpha = 0.85 * (1 - dd / 0.5); g.lineWidth = 4;
+      for (var i = 0; i < 14; i++) { var an = i / 14 * 6.283 + 0.2, r0 = s.size * 0.75 + dd * 420, r1 = r0 + 50 + 30 * rnd(i); g.beginPath(); g.moveTo(s.x + Math.cos(an) * r0, s.y + Math.sin(an) * r0 * 0.7); g.lineTo(s.x + Math.cos(an) * r1, s.y + Math.sin(an) * r1 * 0.7); g.stroke(); }
+      g.restore(); }
+  });
+}
+// top-right counter: small label, big serif number, unit
+function counter(g, label, num, unit, a, col, pop) {
+  if (a <= 0) return; g.save(); g.globalAlpha = a; g.textAlign = 'right';
+  g.font = '700 24px ' + SERIF; g.fillStyle = COL.dim; g.fillText(label, 1800, 112);
+  var s = 1 + 0.18 * (pop || 0);
+  g.translate(1800, 206); g.scale(s, s);
+  g.font = '900 52px ' + SERIF; g.fillStyle = col || '#f3ede2'; var uw = g.measureText(unit).width; g.fillText(unit, 0, 0);
+  g.font = '900 96px ' + SERIF; g.shadowColor = col || 'rgba(255,240,210,0.6)'; g.shadowBlur = 24; g.fillText(num, -uw - 14, 0);
+  g.restore();
+}
+// thin era timeline at the bottom
+function timeline(g, t) {
+  if (!TL.years.length) return;
+  var a = 0; TL.yvis.forEach(function (w) { a = Math.max(a, win(t, w[0], w[1], 0.6, 0.6)); });
+  TL.chaps.forEach(function (k) { if (t >= k.s - 0.3 && t < k.e + 0.3) a *= 1 - win(t, k.s - 0.3, k.e + 0.3, 0.3, 0.3); });
+  var Ys = TL.years, year = Ys[0][1]; for (var i = 0; i < Ys.length; i++) { if (t >= Ys[i][0]) { year = Ys[i][1]; if (i + 1 < Ys.length && t < Ys[i + 1][0]) year = Ys[i][1] + (Ys[i + 1][1] - Ys[i][1]) * E((t - Ys[i][0]) / Math.max(0.01, Math.min(1.2, Ys[i + 1][0] - Ys[i][0]))); } }
+  if (a <= 0) return; var x0 = 560, x1 = 1360, y = 1012, Y0 = TL.yr0, Y1 = TL.yr1;
+  function X(yr) { return x0 + (x1 - x0) * (yr - Y0) / (Y1 - Y0); }
+  g.save(); g.globalAlpha = a * 0.8; g.strokeStyle = 'rgba(220,205,180,0.35)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+  g.font = '700 20px ' + SERIF; g.textAlign = 'center';
+  TL.ticks.forEach(function (yr) { g.fillStyle = 'rgba(220,205,180,0.55)'; g.fillRect(X(yr) - 0.75, y - 6, 1.5, 12); g.fillText(yr, X(yr), y + 34); });
+  var xd = X(year); g.fillStyle = COL.g; g.shadowColor = COL.g; g.shadowBlur = 14; g.beginPath(); g.arc(xd, y, 6, 0, 6.29); g.fill();
+  g.strokeStyle = COL.g; g.lineWidth = 1.5; g.beginPath(); g.arc(xd, y, 12, 0, 6.29); g.stroke(); g.restore();
+}
+function note(g, s, a) { if (a <= 0) return; g.save(); g.globalAlpha = a * 0.6; g.font = '500 18px ' + SERIF; g.fillStyle = COL.dim; g.textAlign = 'right'; g.fillText(s, 1840, 1050); g.restore(); }
+
+// ---------- shake ----------
+function shake(t) {
+  var x = 0, y = 0;
+  TL.shake.forEach(function (s, i) {
+    var d = t - s[0]; if (d < 0 || d > 0.6) return; var k = s[1] * Math.exp(-d / 0.11);
+    x += k * Math.sin(d * 83 + i) ; y += k * Math.cos(d * 71 + i * 2) * 0.8;
+  });
+  return [x, y];
+}
+
+// ---------- post: bloom, vignette, grain ----------
+function post(t) {
+  O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1; O.filter = 'none';
+  O.filter = 'brightness(1.22) saturate(1.06)'; O.drawImage(main, 0, 0); O.filter = 'none';
+  SM.globalCompositeOperation = 'copy'; SM.filter = 'blur(5px) brightness(0.95) contrast(2.4)'; SM.drawImage(main, 0, 0, 480, 270); SM.filter = 'none';
+  O.globalCompositeOperation = 'lighter'; O.globalAlpha = 0.34; O.imageSmoothingQuality = 'high'; O.drawImage(small, 0, 0, W, H);
+  O.globalAlpha = 0.16; O.filter = 'blur(10px)'; O.drawImage(small, -40, -22, W + 80, H + 45); O.filter = 'none';
+  O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1;
+  var vg = O.createRadialGradient(W / 2, H * 0.48, H * 0.32, W / 2, H / 2, H * 1.02);
+  vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.3)'); O.fillStyle = vg; O.fillRect(0, 0, W, H);
+  O.globalCompositeOperation = 'overlay'; O.globalAlpha = 0.09; O.drawImage(GR[Math.floor(t * 30) % GR.length], 0, 0, W, H);
+  O.globalCompositeOperation = 'source-over'; O.globalAlpha = 1;
+}
+
+function background(g, t) {
+  var bg = g.createRadialGradient(1180, 600, 50, 1000, 540, 1300);
+  bg.addColorStop(0, '#22304a'); bg.addColorStop(0.5, '#152034'); bg.addColorStop(1, '#0b1020'); g.fillStyle = bg; g.fillRect(-60, -60, W + 120, H + 120);
+  STARS.forEach(function (s) { var a = s[4] * (0.6 + 0.4 * Math.sin(t * 1.3 + s[3])); g.fillStyle = 'rgba(255,240,215,' + a.toFixed(3) + ')'; g.fillRect(s[0], s[1], s[2], s[2]); });
+}
+function dust(g, t) {          // big soft out-of-focus motes in front: depth of field
+  DUST.forEach(function (d) {
+    var x = (d[0] + t * 9 * (0.5 + d[4] * 10)) % (W + 200) - 100, y = d[1] + Math.sin(t * 0.3 + d[3]) * 30;
+    var gr = g.createRadialGradient(x, y, 0, x, y, d[2]); gr.addColorStop(0, 'rgba(255,200,130,' + d[4] + ')'); gr.addColorStop(1, 'rgba(255,200,130,0)');
+    g.fillStyle = gr; g.fillRect(x - d[2], y - d[2], d[2] * 2, d[2] * 2);
+  });
+}
+
+window.COUNTER = counter; window.TIMELINE = timeline; window.NOTE = note;
+window.__setT = function (t) {
+  var sh = shake(t);
+  M.setTransform(1, 0, 0, 1, 0, 0); M.globalAlpha = 1; M.filter = 'none'; M.fillStyle = COL.bg; M.fillRect(0, 0, W, H);
+  M.translate(sh[0], sh[1]);
+  background(M, t);
+  window.SCENE(M, t);
+  dust(M, t);
+  crumb(M, t);
+  counters(M, t); slams(M, t); timeline(M, t);
+  drawText(M, t);
+  M.setTransform(1, 0, 0, 1, 0, 0);
+  var fade = 1 - E((t - (TL.end - 1.2)) / 1.2);          // no fade-in: the title card is on screen from frame 0
+  post(t);
+  if (fade < 1) { O.fillStyle = 'rgba(0,0,0,' + (1 - fade).toFixed(3) + ')'; O.fillRect(0, 0, W, H); }
+};
+</script><script>// CoreWeave · v2 scenes. Everything in 1920×1080 px. Narration sits top-left (x < 1010, y < 450),
+// counters top-right; pictures live centre-right and along the bottom.
+(function () {
+  var TL = window.TL, SCN = TL.scenes;
+  var SERIF = '"Noto Serif CJK SC"', MONO = '"IBM Plex Mono", monospace';
+  var GOLD = '#f0bd5c', BLUE = '#86b6ff', RED = '#ef5b43', INK = '#ece6da', DIM = '#9aa3b2';
+  function cl(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function E(x) { x = cl(x); return x * x * (3 - 2 * x); }
+  function eo(x) { x = cl(x); return 1 - Math.pow(1 - x, 3); }
+  function bk(x) { x = cl(x); var c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }
+  function rnd(s) { var x = Math.sin(s * 91.7 + 17.3) * 43758.5453; return x - Math.floor(x); }
+  function ap(lt, t0, d) { return E((lt - t0) / (d || 0.5)); }               // appear
+  function wn(lt, a, b, f) { f = f || 0.5; return E((lt - a) / f) * (1 - E((lt - b + f) / f)); }
+  function rgba(hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a.toFixed(3) + ')'; }
+
+  // ---------- primitives ----------
+  function txt(g, s, x, y, size, col, al, a, wt, font) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.font = (wt || 700) + ' ' + size + 'px ' + (font || SERIF); g.textAlign = al || 'center';
+    g.fillStyle = col || INK; g.shadowColor = 'rgba(0,0,0,0.85)'; g.shadowBlur = 12; g.fillText(s, x, y); g.restore();
+  }
+  function gtxt(g, s, x, y, size, col, al, a, wt) {   // glowing text
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.font = (wt || 900) + ' ' + size + 'px ' + SERIF; g.textAlign = al || 'center';
+    g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 26; g.fillText(s, x, y); g.restore();
+  }
+  function mono(g, s, x, y, size, col, al, a) { txt(g, s, x, y, size, col || DIM, al, a, 500, MONO); }
+  function rr(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+  function chip(g, x, y, s, col, a, size, al) {
+    if (a <= 0) return; size = size || 26; g.save(); g.globalAlpha *= a; g.font = '700 ' + size + 'px ' + SERIF;
+    var w = g.measureText(s).width + size * 1.2, h = size * 1.7, x0 = al === 'left' ? x : x - w / 2;
+    rr(g, x0, y - h / 2, w, h, h / 2); g.fillStyle = 'rgba(8,12,20,0.78)'; g.fill(); g.strokeStyle = col; g.lineWidth = 2; g.shadowColor = col; g.shadowBlur = 12; g.stroke();
+    g.shadowBlur = 0; g.fillStyle = col; g.textAlign = 'center'; g.fillText(s, x0 + w / 2, y + size * 0.36); g.restore();
+  }
+  function card(g, x, y, w, h, col, a) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; rr(g, x, y, w, h, 14);
+    var gr = g.createLinearGradient(0, y, 0, y + h); gr.addColorStop(0, 'rgba(22,30,46,0.92)'); gr.addColorStop(1, 'rgba(10,14,24,0.92)');
+    g.fillStyle = gr; g.fill(); g.strokeStyle = rgba(col, 0.7); g.lineWidth = 2; g.shadowColor = col; g.shadowBlur = 16; g.stroke(); g.restore();
+  }
+  function line(g, x0, y0, x1, y1, col, w, a) { if (a <= 0) return; g.save(); g.globalAlpha *= a; g.strokeStyle = col; g.lineWidth = w || 2; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke(); g.restore(); }
+  function arrow(g, x0, y0, x1, y1, col, a, p, dash) {          // grows with p, animated dashes
+    if (a <= 0 || p <= 0) return; var x = x0 + (x1 - x0) * p, y = y0 + (y1 - y0) * p;
+    g.save(); g.globalAlpha *= a; g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 3; g.shadowColor = col; g.shadowBlur = 10;
+    if (dash) { g.setLineDash([14, 10]); g.lineDashOffset = -dash; }
+    g.beginPath(); g.moveTo(x0, y0); g.lineTo(x, y); g.stroke(); g.setLineDash([]);
+    var an = Math.atan2(y1 - y0, x1 - x0); g.beginPath(); g.moveTo(x, y); g.lineTo(x - 18 * Math.cos(an - 0.45), y - 18 * Math.sin(an - 0.45)); g.lineTo(x - 18 * Math.cos(an + 0.45), y - 18 * Math.sin(an + 0.45)); g.closePath(); g.fill(); g.restore();
+  }
+  function glowDot(g, x, y, r, col, a) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var gr = g.createRadialGradient(x, y, 0, x, y, r * 3); gr.addColorStop(0, rgba(col, 0.6)); gr.addColorStop(1, rgba(col, 0));
+    g.fillStyle = gr; g.beginPath(); g.arc(x, y, r * 3, 0, 6.29); g.fill(); g.fillStyle = col; g.beginPath(); g.arc(x, y, r, 0, 6.29); g.fill(); g.restore();
+  }
+  function ticks(g, x, y, n, lit, col, a, h, gap, colOff) {   // tally bars
+    if (a <= 0) return; h = h || 46; gap = gap || 9; g.save(); g.globalAlpha *= a;
+    for (var i = 0; i < n; i++) { var on = i < lit; g.fillStyle = on ? col : (colOff || 'rgba(160,170,190,0.18)'); g.shadowColor = on ? col : 'transparent'; g.shadowBlur = on ? 8 : 0; g.fillRect(x + i * gap, y - h, gap * 0.42, h); }
+    g.restore();
+  }
+  function coin(g, x, y, r, a) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var gr = g.createRadialGradient(x - r * 0.3, y - r * 0.3, 1, x, y, r); gr.addColorStop(0, '#ffe6a6'); gr.addColorStop(0.7, '#d9a040'); gr.addColorStop(1, '#8a5c18');
+    g.fillStyle = gr; g.shadowColor = GOLD; g.shadowBlur = 12; g.beginPath(); g.arc(x, y, r, 0, 6.29); g.fill(); g.shadowBlur = 0;
+    g.strokeStyle = 'rgba(120,80,20,0.8)'; g.lineWidth = 1.5; g.beginPath(); g.arc(x, y, r * 0.72, 0, 6.29); g.stroke(); g.restore();
+  }
+  // a GPU board seen from the front: PCB, shroud, two fans, gold fingers
+  function gpu(g, x, y, w, lit, t, a, cold) {
+    if (a <= 0) return; var h = w * 0.42; g.save(); g.globalAlpha *= a; g.translate(x, y);
+    rr(g, -w / 2, -h / 2, w, h, w * 0.04); var gr = g.createLinearGradient(0, -h / 2, 0, h / 2); gr.addColorStop(0, cold ? '#2a2f38' : '#2b3446'); gr.addColorStop(1, cold ? '#15181d' : '#121826');
+    g.fillStyle = gr; g.fill(); g.strokeStyle = cold ? 'rgba(150,150,150,0.4)' : rgba(GOLD, 0.35 + 0.5 * lit); g.lineWidth = 2; g.shadowColor = GOLD; g.shadowBlur = cold ? 0 : 20 * lit; g.stroke(); g.shadowBlur = 0;
+    for (var k = 0; k < 2; k++) {
+      var fx = (k ? 0.23 : -0.23) * w, r = h * 0.36; g.strokeStyle = 'rgba(200,210,230,0.35)'; g.lineWidth = 2; g.beginPath(); g.arc(fx, 0, r, 0, 6.29); g.stroke();
+      var sp = cold ? 0 : t * (6 + 10 * lit);
+      for (var b = 0; b < 7; b++) { var an = sp + b / 7 * 6.283; g.strokeStyle = 'rgba(190,200,220,0.55)'; g.lineWidth = 3; g.beginPath(); g.moveTo(fx + Math.cos(an) * r * 0.2, Math.sin(an) * r * 0.2); g.quadraticCurveTo(fx + Math.cos(an + 0.5) * r * 0.7, Math.sin(an + 0.5) * r * 0.7, fx + Math.cos(an + 0.9) * r * 0.92, Math.sin(an + 0.9) * r * 0.92); g.stroke(); }
+      g.fillStyle = '#0b0f17'; g.beginPath(); g.arc(fx, 0, r * 0.2, 0, 6.29); g.fill();
+    }
+    g.fillStyle = cold ? 'rgba(150,140,110,0.5)' : '#c9a052'; for (var i = 0; i < 16; i++) g.fillRect(-w * 0.32 + i * w * 0.035, h / 2, w * 0.022, h * 0.1);
+    g.fillStyle = cold ? 'rgba(120,120,120,0.6)' : rgba(BLUE, 0.4 + 0.6 * lit); g.fillRect(-w * 0.44, -h * 0.4, w * 0.88, 3);
+    g.restore();
+  }
+  // oblique box: P(X,Y,Z) = [x + X + 0.5Z, y − Y − 0.32Z]
+  function box3(g, x, y, w, h, d, cf, cs, ct, a) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a;
+    function P(X, Y, Z) { return [x + X + 0.5 * Z, y - Y - 0.32 * Z]; }
+    function poly(ps, c) { g.beginPath(); ps.forEach(function (p, i) { var q = P(p[0], p[1], p[2]); if (i) g.lineTo(q[0], q[1]); else g.moveTo(q[0], q[1]); }); g.closePath(); g.fillStyle = c; g.fill(); g.strokeStyle = 'rgba(160,190,240,0.25)'; g.lineWidth = 1.2; g.stroke(); }
+    poly([[w, 0, 0], [w, 0, d], [w, h, d], [w, h, 0]], cs); poly([[0, h, 0], [w, h, 0], [w, h, d], [0, h, d]], ct); poly([[0, 0, 0], [w, 0, 0], [w, h, 0], [0, h, 0]], cf);
+    g.restore(); return P;
+  }
+  function datacenter(g, x, y, w, h, d, t, lit, a) {      // a low building with vents and blinking racks behind glass
+    if (a <= 0) return; var P = box3(g, x, y, w, h, d, '#18223a', '#101828', '#24304a', a);
+    g.save(); g.globalAlpha *= a;
+    var rows = 3, cols = Math.floor(w / 46);
+    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
+      var wx = x + 14 + c * 46, wy = y - h + 18 + r * (h - 30) / rows, on = rnd(r * 31 + c * 7) < lit;
+      g.fillStyle = on ? rgba(BLUE, 0.25 + 0.2 * Math.sin(t * 3 + c + r)) : 'rgba(40,50,70,0.6)'; g.fillRect(wx, wy, 32, (h - 30) / rows - 10);
+      if (on) { g.fillStyle = rnd(c + r * 9 + Math.floor(t * 4)) > 0.5 ? GOLD : '#7dffb0'; g.fillRect(wx + 4, wy + 6, 3, 3); g.fillRect(wx + 12, wy + 6, 3, 3); }
+    }
+    for (var k = 0; k < 3; k++) { var q = P(w * (0.2 + 0.3 * k), h, d * 0.5); g.fillStyle = '#2c3a58'; g.fillRect(q[0] - 22, q[1] - 16, 44, 16); g.strokeStyle = 'rgba(160,190,240,0.3)'; g.strokeRect(q[0] - 22, q[1] - 16, 44, 16);
+      var an = t * 5 + k; g.strokeStyle = 'rgba(190,210,240,0.5)'; g.beginPath(); g.moveTo(q[0] - 12 * Math.cos(an), q[1] - 8 - 4 * Math.sin(an)); g.lineTo(q[0] + 12 * Math.cos(an), q[1] - 8 + 4 * Math.sin(an)); g.stroke(); }
+    g.restore();
+  }
+  function doc(g, x, y, w, h, a, rot, title, seed) {          // a contract sheet (kept dim so bloom does not wash it out)
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.rotate(rot || 0);
+    g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 20; var gr = g.createLinearGradient(0, -h / 2, 0, h / 2); gr.addColorStop(0, '#8e7f62'); gr.addColorStop(1, '#6f6249');
+    g.fillStyle = gr; g.fillRect(-w / 2, -h / 2, w, h); g.shadowBlur = 0;
+    g.fillStyle = 'rgba(40,30,20,0.55)'; var n = Math.floor(h / 16) - 3;
+    for (var i = 0; i < n; i++) { var lw = (0.55 + 0.4 * rnd(i + (seed || 0) * 13)) * (w - 24); g.fillRect(-w / 2 + 12, -h / 2 + (title ? 44 : 16) + i * 14, lw, 3); }
+    if (title) { g.font = '900 ' + Math.round(w * 0.08) + 'px ' + SERIF; g.fillStyle = '#2a1e12'; g.textAlign = 'center'; g.fillText(title, 0, -h / 2 + 32); }
+    g.restore();
+  }
+  function stamp(g, x, y, s, lt0, a) {                       // red stamp that slams down
+    if (a <= 0 || lt0 < 0) return; var k = lt0 < 0.12 ? 1.8 - 0.8 * eo(lt0 / 0.12) : 1;
+    g.save(); g.globalAlpha *= a * Math.min(1, lt0 / 0.05) * 0.95; g.translate(x, y); g.rotate(-0.08); g.scale(k, k);
+    g.font = '900 46px ' + SERIF; var w = g.measureText(s).width + 40; g.strokeStyle = '#d8382a'; g.lineWidth = 6; g.strokeRect(-w / 2, -38, w, 76);
+    g.fillStyle = '#e04434'; g.textAlign = 'center'; g.shadowColor = RED; g.shadowBlur = 14; g.fillText(s, 0, 16); g.restore();
+  }
+  function lock(g, x, y, s, closed, a) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.scale(s, s);
+    g.strokeStyle = '#d9b25c'; g.lineWidth = 10; g.shadowColor = GOLD; g.shadowBlur = 14; g.beginPath(); g.arc(0, -40 + (1 - closed) * -22, 30, Math.PI, 0); g.lineTo(30, -40 + (1 - closed) * -22 + (closed ? 14 : 0)); g.stroke();
+    g.beginPath(); g.moveTo(-30, -40 + (1 - closed) * -22); g.lineTo(-30, -28); g.stroke();
+    rr(g, -48, -32, 96, 78, 10); var gr = g.createLinearGradient(0, -32, 0, 46); gr.addColorStop(0, '#f2cd75'); gr.addColorStop(1, '#a8771f'); g.fillStyle = gr; g.fill();
+    g.shadowBlur = 0; g.fillStyle = '#4a3410'; g.beginPath(); g.arc(0, 0, 9, 0, 6.29); g.fill(); g.fillRect(-4, 0, 8, 22); g.restore();
+  }
+  function chainArc(g, cx, cy, rx, ry, a0, a1, a, t) {        // chain links along part of an ellipse
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var n = Math.max(2, Math.round(Math.abs(a1 - a0) * rx / 34));
+    for (var i = 0; i <= n; i++) {
+      var an = a0 + (a1 - a0) * i / n, x = cx + rx * Math.cos(an), y = cy + ry * Math.sin(an), tan = Math.atan2(ry * Math.cos(an), -rx * Math.sin(an));
+      var front = Math.sin(an) > 0; g.save(); g.translate(x, y); g.rotate(tan); g.strokeStyle = front ? '#e6c06a' : 'rgba(150,120,60,0.8)'; g.lineWidth = 7; g.shadowColor = GOLD; g.shadowBlur = front ? 10 : 0;
+      g.beginPath(); if (i % 2) g.ellipse(0, 0, 20, 10, 0, 0, 6.29); else g.ellipse(0, 0, 20, 4, 0, 0, 6.29); g.stroke(); g.restore();
+    }
+    g.restore();
+  }
+  function bank(g, x, y, s, a) {                             // a columned bank building
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.scale(s, s); g.strokeStyle = 'rgba(200,215,240,0.85)'; g.fillStyle = 'rgba(30,40,62,0.9)'; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(-120, -150); g.lineTo(0, -210); g.lineTo(120, -150); g.closePath(); g.fill(); g.stroke();
+    g.fillRect(-120, -150, 240, 20); g.strokeRect(-120, -150, 240, 20);
+    for (var i = 0; i < 5; i++) { g.fillRect(-100 + i * 50 - 9, -128, 18, 112); g.strokeRect(-100 + i * 50 - 9, -128, 18, 112); }
+    g.fillRect(-135, -16, 270, 16); g.strokeRect(-135, -16, 270, 16); g.restore();
+    txt(g, '贷款方', x, y + 40 * s, 24, DIM, 'center', a);
+  }
+  function house(g, x, y, s, a) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.scale(s, s); g.strokeStyle = 'rgba(220,225,235,0.85)'; g.fillStyle = 'rgba(28,38,58,0.95)'; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(-70, -60); g.lineTo(0, -120); g.lineTo(70, -60); g.lineTo(70, 30); g.lineTo(-70, 30); g.closePath(); g.fill(); g.stroke();
+    g.fillStyle = rgba(GOLD, 0.6); g.fillRect(-40, -40, 26, 26); g.fillRect(14, -40, 26, 26); g.fillStyle = 'rgba(120,90,60,0.9)'; g.fillRect(-12, -4, 24, 34); g.restore();
+  }
+  function tower(g, x, y, s, t, a) {                         // a cooling tower with steam
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.scale(s, s);
+    g.beginPath(); g.moveTo(-70, 0); g.quadraticCurveTo(-30, -110, -48, -200); g.lineTo(48, -200); g.quadraticCurveTo(30, -110, 70, 0); g.closePath();
+    var gr = g.createLinearGradient(-70, 0, 70, 0); gr.addColorStop(0, '#2a3550'); gr.addColorStop(0.5, '#4a5878'); gr.addColorStop(1, '#1c2438'); g.fillStyle = gr; g.fill(); g.strokeStyle = 'rgba(200,215,240,0.6)'; g.lineWidth = 2; g.stroke();
+    for (var i = 0; i < 9; i++) { var p = (t * 0.25 + i / 9) % 1, sx = Math.sin(i * 2.1 + t) * 20 * p, sy = -200 - p * 160, r = 26 + p * 50;
+      var sg = g.createRadialGradient(sx, sy, 0, sx, sy, r); sg.addColorStop(0, 'rgba(210,220,235,' + (0.22 * (1 - p)).toFixed(3) + ')'); sg.addColorStop(1, 'rgba(210,220,235,0)'); g.fillStyle = sg; g.fillRect(sx - r, sy - r, r * 2, r * 2); }
+    g.restore();
+  }
+  function avatar(g, x, y, r, col, a) { if (a === 0) return; g.save(); if (a != null) g.globalAlpha *= a; g.fillStyle = 'rgba(40,52,76,1)'; g.beginPath(); g.arc(x, y, r, 0, 6.29); g.fill(); g.fillStyle = rgba(col, 0.8); g.beginPath(); g.arc(x, y - r * 0.2, r * 0.38, 0, 6.29); g.fill(); g.beginPath(); g.arc(x, y + r * 0.75, r * 0.62, Math.PI, 0); g.fill(); g.restore(); }
+  function wrapTxt(g, s, x, y, maxW, lh, size, col, a) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.font = '700 ' + size + 'px ' + SERIF; g.fillStyle = col; g.textAlign = 'left'; var lineS = '', yy = y;
+    for (var i = 0; i < s.length; i++) { var test = lineS + s[i]; if (g.measureText(test).width > maxW) { g.fillText(lineS, x, yy); lineS = s[i]; yy += lh; } else lineS = test; }
+    g.fillText(lineS, x, yy); g.restore();
+  }
+  function note(g, s, a) { txt(g, s, 1840, 1050, 18, 'rgba(160,168,182,0.75)', 'right', a, 500); }
+  function rig(g, cx, cy, lt, n, t0, cold, a) {              // mining rig: an open frame with n boards on a rail
+    if (a <= 0) return; g.save(); g.globalAlpha *= a;
+    g.strokeStyle = 'rgba(170,185,210,0.55)'; g.lineWidth = 4; g.strokeRect(cx - 330, cy - 150, 660, 300); g.beginPath(); g.moveTo(cx - 330, cy + 60); g.lineTo(cx + 330, cy + 60); g.stroke();
+    g.restore();
+    for (var i = 0; i < n; i++) {
+      var p = t0 == null ? 1 : bk((lt - t0 - i * 0.18) / 0.45); if (p <= 0) continue;
+      g.save(); g.translate(cx - 270 + i * 108, cy - 20 - (1 - p) * 120); g.rotate(-Math.PI / 2); gpu(g, 0, 0, 230, cold ? 0 : 0.6 + 0.4 * Math.sin(lt * 3 + i), lt, a * Math.min(1, p * 1.5), cold); g.restore();
+    }
+  }
+
+  function hbar(g, x, y, w, h, col, a, glow) { if (a <= 0 || w === 0) return; g.save(); g.globalAlpha *= a; g.fillStyle = col; g.shadowColor = col; g.shadowBlur = glow == null ? 12 : glow; if (w > 0) g.fillRect(x, y, w, h); else g.fillRect(x + w, y, -w, h); g.restore(); }
+  function check(g, x, y, on, col, a) { if (a <= 0) return; g.save(); g.globalAlpha *= a; g.strokeStyle = col; g.lineWidth = 3; g.strokeRect(x - 16, y - 16, 32, 32);
+    if (on > 0) { g.lineWidth = 5; g.shadowColor = col; g.shadowBlur = 12; g.beginPath(); g.moveTo(x - 9, y); g.lineTo(x - 2, y + 8 * Math.min(1, on * 2)); if (on > 0.5) g.lineTo(x - 2 + 13 * (on - 0.5) * 2, y + 8 - 18 * (on - 0.5) * 2); g.stroke(); } g.restore(); }
+  // ---------- Planck props ----------
+  var GREEN = '#8fd9a8', ORANGE = '#ff9a4a';
+  var PH = new Image(); PH.src = window.PHOTO_URI || ''; window.__PH = PH;           // his portrait (optional)
+  function wien(lam, T) { return Math.pow(lam, -5) * Math.exp(-14.388 / (lam * T)); }
+  function photoCard(g, img, x, y, w, h, a, filt, col) {                                // gold-framed photo
+    if (a <= 0 || !img.complete || !img.naturalWidth) return false; col = col || GOLD; g.save(); g.globalAlpha *= a;
+    g.fillStyle = '#000'; g.shadowColor = 'rgba(0,0,0,0.8)'; g.shadowBlur = 30; g.fillRect(x - 8, y - 8, w + 16, h + 16); g.shadowBlur = 0;
+    g.filter = filt || 'none'; g.drawImage(img, x, y, w, h); g.filter = 'none';
+    g.strokeStyle = col; g.lineWidth = 4; g.shadowColor = col; g.shadowBlur = 14; g.strokeRect(x - 8, y - 8, w + 16, h + 16); g.restore(); return true;
+  }
+  function wl2rgb(nm) {                                                                  // visible wavelength -> [r,g,b] (nm 380..780)
+    var r = 0, gg = 0, b = 0, f;
+    if (nm >= 380 && nm < 440) { r = -(nm - 440) / 60; b = 1; } else if (nm < 490) { gg = (nm - 440) / 50; b = 1; } else if (nm < 510) { gg = 1; b = -(nm - 510) / 20; }
+    else if (nm < 580) { r = (nm - 510) / 70; gg = 1; } else if (nm < 645) { r = 1; gg = -(nm - 645) / 65; } else if (nm <= 780) { r = 1; }
+    f = nm < 420 ? 0.3 + 0.7 * (nm - 380) / 40 : nm > 700 ? 0.3 + 0.7 * (780 - nm) / 80 : 1; if (nm < 380 || nm > 780) f = 0.25;
+    return [Math.round(255 * Math.pow(r * f, 0.8)), Math.round(255 * Math.pow(gg * f, 0.8)), Math.round(255 * Math.pow(b * f, 0.8))];
+  }
+  function strip(g, x, y, w, h, a, bright) {                                              // a continuous rainbow strip 400..700 nm
+    if (a <= 0) return; g.save(); g.globalAlpha *= a;
+    for (var i = 0; i < w; i += 2) { var c = wl2rgb(400 + 300 * i / w); g.fillStyle = 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'; g.fillRect(x + i, y, 2.5, h); }
+    g.globalAlpha *= 1 - (bright == null ? 0.0 : 1 - bright); g.restore();
+  }
+  function darkStrip(g, x, y, w, h, a) { if (a <= 0) return; g.save(); g.globalAlpha *= a; g.fillStyle = '#05070c'; g.fillRect(x, y, w, h); g.strokeStyle = 'rgba(170,185,215,0.5)'; g.lineWidth = 2; g.strokeRect(x, y, w, h); g.restore(); }
+  function spLine(g, x, y, w, h, nm, lo, hi, col, a, wd) {                                // one bright emission line at wavelength nm on a strip spanning lo..hi
+    if (a <= 0) return; var px = x + w * (nm - lo) / (hi - lo); g.save(); g.globalAlpha *= a; g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 16; g.fillRect(px - (wd || 4) / 2, y + 3, wd || 4, h - 6); g.restore();
+  }
+  function drawFlame(g, x, y, s, col, a, lt) {                                            // a candle-like flame, base at (x,y)
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var fl = 1 + 0.05 * Math.sin(lt * 9 + x), w = 34 * s, h = 120 * s * fl;
+    var gr = g.createRadialGradient(x, y - h * 0.35, 2, x, y - h * 0.35, h * 0.9); gr.addColorStop(0, '#fffbe6'); gr.addColorStop(0.14, col); gr.addColorStop(1, rgba(col, 0));
+    g.fillStyle = gr; g.shadowColor = col; g.shadowBlur = 30; g.beginPath(); g.moveTo(x, y - h); g.bezierCurveTo(x + w * 1.4, y - h * 0.45, x + w * 1.1, y, x, y); g.bezierCurveTo(x - w * 1.1, y, x - w * 1.4, y - h * 0.45, x, y - h); g.fill(); g.restore();
+  }
+  function burner(g, x, y, s, a) {                                                       // Bunsen burner: base, tube, collar
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.scale(s, s);
+    var gr = g.createLinearGradient(-30, 0, 30, 0); gr.addColorStop(0, '#6a727f'); gr.addColorStop(0.5, '#b4bcc8'); gr.addColorStop(1, '#5a6270');
+    g.fillStyle = gr; g.fillRect(-14, -150, 28, 150); g.fillStyle = '#4a5260'; rr(g, -50, -12, 100, 18, 6); g.fill(); g.fillStyle = '#8a929e'; g.fillRect(-20, -92, 40, 18); g.fillStyle = '#2a303c'; g.fillRect(-7, -150, 14, 5); g.restore();
+  }
+  function sun(g, x, y, r, a, lt) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var gl = g.createRadialGradient(x, y, r * 0.6, x, y, r * 3); gl.addColorStop(0, 'rgba(255,200,100,0.55)'); gl.addColorStop(1, 'rgba(255,160,60,0)');
+    g.fillStyle = gl; g.beginPath(); g.arc(x, y, r * 3, 0, 6.29); g.fill(); var gr = g.createRadialGradient(x - r * 0.3, y - r * 0.3, 2, x, y, r); gr.addColorStop(0, '#fff6c8'); gr.addColorStop(0.6, '#ffc850'); gr.addColorStop(1, '#f08a28');
+    g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 6.29); g.fill();
+    g.strokeStyle = 'rgba(255,200,100,0.6)'; g.lineWidth = 3; for (var i = 0; i < 14; i++) { var an = i / 14 * 6.283 + (lt || 0) * 0.15, r0 = r * 1.2, r1 = r * (1.45 + 0.12 * Math.sin(i * 3 + (lt || 0) * 3)); g.beginPath(); g.moveTo(x + Math.cos(an) * r0, y + Math.sin(an) * r0); g.lineTo(x + Math.cos(an) * r1, y + Math.sin(an) * r1); g.stroke(); }
+    g.restore();
+  }
+  function prism(g, x, y, s, a) {                                                        // a glass triangle, centre (x,y)
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var h = 120 * s;
+    g.beginPath(); g.moveTo(x, y - h * 0.6); g.lineTo(x + h * 0.7, y + h * 0.45); g.lineTo(x - h * 0.7, y + h * 0.45); g.closePath();
+    var gr = g.createLinearGradient(x - h * 0.7, y, x + h * 0.7, y); gr.addColorStop(0, 'rgba(180,215,255,0.35)'); gr.addColorStop(1, 'rgba(120,170,255,0.15)'); g.fillStyle = gr; g.fill();
+    g.strokeStyle = 'rgba(210,230,255,0.9)'; g.lineWidth = 3; g.shadowColor = '#9cc4ff'; g.shadowBlur = 14; g.stroke(); g.restore();
+  }
+  function medal(g, x, y, r, a, label) {
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var gr = g.createRadialGradient(x - r * 0.3, y - r * 0.3, 2, x, y, r); gr.addColorStop(0, '#fff0c0'); gr.addColorStop(0.6, '#d9a040'); gr.addColorStop(1, '#8a5c18');
+    g.fillStyle = gr; g.shadowColor = GOLD; g.shadowBlur = 20; g.beginPath(); g.arc(x, y, r, 0, 6.29); g.fill(); g.shadowBlur = 0;
+    g.strokeStyle = 'rgba(110,70,20,0.7)'; g.lineWidth = 3; g.beginPath(); g.arc(x, y, r * 0.8, 0, 6.29); g.stroke();
+    g.font = '900 ' + Math.round(r * 0.5) + 'px ' + SERIF; g.fillStyle = '#6a4410'; g.textAlign = 'center'; g.fillText(label, x, y + r * 0.18); g.restore();
+  }
+  function planck(lam, T) { return Math.pow(lam, -5) / (Math.exp(14.388 / (lam * T)) - 1); }          // lam in micrometres, T in kK (relative units)
+  var PK = planck(0.58, 5);
+  function bbPlot(g, x0, yB, w, h, a, lt, o) {                                           // axes + curves; o = {T:[..], cols:[..], draw:p, rj:p, dots:p}
+    if (a <= 0) return; var lmin = 0.2, lmax = 3.0; g.save(); g.globalAlpha *= a;
+    g.strokeStyle = 'rgba(200,210,230,0.65)'; g.lineWidth = 3; g.beginPath(); g.moveTo(x0, yB - h - 20); g.lineTo(x0, yB); g.lineTo(x0 + w, yB); g.stroke();
+    for (var i = 0; i < w; i += 3) { var c = wl2rgb(400 + 300 * ((i / w * (lmax - lmin) + lmin) * 1000 - 400) / 300); if ((i / w * (lmax - lmin) + lmin) > 0.4 && (i / w * (lmax - lmin) + lmin) < 0.7) { g.fillStyle = 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'; g.fillRect(x0 + i, yB + 6, 3.5, 10); } }
+    g.restore(); txt(g, '波长 →', x0 + w - 40, yB + 50, 22, DIM, 'center', a, 700); txt(g, '光的强度', x0 + 8, yB - h - 34, 22, DIM, 'left', a, 700);
+    var X = function (l) { return x0 + (l - lmin) / (lmax - lmin) * w; }, Y = function (v) { return yB - v / PK * h * 0.92; };
+    (o.T || []).forEach(function (T, k) { var p = o.draw == null ? 1 : (Array.isArray(o.draw) ? o.draw[k] : o.draw); if (p <= 0) return; g.save(); g.globalAlpha *= a; g.strokeStyle = o.cols[k]; g.lineWidth = 5; g.shadowColor = o.cols[k]; g.shadowBlur = 12; g.beginPath();
+      var n = Math.floor(240 * p); for (var j = 0; j <= n; j++) { var l = lmin + (lmax - lmin) * j / 240, px = X(l), py = Math.max(yB - h - 10, Y(planck(l, T))); if (j) g.lineTo(px, py); else g.moveTo(px, py); } g.stroke(); g.restore(); });
+    if (o.wien > 0) { g.save(); g.globalAlpha *= a; var WC = o.wienCol || BLUE; g.strokeStyle = WC; g.lineWidth = 5; g.setLineDash([12, 9]); g.shadowColor = WC; g.shadowBlur = 10; g.beginPath(); var nw = Math.floor(240 * o.wien);
+      for (var jw = 0; jw <= nw; jw++) { var lw = lmin + (lmax - lmin) * jw / 240, pyw = Math.max(yB - h - 10, Y(wien(lw, o.wienT || 5))); if (jw) g.lineTo(X(lw), pyw); else g.moveTo(X(lw), pyw); } g.stroke(); g.restore(); }
+    if (o.zoom > 0) { var zx = x0 + 250, zy = yB - h - 18, zw = 340, zh = 215, T5 = o.wienT || 5; g.save(); g.globalAlpha *= a * o.zoom; card(g, zx, zy, zw, zh, GOLD, 1); g.beginPath(); g.rect(zx + 6, zy + 6, zw - 12, zh - 12); g.clip();
+      var l0 = 2.2, l1 = 3.0, ym = planck(l0, T5) * 1.06, ZX = function (l) { return zx + 22 + (l - l0) / (l1 - l0) * (zw - 44); }, ZY = function (v) { return zy + zh - 22 - v / ym * (zh - 62); };
+      g.strokeStyle = WC; g.lineWidth = 4; g.setLineDash([10, 7]); g.beginPath(); for (var q = 0; q <= 40; q++) { var lq = l0 + (l1 - l0) * q / 40; if (q) g.lineTo(ZX(lq), ZY(wien(lq, T5))); else g.moveTo(ZX(lq), ZY(wien(lq, T5))); } g.stroke(); g.setLineDash([]);
+      g.strokeStyle = GOLD; g.lineWidth = 3; g.globalAlpha *= 0.5; g.beginPath(); for (var q2 = 0; q2 <= 40; q2++) { var lq2 = l0 + (l1 - l0) * q2 / 40; if (q2) g.lineTo(ZX(lq2), ZY(planck(lq2, T5))); else g.moveTo(ZX(lq2), ZY(planck(lq2, T5))); } g.stroke(); g.globalAlpha /= 0.5;
+      for (var d2 = 0; d2 < 8; d2++) { var ld = l0 + 0.05 + d2 * 0.108; glowDot(g, ZX(ld), ZY(planck(ld, T5)), 5, '#ffffff', 0.95); }
+      g.restore(); txt(g, '放大 · 长波一头', zx + zw / 2, zy - 12, 22, DIM, 'center', a * o.zoom, 700); }
+    if (o.dots > 0) { g.save(); g.globalAlpha *= a * o.dots; var T0 = o.dotT || 5; for (var d = 0; d < 26; d++) { var l = 0.26 + d * 0.108; if (l < (o.dotsFrom || 0)) continue; var jit = (rnd(d * 3.1) - 0.5) * (1 - (o.tight || 0)) * 0.22 * PK; var v = planck(l, T0) + jit * Math.min(1, planck(l, T0) / PK + 0.15);
+      glowDot(g, X(l), Math.max(yB - h - 10, Y(v)), 4.5, '#ffffff', 0.9); } g.restore(); }
+    if (o.rj > 0) { g.save(); g.globalAlpha *= a; g.strokeStyle = RED; g.lineWidth = 5; g.setLineDash([12, 9]); g.shadowColor = RED; g.shadowBlur = 12; g.beginPath(); var n2 = Math.floor(240 * o.rj), T1 = o.rjT || 5;
+      var topY = yB - h - 10, out = false; for (var j2 = 0; j2 <= n2; j2++) { var l2 = lmin + (lmax - lmin) * j2 / 240, v2 = T1 * Math.pow(l2, -4) / 14.388; var py2 = Y(v2); if (py2 < topY) { out = true; g.lineTo(X(l2), topY); break; } if (j2) g.lineTo(X(l2), py2); else g.moveTo(X(l2), py2); } g.stroke();
+      if (out) { g.setLineDash([]); g.fillStyle = RED; var ax = X(lmin + (lmax - lmin) * (j2 - 1) / 240); g.beginPath(); g.moveTo(ax, topY - 24); g.lineTo(ax - 12, topY); g.lineTo(ax + 12, topY); g.closePath(); g.fill(); } g.restore(); }
+    return { X: X, Y: Y };
+  }
+
+  // ---------- small props for Planck ----------
+  function calPage(g, x, y, w, h, mon, day, wk, a) {                                      // a tear-off calendar page, centre (x, y)
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 24;
+    g.fillStyle = '#e9e2d0'; rr(g, -w / 2, -h / 2, w, h, 14); g.fill(); g.shadowBlur = 0; g.fillStyle = '#a8402c'; g.beginPath(); g.moveTo(-w / 2 + 14, -h / 2); g.arcTo(w / 2, -h / 2, w / 2, -h / 2 + 90, 14); g.lineTo(w / 2, -h / 2 + 90); g.lineTo(-w / 2, -h / 2 + 90); g.lineTo(-w / 2, -h / 2 + 14); g.arcTo(-w / 2, -h / 2, -w / 2 + 14, -h / 2, 14); g.fill();
+    g.textAlign = 'center'; g.fillStyle = '#fff4e0'; g.font = '900 52px ' + SERIF; g.fillText(mon, 0, -h / 2 + 62); g.fillStyle = '#2a2018'; g.font = '900 ' + Math.round(h * 0.42) + 'px ' + SERIF; g.fillText(day, 0, h * 0.2); g.font = '700 38px ' + SERIF; g.fillStyle = '#a8402c'; g.fillText(wk, 0, h / 2 - 32); g.restore();
+  }
+  function postcardP(g, x, y, w, h, a, rot, mark) {                                       // a postcard: cream card, address lines, small gold curve, stamp
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.translate(x, y); g.rotate(rot || 0); g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 20;
+    g.fillStyle = '#e8dfc8'; g.fillRect(-w / 2, -h / 2, w, h); g.shadowBlur = 0; g.strokeStyle = 'rgba(60,45,30,0.5)'; g.lineWidth = 2; g.beginPath(); g.moveTo(w * 0.06, -h / 2 + 16); g.lineTo(w * 0.06, h / 2 - 16); g.stroke();
+    g.fillStyle = 'rgba(60,45,30,0.55)'; for (var i = 0; i < 3; i++) g.fillRect(w * 0.12, h * 0.05 + i * 22, w * (0.28 - i * 0.04), 3);
+    g.strokeStyle = '#8a5c18'; g.lineWidth = 4; g.beginPath(); for (var k = 0; k <= 40; k++) { var u = k / 40, px = -w / 2 + 22 + u * (w * 0.5 - 30), py = h * 0.28 - Math.sin(u * 3.2) * Math.exp(-u * 1.6) * h * 0.5; if (k) g.lineTo(px, py); else g.moveTo(px, py); } g.stroke();
+    g.fillStyle = '#c85a3a'; g.fillRect(w / 2 - 52, -h / 2 + 12, 40, 46); g.strokeStyle = '#7a2c18'; g.lineWidth = 2; g.strokeRect(w / 2 - 47, -h / 2 + 17, 30, 36); if (mark) { g.fillStyle = 'rgba(90,60,40,0.8)'; g.font = '700 20px ' + MONO; g.textAlign = 'center'; g.fillText(mark, 0, -h / 2 + 34); } g.restore();
+  }
+  function keysP(g, x, y, w, h, a, lt, hot) {                                             // a row of piano keys; `hot` keys glow while playing
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var n = 8, kw = w / n;
+    for (var i = 0; i < n; i++) { var on = hot && Math.sin(lt * 3 + i * 1.7) > 0.55; g.fillStyle = on ? '#ffe9b0' : '#e6e2d8'; g.shadowColor = on ? GOLD : 'transparent'; g.shadowBlur = on ? 16 : 0; g.fillRect(x + i * kw + 2, y, kw - 4, h); }
+    g.shadowBlur = 0; g.fillStyle = '#16181f'; [0, 1, 3, 4, 5].forEach(function (k) { g.fillRect(x + (k + 1) * kw - kw * 0.28, y, kw * 0.56, h * 0.6); }); g.restore();
+  }
+  function stairs(g, x, y, w, h, n, a, p, col) {                                          // a staircase (n steps), drawn up to progress p; base-left (x, y)
+    if (a <= 0 || p <= 0) return; g.save(); g.globalAlpha *= a; g.strokeStyle = col || GOLD; g.lineWidth = 6; g.lineJoin = 'round'; g.shadowColor = col || GOLD; g.shadowBlur = 14; g.beginPath(); var sw = w / n, sh = h / n, tot = n * 2, k = Math.floor(tot * p + 0.0001);
+    g.moveTo(x, y); for (var i = 0; i < n; i++) { if (i * 2 >= k) break; g.lineTo(x + i * sw + sw, y - i * sh); if (i * 2 + 1 >= k) break; g.lineTo(x + i * sw + sw, y - (i + 1) * sh); } g.stroke(); g.restore();
+  }
+  function cyl(g, x, y, w, h, a, col) {                                                   // a metal cylinder (the old kilogram), base-centre (x, y)
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; var gr = g.createLinearGradient(x - w / 2, 0, x + w / 2, 0); gr.addColorStop(0, '#6e7886'); gr.addColorStop(0.45, '#d6dce6'); gr.addColorStop(1, '#5a6472');
+    g.fillStyle = gr; g.shadowColor = col || 'rgba(160,190,230,0.5)'; g.shadowBlur = 18; g.fillRect(x - w / 2, y - h, w, h); g.shadowBlur = 0; g.fillStyle = '#e4eaf2'; g.beginPath(); g.ellipse(x, y - h, w / 2, w * 0.14, 0, 0, 6.29); g.fill();
+    g.fillStyle = '#4a5462'; g.beginPath(); g.ellipse(x, y, w / 2, w * 0.14, 0, 0, Math.PI); g.fill(); g.restore();
+  }
+  function jar(g, x, y, w, h, a) {                                                        // a glass bell jar outline
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.strokeStyle = 'rgba(190,215,255,0.8)'; g.lineWidth = 4; g.shadowColor = '#9cc4ff'; g.shadowBlur = 12; g.beginPath(); g.moveTo(x - w / 2, y); g.lineTo(x - w / 2, y - h + w / 2); g.arc(x, y - h + w / 2, w / 2, Math.PI, 0); g.lineTo(x + w / 2, y); g.stroke(); g.restore();
+  }
+  function scale2(g, x, y, tilt, a, wt) {                                                 // a balance scale; tilt in radians; wt = label on the right pan
+    if (a <= 0) return; g.save(); g.globalAlpha *= a; g.strokeStyle = 'rgba(220,226,238,0.9)'; g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(x, y + 170); g.lineTo(x, y - 30); g.stroke(); g.beginPath(); g.moveTo(x - 60, y + 172); g.lineTo(x + 60, y + 172); g.stroke();
+    g.save(); g.translate(x, y - 30); g.rotate(tilt); g.beginPath(); g.moveTo(-150, 0); g.lineTo(150, 0); g.stroke();
+    [[-150, 0], [150, 1]].forEach(function (p) { g.save(); g.translate(p[0], 0); g.rotate(-tilt); g.lineWidth = 3; g.beginPath(); g.moveTo(0, 0); g.lineTo(-40, 90); g.moveTo(0, 0); g.lineTo(40, 90); g.stroke(); g.fillStyle = 'rgba(200,210,230,0.8)'; g.fillRect(-52, 90, 104, 10);
+      if (wt === '') { g.fillStyle = 'rgba(200,210,230,0.45)'; g.fillRect(-22, 62, 44, 28); }
+      else if (p[1]) { g.fillStyle = GOLD; g.shadowColor = GOLD; g.shadowBlur = 16; g.fillRect(-24, 58, 48, 32); g.shadowBlur = 0; g.fillStyle = '#4a3208'; g.font = '900 28px ' + SERIF; g.textAlign = 'center'; g.fillText(wt || 'h', 0, 83); }
+      else { g.fillStyle = '#d6dce6'; g.fillRect(-22, 52, 44, 38); g.fillStyle = '#4a5462'; g.font = '900 22px ' + SERIF; g.textAlign = 'center'; g.fillText('1 kg', 0, 79); } g.restore(); });
+    g.restore(); g.restore();
+  }
+  function flameFx(g, x, y, s, lt, a) {                                                   // a flickering fire on top of a roof / paper
+    if (a <= 0) return; for (var i = 0; i < 5; i++) { var fx = x + (i - 2) * 26 * s, fy = y - 6 * Math.sin(lt * 7 + i * 2.1) * s; drawFlame(g, fx, fy, s * (0.55 + 0.25 * rnd(i + 4)), i % 2 ? '#ff9a3a' : '#ff6a2a', a, lt + i); }
+  }
+
+  // ---------- scenes ----------
+  var D = {};
+  // hook: Sunday, 7 Oct 1900. A visit, a curve that doesn't fit, a postcard
+  D.h0 = function (g, lt, L) {
+    var c0 = ap(lt, L[0], 0.6) * (1 - ap(lt, L[1], 0.5)); if (c0 > 0) { calPage(g, 1450, 640, 300, 360, '10 月', '7', '星期天', c0); chip(g, 1450, 300, '1900 · 柏林', BLUE, c0, 30); }
+    var pp = ap(lt, L[1], 0.6) * (1 - ap(lt, L[3], 0.5)); if (pp > 0) { avatar(g, 1290, 640, 80, GOLD, pp); avatar(g, 1610, 640, 80, BLUE, pp); chip(g, 1290, 770, '主人', GOLD, pp, 26); chip(g, 1610, 770, '来客 · 实验家', BLUE, pp, 26); chip(g, 1450, 300, '做客', INK, pp, 28);
+      var sp = ap(lt, L[2], 0.5); if (sp > 0) { g.save(); g.globalAlpha *= sp * pp; card(g, 1500, 470, 200, 80, BLUE, 1); mono(g, '数据', 1600, 522, 30, BLUE, 'center', 1); g.restore(); } }
+    var pl = ap(lt, L[3], 0.7) * (1 - ap(lt, L[5], 0.5)) + ap(lt, L[6], 0.7) * (1 - ap(lt, L[7], 0.5)); pl = Math.min(1, pl); if (pl > 0) {
+      var gold = ap(lt, L[6], 0.5);
+      var PP = bbPlot(g, 1150, 940, 600, 380, pl, lt, { T: gold > 0.01 ? [5] : [], cols: [GOLD], draw: gold > 0.01 ? eo((lt - L[6]) / 1.8) : 0, wien: gold > 0.01 ? 0 : eo((lt - L[3]) / 1.2), wienT: 5, dots: ap(lt, L[3], 0.8), dotT: 5, tight: 1, dotsFrom: 1.5, zoom: gold > 0.01 ? 0 : ap(lt, L[4], 0.6) });
+      chip(g, 1450, 300, gold > 0.01 ? '新公式 · 两头都对上' : '长波一头 · 对不上', gold > 0.01 ? GOLD : RED, pl, 28);
+      if (gold < 0.01 && ap(lt, L[4], 0.5) > 0) { var xa = PP.X(1.9), ya = PP.Y(planck(1.9, 5)); chip(g, xa + 130, ya - 60, '已有的公式', BLUE, ap(lt, L[4], 0.5) * pl, 24); } }
+    var sh = ap(lt, L[5], 0.6) * (1 - ap(lt, L[6], 0.4)); if (sh > 0) { doc(g, 1450, 620, 300, 380, sh, -0.04, '', 3); avatar(g, 1300, 880, 60, GOLD, sh); chip(g, 1450, 300, '客人走后 · 坐下来算', GOLD, sh, 28); }
+    var pc = ap(lt, L[7], 0.6) * (1 - ap(lt, L[8], 0.5)); if (pc > 0) { var u = eo((lt - L[7]) / 1.6); postcardP(g, 1250 + 330 * u, 640 - 40 * Math.sin(u * 3.14), 330, 210, pc, -0.12 + 0.2 * u, '1900'); avatar(g, 1650, 800, 60, BLUE, pc * u); chip(g, 1450, 300, '明信片 · 寄给鲁本斯', GOLD, pc, 28); }
+    var fp = ap(lt, L[8], 0.7) * (1 - ap(lt, L[9], 0.4)); if (fp > 0) { g.save(); g.globalAlpha *= fp; var gr = g.createRadialGradient(1450, 620, 10, 1450, 620, 330); gr.addColorStop(0, 'rgba(255,214,140,0.35)'); gr.addColorStop(1, 'rgba(255,214,140,0)'); g.fillStyle = gr; g.fillRect(1100, 300, 700, 700); g.restore();
+      card(g, 1250, 480, 400, 280, GOLD, fp); gtxt(g, '量子时代', 1450, 600, 62, GOLD, 'center', fp); txt(g, '第 一 页', 1450, 690, 40, INK, 'center', fp, 700); }
+    var nm = ap(lt, L[9], 0.7); if (nm > 0) { gtxt(g, '普朗克', 1450, 640, 120, '#ffe7b0', 'center', nm); mono(g, '1858 – 1947', 1450, 720, 34, GOLD, 'center', nm); }
+  };
+  // 1858: Kiel; family of professors; piano or physics
+  D.kiel = function (g, lt, L) {
+    var k0 = ap(lt, L[0], 0.6); chip(g, 1450, 300, '基尔 · 1858', BLUE, k0 * (1 - ap(lt, L[3], 0.5)), 30);
+    var hs = k0 * (1 - ap(lt, L[2], 0.6)); if (hs > 0) house(g, 1450, 640, 2.4, hs);
+    var fam = ap(lt, L[1], 0.6) * (1 - ap(lt, L[2], 0.6)); if (fam > 0) { chip(g, 1290, 840, '祖辈 · 神学教授', INK, fam, 24); chip(g, 1610, 840, '父亲 · 法学教授', INK, fam, 24); }
+    var ky = ap(lt, L[2], 0.6) * (1 - ap(lt, L[3], 0.5)); if (ky > 0) { keysP(g, 1230, 520, 440, 190, ky, lt, true); chip(g, 1450, 780, '钢琴 · 管风琴', GOLD, ky, 28); }
+    var ch = ap(lt, L[3], 0.6); if (ch > 0) { var pick = ap(lt, L[4], 0.6);
+      card(g, 1180, 480, 240, 260, rgbDim(pick), ch); txt(g, '音乐', 1300, 640, 54, pick > 0.5 ? DIM : INK, 'center', ch, 900);
+      card(g, 1480, 480, 240, 260, GOLD, ch); txt(g, '物理', 1600, 640, 54, pick > 0.01 ? '#ffe7b0' : INK, 'center', ch, 900);
+      txt(g, '？', 1450, 630, 60, GOLD, 'center', ch * (1 - pick), 900);
+      if (pick > 0) { g.save(); g.globalAlpha *= pick; g.strokeStyle = GOLD; g.lineWidth = 6; g.shadowColor = GOLD; g.shadowBlur = 24; rr(g, 1472, 472, 256, 276, 18); g.stroke(); g.restore(); chip(g, 1450, 830, '选了物理', GOLD, pick, 32); } }
+  };
+  function rgbDim(p) { return p > 0.5 ? '#6a7080' : BLUE; }
+  // Munich: "physics is nearly finished" — Berlin: Helmholtz, Kirchhoff — the chair
+  D.jolly = function (g, lt, L) {
+    var m = ap(lt, L[0], 0.6) * (1 - ap(lt, L[3], 0.4)); if (m > 0) { chip(g, 1450, 300, '慕尼黑', BLUE, m, 30); avatar(g, 1300, 640, 84, '#9aa8c8', m); chip(g, 1300, 770, '约利 · 教授', INK, m, 24);
+      var bb = ap(lt, L[1], 0.6); if (bb > 0) { card(g, 1380, 420, 340, 110, '#9aa8c8', bb * m); txt(g, '差不多做完了', 1550, 492, 38, INK, 'center', bb * m, 900); }
+      var cr = ap(lt, L[2], 0.6); if (cr > 0) { g.save(); g.globalAlpha *= cr * m; g.fillStyle = '#2b3446'; g.fillRect(1400, 580, 320, 220); g.strokeStyle = 'rgba(190,200,220,0.8)'; g.lineWidth = 3; g.strokeRect(1400, 580, 320, 220);
+        g.strokeStyle = RED; g.lineWidth = 3; [[1450, 620, 1480, 690], [1580, 650, 1560, 740], [1660, 600, 1630, 680]].forEach(function (c) { g.beginPath(); g.moveTo(c[0], c[1]); g.lineTo((c[0] + c[2]) / 2 + 10, (c[1] + c[3]) / 2); g.lineTo(c[2], c[3]); g.stroke(); }); g.restore(); chip(g, 1560, 850, '剩下的 · 补补漏洞', DIM, cr * m, 24); }
+    }
+    var fnd = ap(lt, L[3], 0.7) * (1 - ap(lt, L[5], 0.5)); if (fnd > 0) { g.save(); g.globalAlpha *= fnd; card(g, 1180, 400, 540, 420, GOLD, 1); avatar(g, 1450, 560, 80, GOLD, 1);
+      g.fillStyle = 'rgba(190,175,150,0.85)'; for (var r = 0; r < 3; r++) for (var c = 0; c < 4; c++) g.fillRect(1230 + c * 120 + (r % 2) * 30, 690 + r * 34, 108, 28); g.restore(); chip(g, 1450, 300, '想弄清楚 · 已有的基础', GOLD, fnd, 28); }
+    var br = ap(lt, L[5], 0.7); if (br > 0) { chip(g, 1450, 300, '柏林', BLUE, br * (1 - ap(lt, L[7], 0.5)), 30);
+      var lec = br * (1 - ap(lt, L[6], 0.5)); if (lec > 0) { avatar(g, 1290, 600, 70, '#9aa8c8', lec); avatar(g, 1610, 600, 70, '#9aa8c8', lec); chip(g, 1290, 720, '亥姆霍兹', INK, lec, 24); chip(g, 1610, 720, '基尔霍夫', GOLD, lec, 24); }
+      var th = ap(lt, L[6], 0.6) * (1 - ap(lt, L[7], 0.5)); if (th > 0) { gtxt(g, '热力学', 1450, 640, 100, GOLD, 'center', th); }
+      var chr = ap(lt, L[7], 0.6); if (chr > 0) { g.save(); g.globalAlpha *= chr; g.fillStyle = '#3a2f20'; rr(g, 1380, 560, 140, 20, 6); g.fill(); g.fillRect(1390, 460, 20, 110); g.fillRect(1390, 580, 14, 120); g.fillRect(1500, 580, 14, 120); g.restore();
+        var sit = ap(lt, L[8], 0.8); txt(g, '基尔霍夫 · 的位置', 1450, 780, 30, DIM, 'center', chr * (1 - sit), 700); avatar(g, 1470, 500, 60, GOLD, sit); chip(g, 1450, 850, '接位置的，是这个学生', GOLD, sit, 28); } }
+  };
+  // the curve Kirchhoff left: a mountain; Wien matches the short side only
+  D.curve = function (g, lt, L) {
+    var wi = ap(lt, L[7], 0.5);
+    var hd = 1 - ap(lt, L[7], 0.6); var PP = bbPlot(g, 1150, 940, 600, 380, ap(lt, L[1], 0.7), lt, { T: [4, 5], cols: ['#f0bd5c', '#86b6ff'], draw: [ap(lt, L[3], 0.6) * eo((lt - L[3]) / 1.8) * hd, ap(lt, L[6], 0.6) * eo((lt - L[6]) / 1.2)], dots: ap(lt, L[2], 0.8) * hd, dotT: 4, tight: ap(lt, L[2], 1.6), wien: wi > 0 ? eo((lt - L[7]) / 1.2) : 0, wienT: 5, wienCol: GOLD, zoom: ap(lt, L[9], 0.6) });
+    chip(g, 1450, 300, '黑体曲线', BLUE, ap(lt, L[0], 0.5) * (1 - ap(lt, L[7], 0.5)), 30);
+    chip(g, 1450, 360, '实验家 · 越量越准', GOLD, ap(lt, L[2], 0.5) * (1 - ap(lt, L[3], 0.4)), 26);
+    var pk = ap(lt, L[4], 0.5) * (1 - ap(lt, L[7], 0.5)); if (pk > 0 && PP) { var xp = PP.X(0.72), yp = PP.Y(planck(0.72, 4)); glowDot(g, xp, yp, 9, '#fff6d8', pk); chip(g, xp + 10, yp - 50, '峰', GOLD, pk, 26); chip(g, 1360, 700, '短波一头低', DIM, ap(lt, L[4], 0.5) * (1 - ap(lt, L[5], 0.4)), 24); }
+    chip(g, 1650, 700, '长波一头落下', DIM, ap(lt, L[5], 0.5) * (1 - ap(lt, L[6], 0.4)), 24);
+    chip(g, 1450, 360, '温度越高 · 峰越往蓝移', BLUE, ap(lt, L[6], 0.5) * (1 - ap(lt, L[7], 0.5)), 26);
+    if (wi > 0) { g.save(); g.globalAlpha *= wi; chip(g, 1450, 300, '维恩 · 的公式', GOLD, 1, 30); g.restore(); }
+    var sh = ap(lt, L[8], 0.5); if (sh > 0 && PP) { chip(g, 1250, 800, '短波 · 对得很好', GREEN, sh * (1 - ap(lt, L[9], 0.4)), 24); }
+    var lg = ap(lt, L[9], 0.6); if (lg > 0 && PP) { chip(g, 1450, 360, '长波 · 越来越偏', RED, lg, 28); }
+  };
+  // Rubens measures the long-wave end; Planck "patches" a formula that fits both sides; the October report
+  D.postcard = function (g, lt, L) {
+    var pl = ap(lt, L[0], 0.6); var gold = ap(lt, L[4], 0.5);
+    var PP = bbPlot(g, 1150, 940, 600, 380, pl * (1 - ap(lt, L[9], 0.5)), lt, { T: gold > 0.01 ? [5] : [], cols: [GOLD], draw: gold > 0.01 ? eo((lt - L[4]) / 1.6) : 0, wien: eo((lt - L[0]) / 1.0) * (1 - ap(lt, L[4], 0.5) * 0.35), wienT: 5, dots: ap(lt, L[1], 0.8), dotT: 5, tight: 1, dotsFrom: 1.5, zoom: ap(lt, L[2], 0.6) * (1 - ap(lt, L[3], 0.5)) });
+    chip(g, 1450, 300, '鲁本斯 · 长波', BLUE, ap(lt, L[0], 0.5) * (1 - ap(lt, L[3], 0.4)), 30);
+    chip(g, 1450, 360, '远红外 · 库尔鲍姆', DIM, ap(lt, L[1], 0.5) * (1 - ap(lt, L[3], 0.4)), 24);
+    chip(g, 1450, 420, '和维恩 · 对不上', RED, ap(lt, L[2], 0.5) * (1 - ap(lt, L[3], 0.4)), 26);
+    chip(g, 1450, 300, '10 月 7 日 · 那晚', GOLD, ap(lt, L[3], 0.5) * (1 - ap(lt, L[6], 0.4)), 30);
+    if (ap(lt, L[4], 0.5) > 0) chip(g, 1450, 360, '新公式 · 两头都对上', GOLD, ap(lt, L[4], 0.5) * (1 - ap(lt, L[6], 0.4)), 26);
+    var ck = ap(lt, L[6], 0.6) * (1 - ap(lt, L[8], 0.5)); if (ck > 0) { avatar(g, 1450, 560, 90, BLUE, ck); chip(g, 1450, 300, '几天后 · 鲁本斯回话', BLUE, ck, 28);
+      var c2 = ap(lt, L[7], 0.5); if (c2 > 0) { g.save(); g.globalAlpha *= ck; check(g, 1450, 760, true, GREEN, c2); gtxt(g, '全部吻合', 1450, 840, 50, GREEN, 'center', c2); g.restore(); } }
+    var rp = ap(lt, L[8], 0.6) * (1 - ap(lt, L[9], 0.4)); if (rp > 0) { chip(g, 1450, 300, '德国物理学会 · 10 月', GOLD, rp, 28);
+      g.save(); g.globalAlpha *= rp; g.fillStyle = '#2a303c'; g.fillRect(1300, 700, 300, 120); g.fillStyle = '#4a5260'; g.fillRect(1280, 690, 340, 16); avatar(g, 1450, 560, 80, GOLD, 1); g.restore(); txt(g, '报告', 1450, 770, 40, INK, 'center', rp, 900); }
+    var qq = ap(lt, L[9], 0.6); if (qq > 0) { chip(g, 1450, 300, '只是“凑”出来的', RED, qq * (1 - ap(lt, L[10], 0.5)), 30); var wq = ap(lt, L[10], 0.6); gtxt(g, '为什么对？', 1450, 640, 100, GOLD, 'center', wq); gtxt(g, '？', 1450, 520, 170, 'rgba(255,230,160,0.9)', 'center', qq * (0.7 + 0.3 * Math.sin(lt * 3)) * (1 - wq * 0.3)); }
+  };
+  // desperate weeks: old methods fail; Boltzmann's counting; energy in portions; E = h nu; h is tiny; 14 Dec
+  D.quantum = function (g, lt, L) {
+    var fl = ap(lt, L[1], 0.6) * (1 - ap(lt, L[3], 0.5)); if (fl > 0) { chip(g, 1450, 300, '最紧张的日子', GOLD, fl, 30); for (var i = 0; i < 3; i++) { var p = ap(lt, L[2] + i * 0.4, 0.5); doc(g, 1260 + i * 190, 620 + (i % 2) * 24, 170, 220, fl * (0.45 + 0.4 * p), -0.08 + i * 0.07, '', i + 1); if (p > 0) { g.save(); g.globalAlpha *= fl * p; g.strokeStyle = RED; g.lineWidth = 7; g.beginPath(); g.moveTo(1230 + i * 190, 560); g.lineTo(1290 + i * 190, 690); g.moveTo(1290 + i * 190, 560); g.lineTo(1230 + i * 190, 690); g.stroke(); g.restore(); } }
+      chip(g, 1450, 840, '熟悉的办法 · 都不行', RED, ap(lt, L[2], 0.5) * fl, 26); }
+    var bz = ap(lt, L[3], 0.6) * (1 - ap(lt, L[5], 0.5)); if (bz > 0) { chip(g, 1450, 300, '玻尔兹曼 · 数一数', BLUE, bz, 30); g.save(); g.globalAlpha *= bz;
+      for (var b = 0; b < 4; b++) { g.strokeStyle = 'rgba(180,195,225,0.7)'; g.lineWidth = 3; g.strokeRect(1210 + b * 130, 540, 110, 190); var nn = [5, 2, 6, 1][b]; for (var c = 0; c < nn; c++) glowDot(g, 1236 + b * 130 + (c % 3) * 30, 700 - Math.floor(c / 3) * 34, 8, c % 2 ? GOLD : '#9cc4ff', 1); } g.restore(); }
+    var sl = ap(lt, L[5], 0.6) * (1 - ap(lt, L[7], 0.5)); if (sl > 0) { chip(g, 1450, 300, '奇怪的假设', RED, sl, 30);
+      var smooth = 1 - ap(lt, L[6], 0.8); g.save(); g.globalAlpha *= sl * smooth; g.strokeStyle = BLUE; g.lineWidth = 6; g.shadowColor = BLUE; g.shadowBlur = 12; g.beginPath(); g.moveTo(1230, 800); g.lineTo(1670, 480); g.stroke(); g.restore();
+      stairs(g, 1230, 800, 440, 320, 5, sl, eo((lt - L[6]) / 1.4), GOLD);
+      g.save(); g.globalAlpha *= sl; g.fillStyle = 'rgba(200,210,230,0.6)'; g.font = '700 26px ' + SERIF; g.textAlign = 'right'; txt(g, '能量', 1190, 520, 28, DIM, 'right', sl, 700); g.restore();
+      chip(g, 1450, 860, '一份一份 · 地交换', GOLD, ap(lt, L[6], 0.5) * sl, 28); }
+    var fm = ap(lt, L[7], 0.6) * (1 - ap(lt, L[10], 0.5)); if (fm > 0) { var ee = ap(lt, L[9], 0.5); card(g, 1190, 520, 520, 220, GOLD, fm); gtxt(g, ee > 0.01 ? 'E = hν' : 'E = ? × ?', 1450, 650, ee > 0.01 ? 100 : 70, GOLD, 'center', fm);
+      chip(g, 1450, 440, '每一份 = 常数 × 频率', BLUE, ap(lt, L[7], 0.5) * fm, 26); chip(g, 1450, 800, 'h · 普朗克常数', GOLD, ap(lt, L[8] + 0.2, 0.5) * fm * (1 - ap(lt, L[10], 0.5)), 26); }
+    var sm = ap(lt, L[10] + 0.5, 0.6) * (1 - ap(lt, L[11], 0.5)); if (sm > 0) { gtxt(g, 'h', 1450, 640, 190, GOLD, 'center', sm); mono(g, '0.000 ··· 0662', 1450, 760, 40, INK, 'center', sm); chip(g, 1450, 300, '小得惊人', GOLD, sm, 30); }
+    var dc = ap(lt, L[11], 0.6); if (dc > 0) { calPage(g, 1450, 640, 300, 360, '12 月', '14', '1900', dc * (1 - ap(lt, L[12], 0.5))); chip(g, 1450, 300, '报告 · 推导', GOLD, dc * (1 - ap(lt, L[12], 0.5)), 30); }
+    var ds = ap(lt, L[12], 0.7); if (ds > 0) { gtxt(g, '绝望之举', 1450, 640, 110, RED, 'center', ds); mono(g, '— 后来的说法', 1450, 720, 30, DIM, 'center', ds); }
+  };
+  // he did not believe it; Einstein; relativity; Nobel
+  D.doubt = function (g, lt, L) {
+    var tr = ap(lt, L[0], 0.6) * (1 - ap(lt, L[5], 0.5)); if (tr > 0) { chip(g, 1450, 300, '数学上的一个技巧', INK, tr * (1 - ap(lt, L[3], 0.4)), 30);
+      var er = ap(lt, L[2], 1.0); stairs(g, 1260, 800, 400, 300, 5, tr * (1 - 0.85 * er), 1, GOLD);
+      if (er > 0) { g.save(); g.globalAlpha *= tr * er; g.strokeStyle = BLUE; g.lineWidth = 6; g.shadowColor = BLUE; g.shadowBlur = 12; g.beginPath(); g.moveTo(1260, 800); g.lineTo(1660, 500); g.stroke(); g.restore(); chip(g, 1450, 400, '去掉台阶 · 变回平滑', BLUE, tr * er, 24); }
+      var yy = ap(lt, L[3], 0.6); if (yy > 0) { chip(g, 1450, 300, '十几年 · 想改掉', BLUE, yy * tr, 30); for (var i = 0; i < 12; i++) { var on = ap(lt, L[3] + 0.2 + i * 0.12, 0.3); ticks(g, 1290 + i * 30, 900, 1, on > 0.5 ? 1 : 0, GOLD, tr * yy, 48, 12); } } }
+    var pt = ap(lt, L[5], 0.6) * (1 - ap(lt, L[8], 0.5)); if (pt > 0) { chip(g, 1450, 300, '1905 · 伯尔尼', BLUE, pt, 30); house(g, 1300, 620, 1.6, pt); chip(g, 1300, 760, '专利局', INK, pt, 24); avatar(g, 1300, 540, 40, '#9aa8c8', 0);
+      var ph = ap(lt, L[6], 0.6); if (ph > 0) { g.save(); g.globalAlpha *= pt * ph; g.strokeStyle = BLUE; g.lineWidth = 4; g.beginPath(); for (var k = 0; k <= 30; k++) { var xx = 1500 + k * 7, yy2 = 560 + 30 * Math.sin(k * 0.6); if (k) g.lineTo(xx, yy2); else g.moveTo(xx, yy2); } g.stroke(); g.restore(); for (var d = 0; d < 5; d++) glowDot(g, 1520 + d * 46, 680 + (d % 2) * 14, 8, GOLD, pt * ph); chip(g, 1600, 780, '光 · 一份一份', GOLD, pt * ph, 26); }
+      var ng = ap(lt, L[7], 0.5); if (ng > 0) { g.save(); g.globalAlpha *= pt * ng; g.strokeStyle = RED; g.lineWidth = 12; g.shadowColor = RED; g.shadowBlur = 20; g.beginPath(); g.moveTo(1520, 560); g.lineTo(1690, 730); g.moveTo(1690, 560); g.lineTo(1520, 730); g.stroke(); g.restore(); chip(g, 1600, 860, '普朗克 · 不同意', RED, pt * ng, 26); } }
+    var rl = ap(lt, L[8], 0.6) * (1 - ap(lt, L[11], 0.5)); if (rl > 0) { chip(g, 1450, 300, '同一年 · 相对论', BLUE, rl, 30); gtxt(g, '相对论', 1450, 600, 110, '#cfe0ff', 'center', rl);
+      var sp = ap(lt, L[9], 0.6); if (sp > 0) { check(g, 1450, 760, true, GREEN, sp * rl); chip(g, 1450, 840, '立刻看出分量', GREEN, sp * rl, 28); }
+      var su = ap(lt, L[10], 0.6); if (su > 0) chip(g, 1450, 920, '最早的支持者', GOLD, su * rl, 28); }
+    var bl = ap(lt, L[11], 0.6) * (1 - ap(lt, L[13], 0.5)); if (bl > 0) { chip(g, 1450, 300, '柏林', BLUE, bl, 30); avatar(g, 1290, 620, 80, GOLD, bl); avatar(g, 1610, 620, 80, '#9aa8c8', bl); arrow(g, 1390, 620, 1530, 620, GOLD, bl, eo((lt - L[11]) / 0.8), lt * 40); chip(g, 1290, 750, '普朗克', GOLD, bl, 26); chip(g, 1610, 750, '爱因斯坦', INK, ap(lt, L[12], 0.5) * bl, 26); }
+    var nb = ap(lt, L[13], 0.7); if (nb > 0) { chip(g, 1450, 300, '1918 · 诺贝尔物理学奖', GOLD, nb, 30); medal(g, 1450, 600, 130, nb, '1918'); chip(g, 1450, 830, '发现能量量子', GOLD, ap(lt, L[14], 0.5) * nb, 30); }
+  };
+  // home: music, then the losses (quiet; candles go out)
+  D.home = function (g, lt, L) {
+    var hm = ap(lt, L[0], 0.7) * (1 - ap(lt, L[2], 0.6)); if (hm > 0) { chip(g, 1450, 300, '柏林郊外 · 音乐沙龙', BLUE, hm, 28); house(g, 1450, 700, 2.4, hm);
+      for (var i = 0; i < 6; i++) { var u = (lt * 0.35 + i / 6) % 1; txt(g, i % 2 ? '♪' : '♫', 1280 + i * 70, 560 - u * 120, 44, GOLD, 'center', hm * Math.sin(u * 3.14) * 0.9, 700); }
+      var pe = ap(lt, L[1], 0.6); if (pe > 0) { chip(g, 1310, 840, '普朗克 · 钢琴', GOLD, pe * hm, 24); chip(g, 1610, 840, '爱因斯坦 · 常客', INK, pe * hm, 24); } }
+    var lo = ap(lt, L[2], 0.6); if (lo > 0) { var NM = [['妻子', '1909', 2], ['长子卡尔', '1916', 3], ['女儿格蕾特', '1917', 4], ['女儿艾玛', '1919', 5]];
+      NM.forEach(function (n, i) { var y = 400 + i * 150, on = ap(lt, L[n[2]] - 0.2, 0.5), p = ap(lt, L[Math.min(i + 2, 5)] - 0.1, 0.5); if (i === 0) { p = ap(lt, L[2], 0.5); on = p; }
+        var seen = i === 0 ? ap(lt, L[2], 0.5) : i === 1 ? ap(lt, L[3], 0.5) : i === 2 ? ap(lt, L[4], 0.5) : ap(lt, L[5], 0.5); if (seen <= 0) return;
+        glowDot(g, 1250, y, 10, i % 2 ? '#c8c0b0' : GOLD, lo * seen * (1 - 0.0)); g.save(); g.globalAlpha *= lo * seen; g.fillStyle = 'rgba(14,18,28,0.9)'; g.beginPath(); g.arc(1250, y, 14, 0, 6.29); g.fill(); g.restore();
+        txt(g, n[0], 1300, y + 10, 36, INK, 'left', lo * seen, 700); mono(g, n[1], 1690, y + 10, 34, DIM, 'right', lo * seen); }); }
+  };
+  // 1933: Jewish scientists driven out; he pleads for Haber; no result; he stays
+  D.hitler = function (g, lt, L) {
+    var h1 = ap(lt, L[0], 0.6) * (1 - ap(lt, L[3], 0.5)); if (h1 > 0) { chip(g, 1450, 300, '1933 · 柏林', RED, h1, 30); g.save(); g.globalAlpha *= h1; g.fillStyle = '#1b2231'; g.fillRect(1180, 430, 540, 400); g.strokeStyle = 'rgba(190,200,220,0.7)'; g.lineWidth = 4; g.strokeRect(1180, 430, 540, 400); g.fillStyle = '#0a0d14'; g.fillRect(1560, 560, 100, 270); g.restore();
+      var ex = ap(lt, L[1], 0.6); for (var i = 0; i < 4; i++) { var u = eo((lt - L[1] - i * 0.35) / 1.8); avatar(g, 1260 + i * 80 + u * (1610 - (1260 + i * 80)), 700 - u * 40, 36, '#9aa8c8', h1 * ex * (1 - u * 0.9)); }
+      chip(g, 1450, 880, '犹太科学家 · 被赶出大学', RED, ap(lt, L[1], 0.5) * h1, 26); }
+    var l2 = ap(lt, L[2], 0.6) * (1 - ap(lt, L[6], 0.5)); if (l2 > 0) { avatar(g, 1290, 620, 80, GOLD, l2); chip(g, 1290, 750, '普朗克 · 科学界领袖', GOLD, l2, 24);
+      var ht = ap(lt, L[3], 0.6); if (ht > 0) { g.save(); g.globalAlpha *= l2 * ht; g.fillStyle = '#331418'; g.beginPath(); g.arc(1610, 620, 80, 0, 6.29); g.fill(); g.fillStyle = 'rgba(190,60,50,0.8)'; g.beginPath(); g.arc(1610, 600, 30, 0, 6.29); g.fill(); g.beginPath(); g.arc(1610, 700, 50, Math.PI, 0); g.fill(); g.restore(); chip(g, 1610, 750, '希特勒', RED, l2 * ht, 24); arrow(g, 1380, 620, 1520, 620, GOLD, l2 * ht, eo((lt - L[3]) / 0.8), lt * 40); }
+      var hb = ap(lt, L[4], 0.6); if (hb > 0) { chip(g, 1450, 450, '为哈伯求情 · 化学家', GOLD, hb * l2, 26); }
+      var nr = ap(lt, L[5], 0.5); if (nr > 0) { g.save(); g.globalAlpha *= l2 * nr; g.strokeStyle = RED; g.lineWidth = 12; g.shadowColor = RED; g.shadowBlur = 18; g.beginPath(); g.moveTo(1420, 560); g.lineTo(1480, 620); g.moveTo(1480, 560); g.lineTo(1420, 620); g.stroke(); g.restore(); chip(g, 1450, 880, '大发雷霆 · 毫无结果', RED, l2 * nr, 26); } }
+    var st = ap(lt, L[6], 0.7); if (st > 0) { chip(g, 1450, 300, '他没有离开', INK, st * (1 - ap(lt, L[8], 0.5)), 30); g.save(); g.globalAlpha *= st * (1 - ap(lt, L[8], 0.5)); g.strokeStyle = 'rgba(190,200,220,0.7)'; g.lineWidth = 4; g.setLineDash([14, 10]); g.strokeRect(1230, 440, 440, 380); g.setLineDash([]); g.restore(); avatar(g, 1450, 620, 90, GOLD, st * (1 - ap(lt, L[8], 0.5))); chip(g, 1450, 880, '也没有公开反抗', DIM, ap(lt, L[7], 0.5) * st * (1 - ap(lt, L[8], 0.5)), 26);
+      var sc = ap(lt, L[8], 0.7); if (sc > 0) { chip(g, 1450, 300, '评价两极', INK, sc, 30); scale2(g, 1450, 620, 0.1 * Math.sin(lt * 1.4), sc, ''); chip(g, 1290, 900, '留下 · 保住能保的', GOLD, sc, 24); chip(g, 1610, 900, '沉默 · 没有反抗', RED, sc, 24); } }
+  };
+  // 1944-45: house bombed, Erwin arrested and executed; he is 86 (restrained)
+  D.erwin = function (g, lt, L) {
+    var b = ap(lt, L[0], 0.7) * (1 - ap(lt, L[2], 0.6)); if (b > 0) { chip(g, 1450, 300, '1944 · 2 月', RED, b, 30); house(g, 1450, 640, 2.4, b * (1 - 0.35 * ap(lt, L[1], 1.2))); flameFx(g, 1450, 560, 1.4, lt, b * 0.9); var bd = ap(lt, L[1], 0.7); if (bd > 0) { for (var i = 0; i < 6; i++) { var u = (lt * 0.5 + i / 6) % 1; doc(g, 1280 + i * 70, 800 - u * 220, 70, 90, b * bd * (1 - u), 0.4 * Math.sin(i), '', i); } chip(g, 1450, 880, '书信 · 手稿', DIM, bd * b, 26); } }
+    var ar = ap(lt, L[2], 0.6) * (1 - ap(lt, L[6], 0.5)); if (ar > 0) { chip(g, 1450, 300, '1944 · 7 月', RED, ar, 30); avatar(g, 1450, 600, 90, '#9aa8c8', ar); chip(g, 1450, 730, '埃尔温 · 被捕', GOLD, ar, 28);
+      var cn = ap(lt, L[3], 0.6); if (cn > 0) chip(g, 1450, 820, '卷入刺杀希特勒的密谋', RED, cn * ar, 26);
+      var lt5 = ap(lt, L[4], 0.6); if (lt5 > 0) { doc(g, 1620, 480, 150, 190, lt5 * ar * (1 - ap(lt, L[5], 0.5)), 0.1, '信', 7); arrow(g, 1560, 440, 1450, 460, GOLD, lt5 * ar * (1 - ap(lt, L[5], 0.5)), 1, lt * 30); chip(g, 1620, 610, '求饶他一命', GOLD, lt5 * ar * (1 - ap(lt, L[5], 0.5)), 24); }
+      var nr2 = ap(lt, L[5], 0.5); if (nr2 > 0) chip(g, 1450, 920, '没有回音', DIM, nr2 * ar, 28); }
+    var ex = ap(lt, L[6], 0.7); if (ex > 0) { chip(g, 1450, 300, '1945 · 1 月', RED, ex, 30); glowDot(g, 1450, 600, 14, '#c8c0b0', ex * (1 - ap(lt, L[7], 0.6) * 0.0)); g.save(); g.globalAlpha *= ex; g.fillStyle = 'rgba(14,18,28,0.9)'; g.beginPath(); g.arc(1450, 600, 22, 0, 6.29); g.fill(); g.restore(); txt(g, '埃尔温', 1450, 700, 40, INK, 'center', ex, 700);
+      var ag = ap(lt, L[7], 0.7); if (ag > 0) { gtxt(g, '86 岁', 1450, 860, 90, GOLD, 'center', ag); } }
+  };
+  // Göttingen, 1947; the society that carries his name
+  D.gott = function (g, lt, L) {
+    var go = ap(lt, L[0], 0.7) * (1 - ap(lt, L[2], 0.6)); if (go > 0) { chip(g, 1450, 300, '哥廷根', BLUE, go, 30); house(g, 1450, 620, 2.2, go); mono(g, '1947 · 10 · 4', 1450, 840, 38, GOLD, 'center', ap(lt, L[1], 0.6) * go); glowDot(g, 1450, 500, 10, '#ffe7b0', ap(lt, L[1], 0.6) * go * (1 - ap(lt, L[1] + 1.6, 1.0))); }
+    var sc = ap(lt, L[2], 0.7); if (sc > 0) { chip(g, 1450, 300, '1948 · 改名', BLUE, sc, 30); card(g, 1180, 460, 540, 280, GOLD, sc); gtxt(g, '马克斯·普朗克学会', 1450, 620, 54, GOLD, 'center', ap(lt, L[4], 0.7) * sc); txt(g, '德国最大的科研机构', 1450, 560, 34, INK, 'center', ap(lt, L[2], 0.5) * sc * (1 - ap(lt, L[4], 0.5)), 700); txt(g, '改以他的名字命名', 1450, 680, 34, INK, 'center', ap(lt, L[3], 0.5) * sc * (1 - ap(lt, L[4], 0.5)), 700); }
+  };
+  // 2019: the kilogram stops being a piece of metal and becomes a number
+  D.kilo = function (g, lt, L) {
+    var o = ap(lt, L[0], 0.6) * (1 - ap(lt, L[4], 0.6)); if (o > 0) { chip(g, 1450, 300, '一千克 · 原器', BLUE, o, 30); jar(g, 1450, 800, 220, 330, o); cyl(g, 1450, 770, 110, 150, o); chip(g, 1450, 870, '铂铱合金 · 法国', INK, ap(lt, L[1], 0.5) * o, 26);
+      var cp = ap(lt, L[2], 0.6); if (cp > 0) { [1250, 1650].forEach(function (x, i) { cyl(g, x, 770, 70, 100, o * cp, '#7aa8ff'); }); chip(g, 1450, 930, '复制品', DIM, cp * o, 24); var ne = ap(lt, L[3], 0.6); if (ne > 0) gtxt(g, '≠', 1450, 440, 90, RED, 'center', ne * o * (0.7 + 0.3 * Math.sin(lt * 4))); } }
+    var nw = ap(lt, L[4], 0.7); if (nw > 0) { chip(g, 1450, 300, '2019 · 5 · 20', GOLD, nw, 30); var hh = ap(lt, L[5], 0.6); gtxt(g, 'h', 1450, 600, 220, GOLD, 'center', hh * (1 - ap(lt, L[8], 0.6)));
+      var vv = ap(lt, L[6], 0.6); if (vv > 0) { g.save(); g.globalAlpha *= nw * (1 - ap(lt, L[8], 0.6)); mono(g, '6.62607015', 1450, 700, 52, INK, 'center', vv); mono(g, '× 10⁻³⁴  J·s', 1450, 770, 40, DIM, 'center', ap(lt, L[7], 0.6)); g.restore(); } }
+    var sc = ap(lt, L[8], 0.7); if (sc > 0) { var wob = 0.16 * Math.exp(-(lt - L[8]) * 0.7) * Math.cos((lt - L[8]) * 5); scale2(g, 1450, 640, wob, sc, 'h'); chip(g, 1450, 300, '称量世界的砝码', GOLD, ap(lt, L[9], 0.5) * sc, 32); }
+  };
+  // ---------- chapter card, recap, sources ----------
+  function chapCard(g, sc, lt, c) {
+    var d = lt, cx = 960, cy = 500;
+    g.save();
+    var w = 900 * eo((lt + 0.2) / 0.9); g.strokeStyle = 'rgba(240,189,92,0.5)'; g.lineWidth = 1.5; g.shadowColor = '#f0bd5c'; g.shadowBlur = 12;
+    g.beginPath(); g.moveTo(cx - w / 2, cy + 92); g.lineTo(cx + w / 2, cy + 92); g.stroke(); g.shadowBlur = 0;
+    var k = d < 0.16 ? 1.9 - 0.9 * eo(d / 0.16) : 1 + 0.02 * (d - 0.16);
+    g.save(); g.globalAlpha *= Math.min(1, d / 0.05); g.translate(cx, cy); g.scale(k, k); g.textAlign = 'center';
+    g.font = '900 190px ' + SERIF; g.fillStyle = '#f6dfae'; g.shadowColor = 'rgba(240,180,80,0.85)'; g.shadowBlur = 40;
+    if (g.letterSpacing !== undefined) g.letterSpacing = '24px'; g.fillText(c.word, 12, 60); if (g.letterSpacing !== undefined) g.letterSpacing = '0px'; g.restore();
+    if (d < 0.6) { g.save(); g.globalAlpha *= 1 - d / 0.6; g.strokeStyle = 'rgba(255,214,140,0.8)'; g.lineWidth = 3;
+      for (var i = 0; i < 18; i++) { var an = i / 18 * 6.283, r0 = 230 + d * 520, r1 = r0 + 50 + 40 * rnd(i); g.beginPath(); g.moveTo(cx + Math.cos(an) * r0, cy + Math.sin(an) * r0 * 0.55); g.lineTo(cx + Math.cos(an) * r1, cy + Math.sin(an) * r1 * 0.55); g.stroke(); }
+      g.restore(); }
+    for (var i = 0; i < 60; i++) { var an = rnd(i + 3) * 6.283, sp = 80 + 380 * rnd(i + 7), dd = Math.min(d, 2.2), x = cx + Math.cos(an) * sp * eo(dd / 2.2), y = cy + Math.sin(an) * sp * 0.6 * eo(dd / 2.2) - 30 * dd;
+      g.fillStyle = 'rgba(255,210,140,' + (0.8 * (1 - dd / 2.2)).toFixed(3) + ')'; g.fillRect(x, y, 2.5, 2.5); }
+    g.textAlign = 'center';
+    g.globalAlpha = E((lt + 0.1) / 0.5); g.font = '700 30px ' + SERIF; g.fillStyle = 'rgba(240,200,130,0.85)'; if (g.letterSpacing !== undefined) g.letterSpacing = '10px'; g.fillText(c.n, cx + 5, cy - 150);
+    g.globalAlpha = E((lt - 0.5) / 0.5) * 0.85; g.font = '500 26px ' + MONO; g.fillStyle = 'rgba(220,210,190,0.85)'; if (g.letterSpacing !== undefined) g.letterSpacing = '14px'; g.fillText(c.en, cx + 7, cy + 150);
+    if (g.letterSpacing !== undefined) g.letterSpacing = '0px';
+    var p = E((lt - 0.8) / 0.5); g.globalAlpha = p; g.font = '700 40px ' + SERIF; g.fillStyle = '#ece6da'; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 12;
+    g.filter = p < 1 ? 'blur(' + ((1 - p) * 8).toFixed(1) + 'px)' : 'none'; g.fillText(c.line, cx, cy + 236); g.filter = 'none';
+    g.restore();
+  }
+  var NODES = [['卡', '一张周日的明信片', '1900 · 10 · 7'], ['份', '一份一份的能量', '1900 · 12 · 14'], ['疑', '一个不信自己的人', '1905 · 1918'], ['码', '一个称量世界的小数', '2019']];
+  function recap(g, sc, lt) {
+    var xs = [420, 790, 1160, 1530], y = 600;
+    g.save(); var w = 1240 * eo((lt - 0.2) / (sc.ls[3] + 0.6));
+    g.strokeStyle = 'rgba(240,189,92,0.6)'; g.lineWidth = 2; g.shadowColor = '#f0bd5c'; g.shadowBlur = 10; g.beginPath(); g.moveTo(360, y); g.lineTo(360 + w, y); g.stroke(); g.shadowBlur = 0;
+    NODES.forEach(function (n, k) {
+      var p = cl((lt - sc.ls[k] - 0.1) / 0.5); if (p <= 0) return; var x = xs[k], col = k === 3 ? BLUE : GOLD;
+      g.globalAlpha = p; g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 16; g.beginPath(); g.arc(x, y, 9, 0, 6.29); g.fill(); g.shadowBlur = 0;
+      g.strokeStyle = rgba(col, 0.8 * (1 - p)); g.beginPath(); g.arc(x, y, 9 + 40 * p, 0, 6.29); g.stroke();
+      g.textAlign = 'center'; g.font = '900 96px ' + SERIF; g.fillStyle = k === 3 ? '#cfe0ff' : '#f6dfae'; g.shadowColor = rgba(col, 0.7); g.shadowBlur = 24; g.fillText(n[0], x, y - 44); g.shadowBlur = 0;
+      g.font = '700 30px ' + SERIF; g.fillStyle = '#ece6da'; g.fillText(n[1], x, y + 62); g.font = '500 20px ' + MONO; g.fillStyle = 'rgba(200,190,170,0.8)'; g.fillText(n[2], x, y + 98);
+    });
+    var tp = E((lt - sc.ls[3] - 1.6) / 0.8);
+    if (tp > 0) { g.globalAlpha = tp; g.font = '900 56px ' + SERIF; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 14;
+      var s1 = '最保守的人，', s2 = '打开了量子的门', s3 = '', w1 = g.measureText(s1).width, w2 = g.measureText(s2).width, w3 = g.measureText(s3).width, x0 = 960 - (w1 + w2 + w3) / 2;
+      g.textAlign = 'left'; g.fillStyle = '#ece6da'; g.fillText(s1, x0, 860); g.fillStyle = GOLD; g.fillText(s2, x0 + w1, 860); g.fillStyle = '#ece6da'; g.fillText(s3, x0 + w1 + w2, 860); }
+    g.restore();
+  }
+  function sources(g, sc, lt) {
+    g.save(); g.textAlign = 'left';
+    TL.src.forEach(function (s, k) {
+      var p = E((lt - 0.2 - k * 0.1) / 0.4); if (p <= 0) return; var col = k < 3 ? 0 : 1, row = k % 3, x = 200 + col * 820, y = 330 + row * 150;
+      g.globalAlpha = p; g.font = '700 28px ' + SERIF; g.fillStyle = '#ece6da'; g.fillText(s[0], x, y);
+      g.font = '500 19px ' + MONO; g.fillStyle = 'rgba(190,195,205,0.75)'; g.fillText(s[1], x, y + 36);
+      g.fillStyle = 'rgba(240,189,92,0.6)'; g.fillRect(x - 22, y - 22, 3, 60);
+    });
+    g.globalAlpha = E((lt - 1.2) / 0.5); g.textAlign = 'center'; g.font = '700 26px ' + SERIF; g.fillStyle = '#ece6da'; g.fillText('10 月报告的具体日期、他到柏林接任的年份，各来源说法不一，片中不写。', 960, 930);
+    g.restore();
+  }
+  function drawScene(g, i, lt, alpha) {
+    if (alpha <= 0) return; var sc = SCN[i];
+    g.save(); g.globalAlpha = alpha;
+    if (sc.k === 'chap') chapCard(g, sc, lt, TL.chaps.filter(function (c) { return Math.abs(c.s - sc.s) < 0.01; })[0]);
+    else if (sc.k === 'recap') recap(g, sc, lt);
+    else if (sc.k === 'src') sources(g, sc, lt);
+    else if (D[sc.draw]) D[sc.draw](g, lt, sc.ls, sc);
+    g.restore();
+  }
+  window.SCENE = function (g, t) {
+    var i = 0; for (var k = 0; k < SCN.length; k++) if (t >= SCN[k].s) i = k;
+    var sc = SCN[i], lt = t - sc.s, X = (sc.k === 'chap' || (i > 0 && SCN[i - 1].k === 'chap')) ? 0.25 : 0.5;
+    if (i > 0 && lt < X) { var p = E(lt / X); var pv = SCN[i - 1]; drawScene(g, i - 1, pv.e - pv.s, 1 - p); drawScene(g, i, lt, p); }
+    else drawScene(g, i, lt, 1);
+    var hasText = TL.groups.some(function (gr) { return t >= gr.s && t < gr.e; });
+    if (hasText) { var sg = g.createRadialGradient(300, 160, 40, 300, 180, 820); sg.addColorStop(0, 'rgba(5,7,12,0.55)'); sg.addColorStop(1, 'rgba(5,7,12,0)'); g.fillStyle = sg; g.fillRect(-60, -60, 1300, 800); }
+  };
+})();
+</script>
+<script>Promise.all([document.fonts.ready, new Promise(function(r){var ps=[window.__PH].filter(function(p){return p&&p.src;}), k=ps.length; if(!k) r(); ps.forEach(function(p){ if(p.complete) { if(!--k) r(); } else { p.onload=p.onerror=function(){ if(!--k) r(); }; } });})]).then(function(){window.__setT(0);window.__ready=1;});</script></body></html>
