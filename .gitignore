@@ -182,3 +182,16 @@ ws/pl/*.wav
 ws/pl/video.mp4
 ws/pl/mux.log
 ws/pl/_scenes_pl.js
+ws/ei/shots/
+ws/ei/ch/
+ws/ei/ei.html
+ws/ei/scenes_ei.js
+ws/ei/_scenes_ei.js
+ws/ei/tl.json
+ws/ei/render.log
+ws/ei/mux.log
+ws/ei/cover/*.png
+ws/ei/sheet*.png
+ws/ei/*.wav
+ws/ei/video.mp4
+ws/ei/__pycache__/
