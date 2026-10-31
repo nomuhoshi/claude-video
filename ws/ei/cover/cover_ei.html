@@ -1,0 +1,65 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>cover</title>
+<!-- 爱因斯坦（上）cover: flat #1b1b1b, gold name, two hook lines, a night desk lamp over five manuscripts + optional portrait (einstein_photo.png). #w 1920x1080, #f 1440x1080, #v 1080x1440 -->
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#1b1b1b;overflow:hidden}
+.c{position:relative;overflow:hidden;color:#fff;font-family:"Noto Serif SC","Noto Serif CJK SC",serif}
+canvas{position:absolute;left:0;top:0}
+.t{position:absolute;font-weight:900;line-height:1.1;letter-spacing:.02em;white-space:nowrap;color:#f6f2ea;text-shadow:0 3px 18px rgba(0,0,0,.85)}
+.nm{color:#ffd98a;letter-spacing:.14em;text-shadow:0 3px 14px rgba(0,0,0,.9),0 0 28px rgba(255,200,110,.5)}
+.t b{font-weight:900;color:#ffd98a;text-shadow:0 3px 18px rgba(0,0,0,.85),0 0 30px rgba(255,210,130,.6)}
+.w .c{width:1920px;height:1080px}
+.w .t{left:90px;font-size:156px}.w .nm{top:64px;font-size:96px}.w .a1{top:196px}.w .a2{top:372px}
+.f .c{width:1440px;height:1080px}
+.f .t{left:60px;font-size:104px}.f .nm{top:60px;font-size:72px}.f .a1{top:160px}.f .a2{top:282px}
+.v .c{width:1080px;height:1440px}
+.v .t{left:0;right:0;text-align:center;font-size:112px}.v .nm{font-size:84px;top:700px}.v .a1{top:806px}.v .a2{top:940px}
+.v.np .nm{top:110px}.v.np .a1{top:220px}.v.np .a2{top:356px}
+</style></head><body><div class="c">
+<canvas id="cv"></canvas>
+<div class="t nm">爱因斯坦</div>
+<div class="t a1">一个专利员</div>
+<div class="t a2">一年写了<b>五篇</b>论文</div>
+</div>
+<script>
+var M = location.hash.replace('#', '') || 'w'; document.body.className = M;
+var W = M === 'v' ? 1080 : M === 'f' ? 1440 : 1920, H = M === 'v' ? 1440 : 1080, cv = document.getElementById('cv'); cv.width = W; cv.height = H;
+var g = cv.getContext('2d'); g.fillStyle = '#1b1b1b'; g.fillRect(0, 0, W, H);
+var im = new Image(), hasPh = false;
+var SYM = [['hν', '#8a5a10'], ['分子', '#1d3a6e'], ['抖', '#8a5a10'], ['Δt', '#1d3a6e'], ['mc²', '#8a5a10']];
+function desk(cx, yB, S) {                                  // night desk: lamp cone, five manuscripts, desk top. width ≈ 1100·S
+  var lx = cx + 470 * S, ly = yB - 330 * S;
+  var cone = g.createLinearGradient(lx, ly, cx - 200 * S, yB); cone.addColorStop(0, 'rgba(255,224,150,0.42)'); cone.addColorStop(1, 'rgba(255,224,150,0.02)');
+  g.fillStyle = cone; g.beginPath(); g.moveTo(lx - 40 * S, ly + 14 * S); g.lineTo(lx + 20 * S, ly + 14 * S); g.lineTo(cx + 120 * S, yB); g.lineTo(cx - 640 * S, yB); g.closePath(); g.fill();
+  var pool = g.createRadialGradient(cx - 40 * S, yB - 120 * S, 20, cx - 40 * S, yB - 120 * S, 520 * S); pool.addColorStop(0, 'rgba(255,224,150,0.24)'); pool.addColorStop(1, 'rgba(255,224,150,0)'); g.fillStyle = pool; g.fillRect(cx - 700 * S, yB - 600 * S, 1400 * S, 640 * S);
+  g.fillStyle = '#3a2f20'; g.fillRect(cx - 560 * S, yB, 1120 * S, 22 * S);
+  for (var i = -2; i <= 2; i++) {                            // five sheets, fanned
+    var sw = 190 * S, sh = 262 * S, x = cx - 40 * S + i * 150 * S, y = yB - 6 * S, a = i * 0.09, mid = i === 0;
+    g.save(); g.translate(x, y); g.rotate(a); g.shadowColor = mid ? 'rgba(255,214,140,0.9)' : 'rgba(0,0,0,0.7)'; g.shadowBlur = mid ? 46 * S : 22 * S;
+    g.fillStyle = mid ? '#f1e6c6' : '#d4c9aa'; g.fillRect(-sw / 2, -sh, sw, sh); g.shadowBlur = 0; g.fillStyle = 'rgba(70,55,35,0.5)';
+    for (var k = 0; k < 8; k++) g.fillRect(-sw / 2 + 14 * S, -sh * 0.46 + k * 15 * S, (0.5 + 0.45 * Math.abs(Math.sin(k * 2.3 + i))) * (sw - 28 * S), 3.5 * S);
+    g.textAlign = 'center'; g.fillStyle = SYM[i + 2][1]; g.font = '900 ' + Math.round(sw * (SYM[i + 2][0].length > 2 ? 0.32 : 0.4)) + 'px "Noto Serif SC","Noto Serif CJK SC",serif'; g.fillText(SYM[i + 2][0], 0, -sh * 0.62); g.restore();
+  }
+  g.strokeStyle = '#b9a77e'; g.lineWidth = 9 * S; g.lineCap = 'round'; g.beginPath(); g.moveTo(cx + 520 * S, yB); g.lineTo(cx + 520 * S, yB - 40 * S); g.lineTo(cx + 480 * S, yB - 230 * S); g.lineTo(cx + 420 * S, yB - 310 * S); g.stroke();   // lamp arm
+  g.fillStyle = '#ffe3a0'; g.shadowColor = 'rgba(255,214,140,0.95)'; g.shadowBlur = 40 * S; g.beginPath(); g.moveTo(lx - 56 * S, ly + 4 * S); g.lineTo(lx + 30 * S, ly + 4 * S); g.lineTo(lx + 70 * S, ly + 76 * S); g.lineTo(lx - 96 * S, ly + 76 * S); g.closePath(); g.fill(); g.shadowBlur = 0;
+}
+function year(x, y, size, al) { g.save(); g.textAlign = al || 'left'; g.font = '700 ' + size + 'px "DejaVu Sans Mono",monospace'; g.fillStyle = 'rgba(240,189,92,0.85)'; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 10; g.fillText('1905', x, y); g.restore(); }
+function drawAll() {
+  if (hasPh) {
+    var PH = M === 'v' ? 560 : M === 'f' ? 600 : 900, PW = Math.round(PH * 474 / 669), PX = M === 'v' ? Math.round((W - PW) / 2) : W - PW - 90, PY = M === 'v' ? 56 : M === 'f' ? 84 : 90;
+    g.save(); g.shadowColor = 'rgba(0,0,0,0.8)'; g.shadowBlur = 44; g.shadowOffsetY = 12; g.fillStyle = '#000'; g.fillRect(PX - 12, PY - 12, PW + 24, PH + 24); g.restore();
+    g.save(); g.filter = 'contrast(1.06) brightness(0.96)'; g.drawImage(im, PX, PY, PW, PH); g.restore();
+    var vg = g.createLinearGradient(0, PY + PH * 0.72, 0, PY + PH); vg.addColorStop(0, 'rgba(10,8,6,0)'); vg.addColorStop(1, 'rgba(10,8,6,0.55)'); g.fillStyle = vg; g.fillRect(PX, PY, PW, PH);
+    g.strokeStyle = '#f0bd5c'; g.lineWidth = 6; g.shadowColor = 'rgba(240,189,92,0.6)'; g.shadowBlur = 20; g.strokeRect(PX - 12, PY - 12, PW + 24, PH + 24); g.shadowBlur = 0;
+    g.fillStyle = '#f0bd5c'; g.textAlign = 'left'; g.font = '700 ' + (M === 'w' ? 28 : 24) + 'px "DejaVu Sans Mono",monospace'; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 8; g.fillText('1879 – 1955', PX + 16, PY + PH - 18); g.shadowBlur = 0;
+    if (M === 'w') desk(620, 1010, 0.9); else if (M === 'f') desk(720, 1030, 0.95); else desk(540, 1380, 0.8);
+  } else {
+    document.body.className = M + ' np';
+    if (M === 'w') { desk(1150, 1020, 1.35); year(90, 1000, 130); }
+    else if (M === 'f') { desk(790, 1040, 1.25); year(50, 1030, 84); }
+    else { desk(520, 1400, 1.0); year(540, 1000, 240, 'center'); }
+  }
+  window.__done = true;
+}
+im.onload = function () { hasPh = true; drawAll(); }; im.onerror = function () { drawAll(); }; im.src = 'einstein_photo.png';
+</script></body></html>
