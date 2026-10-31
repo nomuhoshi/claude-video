@@ -21,7 +21,7 @@
     g.filter = p < 1 ? 'blur(' + ((1 - p) * 8).toFixed(1) + 'px)' : 'none'; g.fillText(c.line, cx, cy + 236); g.filter = 'none';
     g.restore();
   }
-  var NODES = [['卡', '一张周日的明信片', '1900 · 10 · 7'], ['份', '一份一份的能量', '1900 · 12 · 14'], ['疑', '一个不信自己的人', '1905 · 1918'], ['码', '一个称量世界的小数', '2019']];
+  var NODES = [['光', '一个追光的少年', '1895'], ['局', '一间专利局的办公桌', '1902'], ['年', '一年，五篇论文', '1905'], ['引', '一道没解开的引力题', '1909 →']];
   function recap(g, sc, lt) {
     var xs = [420, 790, 1160, 1530], y = 600;
     g.save(); var w = 1240 * eo((lt - 0.2) / (sc.ls[3] + 0.6));
@@ -35,7 +35,7 @@
     });
     var tp = E((lt - sc.ls[3] - 1.6) / 0.8);
     if (tp > 0) { g.globalAlpha = tp; g.font = '900 56px ' + SERIF; g.shadowColor = 'rgba(0,0,0,0.9)'; g.shadowBlur = 14;
-      var s1 = '最保守的人，', s2 = '打开了量子的门', s3 = '', w1 = g.measureText(s1).width, w2 = g.measureText(s2).width, w3 = g.measureText(s3).width, x0 = 960 - (w1 + w2 + w3) / 2;
+      var s1 = '一个专利员，', s2 = '换掉了物理的地基', s3 = '', w1 = g.measureText(s1).width, w2 = g.measureText(s2).width, w3 = g.measureText(s3).width, x0 = 960 - (w1 + w2 + w3) / 2;
       g.textAlign = 'left'; g.fillStyle = '#ece6da'; g.fillText(s1, x0, 860); g.fillStyle = GOLD; g.fillText(s2, x0 + w1, 860); g.fillStyle = '#ece6da'; g.fillText(s3, x0 + w1 + w2, 860); }
     g.restore();
   }
@@ -47,7 +47,7 @@
       g.font = '500 19px ' + MONO; g.fillStyle = 'rgba(190,195,205,0.75)'; g.fillText(s[1], x, y + 36);
       g.fillStyle = 'rgba(240,189,92,0.6)'; g.fillRect(x - 22, y - 22, 3, 60);
     });
-    g.globalAlpha = E((lt - 1.2) / 0.5); g.textAlign = 'center'; g.font = '700 26px ' + SERIF; g.fillStyle = '#ece6da'; g.fillText('10 月报告的具体日期、他到柏林接任的年份，各来源说法不一，片中不写。', 960, 930);
+    g.globalAlpha = E((lt - 1.2) / 0.5); g.textAlign = 'center'; g.font = '700 26px ' + SERIF; g.fillStyle = '#ece6da'; g.fillText('他离开慕尼黑中学的具体日期，各来源说法不一，片中不写。', 960, 930);
     g.restore();
   }
   function drawScene(g, i, lt, alpha) {

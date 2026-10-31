@@ -1,5 +1,5 @@
-# Music bed for Planck: A Nightfall (hero–s3) | C Entropy re-cut by 1.6 s bars (the spark years) |
-# D Awakening quiet bars (Bonn, illness) | E Awakening climax → tail (Marconi, the unit, today). Sections start on tl.json secs.
+# Music bed for Einstein (part 1): A Nightfall (hero–s4) | C Entropy re-cut by 1.6 s bars (the miracle year) |
+# E Awakening climax → tail (the echo). Sections start on tl.json secs.
 import json, numpy as np, soundfile as sf
 SP = '/home/claude/claude-video/ws/'; SR = 44100
 TL = json.load(open('tl.json')); D = TL['end']; secs = {s['n']: s for s in TL['secs']}
@@ -38,17 +38,15 @@ def fit(seq, loop, n):
     while len(out) < n: out.append(loop[i % len(loop)]); i += 1
     return out
 bed = np.zeros((N, 2), np.float32)
-A, C, Dd, E = secs['A'], secs['C'], secs['D'], secs['E']
+A, C, E = secs['A'], secs['C'], secs['E']
 place(bed, 0.85 * take(ny, nph, A['e'] - A['s'] + 2.0), 0, 0.3, 9.5)   # long fade-out into the chapter card
 # every seam is an overlapped long crossfade centred on the chapter card: the new music starts LEAD s early (no near-silent intro bars) and fades in over ~6 s while the old one fades out over ~9 s
-LC, LD, LE = 5.0, 5.5, 5.0
+LC, LE = 5.0, 5.0
 nC = int(np.ceil((C['e'] - C['s'] + LC) / 1.6))
 seqC = list(range(12, 32)) + list(range(34, 66)) + list(range(69, 86)); tailC = list(range(86, 102)); kC = max(0, nC - len(seqC) - len(tailC))
 seqC = seqC + [34 + i % 16 for i in range(kC)] + tailC     # the middle loops (bars 34-49) to fill the section; the ending bars stay last
 section(en, eph, 1.6, fit(seqC, list(range(34, 50)), nC), C['s'] - LC, C['e'], 1.05, fin=6.5, pre=0, fout=9.5, post=2.0)
-nD = int(np.ceil((Dd['e'] - Dd['s'] + LD) / ABAR))
-section(aw, aph, ABAR, fit(list(range(2, 16)), list(range(6, 16)), nD), Dd['s'] - LD, Dd['e'], 1.1, fin=6.5, pre=0, fout=8.0, post=3.0)   # enter on bar 2 (bars 0-1 of the source are near-silent)
 nE = int(np.ceil((E['e'] - E['s'] + LE) / ABAR))
 section(aw, aph, ABAR, fit(list(range(56, 99)), list(range(70, 78)), nE), E['s'] - LE, E['e'], 1.0, fin=6.0, pre=0)
 t = np.arange(N) / SR; bed *= np.clip((D - t) / 5.0, 0, 1)[:, None] ** 1.5
-sf.write('pl_bed.wav', bed, SR, subtype='FLOAT'); print('bed', round(N / SR, 1), 's  nC', nC, 'nD', nD, 'nE', nE, 'peak', round(float(np.abs(bed).max()), 3))
+sf.write('ei_bed.wav', bed, SR, subtype='FLOAT'); print('bed', round(N / SR, 1), 's  nC', nC, 'nE', nE, 'peak', round(float(np.abs(bed).max()), 3))

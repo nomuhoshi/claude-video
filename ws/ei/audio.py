@@ -1,4 +1,4 @@
-# Planck soundtrack: the music bed (pl_bed.wav, built by make_bed_pl.py) + the effects layer from tl.json (sfx).
+# Einstein soundtrack: the music bed (ei_bed.wav, built by make_bed_ei.py) + the effects layer from tl.json (sfx).
 # Music steps back under the effects (side-chain) and harder under every big hit; mastered to about -15 LUFS, true peak limited.
 import json, base64, subprocess, numpy as np, soundfile as sf
 from scipy.signal import butter, sosfilt
@@ -8,7 +8,7 @@ def load(p):
     x, sr = sf.read(p, dtype='float32'); assert sr == SR, (p, sr)
     if x.ndim == 1: x = np.stack([x, x], 1)
     return np.vstack([x, np.zeros((max(0, N - len(x)), 2), np.float32)])[:N]
-bed = load('pl_bed.wav')
+bed = load('ei_bed.wav')
 lib = json.load(open('../kit/video-kit/sfx_ref/sfx_ref_lib.json')); cache = {}
 def snd(name):
     if name not in cache:

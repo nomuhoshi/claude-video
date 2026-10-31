@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# 普朗克 · v2 时间表。四段配乐：A Nightfall（hero–s2，一拍 0.6667 s）、C Entropy（ch2–s7，一拍 0.4 s）、
-# D Awakening 安静段（ch4–s8）、E Awakening 高潮到尾（ch5–end）。每段的起点就是音乐那一段的第一拍，
+# 爱因斯坦上集 · v2 时间表。三段配乐：A Nightfall（hero–s4，一拍 0.6667 s）、C Entropy（ch2–s8，一拍 0.4 s）、
+# E Awakening 高潮到尾（ch3–end）。每段的起点就是音乐那一段的第一拍，
 # 段内旁白落在该段的拍上。输出 tl.json（画面、字幕、音效）和 sections（给 make_bed_hz.py）。
 import json, math, re
-from script_pl import SC, TITLE
-exec(open('sources_pl.py', encoding='utf-8').read())   # SRC
+from script_ei import SC, TITLE
+exec(open('sources_ei.py', encoding='utf-8').read())   # SRC
 
 BA, BC = 0.6666718, 0.4
-SECT = [('A', 'hero', BA), ('C', 'ch2', BC), ('D', 'ch4', BA), ('E', 'ch5', BA)]
+SECT = [('A', 'hero', BA), ('C', 'ch2', BC), ('E', 'ch3', BA)]
 START = {k: n for n, k, b in SECT}
 def vis(tx): return re.sub(r'\{[brg]:([^}]*)\}', r'\1', tx).lstrip('!')
 def wid(tx): return sum(0.55 if ord(c) < 128 else 1.0 for c in vis(tx))
@@ -68,7 +68,7 @@ for row, T in zip(SC, TLs):
     if row[1] == 'chap':
         chaps.append(dict(s=T['s'], e=T['e'], word=row[2], en='', line=row[3], n=''))
         crumbs.append(dict(t=T['s'], zh=row[2], en=''))
-crumbs.insert(0, dict(t=at('hero', 9, 0.8), zh='人物传记 · 普朗克', en=''))
+crumbs.insert(0, dict(t=at('hero', 8, 0.8), zh='人物传记 · 爱因斯坦', en=''))
 crumbs.append(dict(t=S('recap'), zh='回顾', en='')); crumbs.append(dict(t=S('src'), zh='资料来源', en=''))
 
 # ---------------- effects ----------------
@@ -89,55 +89,65 @@ def counter(label, a, b, unit, t0, t1, hide, col=None, land=None, pw=1.8, dec=0,
         put('count_roll', t1 - 0.6, 0.24, 0.2)
 
 for c in chaps: put('riser', c['s'] - 1.0, 0.3); hit(c['s'] + 0.35, 0.9, 12, True); put('sub_drop', c['s'] + 0.35, 0.5)
-# hero: Sunday, the visit, the curve that doesn't fit, the postcard
-put('sub_pad', 0, 0.35)
-put('ui_ping_1', at('hero', 0, 0.4), 0.35); put('ui_ping_2', at('hero', 1, 0.4), 0.3); put('ui_ping_3', at('hero', 2, 0.4), 0.3); put('whoosh_swing', at('hero', 3, 0.3), 0.3)
-put('downer', at('hero', 4, 0.5), 0.25); put('ui_ping_1', at('hero', 5, 0.4), 0.3); hit(at('hero', 6, 0.5), 0.8, 8, True); put('sparkle_bed', at('hero', 6, 0.6), 0.3)
-put('whoosh_swing', at('hero', 7, 0.3), 0.3); hit(at('hero', 8, 0.5), 1.0, 12, True); put('sparkle_bed', at('hero', 8, 0.6), 0.35); hit(at('hero', 9, 0.4), 1.0, 14, True)
-# s1 Kiel
-put('ui_ping_1', at('s1', 0, 0.4), 0.35); put('ui_ping_2', at('s1', 1, 0.4), 0.3); put('sparkle_bed', at('s1', 2, 0.3), 0.25); put('whoosh_swing', at('s1', 3, 0.3), 0.25); hit(at('s1', 4, 0.5), 0.8, 8, True)
-# s2 Jolly, Berlin, the chair
-put('ui_ping_1', at('s2', 0, 0.4), 0.3); put('ui_ping_2', at('s2', 1, 0.4), 0.3); put('downer', at('s2', 2, 0.5), 0.25); put('ui_ping_3', at('s2', 3, 0.4), 0.3)
-put('whoosh_swing', at('s2', 5, 0.3), 0.3); put('ui_ping_1', at('s2', 6, 0.4), 0.3); put('ui_ping_2', at('s2', 7, 0.4), 0.3); hit(at('s2', 8, 0.5), 0.7, 6)
-# s3 the curve
-put('ui_ping_1', at('s3', 0, 0.4), 0.3); put('ui_ping_2', at('s3', 1, 0.4), 0.3); put('ui_ping_3', at('s3', 2, 0.4), 0.3); put('whoosh_swing', at('s3', 3, 0.3), 0.3)
-put('ui_ping_1', at('s3', 4, 0.4), 0.3); put('ui_ping_2', at('s3', 5, 0.4), 0.3); put('whoosh_swing', at('s3', 6, 0.3), 0.3); put('ui_ping_3', at('s3', 7, 0.4), 0.3); put('ui_ping_1', at('s3', 8, 0.4), 0.3); put('downer', at('s3', 9, 0.5), 0.3); hit(at('s3', 9, 0.5), 0.6, 4)
-# s4 the postcard
-put('ui_ping_1', at('s4', 0, 0.4), 0.3); put('ui_ping_2', at('s4', 1, 0.4), 0.3); put('downer', at('s4', 2, 0.5), 0.25); put('ui_ping_3', at('s4', 3, 0.4), 0.3)
-hit(at('s4', 4, 0.5), 0.9, 10, True); put('sparkle_bed', at('s4', 4, 0.6), 0.35); put('whoosh_swing', at('s4', 5, 0.3), 0.25); put('ui_ping_1', at('s4', 6, 0.4), 0.3); put('ui_ping_2', at('s4', 7, 0.4), 0.35)
-put('ui_ping_3', at('s4', 8, 0.4), 0.3); put('downer', at('s4', 9, 0.5), 0.3); hit(at('s4', 10, 0.5), 0.9, 10, True)
-# s5 the desperate weeks: E = h nu
-put('ui_ping_1', at('s5', 1, 0.4), 0.3); put('downer', at('s5', 2, 0.5), 0.25); put('ui_ping_2', at('s5', 3, 0.4), 0.3); put('whoosh_swing', at('s5', 5, 0.3), 0.3)
-put('ui_ping_3', at('s5', 6, 0.4), 0.35); put('sparkle_bed', at('s5', 6, 0.5), 0.3); put('ui_ping_1', at('s5', 7, 0.4), 0.3); put('ui_ping_2', at('s5', 8, 0.4), 0.3)
-hit(at('s5', 9, 0.5), 1.0, 12, True); put('sparkle_bed', at('s5', 9, 0.6), 0.4); put('ui_ping_3', at('s5', 10, 0.4), 0.3); put('ui_ping_1', at('s5', 11, 0.4), 0.3); hit(at('s5', 12, 0.5), 1.0, 14, True); put('sub_drop', at('s5', 12, 0.5), 0.45)
-# s6 he did not believe it; Einstein; Nobel
-put('ui_ping_1', at('s6', 0, 0.4), 0.3); put('downer', at('s6', 2, 0.5), 0.25); put('ui_ping_2', at('s6', 3, 0.4), 0.3); put('ui_ping_3', at('s6', 5, 0.4), 0.3); put('sparkle_bed', at('s6', 6, 0.3), 0.3)
-hit(at('s6', 7, 0.5), 0.7, 6); put('ui_ping_1', at('s6', 8, 0.4), 0.3); put('ui_ping_2', at('s6', 9, 0.4), 0.3); put('whoosh_swing', at('s6', 11, 0.3), 0.3); hit(at('s6', 12, 0.5), 0.8, 8, True)
-hit(at('s6', 13, 0.5), 1.0, 12, True); put('sparkle_bed', at('s6', 13, 0.6), 0.4)
-# s7 home and the losses: restrained, one low note per loss
-put('sub_pad', at('s7', 0, 0.0), 0.3); put('ui_ping_1', at('s7', 1, 0.4), 0.25)
-for li in (2, 3, 4, 5): put('downer', at('s7', li, 0.5), 0.28)
-# s8 Hitler and Haber
-put('sub_pad', at('s8', 0, 0.0), 0.3); put('ui_ping_1', at('s8', 1, 0.4), 0.25); put('ui_ping_2', at('s8', 3, 0.4), 0.3); put('ui_ping_3', at('s8', 4, 0.4), 0.3); put('downer', at('s8', 5, 0.5), 0.3); hit(at('s8', 5, 0.6), 0.5, 4)
-put('ui_ping_1', at('s8', 6, 0.4), 0.25); put('ui_ping_2', at('s8', 8, 0.4), 0.25)
-# s9 1944 and 1945 (quietest)
-put('downer', at('s9', 0, 0.5), 0.28); put('ui_ping_1', at('s9', 2, 0.4), 0.25); put('ui_ping_2', at('s9', 3, 0.4), 0.25); put('ui_ping_3', at('s9', 4, 0.4), 0.25); put('downer', at('s9', 5, 0.5), 0.25)
-put('sub_drop', at('s9', 6, 0.5), 0.4); put('downer', at('s9', 7, 0.5), 0.28)
-# s10 Goettingen, 1947, the society
-put('sub_pad', at('s10', 0, 0.0), 0.3); put('ui_ping_1', at('s10', 1, 0.4), 0.25); put('ui_ping_2', at('s10', 2, 0.4), 0.3); put('whoosh_swing', at('s10', 3, 0.3), 0.25); hit(at('s10', 4, 0.5), 0.9, 8, True); put('sparkle_bed', at('s10', 4, 0.6), 0.3)
-# s11 the kilogram
-put('ui_ping_1', at('s11', 0, 0.4), 0.3); put('ui_ping_2', at('s11', 1, 0.4), 0.3); put('ui_ping_3', at('s11', 2, 0.4), 0.3); put('downer', at('s11', 3, 0.5), 0.3)
-put('whoosh_swing', at('s11', 4, 0.3), 0.3); hit(at('s11', 5, 0.5), 1.0, 12, True); put('sparkle_bed', at('s11', 5, 0.6), 0.4); put('ui_ping_2', at('s11', 6, 0.4), 0.3); put('ui_ping_3', at('s11', 7, 0.4), 0.3)
-put('whoosh_swing', at('s11', 8, 0.3), 0.3); hit(at('s11', 9, 0.5), 1.0, 14, True); put('sparkle_bed', at('s11', 9, 0.6), 0.4)
+def pings(k, idx, g=0.3, o=0.4):
+    for n, li in enumerate(idx): put('ui_ping_%d' % (1 + n % 3), at(k, li, o), g)
+# hero: 1905, the office, day / night, five manuscripts, the name
+put('sub_pad', 0, 0.35); pings('hero', [0, 1, 2], 0.32); put('whoosh_swing', at('hero', 2, 0.3), 0.3); put('stamp', at('hero', 2, 1.0), 0.2) if False else hit(at('hero', 2, 1.0), 0.4, 3)
+put('downer', at('hero', 3, 0.5), 0.25); put('ui_ping_1', at('hero', 3, 0.4), 0.3)
+for k in range(5): put('ui_ping_%d' % (1 + k % 3), at('hero', 4, 0.4 + k * 0.22), 0.34)
+hit(at('hero', 4, 0.4), 0.7, 6, True); put('whoosh_swing', at('hero', 5, 0.3), 0.3); put('sparkle_bed', at('hero', 6, 0.5), 0.35)
+hit(at('hero', 7, 0.5), 1.0, 14, True); put('sparkle_bed', at('hero', 7, 0.6), 0.4); put('ui_ping_2', at('hero', 8, 0.4), 0.3); put('downer', at('hero', 8, 1.2), 0.3); hit(at('hero', 8, 1.2), 0.6, 4)
+# s1 compass
+pings('s1', [0, 1], 0.3); put('whoosh_swing', at('s1', 2, 0.3), 0.3); put('ui_ping_3', at('s1', 2, 0.6), 0.3); put('ui_ping_2', at('s1', 3, 0.4), 0.3); put('sub_pad', at('s1', 4, 0.0), 0.3); put('ui_ping_1', at('s1', 4, 0.4), 0.28); put('ui_ping_3', at('s1', 5, 0.4), 0.28)
+hit(at('s1', 6, 0.5), 0.8, 8, True); put('sparkle_bed', at('s1', 6, 0.6), 0.3)
+# s2 school, Italy, the exam, Aarau
+put('ui_ping_1', at('s2', 0, 0.4), 0.3); put('downer', at('s2', 0, 0.9), 0.25); put('ui_ping_2', at('s2', 1, 0.4), 0.3); put('whoosh_swing', at('s2', 1, 0.5), 0.25); put('downer', at('s2', 2, 0.5), 0.28)
+put('ui_ping_3', at('s2', 3, 0.4), 0.3); put('ui_ping_1', at('s2', 4, 0.4), 0.3); put('ui_ping_2', at('s2', 4, 0.8), 0.28); put('downer', at('s2', 5, 0.5), 0.3); hit(at('s2', 5, 0.5), 0.6, 4)
+put('ui_ping_3', at('s2', 6, 0.4), 0.3); hit(at('s2', 7, 0.5), 0.9, 10, True); put('sparkle_bed', at('s2', 7, 0.6), 0.35)
+# s3 chasing light
+put('ui_ping_1', at('s3', 0, 0.4), 0.3); put('whoosh_swing', at('s3', 1, 0.3), 0.3); put('ui_ping_2', at('s3', 1, 0.4), 0.3); put('whoosh_swing', at('s3', 2, 0.3), 0.3); put('ui_ping_3', at('s3', 3, 0.4), 0.3)
+put('downer', at('s3', 4, 0.5), 0.25); put('ui_ping_1', at('s3', 4, 0.4), 0.3); put('ui_ping_2', at('s3', 5, 0.4), 0.3); hit(at('s3', 5, 0.8), 0.6, 4); hit(at('s3', 6, 0.5), 0.7, 6, True)
+for i in range(10): put('count_tick', at('s3', 7, 0.4 + i * 0.2), 0.22, 0.3)
+hit(at('s3', 7, 0.3), 1.0, 12, True); put('sub_drop', at('s3', 7, 0.3), 0.4)
+# s4 job search, patent office, three eights
+put('ui_ping_1', at('s4', 0, 0.4), 0.3); put('downer', at('s4', 1, 0.5), 0.28); put('ui_ping_2', at('s4', 1, 0.4), 0.3); hit(at('s4', 1, 1.2), 0.5, 3)
+for i in range(5): put('whoosh_swing', at('s4', 2, 0.1 + i * 0.35), 0.18)
+put('downer', at('s4', 2, 1.8), 0.28); put('ui_ping_3', at('s4', 3, 0.4), 0.3); put('ui_ping_1', at('s4', 4, 0.4), 0.3); put('whoosh_swing', at('s4', 5, 0.3), 0.3); put('ui_ping_2', at('s4', 5, 0.5), 0.3)
+put('ui_ping_3', at('s4', 6, 0.4), 0.3); hit(at('s4', 6, 0.9), 0.7, 6); put('ui_ping_1', at('s4', 7, 0.4), 0.3); put('ui_ping_2', at('s4', 8, 0.4), 0.3); put('ui_ping_3', at('s4', 8, 2.1), 0.3); hit(at('s4', 9, 0.5), 0.8, 8, True)
+# s5 photons
+put('ui_ping_1', at('s5', 0, 0.4), 0.35); put('sparkle_bed', at('s5', 0, 0.6), 0.3); hit(at('s5', 0, 0.5), 0.7, 6, True); put('ui_ping_2', at('s5', 1, 0.4), 0.3); put('ui_ping_3', at('s5', 2, 0.4), 0.3); put('ui_ping_1', at('s5', 3, 0.4), 0.3); put('whoosh_swing', at('s5', 4, 0.3), 0.3); put('ui_ping_2', at('s5', 4, 0.4), 0.3)
+put('ui_ping_3', at('s5', 5, 0.4), 0.3); put('ui_ping_1', at('s5', 6, 0.4), 0.25); hit(at('s5', 7, 0.5), 0.9, 10, True); put('sparkle_bed', at('s5', 7, 0.6), 0.35); put('ui_ping_2', at('s5', 8, 0.4), 0.3); hit(at('s5', 8, 0.6), 0.6, 4)
+for i in range(3): put('ui_ping_%d' % (1 + i), at('s5', 9, 0.4 + i * 0.3), 0.3)
+hit(at('s5', 10, 0.5), 1.0, 12, True); put('sparkle_bed', at('s5', 10, 0.6), 0.4); put('downer', at('s5', 11, 0.5), 0.3); hit(at('s5', 11, 0.8), 0.6, 4)
+# s6 pollen
+put('ui_ping_1', at('s6', 0, 0.4), 0.35); hit(at('s6', 0, 0.5), 0.7, 6, True); put('ui_ping_2', at('s6', 1, 0.4), 0.3); put('ui_ping_3', at('s6', 2, 0.4), 0.3); put('whoosh_swing', at('s6', 3, 0.3), 0.3); hit(at('s6', 3, 0.6), 0.5, 3)
+put('ui_ping_1', at('s6', 4, 0.4), 0.3); put('ui_ping_2', at('s6', 5, 0.4), 0.3); hit(at('s6', 6, 0.5), 0.8, 8, True); put('sparkle_bed', at('s6', 6, 0.6), 0.3)
+put('ui_ping_3', at('s6', 7, 0.4), 0.3); put('ui_ping_1', at('s6', 8, 0.4), 0.3); put('ui_ping_2', at('s6', 9, 0.4), 0.3); put('downer', at('s6', 10, 0.5), 0.3); put('ui_ping_3', at('s6', 11, 0.4), 0.3); hit(at('s6', 12, 0.5), 1.0, 12, True); put('sparkle_bed', at('s6', 12, 0.6), 0.4)
+# s7 special relativity
+put('ui_ping_1', at('s7', 0, 0.4), 0.35); hit(at('s7', 0, 0.5), 0.7, 6, True); hit(at('s7', 1, 0.5), 0.6, 4); put('ui_ping_2', at('s7', 1, 0.8), 0.3); put('ui_ping_3', at('s7', 2, 0.4), 0.3); put('ui_ping_1', at('s7', 3, 0.4), 0.3); put('ui_ping_2', at('s7', 4, 0.4), 0.3); put('sparkle_bed', at('s7', 4, 0.5), 0.25)
+put('downer', at('s7', 5, 0.5), 0.3); hit(at('s7', 5, 0.5), 0.8, 8, True); put('ui_ping_3', at('s7', 6, 0.4), 0.3); put('whoosh_swing', at('s7', 6, 0.3), 0.25); put('ui_ping_1', at('s7', 7, 0.4), 0.3); put('sparkle_bed', at('s7', 7, 0.5), 0.3)
+put('ui_ping_2', at('s7', 8, 0.4), 0.3); put('ui_ping_3', at('s7', 9, 0.4), 0.3); hit(at('s7', 9, 0.8), 0.8, 8, True); put('downer', at('s7', 9, 1.0), 0.28); put('ui_ping_1', at('s7', 10, 0.4), 0.3); put('ui_ping_2', at('s7', 11, 0.4), 0.3); put('ui_ping_3', at('s7', 12, 0.4), 0.3)
+hit(at('s7', 13, 0.5), 1.0, 14, True); put('sparkle_bed', at('s7', 13, 0.6), 0.45); put('sub_drop', at('s7', 13, 0.5), 0.45)
+# s8 E = mc^2
+put('ui_ping_1', at('s8', 0, 0.4), 0.35); hit(at('s8', 0, 0.5), 0.7, 6, True); hit(at('s8', 1, 0.5), 0.6, 4); put('ui_ping_2', at('s8', 2, 0.4), 0.3); put('downer', at('s8', 3, 0.5), 0.25); put('ui_ping_3', at('s8', 4, 0.4), 0.3)
+hit(at('s8', 5, 0.5), 1.0, 14, True); put('sparkle_bed', at('s8', 5, 0.6), 0.45); put('sub_drop', at('s8', 5, 0.5), 0.5); put('ui_ping_1', at('s8', 6, 0.4), 0.3); put('whoosh_swing', at('s8', 7, 0.3), 0.3); hit(at('s8', 7, 0.8), 0.9, 10, True)
+put('ui_ping_2', at('s8', 8, 0.4), 0.3); hit(at('s8', 9, 0.5), 1.0, 12, True); put('sparkle_bed', at('s8', 9, 0.6), 0.4)
+# s9 the year; Planck answers; 1909; the next question
+put('ui_ping_1', at('s9', 0, 0.4), 0.3); put('ui_ping_2', at('s9', 1, 0.4), 0.3)
+for i in range(4): put('ui_ping_%d' % (1 + i % 3), at('s9', 2, 0.4 + i * 0.35), 0.3)
+put('ui_ping_3', at('s9', 3, 0.4), 0.3); hit(at('s9', 4, 0.6), 1.0, 12, True); put('sparkle_bed', at('s9', 4, 0.7), 0.4); put('downer', at('s9', 5, 0.5), 0.3)
+put('whoosh_swing', at('s9', 6, 0.3), 0.3); hit(at('s9', 7, 0.5), 0.8, 8, True); put('sparkle_bed', at('s9', 7, 0.6), 0.3); put('downer', at('s9', 8, 0.5), 0.2); put('ui_ping_1', at('s9', 8, 0.4), 0.3); put('ui_ping_2', at('s9', 8, 1.3), 0.3)
+put('ui_ping_3', at('s9', 9, 0.4), 0.3); put('whoosh_swing', at('s9', 10, 0.3), 0.3); put('ui_ping_1', at('s9', 10, 0.5), 0.3); put('downer', at('s9', 11, 0.5), 0.3); put('sub_pad', at('s9', 11, 0.0), 0.3); put('ui_ping_2', at('s9', 12, 0.4), 0.3)
+for i in range(10): put('count_tick', at('s9', 13, 0.4 + i * 0.2), 0.22, 0.3)
+hit(at('s9', 13, 0.3), 1.0, 14, True); put('sub_drop', at('s9', 13, 0.3), 0.45)
 # recap
 for k in range(4): put('ui_ping_%d' % (1 + k % 3), at('recap', k, 0.2), 0.4)
 hit(at('recap', 3, 0.3), 0.9, 10, True)
 
 # ---------------- era timeline ----------------
 # The marker eases to the next keyframe within <=1.2 s, so a long range needs a keyframe every ~1.2 s or it jumps to the end year at once.
-YRS = [('s1', 1858, 1858), ('s2', 1874, 1887), ('s3', 1887, 1900), ('s4', 1900, 1900), ('s5', 1900, 1900), ('s6', 1900, 1918),
-       ('s7', 1909, 1919), ('s8', 1933, 1933), ('s9', 1944, 1945), ('s10', 1945, 1947)]
-ANCH = {'s6': [(0, 1900), (5, 1905), (13, 1918)], 's7': [(0, 1905), (2, 1909), (3, 1916), (4, 1917), (5, 1919)], 's9': [(0, 1944), (2, 1944), (6, 1945)], 's10': [(0, 1945), (1, 1947)]}      # (line index, year)
+YRS = [('s1', 1879, 1879), ('s2', 1894, 1896), ('s3', 1895, 1895), ('s4', 1900, 1902), ('s5', 1905, 1905), ('s6', 1905, 1905), ('s7', 1905, 1905), ('s8', 1905, 1905), ('s9', 1905, 1909)]
+ANCH = {'s2': [(0, 1894), (3, 1895), (7, 1896)], 's4': [(0, 1900), (5, 1902)], 's9': [(0, 1905), (9, 1909)]}      # (line index, year)
 years = []
 def ykey(t, y):
     if not years or t > years[-1][0] + 0.01: years.append([round(t, 3), round(y, 1)])
@@ -151,11 +161,11 @@ for key, y0, y1 in YRS:
     ykey(pts[-1][0], pts[-1][1])
     hh = pts[-1][0] + 1.2
     while hh < Ee(key) - 0.3: ykey(hh, pts[-1][1]); hh += 1.2      # hold the year until the scene ends (the marker eases to the next key at once)
-yvis = [[S('s1') - 0.3, Ee('s10') - 0.3]]
+yvis = [[S('s1') - 0.3, Ee('s9') - 0.3]]
 
 scenes = [dict(key=T['key'], k=T['k'], draw=T['draw'], s=T['s'], e=T['e'], ls=T['ls']) for T in TLs]
 data = dict(end=END, groups=groups, chaps=chaps, crumbs=crumbs, counters=counters, slams=slams, shake=sorted(SHAKE),
-            sfx=sorted(SFX, key=lambda x: x[1]), years=years, yvis=yvis, ticks=[1858, 1900, 1918, 1933, 1947], yr0=1850, yr1=1955,
+            sfx=sorted(SFX, key=lambda x: x[1]), years=years, yvis=yvis, ticks=[1879, 1895, 1900, 1905, 1909], yr0=1874, yr1=1914,
             scenes=scenes, idx=IDX, src=[[a, b] for a, b, *_ in SRC], title=TITLE, secs=secs)
 json.dump(data, open('tl.json', 'w'), ensure_ascii=False)
 if __name__ == '__main__':

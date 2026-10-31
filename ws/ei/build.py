@@ -1,7 +1,7 @@
-# Builds pl.html (render page): tl.json + v2 engine + scenes_pl.js (+ optional portrait as a data URI)
+# Builds ei.html (render page): tl.json + v2 engine + scenes_ei.js (+ optional portrait as a data URI)
 import base64
 FONT = '/home/claude/claude-video/ws/render_kp/node_modules/@fontsource/ibm-plex-mono/files/'
-open('scenes_pl.js', 'w').write(open('_head.js').read() + open('_props_common.js').read() + open('_mid_pl.js').read() + open('_foot.js').read())
+open('scenes_ei.js', 'w').write(open('_head.js').read() + open('_props_common.js').read() + open('_mid_ei.js').read() + open('_sc_ei.js').read() + open('_foot.js').read())
 tl = open('tl.json').read()
 from PIL import Image
 import io
@@ -15,6 +15,6 @@ html = f'''<!doctype html><html><head><meta charset="utf-8"><title>基尔霍夫 
 html,body{{margin:0;background:#000;overflow:hidden}} canvas{{display:block;width:1920px;height:1080px}}
 .pre{{position:absolute;left:-999px;font-family:"Noto Serif CJK SC";font-weight:900}}</style></head><body>
 <canvas id="cv" width="1920" height="1080"></canvas><span class="pre">预载 8′</span><span class="pre" style="font-weight:700">预载</span><span class="pre" style="font-family:IBM Plex Mono;font-weight:500">MONO</span><span class="pre" style="font-family:IBM Plex Mono;font-weight:400">MONO</span>
-<script>window.TL={tl};window.PHOTO_URI="{ph}";</script><script>{open('engine.js').read()}</script><script>{open('scenes_pl.js').read()}</script>
+<script>window.TL={tl};window.PHOTO_URI="{ph}";</script><script>{open('engine.js').read()}</script><script>{open('scenes_ei.js').read()}</script>
 <script>Promise.all([document.fonts.ready, new Promise(function(r){{var ps=[window.__PH].filter(function(p){{return p&&p.src;}}), k=ps.length; if(!k) r(); ps.forEach(function(p){{ if(p.complete) {{ if(!--k) r(); }} else {{ p.onload=p.onerror=function(){{ if(!--k) r(); }}; }} }});}})]).then(function(){{window.__setT(0);window.__ready=1;}});</script></body></html>'''
-open('pl.html', 'w').write(html); print('pl.html', len(html))
+open('ei.html', 'w').write(html); print('ei.html', len(html))
