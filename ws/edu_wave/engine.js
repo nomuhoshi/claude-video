@@ -100,7 +100,7 @@ function render(T) {
   drawScene(g, s, lt);
   const FADE = 0.5;
   if (i > 0 && lt < FADE) { const p = SCENES[i - 1]; drawScene(og, p, p.dur); g.save(); g.globalAlpha = 1 - ease(lt / FADE); g.drawImage(off, 0, 0); g.restore(); }
-  if (i === 0 && lt < 0.6) { g.save(); g.globalAlpha = 1 - lt / 0.6; g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
+  if (i === 0 && lt < 0.25) { g.save(); g.globalAlpha = 1 - lt / 0.25; g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
   if (T > TOTAL - 1.2) { g.save(); g.globalAlpha = clamp((T - (TOTAL - 1.2)) / 1.2); g.fillStyle = '#000'; g.fillRect(0, 0, W, H); g.restore(); }
   subtitle(s, lt);
 }

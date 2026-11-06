@@ -65,8 +65,8 @@ S.push({ lines: ['波碰到墙，会发生什么？', '反射有两种：自由�
     curve(g, x => 760 - 60 * Math.sin(KK * (1500 - x) + 1 - OMG * lt), 0, 1500, PUR, 3, .32);
     curve(g, x => 760 - 60 * Math.sin(KK * (x - 1500) + 1 - OMG * lt) - 60 * Math.sin(KK * (1500 - x) + 1 - OMG * lt), 0, 1500, RED, 4, .5);
     hatch(g, 1500, 640, 880, .8, false);
-    txt(g, '波の反射', W / 2, 360, { size: 140, jp: true, w: 900, al: 'center', a: seg(lt, .2, .8), glow: 'rgba(94,200,255,.3)' });
-    txt(g, '自由端反射  と  固定端反射', W / 2, 520, { size: 56, jp: true, col: GOLD, al: 'center', a: seg(lt, .7, .8), w: 700 });
+    txt(g, '波の反射', W / 2, 360, { size: 140, jp: true, w: 900, al: 'center', a: seg(lt, 0, .3), glow: 'rgba(94,200,255,.3)' });
+    txt(g, '自由端反射  と  固定端反射', W / 2, 520, { size: 56, jp: true, col: GOLD, al: 'center', a: seg(lt, .1, .35), w: 700 });
   } });
 // 1 脉冲波
 S.push({ lines: ['连续的波一反射，就乱成一团，不好看清。', '所以先拿一个孤立的波来看，叫脉冲波（図 a）。', '再把脉冲的宽度缩到 0，它就成了一个点（図 a′）。', '这样，只看这个点的位移 y，就能抓住反射的本质。'],

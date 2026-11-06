@@ -23,8 +23,8 @@ const S = [];
 S.push({ lines: ['两个波形相同、方向相反的波重叠在一起，', '会发生什么？这就是「定常波」。'], lead: 1.2,
   draw(g, lt) {
     SW(g, { ox: 0, x1: W, oy: 800, A: 40, x0: 960, t: lt, a: .45, env: false, lw: 3 });
-    txt(g, '定常波', W / 2, 350, { size: 150, jp: true, w: 900, al: 'center', a: seg(lt, .2, .8), glow: 'rgba(255,85,119,.35)' });
-    txt(g, '（定在波）', W / 2, 510, { size: 56, jp: true, col: GOLD, al: 'center', a: seg(lt, .7, .8), w: 700 });
+    txt(g, '定常波', W / 2, 350, { size: 150, jp: true, w: 900, al: 'center', a: seg(lt, 0, .3), glow: 'rgba(255,85,119,.35)' });
+    txt(g, '（定在波）', W / 2, 510, { size: 56, jp: true, col: GOLD, al: 'center', a: seg(lt, .1, .35), w: 700 });
   } });
 // 1 设定
 S.push({ lines: ['定常波：波形相同的两个波，朝相反方向前进并重叠时产生。', '先把这个情景设定牢牢记住。', '蓝色的波向右走，紫色的波向左走，振幅都是 A。', '把它们重叠起来，就得到红色的合成波。'],
