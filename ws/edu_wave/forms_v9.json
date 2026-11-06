@@ -1,0 +1,12 @@
+{
+ "th": "\\theta",
+ "d": "d",
+ "lam": "\\lambda",
+ "dsm": "\\gd{d\\sin\\theta=m\\lambda}\\quad(m=0,1,2,\\cdots)",
+ "dsn": "d\\sin\\theta",
+ "gd1": "d=\\dfrac{1}{N}\\ \\text{mm}",
+ "gdex": "N=500\\ \\Rightarrow\\ d=\\dfrac{1}{500}\\,\\text{mm}=2\\ \\mu\\text{m}",
+ "mmax": "\\sin\\theta=\\dfrac{m\\lambda}{d}\\le 1\\;\\Rightarrow\\;m\\le\\dfrac{d}{\\lambda}",
+ "ex2": "\\lambda=500\\ \\text{nm}\\ \\Rightarrow\\ \\sin\\theta_1=\\dfrac{\\lambda}{d}=0.25,\\quad m\\le 4",
+ "mlam": "m\\lambda"
+}
