@@ -198,3 +198,5 @@ ws/ei/__pycache__/
 ws/render_edu/*.html
 ws/render_edu/*_audio.wav
 ws/render_edu/ch/
+ws/edu_wave/*_forms.js
+ws/edu_wave/_forms_tmp.html

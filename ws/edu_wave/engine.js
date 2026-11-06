@@ -70,12 +70,22 @@ function buildTimeline(SCENES) {
   return T;
 }
 
+// 公式图（KaTeX 透明 PNG，window.FORMS={id:{w,h,b64}}，由 gen_forms.js 生成；fs 是 64px 基准下的字号）
+const FMI = {};
+function fm(g, id, x, y, fs, o = {}) {
+  const m = window.FORMS[id], im = FMI[id]; if (!im) return; const k = fs / 64, w = m.w * k, h = m.h * k, a = o.a ?? 1, p = o.p ?? 1; if (a <= 0 || p <= 0) return;
+  const X = o.al === 'center' ? x - w / 2 : (o.al === 'right' ? x - w : x);
+  g.save(); g.globalAlpha *= a; if (p < 1) { g.beginPath(); g.rect(X - 4, y - h / 2 - 4, (w + 8) * p, h + 8); g.clip(); }
+  if (o.glow) { g.shadowColor = o.glow; g.shadowBlur = 16; } g.drawImage(im, X, y - h / 2, w, h); g.restore(); return w;
+}
+const fmw = (id, fs) => window.FORMS[id].w * fs / 64;
 let SCENES = [], TOTAL = 0, cv, g, off, og;
 function setup(scenes) {
   SCENES = scenes; TOTAL = buildTimeline(SCENES);
   cv = document.getElementById('cv'); cv.width = W; cv.height = H; g = cv.getContext('2d');
   off = document.createElement('canvas'); off.width = W; off.height = H; og = off.getContext('2d');
-  window.__setT = render; window.META = meta(); render(0);
+  window.__setT = render; window.META = meta();
+  window.READY = Promise.all(Object.keys(window.FORMS || {}).map(k => new Promise(r => { const im = new Image(); im.onload = r; im.src = 'data:image/png;base64,' + window.FORMS[k].b; FMI[k] = im; }))).then(() => render(0));
 }
 function bg(gg) {
   gg.fillStyle = C.bg; gg.fillRect(0, 0, W, H);

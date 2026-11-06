@@ -5,7 +5,7 @@ const [, , v, a1, a2, out] = process.argv;
   const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--font-render-hinting=none'] });
   const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
   p.on('pageerror', e => console.error('pageerror', e.message)); p.on('console', m => m.type() === 'error' && console.error(m.text()));
-  await p.goto('file://' + path.join(__dirname, v + '.html')); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(500);
+  await p.goto('file://' + path.join(__dirname, v + '.html')); await p.evaluate(() => document.fonts.ready); await p.evaluate(() => window.READY || 0); await p.waitForTimeout(500);
   if (a1 === 'meta') { fs.writeFileSync(path.join(__dirname, v + '_meta.json'), JSON.stringify(await p.evaluate(() => window.META))); }
   else if (a1 === 'shots') { for (const t of a2.split(',')) { await p.evaluate(t => window.__setT(t), +t); await p.screenshot({ path: path.join(__dirname, 'shots', `${v}_${t}.jpg`), type: 'jpeg', quality: 80 }); } }
   else {

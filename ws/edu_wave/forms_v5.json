@@ -1,0 +1,21 @@
+{
+ "ysym": "y(x,\\,t)",
+ "yP": "y_{\\mathrm P}(t)",
+ "y0": "y_0(t)",
+ "dt": "\\Delta t=\\dfrac{x}{v}",
+ "same": "y_0(t-\\Delta t)=y_{\\mathrm P}(t)",
+ "ex0": "y_0(t)=A\\sin\\dfrac{2\\pi}{T}\\,t",
+ "rep": "t\\;\\to\\;\\gd{t-\\dfrac{x}{v}}",
+ "ex1": "y_{\\mathrm P}(t)=y_0(t-\\Delta t)=y_0\\!\\left(t-\\dfrac{x}{v}\\right)",
+ "ex2": "\\phantom{y_{\\mathrm P}(t)}=A\\sin\\dfrac{2\\pi}{T}\\left(t-\\dfrac{x}{v}\\right)",
+ "ex2b": "y_{\\mathrm P}(t)=A\\sin\\dfrac{2\\pi}{T}\\left(t-\\dfrac{x}{v}\\right)",
+ "vsub": "v=f\\lambda=\\dfrac{\\lambda}{T}\\;\\Longrightarrow\\;vT=\\lambda",
+ "conv": "\\dfrac{2\\pi}{T}\\left(t-\\dfrac{x}{v}\\right)=2\\pi\\left(\\dfrac{t}{T}-\\dfrac{x}{vT}\\right)",
+ "fin": "y=A\\sin 2\\pi\\left(\\dfrac{t}{T}-\\dfrac{x}{\\lambda}\\right)",
+ "finp": "y=A\\sin 2\\pi\\left(\\dfrac{t}{T}+\\dfrac{x}{\\lambda}\\right)",
+ "tm": "t-\\dfrac{x}{v}",
+ "tp": "t+\\dfrac{x}{v}",
+ "tpm": "t\\mp\\dfrac{x}{v}",
+ "cr": "x=vt+\\text{定数}",
+ "ph": "\\dfrac{t}{T}-\\dfrac{x}{\\lambda}=\\text{一定}"
+}
