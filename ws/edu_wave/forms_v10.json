@@ -1,0 +1,22 @@
+{
+ "vt": "V=\\gd{331.5+0.6\\,t}\\ \\ [\\text{m/s}]",
+ "lam4": "\\dfrac{\\lambda}{4}",
+ "lam2": "\\dfrac{\\lambda}{2}",
+ "lam1_4": "\\dfrac{\\lambda_1}{4}",
+ "lam1_2": "\\dfrac{\\lambda_1}{2}",
+ "c1": "l=\\dfrac{\\lambda_1}{4}",
+ "c1f": "f_1=\\dfrac{V}{\\lambda_1}=\\gd{\\dfrac{V}{4l}}\\qquad\\cdots\\ (1)",
+ "c3l": "l=\\dfrac{\\lambda}{4}\\times3",
+ "c3f": "f=\\dfrac{V}{\\lambda}=\\dfrac{3V}{4l}=\\gd{3f_1}\\qquad\\cdots\\ (2)",
+ "o1": "l=\\dfrac{\\lambda_1}{2}",
+ "o1f": "f_1=\\dfrac{V}{\\lambda_1}=\\gd{\\dfrac{V}{2l}}",
+ "o2l": "l=\\dfrac{\\lambda}{2}\\times2",
+ "o2f": "f=\\dfrac{V}{\\lambda}=\\dfrac{2V}{2l}=\\gd{2f_1}",
+ "ocorr": "\\lambda=4\\,(l+\\Delta l)",
+ "vf": "V=f\\lambda",
+ "ex1": "f_1=\\dfrac{V}{4l}=\\dfrac{340}{4\\times0.85}=\\gd{100}\\ \\text{Hz}",
+ "ex2": "f_1=\\dfrac{V}{2l}=\\dfrac{340}{2\\times0.85}=\\gd{200}\\ \\text{Hz}",
+ "oddf": "f_n=n\\,f_1\\quad(n=1,3,5,\\cdots)",
+ "intf": "f_n=n\\,f_1\\quad(n=1,2,3,\\cdots)",
+ "V": "V"
+}
