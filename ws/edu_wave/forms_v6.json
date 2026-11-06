@@ -1,0 +1,11 @@
+{
+ "lam2": "\\dfrac{\\lambda}{2}",
+ "lam4": "\\dfrac{\\lambda}{4}",
+ "sum1": "y_1=A\\cos(kx-\\omega t),\\qquad y_2=A\\cos(kx+\\omega t)",
+ "ident": "\\cos(\\alpha-\\beta)+\\cos(\\alpha+\\beta)=2\\cos\\alpha\\,\\cos\\beta",
+ "sum2": "y=y_1+y_2=\\gd{2A\\cos kx}\\,\\cos\\omega t",
+ "amp": "\\text{振幅}=2A\\,|\\cos kx|",
+ "kdef": "k=\\dfrac{2\\pi}{\\lambda}",
+ "ant": "|\\cos kx|=1\\;\\Rightarrow\\;x=n\\,\\dfrac{\\lambda}{2}",
+ "nod": "\\cos kx=0\\;\\Rightarrow\\;x=\\dfrac{\\lambda}{4}+n\\,\\dfrac{\\lambda}{2}"
+}
