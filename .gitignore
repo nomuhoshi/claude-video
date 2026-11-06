@@ -195,3 +195,6 @@ ws/ei/sheet*.png
 ws/ei/*.wav
 ws/ei/video.mp4
 ws/ei/__pycache__/
+ws/render_edu/*.html
+ws/render_edu/*_audio.wav
+ws/render_edu/ch/
