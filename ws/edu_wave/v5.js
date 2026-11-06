@@ -16,8 +16,8 @@ const S = [];
 S.push({ lines: ['怎样写出一个波的式子？', '它要告诉我们：在位置 x、时刻 t，变位 y 是多少。'], lead: 1.2,
   draw(g, lt) {
     curve(g, x => 800 - 70 * Math.sin(PHI(lt, x)), 0, W, BLU, 3, .35); curve(g, x => 800 - 70 * Math.sin(PHI(lt, x - 160)), 0, W, PUR, 3, .25);
-    txt(g, '波の式をつくる', W / 2, 330, { size: 128, jp: true, w: 900, al: 'center', a: seg(lt, 0, .3), glow: 'rgba(94,200,255,.3)' });
-    fm(g, 'ysym', W / 2, 520, 110, { al: 'center', a: seg(lt, .1, .35) });
+    txt(g, '波の式をつくる', W / 2, 330, { size: 128, jp: true, w: 900, al: 'center', a: 1, glow: 'rgba(94,200,255,.3)' });
+    fm(g, 'ysym', W / 2, 520, 110, { al: 'center', a: 1 });
   } });
 // 1 x、t 两个变量
 S.push({ lines: ['波的式子，说的是：某个位置 x，某个时刻 t，发生了什么（变位 y）。', '它同时含有 x 和 t 两个变量，所以显得难。', '办法：先把 x 固定住，只看这一点随时间怎么动。', '这时 y 就只是 t 的函数了。'],
