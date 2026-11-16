@@ -63,9 +63,12 @@ function buildTimeline(SCENES) {
   let T = 0;
   SCENES.forEach((s, i) => {
     s.i = i; s.t0 = T; s.L = []; s.LD = []; s.TX = [];
-    let t = s.lead ?? (i === 0 ? 1.4 : 0.8);
-    s.lines.forEach(l => { const [tx, ex] = Array.isArray(l) ? l : [l, 0]; s.L.push(t); const d = lineDur(tx) + ex; s.LD.push(d); s.TX.push(tx); t += d + 0.12; });
-    s.dur = t + (s.tail ?? 0.5); T += s.dur;
+    let t = s.lead ?? (i === 0 ? 1.4 : 0.8), k = 1;
+    // s.target：指定整幕时长（秒），字幕停留按比例拉伸/压缩来填满（无配音的片子用，k 记在 META.scenes 里供检查）
+    if (s.target) { const base = s.lines.reduce((a, l) => { const [tx, ex] = Array.isArray(l) ? l : [l, 0]; return a + lineDur(tx) + ex; }, 0); k = (s.target - t - (s.tail ?? 0.5) - 0.12 * s.lines.length) / base; }
+    s.k = k;
+    s.lines.forEach(l => { const [tx, ex] = Array.isArray(l) ? l : [l, 0]; s.L.push(t); const d = (lineDur(tx) + ex) * k; s.LD.push(d); s.TX.push(tx); t += d + 0.12; });
+    s.dur = s.target ? s.target : t + (s.tail ?? 0.5); T += s.dur;
   });
   return T;
 }
@@ -124,5 +127,7 @@ function meta() {
     (s.cues || []).forEach(([t, ty]) => cues.push([s.t0 + t(s), ty]));
   });
   return { total: TOTAL, frames: Math.ceil(TOTAL * 30), cues,
-    lines: SCENES.flatMap(s => s.L.map((t, k) => [+(s.t0 + t).toFixed(2), s.TX[k]])) };
+    lines: SCENES.flatMap(s => s.L.map((t, k) => [+(s.t0 + t).toFixed(2), s.TX[k]])),
+    ends: SCENES.flatMap(s => s.L.map((t, k) => +(s.t0 + t + s.LD[k]).toFixed(2))),
+    scenes: SCENES.map(s => ({ t0: +s.t0.toFixed(2), dur: +s.dur.toFixed(2), k: +s.k.toFixed(3) })) };
 }
