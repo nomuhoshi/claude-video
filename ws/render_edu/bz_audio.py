@@ -1,8 +1,9 @@
 # 《玻尔兹曼因子》配乐：Entropy（用户提供的固定纯音乐）按小节（1.6 s）重拼到片长，避开第 32 小节的真空、第 66–68 小节的变轻；
 # 同曲跳小节的接缝用 0.3 s 线性淡化；叠加轻 whoosh（转场）和 ding（要点）；静态增益到约 −20 LUFS（无配音，底噪般安静）。
-# 用法: python3 bz_audio.py   → bz_audio.wav
-import json, subprocess, re, numpy as np, soundfile as sf, glob
-SR = 44100; m = json.load(open('bz_meta.json')); D = m['total'] + 1.0
+# 用法: python3 bz_audio.py [bz|sh]   → {v}_audio.wav（参数：片名，默认 bz）
+import json, subprocess, re, sys, numpy as np, soundfile as sf, glob
+V = sys.argv[1] if len(sys.argv) > 1 else 'bz'
+SR = 44100; m = json.load(open(f'{V}_meta.json')); D = m['total'] + 1.0
 src = glob.glob('/mnt/user-data/attachments/*/7b5bef81-Entropy_-_Original.mp3')[0]
 subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', src, '-ar', str(SR), '-ac', '2', '/tmp/bzm_entropy.wav'], check=True)
 en, _ = sf.read('/tmp/bzm_entropy.wav', dtype='float32'); eph, BAR, XF = 1.175, 1.6, 0.15
@@ -44,4 +45,4 @@ def lufs(x):
 cur = lufs(mixd); g = 10 ** ((-20 - cur) / 20); mixd *= g
 pk = np.abs(mixd).max(); print('LUFS before', cur, 'gain', round(g, 3), 'peak', round(float(pk), 3))
 if pk > .75: mixd *= .75 / pk
-sf.write('bz_audio.wav', mixd, SR, subtype='PCM_16'); print('final LUFS', lufs(mixd), 'dur', round(N / SR, 1), 'bars', nb, 'runs', len(runs))
+sf.write(f'{V}_audio.wav', mixd, SR, subtype='PCM_16'); print('final LUFS', lufs(mixd), 'dur', round(N / SR, 1), 'bars', nb, 'runs', len(runs))

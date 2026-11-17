@@ -1,0 +1,13 @@
+{
+ "int0": "\\displaystyle\\int e^{-\\beta c p}\\,d^3p",
+ "sphereV": "V(p)=\\dfrac43\\pi p^3",
+ "dV": "dV=\\dfrac{dV}{dp}\\,dp=\\gd{4\\pi p^2\\,dp}",
+ "step": "d^3p\\ \\to\\ \\gd{4\\pi p^2\\,dp}",
+ "layer": "e^{-\\beta c p}\\cdot 4\\pi p^2\\,dp",
+ "full": "\\displaystyle\\int e^{-\\beta c p}\\,d^3p=4\\pi\\int_0^\\infty p^2\\,e^{-\\beta c p}\\,dp",
+ "res": "=4\\pi\\cdot\\dfrac{2}{(\\beta c)^3}=\\gd{\\dfrac{8\\pi}{(\\beta c)^3}}",
+ "fact": "\\displaystyle\\int_0^\\infty x^n e^{-x}\\,dx=\\gd{n!}",
+ "sub": "x=\\beta c p",
+ "res2": "\\displaystyle\\int e^{-\\beta c p}\\,d^3p=\\gd{\\dfrac{8\\pi}{(\\beta c)^3}}",
+ "area": "4\\pi p^2"
+}
